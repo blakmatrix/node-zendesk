@@ -1,0 +1,16 @@
+{
+  "name": "node-zensupport",
+  "version": "0.0.1",
+  "description": "zendesk API client wrapper",
+  "homepage": "http://github.com/blakmatrix/node-zensupport",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blakmatrix/node-zensupport.git"
+  },
+  "main": "./lib/client.js",
+  "scripts": {
+    "test": "vows --spec ./test/*-test.js"
+  },
+  "author": "Farrin Reid <blakmatrix@gmail.com>"
+}
+
