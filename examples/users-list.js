@@ -12,5 +12,5 @@ client.users.list(function (err, req, result) {
     console.log(err);
     return;
   }
-  console.log(JSON.stringify(result, null, 2, true));
+  console.log(JSON.stringify(result[0], null, 2, true));//gets the first page
 });

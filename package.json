@@ -11,6 +11,10 @@
   "scripts": {
     "test": "vows --spec ./test/*-test.js"
   },
-  "author": "Farrin Reid <blakmatrix@gmail.com>"
+  "author": "Farrin Reid <blakmatrix@gmail.com>",
+  "dependencies": {
+    "request": "~2.9.202",
+    "querystring": "~0.1.0",
+    "async": "~0.1.22"
+  }
 }
-
