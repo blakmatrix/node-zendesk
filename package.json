@@ -15,6 +15,7 @@
   "dependencies": {
     "request": "~2.9.202",
     "querystring": "~0.1.0",
-    "async": "~0.1.22"
+    "async": "~0.1.22",
+    "flatten": "0.0.1"
   }
 }
