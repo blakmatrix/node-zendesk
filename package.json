@@ -1,11 +1,11 @@
 {
-  "name": "node-zensupport",
+  "name": "node-zendesk",
   "version": "0.0.1",
   "description": "zendesk API client wrapper",
-  "homepage": "http://github.com/blakmatrix/node-zensupport",
+  "homepage": "https://github.com/blakmatrix/node-zendesk",
   "repository": {
     "type": "git",
-    "url": "https://github.com/blakmatrix/node-zensupport.git"
+    "url": "git://github.com/blakmatrix/node-zendesk.git"
   },
   "main": "./lib/client.js",
   "scripts": {
@@ -13,9 +13,9 @@
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "dependencies": {
-    "request": "~2.9.202",
-    "querystring": "~0.1.0",
-    "async": "~0.1.22",
-    "flatten": "0.0.1"
+    "request": "~2.9.x",
+    "querystring": "~0.1.x",
+    "async": "~0.1.x",
+    "flatten": "0.0.x"
   }
 }
