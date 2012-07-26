@@ -1,7 +1,14 @@
 {
   "name": "node-zendesk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "zendesk API client wrapper",
+  "keywords": [
+    "zendesk",
+    "API",
+    "support",
+    "supportdesk",
+    "buddha"
+  ],
   "homepage": "https://github.com/blakmatrix/node-zendesk",
   "repository": {
     "type": "git",
@@ -9,13 +16,13 @@
   },
   "main": "./lib/client.js",
   "scripts": {
-    "test": "vows --spec ./test/*-test.js"
+    "test": "node ./test/*-test.js"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "dependencies": {
-    "request": "~2.9.x",
-    "querystring": "~0.1.x",
-    "async": "~0.1.x",
+    "request": "2.9.x",
+    "querystring": "0.1.x",
+    "async": "0.1.x",
     "flatten": "0.0.x"
   }
 }
