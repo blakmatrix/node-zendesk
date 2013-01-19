@@ -38,7 +38,7 @@ npm install node-zendesk
 ```js
 request(method, uri)
 requestAll(method, uri) //pulls back multiple pages
-upload(uri, file, fileToken, callback)
+requestUpload(uri, file, fileToken, callback)
 ```
 
 ## Methods
@@ -284,6 +284,7 @@ update(userID, userIDentityID, cb)
 makePrimary(userID, userIDentityID,  cb)
 verify(userID, userIDentityID, cb)
 requestVerification(userID, userIDentityID, cb)
+unsuspend(userId, cb)
 delete(userID, userIDentityID, cb)
 ```
 
