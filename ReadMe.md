@@ -129,6 +129,7 @@ delete(groupID, cb)
 
 ```js
 show(jobStatusID, cb)
+watch(jobStatusID, interval, maxAttempts, cb)
 ```
 
 ### locales
