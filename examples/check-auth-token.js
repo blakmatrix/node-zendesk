@@ -12,5 +12,5 @@ client.users.auth(function (err, req, result) {
     console.log(err);
     return;
   }
-  console.log(JSON.stringify(result.user.verified, null, 2, true));
+  console.log(JSON.stringify(result.verified, null, 2, true));
 });

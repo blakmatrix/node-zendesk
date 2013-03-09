@@ -12,5 +12,6 @@ client.users.list(function (err, req, result) {
     console.log(err);
     return;
   }
-  console.log(JSON.stringify(result[0], null, 2, true));//gets the first page
+  console.log(JSON.stringify(result.map(function (user) {return user.name;}), null, 2, true));//gets the first page
+  console.log("Total Users: "+result.length);
 });

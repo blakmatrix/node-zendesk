@@ -32,6 +32,34 @@ Install using npm:
 npm install node-zendesk
 ```
 
+## Command Line Options for scripts
+
+Below is a list of options you may use when calling any scripts you may have written
+
+```
+-s --subdomain X
+-u --username X
+-p --password X
+-t --token X
+-r --remoteUri X
+--debug
+--no-cookies
+--timeout X(ms)
+--proxy X
+--encoding X
+```
+
+They are fairly self-explanatory no-cookies, timeout, proxy, encoding are all options to request. if using debug its reccomended you use `--encoding utf8` or something similar as all you will see is a buffer otherwise in the response.
+
+Because of these command line options you can try a few already from the examples section:
+
+```bash
+node examples/users-list.js -u <username> -t <token> -s <subdomain>
+node examples/check-auth.js -u <username> -p <password> -s <subdomain>
+node examples/check-auth-token.js -u <username> -t <token> -s <subdomain>
+node examples/users-list.js -u <username> -t <token> -s <subdomain>
+```
+
 ## client
 
 
