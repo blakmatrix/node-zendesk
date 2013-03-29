@@ -339,9 +339,16 @@ me(cb)
 ```js
 list(cb)
 listActive(cb)
+listCompact(cb)
 show(viewID, cb)
+create(view, cb)
+update(viewID, cb)
+execute(viewID, params, cb)
+tickets(viewID, cb)
+preview(params, cb)
 showCount(viewID, cb)
 showCounts(viewIDs, cb)
+export(viewID, cb)
 ```
 
 
