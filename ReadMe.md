@@ -187,6 +187,22 @@ update(organizationID, organization, cb)
 delete(organizationID, cb)
 ```
 
+### requests
+
+```js
+list(cb)
+listOpen(cb)
+listSolved(cb)
+listCCD(cb)
+listByUser(userID, cb)
+listByOrganization(orgID, cb)
+getRequest(requestID, cb)
+create(request, cb)
+update(requestID, request, cb)
+listComments(requestID, cb)
+getComment(requestID, commentID, cb)
+```
+
 ### satisfactionratings
 
 ```js
