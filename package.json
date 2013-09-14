@@ -1,13 +1,15 @@
 {
   "name": "node-zendesk",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "zendesk API client wrapper",
   "keywords": [
     "zendesk",
     "API",
     "support",
     "supportdesk",
-    "buddha"
+    "buddha",
+    "radar",
+    "wrapper"
   ],
   "homepage": "https://github.com/blakmatrix/node-zendesk",
   "repository": {
