@@ -350,6 +350,16 @@ search(params, cb)
 me(cb)
 ```
 
+### userfields
+
+```js
+list(cb)
+show(userFieldID, cb)
+create(userField, cb)
+update(userFieldID, userField, cb)
+delete(userFieldID, cb)
+```
+
 ### views
 
 ```js
