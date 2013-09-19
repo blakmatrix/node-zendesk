@@ -187,6 +187,16 @@ update(organizationID, organization, cb)
 delete(organizationID, cb)
 ```
 
+### organizationfields
+
+```js
+list(cb)
+show(organizationFieldID, cb)
+create(organizationField, cb)
+update(organizationFieldID, organizationField, cb)
+delete(organizationFieldID, cb)
+```
+
 ### requests
 
 ```js
