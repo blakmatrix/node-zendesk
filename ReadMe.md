@@ -32,6 +32,25 @@ Install using npm:
 npm install node-zendesk
 ```
 
+## Using OAuth for Authentication
+
+If you want to use an OAuth token to authenticate with Zendesk, pass in the `oauth` key with a value of true when creating the client.
+
+You can learn more about obtaining OAuth tokens from [Zendesk's developer site](https://support.zendesk.com/entries/24458591-Using-OAuth-authentication-with-your-application).
+
+```js
+var zendesk = require('node-zendesk'),
+    fs      = require('fs');
+
+var client = zendesk.createClient({
+  username:  'username',
+  token:     'oauth_token',
+  remoteUri: 'https://remote.zendesk.com/api/v2',
+  oauth: true
+});
+```
+
+
 ## Command Line Options for scripts
 
 Below is a list of options you may use when calling any scripts you may have written
