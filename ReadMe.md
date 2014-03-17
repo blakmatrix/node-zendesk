@@ -427,10 +427,26 @@ showCounts(viewIDs, cb)
 export(viewID, cb)
 ```
 
+## BETA
+### articles
+
+```js
+list(cb)
+listArticlesInSection(sectionID, cb)
+listArticlesForAgent(agentID, cb)
+show(articleID, cb)
+search(searchTerm, cb)
+delete(articleID, cb)
+```
 
 ## Tests
 
-ToDO
+In progress...
+
+`
+npm install
+jasmine-node spec/
+`
 
 ## License
 
