@@ -293,6 +293,7 @@ listByUserCCD(userID, cb)    // email cc
 listRecent(cb)
 listCollaborators(ticketID, cb)
 listIncidents(ticketID, cb)
+listMetrics(ticketID, cb)
 show(ticketID, cb)
 create(ticket, cb)
 update(ticketID, ticket, cb)
