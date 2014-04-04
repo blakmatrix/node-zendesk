@@ -298,6 +298,7 @@ show(ticketID, cb)
 create(ticket, cb)
 update(ticketID, ticket, cb)
 updateMany(ticket_ids, ticket, cb)
+deleteMany(ticket_ids, cb)
 delete(ticketID, cb)
 export(startTime, cb)        //1000 per page export
 exportSample(startTime, cb)  //Ticket Export Sample (max 50 tickets per request)
