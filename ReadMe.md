@@ -443,10 +443,10 @@ delete(articleID, cb)
 
 In progress...
 
-`
+```
 npm install
 jasmine-node spec/
-`
+```
 
 ## License
 

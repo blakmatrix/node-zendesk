@@ -56,6 +56,45 @@ describe('#articles', function() {
     });
   });
 
+  describe('#showTranslations', function() {
+    it('Should call request with the expected values', function() {
+      var args;
+      spyOn(zendesk.articles, '_request');
+      zendesk.articles.showTranslation(12345, 'en-us', function() {});
+
+      args = zendesk.articles._request.mostRecentCall.args[0];
+      expect(zendesk.articles._request).wasCalled();
+      expect(args.uri).toBe(REMOTE_URI + '/help_center/articles/12345/translations/en-us.json');
+    });
+
+    it('Should call request with the correct values', function() {
+      spyOn(zendesk.articles, 'request').andCallFake(function(type, uri, callback) {
+        callback();
+      });
+
+      zendesk.articles.showTranslation(12345, 'en-us', function(err, status, data) {
+        var args = zendesk.articles.request.mostRecentCall.args;
+        expect(zendesk.articles.request).wasCalled();
+        expect(args[0]).toBe('GET');
+        expect(args[1]).toEqual(['help_center', 'articles', 12345, 'translations', 'en-us']);
+      });
+    });
+
+    it('Should call the callback with an error if the is a problem making the request', function() {
+      spyOn(zendesk.articles, 'request').andCallFake(function(type, uri, callback) {
+        callback('Error');
+      });
+
+      zendesk.articles.showTranslation(12345, 'en-us', function(err, status, data) {
+        var args = zendesk.articles.request.mostRecentCall.args;
+        expect(zendesk.articles.request).wasCalled();
+        expect(args[0]).toBe('GET');
+        expect(args[1]).toEqual(['help_center', 'articles', 12345, 'translations', 'en-us']);
+        expect(err).toBe(err);
+      });
+    });
+  });
+
   describe('#list', function() {
     it('Should call request with the expected values', function() {
       var args;
