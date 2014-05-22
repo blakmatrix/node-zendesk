@@ -196,6 +196,15 @@ apply(macroID, cb)
 applyTicket(ticketID, macroID, cb)
 ```
 
+### oauthtokens
+
+```js
+list(cb)
+show(id, cb)
+current(cb)
+revoke(id, cb)
+```
+
 ### organizations
 
 ```js
