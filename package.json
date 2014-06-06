@@ -22,7 +22,7 @@
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "dependencies": {
-    "request": "2.14.x",
+    "request": "2.36.x",
     "querystring": "0.2.x",
     "async": "0.9.x",
     "flatten": "0.0.x",
