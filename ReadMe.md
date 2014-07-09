@@ -292,6 +292,14 @@ update(ticketFieldID, ticketField, cb)
 delete(ticketFieldID, cb)
 ```
 
+### ticketmetrics
+
+```js
+list(ticketId, cb)
+listAll(cb)
+show(ticketMetricId, cb)
+```
+
 ### tickets
 
 ```js
