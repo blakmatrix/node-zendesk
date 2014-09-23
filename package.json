@@ -1,6 +1,6 @@
 {
   "name": "node-zendesk",
-  "version": "0.0.14",
+  "version": "0.0.17",
   "description": "zendesk API client wrapper",
   "keywords": [
     "zendesk",
@@ -21,6 +21,9 @@
     "test": "node ./test/*-test.js"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
+  "contributors": [
+    "Daniel Varela <df.varela@outlook.com"
+  ],
   "dependencies": {
     "request": "2.36.x",
     "querystring": "0.2.x",
