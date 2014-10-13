@@ -18,7 +18,7 @@
   },
   "main": "./lib/client.js",
   "scripts": {
-    "test": "node ./test/*-test.js"
+    "test": "jasmine-node spec"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "dependencies": {
@@ -27,5 +27,8 @@
     "async": "0.9.x",
     "flatten": "0.0.x",
     "nconf": "0.6.x"
+  },
+  "devDependencies": {
+    "jasmine-node": "1.14.2"
   }
 }
