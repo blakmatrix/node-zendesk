@@ -61,6 +61,7 @@ Below is a list of options you may use when calling any scripts you may have wri
 -p --password X
 -t --token X
 -r --remoteUri X
+-hc --helpcenter
 --debug
 --no-cookies
 --timeout X(ms)
@@ -427,6 +428,132 @@ showCounts(viewIDs, cb)
 export(viewID, cb)
 ```
 
+## Methods For HelpCenter
+To enable help center client, use `-hc` or `--helpcenter` parameter.
+
+### accesspolicies
+
+```js
+show(sectionID, cb)
+update(sectionID, accessPolicy, cb)
+```
+### articleattachments
+
+```js
+list(articleID, cb)
+listInline(articleID, cb)
+listBlock(articleID, cb)
+show(attachmentID, cb)
+delete(attachmentID, cb)
+```
+### articlecomments
+
+```js
+listByUser(userID, cb)
+listByArticle(articleID, cb)
+show(articleID, commentID, cb)
+create(articleID, comment, cb)
+update(articleID, commentID, comment, cb)
+delete(articleID, commentID, cb)
+```
+### articlelabels
+
+```js
+list(cb)
+listByArticle(articleID, cb)
+show(labelID, cb)
+create(articleID, label, cb)
+delete(articleID, labelID, cb)
+```
+### articles
+
+```js
+list(cb)
+listByLocale(locale,cb)
+listBySection(sectionID,cb)
+listByCategory(categoryID,cb)
+listByUser(userID,cb)
+listSinceStartTime(startTime,cb)
+show(articleID, cb)
+create(article, cb)
+update(articleID, article, cb)
+delete(articleID, cb)
+```
+
+### categories
+
+```js
+list(cb)
+show(categoryID, cb)
+create(category, cb)
+update(categoryID, category, cb)
+delete(categoryID, cb)
+```
+### search
+
+```js
+searchArticles(searchString, cb)
+searchArticlesInLocale(searchString, locale, cb)
+searchArticlesByLabels(labelNames, cb)
+searchQuestions(searchString, cb)
+```
+
+### sections
+
+```js
+list(cb)
+listByCategory(categoryID, cb)
+show(sectionID, cb)
+create(section, cb)
+update(sectionID, section, cb)
+delete(sectionID, cb)
+```
+### subscriptions
+
+```js
+listByUser(userID, cb)
+listByArticle(articleID, cb)
+listBySection(sectionID, cb)
+showbyArticle(articleID, subscriptionID, cb)
+showbySection(sectionID, subscriptionID, cb)
+createbyArticle(articleID, subscription, cb)
+createbySection(sectionID, subscription, cb)
+deletebyArticle(articleID, subscriptionID, cb)
+deletebySection(sectionID, subscriptionID, cb)
+```
+
+### translations
+
+```js
+show(articleID, locale, cb)
+listByArticle(articleID, filterParams, cb)
+listBySection(sectionID, cb)
+listByCategory(categoryID, cb)
+listMissingLocalesByArticle(articleID, cb)
+listMissingLocalesBySection(sectionID, cb)
+listMissingLocalesByCategory(categoryID, cb)
+createForArticle(articleID, translation, cb)
+createForSection(sectionID, translation, cb)
+createForCategory(categoryID, translation, cb)
+updateForArticle(articleID, locale, translation, cb)
+updateForSection(sectionID, locale, translation, cb)
+delete(translationID, cb)
+```
+
+### votes
+
+```js
+listByUser(userID, cb)
+listByArticle(articleID, cb)
+show(voteID, cb)
+createUpVoteForArticle(articleID, cb)
+createDownVoteForArticle(articleID, cb)
+createUpVoteForQuestion(questionID, cb)
+createDownVoteForQuestion(questionID, cb)
+createUpVoteForAnswer(answerID, cb)
+createDownVoteForAnswer(answerID, cb)
+delete(voteID, cb)
+```
 
 ## Tests
 
