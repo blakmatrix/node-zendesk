@@ -51,6 +51,8 @@ var client = zendesk.createClient({
 ```
 
 
+```
+
 ## Command Line Options for scripts
 
 Below is a list of options you may use when calling any scripts you may have written
@@ -79,6 +81,21 @@ node examples/check-auth.js -u <username> -p <password> -s <subdomain>
 node examples/check-auth-token.js -u <username> -t <token> -s <subdomain>
 node examples/users-list.js -u <username> -t <token> -s <subdomain>
 ```
+
+## Disable Default scripting functionality / Enable library only
+
+If you rather use this library/script runner as a library only you should disable the library from reading from `process.argv` and `process.env` by enabling `disableGlobalState`.
+
+```js
+var zendesk = require('node-zendesk');
+
+var client = zendesk.createClient({
+  username:  'username',
+  token:     'oauth_token',
+  remoteUri: 'https://remote.zendesk.com/api/v2',
+  disableGlobalState: true,
+  debug: true // if you wan't to debug in library only mode, you'll have to include this
+});
 
 ## client
 
