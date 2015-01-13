@@ -399,6 +399,7 @@ suspend(id, cb)
 delete(id, cb)
 search(params, cb)
 me(cb)
+merge(id, targetId, cb)
 ```
 
 ### userfields
