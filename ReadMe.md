@@ -50,9 +50,6 @@ var client = zendesk.createClient({
 });
 ```
 
-
-```
-
 ## Command Line Options for scripts
 
 Below is a list of options you may use when calling any scripts you may have written
