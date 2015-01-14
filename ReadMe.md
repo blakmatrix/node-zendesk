@@ -394,6 +394,18 @@ create(topicID, vote, cb)
 delete(topicID, cb)
 ```
 
+### triggers
+
+```js
+list(cb)
+listActive(triggerID, cb)
+show(triggerID, cb)
+create(trigger, cb)
+update(triggerID, trigger, cb)
+delete(triggerID, cb)
+reorder(triggerIDs, cb) //  triggerIDs is Array
+```
+
 ### useridentities
 
 ```js
