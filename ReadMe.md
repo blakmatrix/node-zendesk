@@ -124,7 +124,14 @@ list(cb)
 ### attachments
 
 ```js
-upload(file, fileToken, cb)
+upload(file, fileOptions, cb)
+deleteUpload(token, cb)
+show(attachmentID, cb)
+delete(attachmentID, cb)
+redactAttachmentComment(ticketID, commentID, attachmentID, cb)
+
+fileOptions = {filename: 'file.txt', token: 'P1c4rDRuLz'}
+// token is [optional]
 ```
 
 ### categories
