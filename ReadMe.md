@@ -50,7 +50,6 @@ var client = zendesk.createClient({
 });
 ```
 
-
 ## Command Line Options for scripts
 
 Below is a list of options you may use when calling any scripts you may have written
@@ -61,6 +60,7 @@ Below is a list of options you may use when calling any scripts you may have wri
 -p --password X
 -t --token X
 -r --remoteUri X
+-hc --helpcenter
 --debug
 --no-cookies
 --timeout X(ms)
@@ -78,6 +78,21 @@ node examples/check-auth.js -u <username> -p <password> -s <subdomain>
 node examples/check-auth-token.js -u <username> -t <token> -s <subdomain>
 node examples/users-list.js -u <username> -t <token> -s <subdomain>
 ```
+
+## Disable Default scripting functionality / Enable library only
+
+If you rather use this library/script runner as a library only you should disable the library from reading from `process.argv` and `process.env` by enabling `disableGlobalState`.
+
+```js
+var zendesk = require('node-zendesk');
+
+var client = zendesk.createClient({
+  username:  'username',
+  token:     'oauth_token',
+  remoteUri: 'https://remote.zendesk.com/api/v2',
+  disableGlobalState: true,
+  debug: true // if you wan't to debug in library only mode, you'll have to include this
+});
 
 ## client
 
@@ -106,7 +121,14 @@ list(cb)
 ### attachments
 
 ```js
-upload(file, fileToken, cb)
+upload(file, fileOptions, cb)
+deleteUpload(token, cb)
+show(attachmentID, cb)
+delete(attachmentID, cb)
+redactAttachmentComment(ticketID, commentID, attachmentID, cb)
+
+fileOptions = {filename: 'file.txt', token: 'P1c4rDRuLz'}
+// token is [optional]
 ```
 
 ### categories
@@ -292,6 +314,14 @@ update(ticketFieldID, ticketField, cb)
 delete(ticketFieldID, cb)
 ```
 
+### ticketmetrics
+
+```js
+list(ticketId, cb)
+listAll(cb)
+show(ticketMetricId, cb)
+```
+
 ### tickets
 
 ```js
@@ -361,6 +391,18 @@ create(topicID, vote, cb)
 delete(topicID, cb)
 ```
 
+### triggers
+
+```js
+list(cb)
+listActive(triggerID, cb)
+show(triggerID, cb)
+create(trigger, cb)
+update(triggerID, trigger, cb)
+delete(triggerID, cb)
+reorder(triggerIDs, cb) //  triggerIDs is Array
+```
+
 ### useridentities
 
 ```js
@@ -371,7 +413,6 @@ update(userID, userIDentityID, cb)
 makePrimary(userID, userIDentityID,  cb)
 verify(userID, userIDentityID, cb)
 requestVerification(userID, userIDentityID, cb)
-unsuspend(userId, cb)
 delete(userID, userIDentityID, cb)
 ```
 
@@ -387,9 +428,11 @@ create(user, cb)
 createMany(users, cb)
 update(id, user, cb)
 suspend(id, cb)
+unsuspend(id, cb)
 delete(id, cb)
 search(params, cb)
 me(cb)
+merge(id, targetId, cb)
 ```
 
 ### userfields
@@ -419,6 +462,132 @@ showCounts(viewIDs, cb)
 export(viewID, cb)
 ```
 
+## Methods For HelpCenter
+To enable help center client, use `-hc` or `--helpcenter` parameter.
+
+### accesspolicies
+
+```js
+show(sectionID, cb)
+update(sectionID, accessPolicy, cb)
+```
+### articleattachments
+
+```js
+list(articleID, cb)
+listInline(articleID, cb)
+listBlock(articleID, cb)
+show(attachmentID, cb)
+delete(attachmentID, cb)
+```
+### articlecomments
+
+```js
+listByUser(userID, cb)
+listByArticle(articleID, cb)
+show(articleID, commentID, cb)
+create(articleID, comment, cb)
+update(articleID, commentID, comment, cb)
+delete(articleID, commentID, cb)
+```
+### articlelabels
+
+```js
+list(cb)
+listByArticle(articleID, cb)
+show(labelID, cb)
+create(articleID, label, cb)
+delete(articleID, labelID, cb)
+```
+### articles
+
+```js
+list(cb)
+listByLocale(locale,cb)
+listBySection(sectionID,cb)
+listByCategory(categoryID,cb)
+listByUser(userID,cb)
+listSinceStartTime(startTime,cb)
+show(articleID, cb)
+create(article, cb)
+update(articleID, article, cb)
+delete(articleID, cb)
+```
+
+### categories
+
+```js
+list(cb)
+show(categoryID, cb)
+create(category, cb)
+update(categoryID, category, cb)
+delete(categoryID, cb)
+```
+### search
+
+```js
+searchArticles(searchString, cb)
+searchArticlesInLocale(searchString, locale, cb)
+searchArticlesByLabels(labelNames, cb)
+searchQuestions(searchString, cb)
+```
+
+### sections
+
+```js
+list(cb)
+listByCategory(categoryID, cb)
+show(sectionID, cb)
+create(section, cb)
+update(sectionID, section, cb)
+delete(sectionID, cb)
+```
+### subscriptions
+
+```js
+listByUser(userID, cb)
+listByArticle(articleID, cb)
+listBySection(sectionID, cb)
+showbyArticle(articleID, subscriptionID, cb)
+showbySection(sectionID, subscriptionID, cb)
+createbyArticle(articleID, subscription, cb)
+createbySection(sectionID, subscription, cb)
+deletebyArticle(articleID, subscriptionID, cb)
+deletebySection(sectionID, subscriptionID, cb)
+```
+
+### translations
+
+```js
+show(articleID, locale, cb)
+listByArticle(articleID, filterParams, cb)
+listBySection(sectionID, cb)
+listByCategory(categoryID, cb)
+listMissingLocalesByArticle(articleID, cb)
+listMissingLocalesBySection(sectionID, cb)
+listMissingLocalesByCategory(categoryID, cb)
+createForArticle(articleID, translation, cb)
+createForSection(sectionID, translation, cb)
+createForCategory(categoryID, translation, cb)
+updateForArticle(articleID, locale, translation, cb)
+updateForSection(sectionID, locale, translation, cb)
+delete(translationID, cb)
+```
+
+### votes
+
+```js
+listByUser(userID, cb)
+listByArticle(articleID, cb)
+show(voteID, cb)
+createUpVoteForArticle(articleID, cb)
+createDownVoteForArticle(articleID, cb)
+createUpVoteForQuestion(questionID, cb)
+createDownVoteForQuestion(questionID, cb)
+createUpVoteForAnswer(answerID, cb)
+createDownVoteForAnswer(answerID, cb)
+delete(voteID, cb)
+```
 
 ## Tests
 

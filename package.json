@@ -1,6 +1,6 @@
 {
   "name": "node-zendesk",
-  "version": "0.0.14",
+  "version": "1.0.0",
   "description": "zendesk API client wrapper",
   "keywords": [
     "zendesk",
@@ -22,10 +22,10 @@
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "dependencies": {
-    "request": "2.36.x",
+    "request": "2.51.x",
     "querystring": "0.2.x",
     "async": "0.9.x",
     "flatten": "0.0.x",
-    "nconf": "0.6.x"
+    "nconf": "0.7.x"
   }
 }
