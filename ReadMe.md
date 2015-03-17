@@ -55,12 +55,13 @@ var client = zendesk.createClient({
 Below is a list of options you may use when calling any scripts you may have written
 
 ```
--s --subdomain X
--u --username X
--p --password X
--t --token X
--r --remoteUri X
+-s  --subdomain X
+-u  --username X
+-p  --password X
+-t  --token X
+-r  --remoteUri X
 -hc --helpcenter
+-v  --voice
 --debug
 --no-cookies
 --timeout X(ms)
