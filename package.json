@@ -21,6 +21,9 @@
     "test": "node ./test/*-test.js"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
+  "contributors": [
+    "Eric Davis <iconecd@noreply.users.github.com>"
+  ],
   "dependencies": {
     "request": "2.51.x",
     "querystring": "0.2.x",
