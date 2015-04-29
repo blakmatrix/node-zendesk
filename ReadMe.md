@@ -8,8 +8,7 @@
 ## Example
 
 ```js
-var zendesk = require('node-zendesk'),
-    fs      = require('fs');
+var zendesk = require('node-zendesk');
 
 var client = zendesk.createClient({
   username:  'username',
@@ -41,8 +40,7 @@ If you want to use an OAuth token to authenticate with Zendesk, pass in the `oau
 You can learn more about obtaining OAuth tokens from [Zendesk's developer site](https://support.zendesk.com/entries/24458591-Using-OAuth-authentication-with-your-application).
 
 ```js
-var zendesk = require('node-zendesk'),
-    fs      = require('fs');
+var zendesk = require('node-zendesk');
 
 var client = zendesk.createClient({
   username:  'username',
