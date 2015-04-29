@@ -514,6 +514,7 @@ listSinceStartTime(startTime,cb)
 show(articleID, cb)
 create(article, cb)
 update(articleID, article, cb)
+updateByLocale(locale, articleID, article, cb)
 delete(articleID, cb)
 ```
 
