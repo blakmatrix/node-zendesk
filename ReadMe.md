@@ -132,6 +132,26 @@ fileOptions = {filename: 'file.txt', token: 'P1c4rDRuLz'}
 // token is [optional]
 ```
 
+### dynamiccontent
+
+https://developer.zendesk.com/rest_api/docs/core/dynamic_content
+
+```js
+listItems(cb)
+listAllItems(cb)
+showItem(itemID, cb)
+createItem(item, cb)
+updateItem(itemID, item, cb)
+deleteItem(itemID, cb)
+listVariants(itemID, cb)
+listAllVariants(itemID, cb)
+showVariant((itemID, variantID, cb)
+createVariant(itemID, variant, cb)
+updateVariant(itemID, variantID, variant, cb)
+deleteVariant(itemID, variantID, cb)
+```
+
+
 ### categories
 
 ```js
