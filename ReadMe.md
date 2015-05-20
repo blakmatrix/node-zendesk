@@ -1,13 +1,14 @@
 # node-zendesk
 ---
+
+[![Join the chat at https://gitter.im/blakmatrix/node-zendesk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/blakmatrix/node-zendesk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![build status](https://secure.travis-ci.org/blakmatrix/node-zendesk.png)](http://travis-ci.org/blakmatrix/node-zendesk)
 
 
 ## Example
 
 ```js
-var zendesk = require('node-zendesk'),
-    fs      = require('fs');
+var zendesk = require('node-zendesk');
 
 var client = zendesk.createClient({
   username:  'username',
@@ -39,8 +40,7 @@ If you want to use an OAuth token to authenticate with Zendesk, pass in the `oau
 You can learn more about obtaining OAuth tokens from [Zendesk's developer site](https://support.zendesk.com/entries/24458591-Using-OAuth-authentication-with-your-application).
 
 ```js
-var zendesk = require('node-zendesk'),
-    fs      = require('fs');
+var zendesk = require('node-zendesk');
 
 var client = zendesk.createClient({
   username:  'username',
@@ -50,18 +50,18 @@ var client = zendesk.createClient({
 });
 ```
 
-
 ## Command Line Options for scripts
 
 Below is a list of options you may use when calling any scripts you may have written
 
 ```
--s --subdomain X
--u --username X
--p --password X
--t --token X
--r --remoteUri X
+-s  --subdomain X
+-u  --username X
+-p  --password X
+-t  --token X
+-r  --remoteUri X
 -hc --helpcenter
+-v  --voice
 --debug
 --no-cookies
 --timeout X(ms)
@@ -79,6 +79,21 @@ node examples/check-auth.js -u <username> -p <password> -s <subdomain>
 node examples/check-auth-token.js -u <username> -t <token> -s <subdomain>
 node examples/users-list.js -u <username> -t <token> -s <subdomain>
 ```
+
+## Disable Default scripting functionality / Enable library only
+
+If you rather use this library/script runner as a library only you should disable the library from reading from `process.argv` and `process.env` by enabling `disableGlobalState`.
+
+```js
+var zendesk = require('node-zendesk');
+
+var client = zendesk.createClient({
+  username:  'username',
+  token:     'oauth_token',
+  remoteUri: 'https://remote.zendesk.com/api/v2',
+  disableGlobalState: true,
+  debug: true // if you wan't to debug in library only mode, you'll have to include this
+});
 
 ## client
 
@@ -107,8 +122,35 @@ list(cb)
 ### attachments
 
 ```js
-upload(file, fileToken, cb)
+upload(file, fileOptions, cb)
+deleteUpload(token, cb)
+show(attachmentID, cb)
+delete(attachmentID, cb)
+redactAttachmentComment(ticketID, commentID, attachmentID, cb)
+
+fileOptions = {filename: 'file.txt', token: 'P1c4rDRuLz'}
+// token is [optional]
 ```
+
+### dynamiccontent
+
+https://developer.zendesk.com/rest_api/docs/core/dynamic_content
+
+```js
+listItems(cb)
+listAllItems(cb)
+showItem(itemID, cb)
+createItem(item, cb)
+updateItem(itemID, item, cb)
+deleteItem(itemID, cb)
+listVariants(itemID, cb)
+listAllVariants(itemID, cb)
+showVariant((itemID, variantID, cb)
+createVariant(itemID, variant, cb)
+updateVariant(itemID, variantID, variant, cb)
+deleteVariant(itemID, variantID, cb)
+```
+
 
 ### categories
 
@@ -316,6 +358,7 @@ show(ticketID, cb)
 showMany(ticket_ids, cb)
 create(ticket, cb)
 update(ticketID, ticket, cb)
+merge(ticketID, mergedTicket, cb)
 updateMany(ticket_ids, ticket, cb)
 deleteMany(ticket_ids, cb)
 delete(ticketID, cb)
@@ -370,6 +413,18 @@ create(topicID, vote, cb)
 delete(topicID, cb)
 ```
 
+### triggers
+
+```js
+list(cb)
+listActive(triggerID, cb)
+show(triggerID, cb)
+create(trigger, cb)
+update(triggerID, trigger, cb)
+delete(triggerID, cb)
+reorder(triggerIDs, cb) //  triggerIDs is Array
+```
+
 ### useridentities
 
 ```js
@@ -380,7 +435,6 @@ update(userID, userIDentityID, cb)
 makePrimary(userID, userIDentityID,  cb)
 verify(userID, userIDentityID, cb)
 requestVerification(userID, userIDentityID, cb)
-unsuspend(userId, cb)
 delete(userID, userIDentityID, cb)
 ```
 
@@ -392,13 +446,16 @@ list(cb)
 listByGroup(id, cb)
 listByOrganization(id, cb)
 show(id, cb)
+showMany( userids, cb )
 create(user, cb)
 createMany(users, cb)
 update(id, user, cb)
 suspend(id, cb)
+unsuspend(id, cb)
 delete(id, cb)
 search(params, cb)
 me(cb)
+merge(id, targetId, cb)
 ```
 
 ### userfields
@@ -477,6 +534,7 @@ listSinceStartTime(startTime,cb)
 show(articleID, cb)
 create(article, cb)
 update(articleID, article, cb)
+updateByLocale(locale, articleID, article, cb)
 delete(articleID, cb)
 ```
 
@@ -555,9 +613,13 @@ createDownVoteForAnswer(answerID, cb)
 delete(voteID, cb)
 ```
 
-## Tests
+## Contributions
 
-ToDO
+If you're looking to contribute, please refer to the [API Coverage Document](https://github.com/blakmatrix/node-zendesk/blob/master/doc/api-coverage.md), open an issue, or make a PR! 
+
+Tests and examples are also welcome.
+
+Zendesk's documentation can be found [here](https://developer.zendesk.com/rest_api/docs/core/introduction).
 
 ## License
 

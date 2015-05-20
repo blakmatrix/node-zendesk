@@ -3,9 +3,8 @@ branches:
   only:
     - master
 node_js:
-  - 0.8
   - 0.10
-
+  
 notifications:
   email:
     - blakmatrix@gmail.com
