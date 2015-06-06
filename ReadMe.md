@@ -94,6 +94,7 @@ var client = zendesk.createClient({
   disableGlobalState: true,
   debug: true // if you wan't to debug in library only mode, you'll have to include this
 });
+```
 
 ## Side-Loading
 
