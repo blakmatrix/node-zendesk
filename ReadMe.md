@@ -11,8 +11,8 @@
 - [Command Line Options](https://github.com/blakmatrix/node-zendesk#command-line-options-for-scripts)
 - [Library Mode](https://github.com/blakmatrix/node-zendesk#disable-default-scripting-functionality--enable-library-only)
 - [Core API Methods](https://github.com/blakmatrix/node-zendesk#core-api-methods)
-- [Help Center Methods](https://github.com/blakmatrix/node-zendesk#help-center-methods)
-- [Voice Methods](https://github.com/blakmatrix/node-zendesk#voice-methods)
+- [Help Center API Methods](https://github.com/blakmatrix/node-zendesk#help-center-api-methods)
+- [Voice API Methods](https://github.com/blakmatrix/node-zendesk#voice-api-methods)
 - [Contributions](https://github.com/blakmatrix/node-zendesk#contributions)
 
 ## Example
@@ -113,7 +113,7 @@ requestAll(method, uri) //pulls back multiple pages
 requestUpload(uri, file, fileToken, callback)
 ```
 
-## Methods For Core API
+## Core API Methods
 (See: https://developer.zendesk.com/rest_api/docs/core/introduction)
 
 ### accountsettings
@@ -495,7 +495,7 @@ showCounts(viewIDs, cb)
 export(viewID, cb)
 ```
 
-## Methods For Help Center API
+## Help Center API Methods
 (See: https://developer.zendesk.com/rest_api/docs/help_center/introduction)
 To enable help center client, use `-hc` or `--helpcenter` parameter.
 
@@ -624,7 +624,7 @@ createDownVoteForAnswer(answerID, cb)
 delete(voteID, cb)
 ```
 
-## Methods For Voice API
+## Voice API Methods
 (See: https://developer.zendesk.com/rest_api/docs/voice-api/voice)
 To enable help center client, use `-v` or `--voice` parameter.
 
