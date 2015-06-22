@@ -11,8 +11,8 @@
 - [Command Line Options](https://github.com/blakmatrix/node-zendesk#command-line-options-for-scripts)
 - [Library Mode](https://github.com/blakmatrix/node-zendesk#disable-default-scripting-functionality--enable-library-only)
 - [Core API Methods](https://github.com/blakmatrix/node-zendesk#core-api-methods)
-- [Help Center API Methods](https://github.com/blakmatrix/node-zendesk#help-center-methods)
-- [Voice API Methods](https://github.com/blakmatrix/node-zendesk#voice-methods)
+- [Help Center API Methods](https://github.com/blakmatrix/node-zendesk#help-center-api-methods)
+- [Voice API Methods](https://github.com/blakmatrix/node-zendesk#voice-api-methods)
 - [Contributions](https://github.com/blakmatrix/node-zendesk#contributions)
 
 ## Example
