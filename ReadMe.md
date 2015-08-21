@@ -4,6 +4,16 @@
 [![Join the chat at https://gitter.im/blakmatrix/node-zendesk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/blakmatrix/node-zendesk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![build status](https://secure.travis-ci.org/blakmatrix/node-zendesk.png)](http://travis-ci.org/blakmatrix/node-zendesk)
 
+## Table of Contents
+- [Example](https://github.com/blakmatrix/node-zendesk#example)
+- [Install](https://github.com/blakmatrix/node-zendesk#install)
+- [Using OAuth for Authentication](https://github.com/blakmatrix/node-zendesk#using-oauth-for-authentication)
+- [Command Line Options](https://github.com/blakmatrix/node-zendesk#command-line-options-for-scripts)
+- [Library Mode](https://github.com/blakmatrix/node-zendesk#disable-default-scripting-functionality--enable-library-only)
+- [Core API Methods](https://github.com/blakmatrix/node-zendesk#core-api-methods)
+- [Help Center API Methods](https://github.com/blakmatrix/node-zendesk#help-center-api-methods)
+- [Voice API Methods](https://github.com/blakmatrix/node-zendesk#voice-api-methods)
+- [Contributions](https://github.com/blakmatrix/node-zendesk#contributions)
 
 ## Example
 
@@ -97,14 +107,14 @@ var client = zendesk.createClient({
 
 ## client
 
-
 ```js
 request(method, uri)
 requestAll(method, uri) //pulls back multiple pages
 requestUpload(uri, file, fileToken, callback)
 ```
 
-## Methods
+## Core API Methods
+(See: https://developer.zendesk.com/rest_api/docs/core/introduction)
 
 ### accountsettings
 
@@ -485,7 +495,8 @@ showCounts(viewIDs, cb)
 export(viewID, cb)
 ```
 
-## Methods For HelpCenter
+## Help Center API Methods
+(See: https://developer.zendesk.com/rest_api/docs/help_center/introduction)
 To enable help center client, use `-hc` or `--helpcenter` parameter.
 
 ### accesspolicies
@@ -612,6 +623,64 @@ createUpVoteForAnswer(answerID, cb)
 createDownVoteForAnswer(answerID, cb)
 delete(voteID, cb)
 ```
+
+## Voice API Methods
+(See: https://developer.zendesk.com/rest_api/docs/voice-api/voice)
+To enable help center client, use `-v` or `--voice` parameter.
+
+### agentactivities
+
+```js
+show(cb)
+```
+
+### availabilities
+
+```js
+update(agentID, cb)
+show(agentID, cb)
+```
+
+### currentqueue
+
+```js
+show(cb)
+```
+
+### greetingcategories
+
+```js
+list(cb)
+show(greetingCategoryID, cb)
+```
+
+### greetings
+
+```js
+list(cb)
+show(greetingID, cb)
+create(greetingID, cb)
+update(greetingID, cb)
+delete(greetingID, cb)
+```
+
+### historicalqueue
+
+```js
+show(cb)
+```
+
+### phonenumbers
+
+```js
+search(searchTerm, cb)
+update(phoneID, cb)
+list(cb)
+create(cb)
+update(phoneID, phone_number, cb)
+delete(phoneID, cb)
+```
+
 
 ## Contributions
 
