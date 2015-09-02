@@ -383,6 +383,14 @@ exportAudit(ticketID, cb)    //Listing Audits
 getComments(ticketID, cb)
 ```
 
+### ticketexports
+
+```js
+export(start_time, cb)
+exportWithUser(start_time, cb)
+exportAudit(ticketID, cb)
+```
+
 ### topiccomments
 
 ```js
@@ -691,7 +699,7 @@ delete(phoneID, cb)
 
 ## Contributions
 
-If you're looking to contribute, please refer to the [API Coverage Document](https://github.com/blakmatrix/node-zendesk/blob/master/doc/api-coverage.md), open an issue, or make a PR! 
+If you're looking to contribute, please refer to the [API Coverage Document](https://github.com/blakmatrix/node-zendesk/blob/master/doc/api-coverage.md), open an issue, or make a PR!
 
 Tests and examples are also welcome.
 
