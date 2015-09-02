@@ -1,6 +1,6 @@
 {
   "name": "node-zendesk",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "zendesk API client wrapper",
   "keywords": [
     "zendesk",
@@ -27,7 +27,32 @@
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "contributors": [
-    "Eric Davis <iconecd@noreply.users.github.com>"
+    "Nie Xiaochen <nnabuuu@noreply.users.github.com>",
+    "Eriks Reks <erikzrekz@noreply.users.github.com>",
+    "Iconecd <iconecd@noreply.users.github.com>",
+    "Ignigena <Ignigena@noreply.users.github.com>",
+    "Eric Davis <iconecd@noreply.users.github.com>",
+    "Blair Anderson <blairanderson@noreply.users.github.com>",
+    "Jeff Zabel <jzabel@noreply.users.github.com>",
+    "Brian Hartvigsen <tresni@noreply.users.github.com>",
+    "James Greene <JamesMGreene@noreply.users.github.com>",
+    "Eike Thienemann-Dehde <edehde@noreply.users.github.com>",
+    "Roman Onufryk <onufryk@noreply.users.github.com>",
+    "Colin Loretz <colinloretz@noreply.users.github.com>",
+    "Azharuddin <gs-akhan@noreply.users.github.com>",
+    "Carl-Fredrik Herö <carlfredrikhero@noreply.users.github.com>",
+    "Oleksandr Pidlisnyi <unreadableusername@noreply.users.github.com>",
+    "Amal Khezami <khezamian@noreply.users.github.com>",
+    "genius-fx <genius-fx@noreply.users.github.com>",
+    "Eike Bernhardt <teefax@noreply.users.github.com>",
+    "genius-fx <gitter-badger@noreply.users.github.com>",
+    "Stuart McGrigor <stueynz@noreply.users.github.com>",
+    "Wade Grandoni <wadegrandoni@noreply.users.github.com>",
+    "Anastasi Bakolias <spasiu@noreply.users.github.com>",
+    "matthewschmidt <matthewschmidt.users.github.com>",
+    "oleksiy-turchanikov <oleksiy-turchanikov@noreply.users.github.com>",
+    "Shuan Wang <swang@noreply.users.github.com>",
+    "Bas <basdewachter@noreply.users.github.com>"
   ],
   "dependencies": {
     "request": "2.51.x",
