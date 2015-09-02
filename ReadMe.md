@@ -245,8 +245,13 @@ current(cb)
 
 ```js
 list(cb)
+listByParams(params, cb)
 apply(macroID, cb)
 applyTicket(ticketID, macroID, cb)
+create(macro, cb)
+categories(cb)
+update(macroID, macro, cb)
+createMany(users, cb)
 ```
 
 ### oauthtokens
