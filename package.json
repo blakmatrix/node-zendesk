@@ -52,7 +52,8 @@
     "matthewschmidt <matthewschmidt.users.github.com>",
     "oleksiy-turchanikov <oleksiy-turchanikov@noreply.users.github.com>",
     "Shuan Wang <swang@noreply.users.github.com>",
-    "Bas <basdewachter@noreply.users.github.com>"
+    "Bas <basdewachter@noreply.users.github.com>",
+    "David Kapell <dkapell@noreply.users.github.com>"
   ],
   "dependencies": {
     "request": "2.51.x",

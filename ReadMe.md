@@ -104,6 +104,18 @@ var client = zendesk.createClient({
   disableGlobalState: true,
   debug: true // if you wan't to debug in library only mode, you'll have to include this
 });
+```
+
+## Side-Loading
+
+For the endpoints that support side-loading, you can specify which other objects to bring in by setting the sideLoad variable to an array of object names:
+
+```js
+client.tickets.sideLoad = ['users', 'organizations', 'metric_sets'];
+client.users.sideLoad = ['organizations', 'roles'];
+```
+
+For a full list of endpoints that support side-loading, see [Zendesk's developer site](https://developer.zendesk.com/rest_api/docs/core/side_loading)
 
 ## client
 
@@ -271,6 +283,8 @@ show(organizationID, cb)
 create(organization, cb)
 update(organizationID, organization, cb)
 delete(organizationID, cb)
+incremental(startTime, cb)        // New Export API
+incrementalSample(startTime, cb)  // New Export API Sample
 ```
 
 ### organizationfields
@@ -340,6 +354,12 @@ list(cb)
 list(ticketID, cb)
 ```
 
+### ticketevents
+```js
+incremental(startTime, cb)
+incrementalSample(startTime, cb)
+```
+
 ### ticketfields
 
 ```js
@@ -381,6 +401,8 @@ export(startTime, cb)        //1000 per page export
 exportSample(startTime, cb)  //Ticket Export Sample (max 50 tickets per request)
 exportAudit(ticketID, cb)    //Listing Audits
 getComments(ticketID, cb)
+incremental(startTime, cb)        // New Export API
+incrementalSample(startTime, cb)  // New Export API Sample
 ```
 
 ### ticketexports
@@ -480,6 +502,8 @@ delete(id, cb)
 search(params, cb)
 me(cb)
 merge(id, targetId, cb)
+incremental(startTime, cb)        // New Export API
+incrementalSample(startTime, cb)  // New Export API Sample
 ```
 
 ### userfields
