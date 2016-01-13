@@ -56,7 +56,7 @@
     "David Kapell <dkapell@noreply.users.github.com>"
   ],
   "dependencies": {
-    "request": "2.51.x",
+    "request": "2.67.x",
     "querystring": "0.2.x",
     "async": "0.9.x",
     "flatten": "0.0.x",
