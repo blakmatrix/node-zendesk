@@ -1,6 +1,6 @@
 {
   "name": "node-zendesk",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "zendesk API client wrapper",
   "keywords": [
     "zendesk",
@@ -53,7 +53,9 @@
     "oleksiy-turchanikov <oleksiy-turchanikov@noreply.users.github.com>",
     "Shuan Wang <swang@noreply.users.github.com>",
     "Bas <basdewachter@noreply.users.github.com>",
-    "David Kapell <dkapell@noreply.users.github.com>"
+    "David Kapell <dkapell@noreply.users.github.com>",
+    "Mathias Anderssén <Okar@noreply.users.github.com>",
+    "Adil H <didil@noreply.users.github.com>"
   ],
   "dependencies": {
     "request": "2.67.x",
