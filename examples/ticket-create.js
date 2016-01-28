@@ -11,7 +11,12 @@ var ticket = {
                "ticket":
                  {
                    "subject":"My printer is on fire!", 
-                   "comment": { "body": "The smoke is very colorful." }
+                   "comment": { "body": "The smoke is very colorful." },
+                   "requester": {
+                        "name": "John Doe",
+                        "email": "j.doe@email.com",
+                        "submitter_id": 5555
+                    }
                  }
              };
 
@@ -24,3 +29,5 @@ function handleError(err) {
     console.log(err);
     process.exit(-1);
 }
+
+ 
