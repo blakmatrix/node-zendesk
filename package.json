@@ -61,7 +61,6 @@
     "request": "2.67.x",
     "querystring": "0.2.x",
     "async": "0.9.x",
-    "flatten": "0.0.x",
     "nconf": "0.7.x"
   }
 }
