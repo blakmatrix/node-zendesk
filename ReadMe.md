@@ -594,9 +594,12 @@ listByUser(userID,cb)
 listSinceStartTime(startTime,cb)
 listByLabelNames(labelNames,cb)
 show(articleID, cb)
-create(article, cb)
+showWithLocale(locale, articleID, cb)
+create(sectionID, article, cb)
+createWithLocale(locale, sectionID, article, cb)
 update(articleID, article, cb)
 updateByLocale(locale, articleID, article, cb)
+associateAttachmentsInBulk(articleID, attachmentIDsInBulk, cb)
 delete(articleID, cb)
 ```
 
