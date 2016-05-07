@@ -1,19 +1,22 @@
-var zd = require('../lib/client'),
-    fs = require('fs');
+var exampleConfig = require('./exampleConfig');
+var fs = require('fs');
+var zd = require('../lib/client');
 
 var client = zd.createClient({
-  username:  'username',
-  token:     'token',
-  remoteUri: 'https://remote.zendesk.com/api/v2'
+  username:  exampleConfig.auth.username,
+  token:     exampleConfig.auth.token,
+  remoteUri: exampleConfig.auth.remoteUri
 });
 
 var ticket = {
-               "ticket":
-                 {
-                   "subject":"My printer is on fire!", 
-                   "comment": { "body": "The smoke is very colorful." }
-                 }
-             };
+  "ticket":
+    {
+      "subject":"My printer is on fire!",
+      "comment": {
+        "body": "The smoke is very colorful."
+      }
+    }
+  };
 
 client.tickets.create(ticket,  function(err, req, result) {
   if (err) return handleError(err);

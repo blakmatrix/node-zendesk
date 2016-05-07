@@ -1,8 +1,12 @@
+var exampleConfig = require('./exampleConfig');
+var fs = require('fs');
 var zd = require('../lib/client');
 
-
-// note: credentials given via command line arguments, like
-//       $ node examples/ticket-delete.js --debug --subdomain <company> --username <user> --token <token> --password <pw>
+var client = zd.createClient({
+  username:  exampleConfig.auth.username,
+  token:     exampleConfig.auth.token,
+  remoteUri: exampleConfig.auth.remoteUri
+});
 
 var ticketId = 12345;
 var client = zd.createClient();
