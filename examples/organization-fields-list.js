@@ -1,10 +1,11 @@
-var zd = require('../lib/client'),
-    fs = require('fs');
+var exampleConfig = require('./exampleConfig');
+var fs = require('fs');
+var zd = require('../lib/client');
 
 var client = zd.createClient({
-  username: process.env.ZENDESK_USERNAME,
-  password: process.env.ZENDESK_API_TOKEN,
-  remoteUri: process.env.ZENDESK_REMOTE_URI
+  username:  exampleConfig.auth.username,
+  token:     exampleConfig.auth.token,
+  remoteUri: exampleConfig.auth.remoteUri
 });
 
 client.organizationfields.list(function (err, statusList, body, responseList, resultList) {

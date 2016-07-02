@@ -330,6 +330,18 @@ queryAnonymous (searchTerm, cb)
 queryAnonymousAll (searchTerm, cb)
 ```
 
+### sessions
+
+```js
+get(cb)
+getByUserId(userId, cb)
+getByUserIdBySessionId(userId, sessionId, cb)
+getMyAuthenticatedSession(cb)
+deleteByUserIdBySessionId(userId, sessionId, cb)
+bulkDeleteByUserId(userId, cb)
+logMeOut(cb)
+```
+
 ### suspendedtickets
 
 ```js
@@ -524,7 +536,7 @@ listActive(cb)
 listCompact(cb)
 show(viewID, cb)
 create(view, cb)
-update(viewID, cb)
+update(viewID, viewData, cb)
 execute(viewID, params, cb)
 tickets(viewID, cb)
 preview(params, cb)

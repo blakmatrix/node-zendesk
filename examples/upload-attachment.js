@@ -1,19 +1,19 @@
-// upload-attachment.js - example to upload an attachment
-'use strict';
+var exampleConfig = require('./exampleConfig');
+var fs = require('fs');
+var zd = require('../lib/client');
 
-var zd = require('../lib/client'),
-    path = require('path'),
-client = zd.createClient({
-  username:  'username',
-  token:     'token',
-  remoteUri: 'https://remote.zendesk.com/api/v2'
+var client = zd.createClient({
+  username:  exampleConfig.auth.username,
+  token:     exampleConfig.auth.token,
+  remoteUri: exampleConfig.auth.remoteUri
 });
+
+/* Optionally add prop token to associate attachment with upload */
 
 client.attachments.upload(path.resolve(
   './examples/busey.gif'),
   {
-    filename: 'busey.gif' //,
-    //token: 'tokenROFL' // set to apply to record
+    filename: 'busey.gif'
   },
   function (err, req, result) {
     if (err) {
