@@ -283,6 +283,7 @@ show(organizationID, cb)
 create(organization, cb)
 update(organizationID, organization, cb)
 delete(organizationID, cb)
+incrementalInclude(startTime, includes, cb)        // New Export API supporing includes
 incremental(startTime, cb)        // New Export API
 incrementalSample(startTime, cb)  // New Export API Sample
 ```
@@ -368,6 +369,7 @@ list(ticketID, cb)
 
 ### ticketevents
 ```js
+incrementalInclude(startTime, includes, cb)        // New Export API supporing includes
 incremental(startTime, cb)
 incrementalSample(startTime, cb)
 ```
@@ -413,6 +415,7 @@ export(startTime, cb)        //1000 per page export
 exportSample(startTime, cb)  //Ticket Export Sample (max 50 tickets per request)
 exportAudit(ticketID, cb)    //Listing Audits
 getComments(ticketID, cb)
+incrementalInclude(startTime, includes, cb)        // New Export API supporing includes
 incremental(startTime, cb)        // New Export API
 incrementalSample(startTime, cb)  // New Export API Sample
 ```
@@ -514,6 +517,7 @@ delete(id, cb)
 search(params, cb)
 me(cb)
 merge(id, targetId, cb)
+incrementalInclude(startTime, includes, cb)        // New Export API supporing includes
 incremental(startTime, cb)        // New Export API
 incrementalSample(startTime, cb)  // New Export API Sample
 ```
