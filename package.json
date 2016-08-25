@@ -58,7 +58,7 @@
     "Adil H <didil@noreply.users.github.com>"
   ],
   "dependencies": {
-    "request": "2.67.x",
+    "request": "2.74.x",
     "querystring": "0.2.x",
     "async": "0.9.x",
     "flatten": "0.0.x",
