@@ -378,6 +378,8 @@ incrementalSample(startTime, cb)
 
 ```js
 list(cb)
+show(ticketFormID, cb)
+
 ```
 
 ### ticketfields
