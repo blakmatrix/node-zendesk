@@ -374,6 +374,12 @@ incremental(startTime, cb)
 incrementalSample(startTime, cb)
 ```
 
+### ticketforms
+
+```js
+list(cb)
+```
+
 ### ticketfields
 
 ```js
