@@ -298,6 +298,16 @@ update(organizationFieldID, organizationField, cb)
 delete(organizationFieldID, cb)
 ```
 
+### (SLA) policies
+
+```js
+list(cb)
+show(policyID, cb)
+create(policy, cb)
+update(policyID, policy, cb)
+delete(policyID, cb)
+```
+
 ### requests
 
 ```js
