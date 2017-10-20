@@ -282,6 +282,7 @@ list(cb)
 show(organizationID, cb)
 create(organization, cb)
 update(organizationID, organization, cb)
+upsert(organizationID, organization, cb)
 delete(organizationID, cb)
 incrementalInclude(startTime, includes, cb)        // New Export API supporing includes
 incremental(startTime, cb)        // New Export API
