@@ -14,7 +14,7 @@ var organization = {
   }
 };
 
-client.tickets.create(ticket,  function(err, req, result) {
+client.organization.upsert(organization,  function(err, req, result) {
   if (err) return handleError(err);
   console.log(JSON.stringify(result, null, 2, true));
 });
