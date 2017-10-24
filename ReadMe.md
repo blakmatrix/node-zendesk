@@ -438,7 +438,7 @@ exportWithUser(start_time, cb)
 exportAudit(ticketID, cb)
 ```
 
-### ticketimports
+### ticketimport
 
 ```js
 import(ticket, cb)
