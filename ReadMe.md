@@ -439,6 +439,13 @@ exportWithUser(start_time, cb)
 exportAudit(ticketID, cb)
 ```
 
+### ticketimport
+
+```js
+import(ticket, cb)
+exportAudit(ticketID, cb)
+```
+
 ### topiccomments
 
 ```js
