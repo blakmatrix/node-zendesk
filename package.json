@@ -55,7 +55,8 @@
     "Bas <basdewachter@noreply.users.github.com>",
     "David Kapell <dkapell@noreply.users.github.com>",
     "Mathias Anderssén <Okar@noreply.users.github.com>",
-    "Adil H <didil@noreply.users.github.com>"
+    "Adil H <didil@noreply.users.github.com>",
+    "Heriberto Madrigal <magic-madrigal@noreply.users.github.com>"
   ],
   "dependencies": {
     "request": "2.74.x",
