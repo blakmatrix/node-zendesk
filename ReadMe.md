@@ -117,6 +117,22 @@ client.users.sideLoad = ['organizations', 'roles'];
 
 For a full list of endpoints that support side-loading, see [Zendesk's developer site](https://developer.zendesk.com/rest_api/docs/core/side_loading)
 
+## Impersonation
+
+See [Making API requests on behalf of end users ](https://help.zendesk.com/hc/en-us/articles/229488908) to grant impersonate scope. Pass end-user's email when creating client.
+
+```js
+var zendesk = require('node-zendesk');
+
+var client = zendesk.createClient({
+  username:  'username',
+  token:     'oauth_token',
+  remoteUri: 'https://remote.zendesk.com/api/v2',
+  oauth: true,
+  asUser: 'end-user@example.com'
+});
+```
+
 ## client
 
 ```js
