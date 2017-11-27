@@ -79,7 +79,7 @@ Below is a list of options you may use when calling any scripts you may have wri
 --encoding X
 ```
 
-They are fairly self-explanatory no-cookies, timeout, proxy, encoding are all options to request. if using debug its reccomended you use `--encoding utf8` or something similar as all you will see is a buffer otherwise in the response.
+They are fairly self-explanatory no-cookies, timeout, proxy, encoding are all options to request. if using debug its recommended you use `--encoding utf8` or something similar as all you will see is a buffer otherwise in the response.
 
 Because of these command line options you can try a few already from the examples section:
 
@@ -102,7 +102,7 @@ var client = zendesk.createClient({
   token:     'oauth_token',
   remoteUri: 'https://remote.zendesk.com/api/v2',
   disableGlobalState: true,
-  debug: true // if you wan't to debug in library only mode, you'll have to include this
+  debug: true // if you want to debug in library only mode, you'll have to include this
 });
 ```
 
@@ -124,6 +124,10 @@ request(method, uri)
 requestAll(method, uri) //pulls back multiple pages
 requestUpload(uri, file, fileToken, callback)
 ```
+
+## Pagination
+
+When using the `requestAll` method, the client automatically pages-through results, accumulating all responses before returning them to the `cb` method. To monitor pagination, the `cb` parameter can also be an [observer](http://reactivex.io/rxjs/manual/overview.html#observer) – see [this example](examples/ticket-list-observer.js).
 
 ## Core API Methods
 (See: https://developer.zendesk.com/rest_api/docs/core/introduction)
