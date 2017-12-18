@@ -436,7 +436,6 @@ listByUserRequested(userID, cb)
 listByUserCCD(userID, cb)    // email cc
 listRecent(cb)
 listCollaborators(ticketID, cb)
-addCollaborators(ticketID, collaborators, cb)
 listIncidents(ticketID, cb)
 listMetrics(ticketID, cb)
 show(ticketID, cb)
