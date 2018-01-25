@@ -415,6 +415,7 @@ show(ticketMetricId, cb)
 
 ```js
 list(cb)
+listAssigned(userID, cb)
 listByOrganization(orgID, cb)
 listByUserRequested(userID, cb)
 listByUserCCD(userID, cb)    // email cc
