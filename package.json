@@ -59,10 +59,10 @@
     "Heriberto Madrigal <magic-madrigal@noreply.users.github.com>"
   ],
   "dependencies": {
-    "request": "2.74.x",
-    "querystring": "0.2.x",
     "async": "0.9.x",
     "flatten": "0.0.x",
-    "nconf": "0.7.x"
+    "nconf": "0.7.x",
+    "querystring": "0.2.x",
+    "request": "^2.81.0"
   }
 }
