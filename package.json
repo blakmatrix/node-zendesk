@@ -62,7 +62,9 @@
     "async": "0.9.x",
     "flatten": "0.0.x",
     "nconf": "0.7.x",
+    "promisepipe": "^2.1.1",
     "querystring": "0.2.x",
-    "request": "^2.81.0"
+    "request": "2.74.x",
+    "request-promise": "^4.2.2"
   }
 }
