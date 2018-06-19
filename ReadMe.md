@@ -661,6 +661,7 @@ delete(articleID, cb)
 
 ```js
 list(cb)
+listWithLocale(locale, cb)
 show(categoryID, cb)
 create(category, cb)
 update(categoryID, category, cb)
