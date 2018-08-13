@@ -1,6 +1,4 @@
 var exampleConfig = require('./exampleConfig');
-console.log(exampleConfig);
-var fs = require('fs');
 var zd = require('../lib/client')
 
 var client = zd.createClient({
