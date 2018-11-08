@@ -79,7 +79,7 @@ Below is a list of options you may use when calling any scripts you may have wri
 --encoding X
 ```
 
-They are fairly self-explanatory no-cookies, timeout, proxy, encoding are all options to request. if using debug its reccomended you use `--encoding utf8` or something similar as all you will see is a buffer otherwise in the response.
+They are fairly self-explanatory no-cookies, timeout, proxy, encoding are all options to request. if using debug its recommended you use `--encoding utf8` or something similar as all you will see is a buffer otherwise in the response.
 
 Because of these command line options you can try a few already from the examples section:
 
@@ -102,7 +102,7 @@ var client = zendesk.createClient({
   token:     'oauth_token',
   remoteUri: 'https://remote.zendesk.com/api/v2',
   disableGlobalState: true,
-  debug: true // if you wan't to debug in library only mode, you'll have to include this
+  debug: true // if you want to debug in library only mode, you'll have to include this
 });
 ```
 
@@ -117,6 +117,22 @@ client.users.sideLoad = ['organizations', 'roles'];
 
 For a full list of endpoints that support side-loading, see [Zendesk's developer site](https://developer.zendesk.com/rest_api/docs/core/side_loading)
 
+## Impersonation
+
+See [Making API requests on behalf of end users ](https://help.zendesk.com/hc/en-us/articles/229488908) to grant impersonate scope. Pass end-user's email when creating client.
+
+```js
+var zendesk = require('node-zendesk');
+
+var client = zendesk.createClient({
+  username:  'username',
+  token:     'oauth_token',
+  remoteUri: 'https://remote.zendesk.com/api/v2',
+  oauth: true,
+  asUser: 'end-user@example.com'
+});
+```
+
 ## client
 
 ```js
@@ -124,6 +140,10 @@ request(method, uri)
 requestAll(method, uri) //pulls back multiple pages
 requestUpload(uri, file, fileToken, callback)
 ```
+
+## Pagination
+
+When using the `requestAll` method, the client automatically pages-through results, accumulating all responses before returning them to the `cb` method. To monitor pagination, the `cb` parameter can also be an [observer](http://reactivex.io/rxjs/manual/overview.html#observer) – see [this example](examples/ticket-list-observer.js).
 
 ## Core API Methods
 (See: https://developer.zendesk.com/rest_api/docs/core/introduction)
@@ -152,6 +172,8 @@ redactAttachmentComment(ticketID, commentID, attachmentID, cb)
 
 fileOptions = {filename: 'file.txt', token: 'P1c4rDRuLz'}
 // token is [optional]
+
+file = // string or Stream (with 'pipe' function)
 ```
 
 ### dynamiccontent
@@ -282,6 +304,7 @@ list(cb)
 show(organizationID, cb)
 create(organization, cb)
 update(organizationID, organization, cb)
+upsert(organizationID, organization, cb)
 delete(organizationID, cb)
 incrementalInclude(startTime, includes, cb)        // New Export API supporing includes
 incremental(startTime, cb)        // New Export API
@@ -296,6 +319,16 @@ show(organizationFieldID, cb)
 create(organizationField, cb)
 update(organizationFieldID, organizationField, cb)
 delete(organizationFieldID, cb)
+```
+
+### (SLA) policies
+
+```js
+list(cb)
+show(policyID, cb)
+create(policy, cb)
+update(policyID, policy, cb)
+delete(policyID, cb)
 ```
 
 ### requests
@@ -374,6 +407,14 @@ incremental(startTime, cb)
 incrementalSample(startTime, cb)
 ```
 
+### ticketforms
+
+```js
+list(cb)
+show(ticketFormID, cb)
+
+```
+
 ### ticketfields
 
 ```js
@@ -396,6 +437,7 @@ show(ticketMetricId, cb)
 
 ```js
 list(cb)
+listAssigned(userID, cb)
 listByOrganization(orgID, cb)
 listByUserRequested(userID, cb)
 listByUserCCD(userID, cb)    // email cc
@@ -406,6 +448,7 @@ listMetrics(ticketID, cb)
 show(ticketID, cb)
 showMany(ticket_ids, cb)
 create(ticket, cb)
+createMany(tickets, cb)
 update(ticketID, ticket, cb)
 merge(ticketID, mergedTicket, cb)
 updateMany(ticket_ids, ticket, cb)
@@ -425,6 +468,13 @@ incrementalSample(startTime, cb)  // New Export API Sample
 ```js
 export(start_time, cb)
 exportWithUser(start_time, cb)
+exportAudit(ticketID, cb)
+```
+
+### ticketimport
+
+```js
+import(ticket, cb)
 exportAudit(ticketID, cb)
 ```
 
@@ -511,6 +561,8 @@ create(user, cb)
 createMany(users, cb)
 update(id, user, cb)
 updateMany(/*Optional*/ids, users, cb)
+createOrUpdate(user, cb)
+createOrUpdateMany(users, cb)
 suspend(id, cb)
 unsuspend(id, cb)
 delete(id, cb)
@@ -611,6 +663,7 @@ delete(articleID, cb)
 
 ```js
 list(cb)
+listWithLocale(locale, cb)
 show(categoryID, cb)
 create(category, cb)
 update(categoryID, category, cb)
