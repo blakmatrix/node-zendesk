@@ -172,6 +172,8 @@ redactAttachmentComment(ticketID, commentID, attachmentID, cb)
 
 fileOptions = {filename: 'file.txt', token: 'P1c4rDRuLz'}
 // token is [optional]
+
+file = // string or Stream (with 'pipe' function)
 ```
 
 ### dynamiccontent
