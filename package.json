@@ -25,6 +25,7 @@
   "scripts": {
     "test": "node ./test/*-test.js"
   },
+  "types": "@types/client.d.ts",
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "contributors": [
     "Nie Xiaochen <nnabuuu@noreply.users.github.com>",
