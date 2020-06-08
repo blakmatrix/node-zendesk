@@ -7,10 +7,11 @@ var client = zd.createClient({
   remoteUri: exampleConfig.auth.remoteUri
 });
 
-client.organizationfields.list(function (err, statusList, body, responseList, resultList) {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log(JSON.stringify(body, null, 2, true));
-});
+client.users.auth()
+  .then(function(response) {
+    var result = JSON.parse(response.body.toString());
+    console.log(JSON.stringify(result.user, null, 2, true));
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
