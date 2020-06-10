@@ -233,7 +233,7 @@ export namespace Requests {
     listComments(
       requestId: ZendeskID,
       cb?: ZendeskCallback<unknown, unknown>,
-    ): Promise<Comments.ListPayload>;
+    ): Promise<Comments.ListPayload[]>;
 
     /** Get Comment */
     getComment(
