@@ -13,6 +13,7 @@
 - [Core API Methods](https://github.com/blakmatrix/node-zendesk#core-api-methods)
 - [Help Center API Methods](https://github.com/blakmatrix/node-zendesk#help-center-api-methods)
 - [Voice API Methods](https://github.com/blakmatrix/node-zendesk#voice-api-methods)
+- [Services API Methods](https://github.com/blakmatrix/node-zendesk#services-api-methods)
 - [Contributions](https://github.com/blakmatrix/node-zendesk#contributions)
 
 ## Example
@@ -65,13 +66,14 @@ var client = zendesk.createClient({
 Below is a list of options you may use when calling any scripts you may have written
 
 ```
--s  --subdomain X
--u  --username X
--p  --password X
--t  --token X
--r  --remoteUri X
--hc --helpcenter
--v  --voice
+-s    --subdomain X
+-u    --username X
+-p    --password X
+-t    --token X
+-r    --remoteUri X
+-hc   --helpcenter
+-v    --voice
+-serv --services
 --debug
 --no-cookies
 --timeout X(ms)
@@ -303,7 +305,9 @@ revoke(id, cb)
 list(cb)
 show(organizationID, cb)
 create(organization, cb)
+createMany(organizations, cb)
 update(organizationID, organization, cb)
+updateMany(organizations, cb)
 upsert(organizationID, organization, cb)
 delete(organizationID, cb)
 incrementalInclude(startTime, includes, cb)        // New Export API supporing includes
@@ -735,6 +739,12 @@ createDownVoteForAnswer(answerID, cb)
 delete(voteID, cb)
 ```
 
+### targetfailures
+```js
+list(cb)
+show(targetID, cb)
+```
+
 ## Voice API Methods
 (See: https://developer.zendesk.com/rest_api/docs/voice-api/voice)
 To enable help center client, use `-v` or `--voice` parameter.
@@ -792,6 +802,17 @@ update(phoneID, phone_number, cb)
 delete(phoneID, cb)
 ```
 
+## Services API Methods
+(See: https://developer.zendesk.com/rest_api/docs/services/jira)
+To enable help center client, use `-serv` or `--services` parameter.
+
+### links
+
+```js
+list(cb)
+show(ticketID, cb)
+
+```
 
 ## Contributions
 
