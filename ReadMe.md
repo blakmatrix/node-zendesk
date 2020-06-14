@@ -178,6 +178,18 @@ fileOptions = {filename: 'file.txt', token: 'P1c4rDRuLz'}
 file = // string or Stream (with 'pipe' function)
 ```
 
+### automations
+
+```js
+list(cb)
+listActive(automationID, cb)
+show(automationID, cb)
+create(automation, cb)
+update(automationID, automation, cb)
+delete(automationID, cb)
+reorder(automationIDs, cb) //  automationIDs is Array
+```
+
 ### dynamiccontent
 
 https://developer.zendesk.com/rest_api/docs/core/dynamic_content
