@@ -737,6 +737,12 @@ createDownVoteForAnswer(answerID, cb)
 delete(voteID, cb)
 ```
 
+### targetfailures
+```js
+list(cb)
+show(targetID, cb)
+```
+
 ## Voice API Methods
 (See: https://developer.zendesk.com/rest_api/docs/voice-api/voice)
 To enable help center client, use `-v` or `--voice` parameter.
