@@ -35,6 +35,24 @@ client.users.list(function (err, req, result) {
   console.log(JSON.stringify(result[0], null, 2, true));//gets the first page
 });
 ```
+or you can use `Promises`, you just need to skip the callback:
+```js
+var zendesk = require('node-zendesk');
+
+var client = zendesk.createClient({
+  username:  'username',
+  token:     'token',
+  remoteUri: 'https://remote.zendesk.com/api/v2'
+});
+
+client.users.list()
+  .then(function(result) {
+    console.log(JSON.stringify(result[0], null, 2, true));//gets the first page
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+```
 Take a look in the `examples` folder for more examples.
 
 ## Install
