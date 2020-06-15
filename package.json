@@ -56,7 +56,8 @@
     "David Kapell <dkapell@noreply.users.github.com>",
     "Mathias Anderssén <Okar@noreply.users.github.com>",
     "Adil H <didil@noreply.users.github.com>",
-    "Heriberto Madrigal <magic-madrigal@noreply.users.github.com>"
+    "Heriberto Madrigal <magic-madrigal@noreply.users.github.com>",
+    "Fred Souza <fmsouza@noreply.users.github.com>"
   ],
   "dependencies": {
     "async": "3.2.x",
