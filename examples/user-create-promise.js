@@ -7,17 +7,18 @@ var client = zd.createClient({
   remoteUri: exampleConfig.auth.remoteUri
 });
 
-/* Optionally add prop token to associate attachment with upload */
+var user = {
+  "user": {
+    "name": "Foo Bar",
+    "email": "FooBar@example.org"
+  }
+};
 
-client.attachments.upload(path.resolve(
-  './examples/busey.gif'),
-  {
-    filename: 'busey.gif'
-  },
-  function (err, req, result) {
-    if (err) {
-      console.log(err);
-      return;
-    }
+(async() => {
+  try {
+    const result = await client.users.create(user);
     console.log(JSON.stringify(result, null, 2, true));
-  });
+  } catch (e) {
+    console.log(e);
+  }
+})();
