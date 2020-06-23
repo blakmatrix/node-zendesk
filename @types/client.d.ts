@@ -93,7 +93,7 @@ export namespace Attachments {
       },
       isReadStream: boolean,
       cb?: ZendeskCallback<unknown, unknown>,
-    ): Promise<unknown>;
+    ): Promise<Attachments.Model>;
   }
 
   interface Photo extends PersistableModel {
@@ -109,6 +109,15 @@ export namespace Attachments {
 
   interface Model extends Photo {
     thumbnails: Array<Photo>;
+  }
+
+  interface UploadResponsePayload {
+    upload: {
+      token: string;
+      expires_at: string;
+      attachments: object[],
+      attachment: Attachments.Model
+    }
   }
 }
 
