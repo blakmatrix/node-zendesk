@@ -6,7 +6,7 @@
 
 // <reference types="node"/>
 
-import { PathLike } from 'fs';
+import { PathLike, ReadStream } from 'fs';
 
 export type ZendeskCallback<TResponse, TResult> = (
   error: Error | undefined,
@@ -86,11 +86,12 @@ export namespace Attachments {
     ): unknown;
 
     upload(
-      file: PathLike,
+      file: PathLike | ReadStream,
       fileOptions: {
         filename: string;
         token?: string;
       },
+      isReadStream: boolean,
       cb?: ZendeskCallback<unknown, unknown>,
     ): void;
   }
