@@ -300,7 +300,9 @@ export namespace Requests {
     fields: Tickets.Field[] | null;
     organization_id: ZendeskID | null;
     requester_id: ZendeskID;
+    requester?: Requests.Comments.CommentsUsers.ResponseModel;
     assignee_id: ZendeskID | null;
+    assignee?: Requests.Comments.CommentsUsers.ResponseModel;
     group_id?: ZendeskID | null;
     collaborator_ids: ZendeskID[];
     email_cc_ids: ZendeskID[];
