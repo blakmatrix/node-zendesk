@@ -9,8 +9,8 @@ var client = zd.createClient({
 
 client.users.auth()
   .then(function(response) {
-    var result = JSON.parse(response.body.toString());
-    console.log(JSON.stringify(result.user, null, 2, true));
+    var result = response;
+    console.dir(result.verified)
   })
   .catch(function(error) {
     console.log(error);
