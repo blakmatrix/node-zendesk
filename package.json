@@ -23,7 +23,9 @@
   },
   "main": "./lib/client.js",
   "scripts": {
-    "test": "node ./test/*-test.js"
+    "test": "node ./test/*-test.js",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "contributors": [
@@ -64,6 +66,9 @@
     "nconf": "0.10.x",
     "querystring": "0.2.x",
     "request": "2.88.x"
+  },
+  "devDependencies": {
+    "vuepress": "1.5.x"
   },
   "license": "MIT"
 }
