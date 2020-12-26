@@ -1,74 +1,74 @@
 {
-  "name": "node-zendesk",
-  "version": "2.0.3",
-  "description": "zendesk API client wrapper",
-  "keywords": [
-    "zendesk",
-    "API",
-    "support",
-    "supportdesk",
-    "buddha",
-    "radar",
-    "wrapper",
-    "help center",
-    "zopim",
-    "voice",
-    "reseller",
-    "knowledge base"
-  ],
-  "homepage": "https://github.com/blakmatrix/node-zendesk",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/blakmatrix/node-zendesk.git"
-  },
-  "main": "./lib/client.js",
-  "scripts": {
-    "test": "node ./test/*-test.js",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
-  },
-  "author": "Farrin Reid <blakmatrix@gmail.com>",
-  "contributors": [
-    "Nie Xiaochen <nnabuuu@noreply.users.github.com>",
-    "Eriks Reks <erikzrekz@noreply.users.github.com>",
-    "Iconecd <iconecd@noreply.users.github.com>",
-    "Ignigena <Ignigena@noreply.users.github.com>",
-    "Eric Davis <iconecd@noreply.users.github.com>",
-    "Blair Anderson <blairanderson@noreply.users.github.com>",
-    "Jeff Zabel <jzabel@noreply.users.github.com>",
-    "Brian Hartvigsen <tresni@noreply.users.github.com>",
-    "James Greene <JamesMGreene@noreply.users.github.com>",
-    "Eike Thienemann-Dehde <edehde@noreply.users.github.com>",
-    "Roman Onufryk <onufryk@noreply.users.github.com>",
-    "Colin Loretz <colinloretz@noreply.users.github.com>",
-    "Azharuddin <gs-akhan@noreply.users.github.com>",
-    "Carl-Fredrik Herö <carlfredrikhero@noreply.users.github.com>",
-    "Oleksandr Pidlisnyi <unreadableusername@noreply.users.github.com>",
-    "Amal Khezami <khezamian@noreply.users.github.com>",
-    "genius-fx <genius-fx@noreply.users.github.com>",
-    "Eike Bernhardt <teefax@noreply.users.github.com>",
-    "genius-fx <gitter-badger@noreply.users.github.com>",
-    "Stuart McGrigor <stueynz@noreply.users.github.com>",
-    "Wade Grandoni <wadegrandoni@noreply.users.github.com>",
-    "Anastasi Bakolias <spasiu@noreply.users.github.com>",
-    "matthewschmidt <matthewschmidt.users.github.com>",
-    "oleksiy-turchanikov <oleksiy-turchanikov@noreply.users.github.com>",
-    "Shuan Wang <swang@noreply.users.github.com>",
-    "Bas <basdewachter@noreply.users.github.com>",
-    "David Kapell <dkapell@noreply.users.github.com>",
-    "Mathias Anderssén <Okar@noreply.users.github.com>",
-    "Adil H <didil@noreply.users.github.com>",
-    "Heriberto Madrigal <magic-madrigal@noreply.users.github.com>",
-    "Fred Souza <fmsouza@noreply.users.github.com>"
-  ],
-  "dependencies": {
-    "async": "3.2.x",
-    "nconf": "0.10.x",
-    "querystring": "0.2.x",
-    "request": "2.88.x"
-  },
-  "devDependencies": {
-    "vuepress": "1.5.x"
-  },
-  "license": "MIT"
+    "name": "@ahmedwalid/node-zendesk",
+    "version": "2.0.4",
+    "description": "zendesk API client wrapper",
+    "keywords": [
+        "zendesk",
+        "API",
+        "support",
+        "supportdesk",
+        "buddha",
+        "radar",
+        "wrapper",
+        "help center",
+        "zopim",
+        "voice",
+        "reseller",
+        "knowledge base"
+    ],
+    "homepage": "https://github.com/blakmatrix/node-zendesk",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/blakmatrix/node-zendesk.git"
+    },
+    "main": "./lib/client.js",
+    "scripts": {
+        "test": "node ./test/*-test.js",
+        "docs:dev": "vuepress dev docs",
+        "docs:build": "vuepress build docs"
+    },
+    "author": "Farrin Reid <blakmatrix@gmail.com>",
+    "contributors": [
+        "Nie Xiaochen <nnabuuu@noreply.users.github.com>",
+        "Eriks Reks <erikzrekz@noreply.users.github.com>",
+        "Iconecd <iconecd@noreply.users.github.com>",
+        "Ignigena <Ignigena@noreply.users.github.com>",
+        "Eric Davis <iconecd@noreply.users.github.com>",
+        "Blair Anderson <blairanderson@noreply.users.github.com>",
+        "Jeff Zabel <jzabel@noreply.users.github.com>",
+        "Brian Hartvigsen <tresni@noreply.users.github.com>",
+        "James Greene <JamesMGreene@noreply.users.github.com>",
+        "Eike Thienemann-Dehde <edehde@noreply.users.github.com>",
+        "Roman Onufryk <onufryk@noreply.users.github.com>",
+        "Colin Loretz <colinloretz@noreply.users.github.com>",
+        "Azharuddin <gs-akhan@noreply.users.github.com>",
+        "Carl-Fredrik Herö <carlfredrikhero@noreply.users.github.com>",
+        "Oleksandr Pidlisnyi <unreadableusername@noreply.users.github.com>",
+        "Amal Khezami <khezamian@noreply.users.github.com>",
+        "genius-fx <genius-fx@noreply.users.github.com>",
+        "Eike Bernhardt <teefax@noreply.users.github.com>",
+        "genius-fx <gitter-badger@noreply.users.github.com>",
+        "Stuart McGrigor <stueynz@noreply.users.github.com>",
+        "Wade Grandoni <wadegrandoni@noreply.users.github.com>",
+        "Anastasi Bakolias <spasiu@noreply.users.github.com>",
+        "matthewschmidt <matthewschmidt.users.github.com>",
+        "oleksiy-turchanikov <oleksiy-turchanikov@noreply.users.github.com>",
+        "Shuan Wang <swang@noreply.users.github.com>",
+        "Bas <basdewachter@noreply.users.github.com>",
+        "David Kapell <dkapell@noreply.users.github.com>",
+        "Mathias Anderssén <Okar@noreply.users.github.com>",
+        "Adil H <didil@noreply.users.github.com>",
+        "Heriberto Madrigal <magic-madrigal@noreply.users.github.com>",
+        "Fred Souza <fmsouza@noreply.users.github.com>"
+    ],
+    "dependencies": {
+        "async": "3.2.x",
+        "nconf": "0.10.x",
+        "querystring": "0.2.x",
+        "request": "2.88.x"
+    },
+    "devDependencies": {
+        "vuepress": "1.5.x"
+    },
+    "license": "MIT"
 }
