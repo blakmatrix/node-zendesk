@@ -1,5 +1,5 @@
 {
-    "name": "@ahmedwalid/node-zendesk",
+    "name": "@ahmedwalid05/node-zendesk",
     "version": "2.0.4",
     "description": "zendesk API client wrapper",
     "keywords": [
@@ -16,10 +16,10 @@
         "reseller",
         "knowledge base"
     ],
-    "homepage": "https://github.com/blakmatrix/node-zendesk",
+    "homepage": "https://github.com/ahmedwalid05/node-zendesk",
     "repository": {
         "type": "git",
-        "url": "git://github.com/blakmatrix/node-zendesk.git"
+        "url": "git://github.com/ahmedwalid05/node-zendesk.git"
     },
     "main": "./lib/client.js",
     "scripts": {
@@ -70,5 +70,9 @@
     "devDependencies": {
         "vuepress": "1.5.x"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org",
+        "access": "public"
+    }
 }
