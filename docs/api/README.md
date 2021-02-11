@@ -620,6 +620,21 @@ create(section, cb)
 update(sectionID, section, cb)
 delete(sectionID, cb)
 ```
+
+### usersegments
+
+```js
+list(cb)
+listApplicable(cb)
+listByUser(userID, cb)
+show(sectionID, cb)
+listSections(userSegmentID, cb)
+listTopics(userSegmentID, cb)
+create(userSegment, cb)
+update(userSegmentID, userSegment, cb)
+delete(userSegmentID, cb)
+```
+
 ### subscriptions
 
 ```js
