@@ -1,4 +1,5 @@
 var exampleConfig = require('./exampleConfig');
+var path = require('path');
 var zd = require('../lib/client');
 
 var client = zd.createClient({
