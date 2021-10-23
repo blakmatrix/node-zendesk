@@ -13,10 +13,10 @@ PUT /api/v2/dynamic_content/items/{id}/variants/update_many.json
 
 
 
-## Zopim API
+## Zopim API 
 
 Client authentication and all APIs need some love.
 
-## Reseller API
+## Reseller API 
 
 All APIs need some love. However, the Reseller API is only accessible to Zendesk partners and resellers. Contact  channel@zendesk.com if you're interested in gaining access.
