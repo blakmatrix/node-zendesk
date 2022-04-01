@@ -4,7 +4,7 @@
 
 *A Zendesk API client library for use with node.js* 
 
-**Read the full documentation at blakmatrix.github.io/node-zendesk/**
+**Read the full documentation at [blakmatrix.github.io/node-zendesk/](https://blakmatrix.github.io/node-zendesk/)**
 
 ---
 ## Promise support introduced
