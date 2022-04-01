@@ -690,7 +690,7 @@ show(targetID, cb)
 
 ## Voice API Methods
 (See: https://developer.zendesk.com/rest_api/docs/voice-api/voice)
-To enable help center client, use `-v` or `--voice` parameter.
+To enable voice client, use `-v` or `--voice` parameter.
 
 ### agentactivities
 
@@ -747,7 +747,7 @@ delete(phoneID, cb)
 
 ## Services API Methods
 (See: https://developer.zendesk.com/rest_api/docs/services/jira)
-To enable help center client, use `-serv` or `--services` parameter.
+To enable services client, use `-serv` or `--services` parameter.
 
 ### links
 
