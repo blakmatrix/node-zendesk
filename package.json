@@ -1,6 +1,6 @@
 {
   "name": "node-zendesk",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "zendesk API client wrapper",
   "keywords": [
     "zendesk",
