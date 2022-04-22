@@ -63,7 +63,7 @@
   ],
   "dependencies": {
     "async": "3.2.x",
-    "nconf": "0.11.3",
+    "nconf": "0.11.4",
     "querystring": "0.2.x",
     "request": "2.88.2"
   },
