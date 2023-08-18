@@ -7,10 +7,9 @@ var client = zd.createClient({
   remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri
 });
 
-client.tickets.list(function (err, statusList, body, responseList, resultList) {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log(JSON.stringify(body, null, 2, true));//will display all tickets
+client.tickets.list().then(function (tickets) {
+  ticket = tickets[0];
+  client.ticketaudits.list(ticket.id).then(function(audits) {
+    console.log(JSON.stringify(audits));
+  })
 });
