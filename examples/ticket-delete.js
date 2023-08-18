@@ -8,7 +8,6 @@ var client = zd.createClient({
 });
 
 var ticketId = 12345;
-var client = zd.createClient();
 client.tickets.delete(ticketId, function(err) {
   if (err) return handleError(err);
 });
