@@ -7,11 +7,12 @@ var client = zd.createClient({
     remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri
 });
 
-client.users.auth()
-  .then(function(response) {
-    var result = response;
-    console.dir(result.verified)
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+client.groups.list()
+    .then(function(result) {
+        client.users.listByGroup(result[0].id).then( function(users) {
+            console.log(users);
+        })
+    })
+    .catch(function(error) {
+        console.log(error);
+    });

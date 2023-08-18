@@ -7,11 +7,11 @@ var client = zd.createClient({
     remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri
 });
 
-client.users.auth()
-  .then(function(response) {
-    var result = response;
-    console.dir(result.verified)
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
+client.activitystream.list(function (err, req, result) {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    console.log(JSON.stringify(result))
+    console.log("Total activities: "+result.length);
+});
