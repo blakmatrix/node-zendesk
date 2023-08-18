@@ -2,9 +2,9 @@ var exampleConfig = require('./exampleConfig');
 var zd = require('../lib/client');
 
 var client = zd.createClient({
-  username:  exampleConfig.auth.username,
-  token:     exampleConfig.auth.token,
-  remoteUri: exampleConfig.auth.remoteUri
+  username:  process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
+  token:     process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
+  remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri
 });
 
 client.organizationfields.list(function (err, statusList, body, responseList, resultList) {

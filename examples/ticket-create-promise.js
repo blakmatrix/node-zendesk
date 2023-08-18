@@ -1,10 +1,10 @@
 const exampleConfig = require('./exampleConfig');
 const zd = require('../lib/client');
 
-const client = zd.createClient({
-  username:  exampleConfig.auth.username,
-  token:     exampleConfig.auth.token,
-  remoteUri: exampleConfig.auth.remoteUri
+var client = zd.createClient({
+    username:  process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
+    token:     process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
+    remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri
 });
 
 const ticket = {
