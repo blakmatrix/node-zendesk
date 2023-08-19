@@ -38,11 +38,6 @@
 
 **Read the full documentation at [blakmatrix.github.io/node-zendesk/](https://blakmatrix.github.io/node-zendesk/)**
 
----
-## Promise support introduced
-
-Promise support was introduced in @v`2.0.0`, the Legacy version of node-zendesk without Promises @v`1.5.0`
-
 ## Install
 
 To use the API, just do the standard
