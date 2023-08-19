@@ -67,5 +67,8 @@
     "querystring": "0.2.x",
     "request": "2.88.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
 }
