@@ -1,6 +1,7 @@
 # node-zendesk [![Join the chat at https://gitter.im/blakmatrix/node-zendesk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/blakmatrix/node-zendesk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![build status](https://secure.travis-ci.org/blakmatrix/node-zendesk.png)](http://travis-ci.org/blakmatrix/node-zendesk)
 
 [![node-zendesk logo](https://blakmatrix.github.io/node-zendesk/Node_Zendesk_logo.svg "When you realize nothing is lacking, the whole world belongs to you. -Lao Tzu")](https://blakmatrix.github.io/node-zendesk/)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fblakmatrix%2Fnode-zendesk.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fblakmatrix%2Fnode-zendesk?ref=badge_shield)
 
 *A Zendesk API client library for use with node.js* 
 
@@ -68,3 +69,6 @@ Zendesk's documentation can be found [here](https://developer.zendesk.com/rest_a
 ## License
 
 MIT.
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fblakmatrix%2Fnode-zendesk.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fblakmatrix%2Fnode-zendesk?ref=badge_large)
