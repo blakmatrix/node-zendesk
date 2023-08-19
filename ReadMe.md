@@ -4,13 +4,10 @@
 
 [![npm][npm]][npm-url]
 
-
 [![node][node]][node-url]
 [![licenses][licenses]][licenses-url]
 [![PR's welcome][prs]][prs-url]
 
-
-  <br>
   <a href="https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/about-dependabot-security-updates#about-compatibility-scores">
     <img src="https://api.dependabot.com/badges/compatibility_score?dependency-name=node-zendesk&package-manager=npm_and_yarn&previous-version=2.20&new-version=3.0.1">
   </a>
@@ -38,9 +35,6 @@
     node-zendesk is a versatile gateway between Node.js and the Zendesk Customer Support Platform. Primarily designed for seamless integration with Node.js applications, it also excels in transforming, accessing, and packaging various Zendesk resources and assets. Beyond its core function, it stands ready to bridge the gap between development and Zendesk's powerful capabilities.
   </p>
 </div>
-
-
-
 
 **Read the full documentation at [blakmatrix.github.io/node-zendesk/](https://blakmatrix.github.io/node-zendesk/)**
 
