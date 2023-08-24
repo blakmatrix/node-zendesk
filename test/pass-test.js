@@ -1,1 +1,5 @@
-return true;
+function passTest() {
+  return true;
+}
+
+passTest();

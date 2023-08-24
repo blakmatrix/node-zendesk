@@ -1,17 +1,28 @@
-var exampleConfig = require('./exampleConfig');
-var zd = require('../lib/client');
+const process = require('node:process');
+const zd = require('../lib/client');
+const exampleConfig = require('./exampleConfig');
 
-var client = zd.createClient({
-  username:  process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
-  token:     process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
-  remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri
+const client = zd.createClient({
+  username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
+  token: process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
+  remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
 });
 
-client.users.list(function (err, req, result) {
-  if (err) {
-    console.log(err);
+client.users.list(function (error, request, result) {
+  if (error) {
+    console.log(error);
     return;
   }
-  console.log(JSON.stringify(result.map(function (user) {return user.name;}), null, 2, true));//gets the first page
-  console.log("Total Users: "+result.length);
+
+  console.log(
+    JSON.stringify(
+      result.map(function (user) {
+        return user.name;
+      }),
+      null,
+      2,
+      true,
+    ),
+  ); // Gets the first page
+  console.log('Total Users: ' + result.length);
 });

@@ -1,36 +1,40 @@
-var exampleConfig = require('./exampleConfig');
-var zd = require('../lib/client');
+const process = require('node:process');
+const zd = require('../lib/client');
+const exampleConfig = require('./exampleConfig');
 
-var client = zd.createClient({
-  username:  process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
-  token:     process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
-  remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri
+const client = zd.createClient({
+  username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
+  token: process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
+  remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
 });
 
-
-var users = {
-  "users": [
+const users = {
+  users: [
     {
-      "name": "Roger Wilco",
-      "email": "roge@example.org",
-      "role": "agent"
+      name: 'Roger Wilco',
+      email: 'roge@example.org',
+      role: 'agent',
     },
     {
-      "name": "Woger Rilco",
-      "email": "woge@example.org",
-      "role": "admin"
-    }
-  ]
+      name: 'Woger Rilco',
+      email: 'woge@example.org',
+      role: 'admin',
+    },
+  ],
 };
 
-client.users.createMany(users, function (err, req, result) {
-  if (err) {
-    console.log(err);
+client.users.createMany(users, function (error, request, result) {
+  if (error) {
+    console.log(error);
     return;
   }
-  client.jobstatuses.watch(result["job_status"].id, 500, 5, function(err, req, result){
-    console.log(JSON.stringify(result, null, 2, true));
-  });
+
+  client.jobstatuses.watch(
+    result.job_status.id,
+    500,
+    5,
+    function (error_, request, result) {
+      console.log(JSON.stringify(result, null, 2, true));
+    },
+  );
 });
-
-

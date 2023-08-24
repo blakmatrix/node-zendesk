@@ -1,6 +1,7 @@
 {
   "name": "node-zendesk",
   "version": "3.0.3",
+  "type": "commonjs",
   "description": "zendesk API client wrapper",
   "keywords": [
     "zendesk",
@@ -70,5 +71,32 @@
   "license": "MIT",
   "engines": {
     "node": ">= 10"
+  },
+  "devDependencies": {
+    "xo": "^0.56.0"
+  },
+  "xo": {
+    "prettier": true,
+    "space": 2,
+    "rules": {
+      "unicorn/prefer-module": "off",
+      "unicorn/prefer-top-level-await": "off",
+      "import/extensions": "off",
+      "no-multi-assign": "off",
+      "camelcase": [
+        "warn",
+        {
+          "allow": [
+            "automation_ids",
+            "label_names",
+            "phone_number",
+            "previous_password",
+            "start_time",
+            "ticket_ids",
+            "trigger_ids"
+          ]
+        }
+      ]
+    }
   }
 }
