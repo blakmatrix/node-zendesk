@@ -103,7 +103,7 @@ show(automationID, cb)
 create(automation, cb)
 update(automationID, automation, cb)
 delete(automationID, cb)
-reorder(automationIDs, cb) //  automationIDs is Array
+reorder(automationIDs, cb) // automationIDs is Array
 ```
 
 ### dynamiccontent
@@ -464,7 +464,7 @@ show(triggerID, cb)
 create(trigger, cb)
 update(triggerID, trigger, cb)
 delete(triggerID, cb)
-reorder(triggerIDs, cb) //  triggerIDs is Array
+reorder(triggerIDs, cb) // triggerIDs is Array
 ```
 
 ### useridentities
