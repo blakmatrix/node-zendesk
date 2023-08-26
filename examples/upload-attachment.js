@@ -3,25 +3,29 @@ const path = require('node:path');
 const zd = require('../lib/client');
 const exampleConfig = require('./exampleConfig');
 
-const client = zd.createClient({
-  username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
-  token: process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
-  remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
-});
+const ATTACHMENT_PATH = path.resolve('./examples/busey.gif');
+const FILENAME = 'busey.gif';
 
-/* Optionally add prop token to associate attachment with upload */
+function getZendeskConfig() {
+  return {
+    username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
+    token: process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
+    remoteUri:
+      process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
+  };
+}
 
-client.attachments.upload(
-  path.resolve('./examples/busey.gif'),
-  {
-    filename: 'busey.gif',
-  },
-  function (error, request, result) {
-    if (error) {
-      console.log(error);
-      return;
-    }
+const client = zd.createClient(getZendeskConfig());
 
-    console.log(JSON.stringify(result, null, 2, true));
-  },
-);
+async function uploadAttachment(filePath, fileName) {
+  try {
+    const result = await client.attachments.upload(filePath, {
+      filename: fileName,
+    });
+    console.log(JSON.stringify(result, null, 2));
+  } catch (error) {
+    console.error(`Failed to upload attachment: ${error.message}`);
+  }
+}
+
+uploadAttachment(ATTACHMENT_PATH, FILENAME);

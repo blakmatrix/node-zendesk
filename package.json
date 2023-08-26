@@ -63,7 +63,6 @@
     "Fred Souza <fmsouza@noreply.users.github.com>"
   ],
   "dependencies": {
-    "async": "3.2.x",
     "nconf": "0.12.0",
     "request": "2.88.2"
   },
