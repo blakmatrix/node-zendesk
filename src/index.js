@@ -81,7 +81,7 @@ const MODULES = {
 };
 
 const ENDPOINTS = {
-  default: '.zendesk.com/api/v2',
+  core: '.zendesk.com/api/v2',
   helpcenter: '.zendesk.com/api/v2/help_center',
   voice: '.zendesk.com/api/v2/channels/voice',
   services: '.zendesk.com/api/services/jira',
@@ -94,36 +94,33 @@ class ZendeskClient {
   }
 
   _getEndpoint() {
-    const {helpcenter, voice, services} = this.config;
-    if (helpcenter) return ENDPOINTS.helpcenter;
-    if (voice) return ENDPOINTS.voice;
-    if (services) return ENDPOINTS.services;
-    return ENDPOINTS.default;
+    switch (this.config.apiType) {
+      case 'helpcenter': {
+        return ENDPOINTS.helpcenter;
+      }
+
+      case 'voice': {
+        return ENDPOINTS.voice;
+      }
+
+      case 'services': {
+        return ENDPOINTS.services;
+      }
+
+      default: {
+        return ENDPOINTS.core;
+      }
+    }
   }
 
   _initializeClientModules() {
-    const {
-      subdomain,
-      helpcenter,
-      voice,
-      services,
-      nps,
-      remoteUri: providedRemoteUri,
-    } = this.config;
+    const {subdomain, apiType, remoteUri: providedRemoteUri} = this.config;
 
     const remoteUri =
       providedRemoteUri || `https://${subdomain}${this._getEndpoint()}`;
     this.config.remoteUri = remoteUri;
 
-    const clientType = helpcenter
-      ? 'helpcenter'
-      : voice
-      ? 'voice'
-      : services
-      ? 'services'
-      : nps
-      ? 'nps'
-      : 'core';
+    const clientType = apiType || 'core'; // Default to 'core' if no apiType is provided
 
     const clientModules = MODULES[clientType];
     this.client = {};
