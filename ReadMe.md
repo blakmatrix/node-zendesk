@@ -7,6 +7,8 @@
 [![node][node]][node-url]
 [![licenses][licenses]][licenses-url]
 [![PR's welcome][prs]][prs-url]
+[![XO code style][xo]][xo-url]
+
 
   <a href="https://docs.github.com/en/code-security/dependabot/dependabot-security-updates/about-dependabot-security-updates#about-compatibility-scores">
     <img src="https://api.dependabot.com/badges/compatibility_score?dependency-name=node-zendesk&package-manager=npm_and_yarn&previous-version=2.20&new-version=3.0.1">
@@ -118,4 +120,6 @@ MIT.
 [prs-url]: https://github.com/blakmatrix/node-zendesk/blob/master/CONTRIBUTING.md
 [licenses-url]: https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fblakmatrix%2Fnode-zendesk?ref=badge_shield
 [licenses]: https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fblakmatrix%2Fnode-zendesk.svg?type=shield
+[xo]: https://shields.io/badge/code_style-5ed9c7?logo=xo&labelColor=gray
+[xo-url]: https://github.com/xojs/xo
 
