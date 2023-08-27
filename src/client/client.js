@@ -6,6 +6,7 @@ const fs = require('node:fs');
 const process = require('node:process');
 const stream = require('node:stream');
 const request = require('request');
+const pjson = require('../../package.json');
 const {CustomEventTarget} = require('./custom-event-target');
 const throttler = require('./throttle');
 const {
@@ -14,8 +15,30 @@ const {
   checkRequestResponse,
   processResponseBody,
 } = require('./helpers');
-const pjson = require('../../package.json');
 
+/**
+ * Represents a client to interact with the Zendesk API, providing functionalities to make various types of requests.
+ * This client handles request construction, response processing, event emission, and more.
+ *
+ * @class
+ * @property {object} options - Configuration options for the client.
+ * @property {string|Buffer} [options.encoding=null] - Encoding type for the request.
+ * @property {number} [options.timeout=240000] - Timeout for the request in milliseconds.
+ * @property {string} [options.proxy=null] - Proxy URL if needed for the request.
+ * @property {boolean} [options['no-cookies']=false] - Flag to disable cookies.
+ * @property {string} [options.password] - Password for authentication.
+ * @property {string} [options.token] - Token for authentication.
+ * @property {boolean} [options.oauth] - Flag to indicate if OAuth is used.
+ * @property {string} [options.username] - Username for authentication.
+ * @property {string} [options.asUser] - Optional header for making requests on behalf of a user.
+ * @property {object} [options.customHeaders] - Any additional custom headers for the request.
+ * @property {boolean} [options.throttle] - Flag to enable throttling of requests.
+ * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
+ * @property {array} sideLoad - Array to handle side-loaded resources.
+ * @property {string} userAgent - User agent string for the request header.
+ * @property {array} jsonAPINames - Array to hold names used in the JSON API.
+ *
+ */
 class Client {
   constructor(options) {
     this.options = options;
