@@ -22,7 +22,7 @@
     "type": "git",
     "url": "git://github.com/blakmatrix/node-zendesk.git"
   },
-  "main": "./lib/index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "node ./test/*-test.js",
     "docs:dev": "vuepress dev docs",

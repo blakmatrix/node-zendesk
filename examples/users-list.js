@@ -1,5 +1,5 @@
 const process = require('node:process');
-const zd = require('../lib/index');
+const zd = require('../src/index');
 const exampleConfig = require('./exampleConfig');
 
 function getZendeskConfig() {

@@ -14,7 +14,7 @@ const {
   checkRequestResponse,
   processResponseBody,
 } = require('./helpers');
-const pjson = require('./../../package.json');
+const pjson = require('../../package.json');
 
 class Client {
   constructor(options) {
