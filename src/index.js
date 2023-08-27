@@ -90,6 +90,8 @@ const ENDPOINTS = {
 class ZendeskClient {
   constructor(options = {}) {
     this.config = options;
+    const ConsoleLogger = options.logger ? null : require('./logger');
+    this.logger = options.logger || new ConsoleLogger(); // Use provided logger or default to console logger
     this.client = {};
     this._initializeClientModules();
   }
