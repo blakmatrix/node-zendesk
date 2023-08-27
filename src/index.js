@@ -111,6 +111,10 @@ class ZendeskClient {
     const clientTypes = Array.isArray(apiType) ? apiType : [apiType];
 
     for (const type of clientTypes) {
+      if (!ENDPOINTS[type] || !MODULES[type]) {
+        throw new Error(`Invalid apiType provided: ${type}`);
+      }
+
       const endpoint = this._getEndpoint(type);
       const remoteUri = providedRemoteUri || `https://${subdomain}${endpoint}`;
 
@@ -132,7 +136,7 @@ class ZendeskClient {
         args.result = String(args.result);
       }
 
-      console.log(args);
+      this.logger.debug(args);
     }
   }
 }
