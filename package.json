@@ -26,7 +26,9 @@
   "scripts": {
     "test": "node ./test/*-test.js",
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "lint": "xo",
+    "lint:fix": "xo --fix"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "contributors": [
