@@ -90,49 +90,37 @@ const ENDPOINTS = {
 class ZendeskClient {
   constructor(options = {}) {
     this.config = options;
+    this.client = {};
     this._initializeClientModules();
   }
 
-  _getEndpoint() {
-    switch (this.config.apiType) {
-      case 'helpcenter': {
-        return ENDPOINTS.helpcenter;
-      }
-
-      case 'voice': {
-        return ENDPOINTS.voice;
-      }
-
-      case 'services': {
-        return ENDPOINTS.services;
-      }
-
-      default: {
-        return ENDPOINTS.core;
-      }
-    }
+  _getEndpoint(apiType) {
+    return ENDPOINTS[apiType] || ENDPOINTS.core;
   }
 
   _initializeClientModules() {
-    const {subdomain, apiType, remoteUri: providedRemoteUri} = this.config;
+    const {
+      subdomain,
+      apiType = ['core'],
+      remoteUri: providedRemoteUri,
+    } = this.config;
 
-    const remoteUri =
-      providedRemoteUri || `https://${subdomain}${this._getEndpoint()}`;
-    this.config.remoteUri = remoteUri;
+    // Ensure apiType is always an array
+    const clientTypes = Array.isArray(apiType) ? apiType : [apiType];
 
-    const clientType = apiType || 'core'; // Default to 'core' if no apiType is provided
+    for (const type of clientTypes) {
+      const endpoint = this._getEndpoint(type);
+      const remoteUri = providedRemoteUri || `https://${subdomain}${endpoint}`;
 
-    const clientModules = MODULES[clientType];
-    this.client = {};
+      const clientModules = MODULES[type];
 
-    for (const module of clientModules) {
-      const moduleName = module.toLowerCase();
-      const ModuleClass = require(`./client/${clientType}/${moduleName}`)[
-        module
-      ];
-      this.client[moduleName] = new ModuleClass(this.config);
-      this.client[moduleName].on('debug::request', this._debug.bind(this));
-      this.client[moduleName].on('debug::response', this._debug.bind(this));
+      for (const module of clientModules) {
+        const moduleName = module.toLowerCase();
+        const ModuleClass = require(`./client/${type}/${moduleName}`)[module];
+        this.client[moduleName] = new ModuleClass({...this.config, remoteUri});
+        this.client[moduleName].on('debug::request', this._debug.bind(this));
+        this.client[moduleName].on('debug::response', this._debug.bind(this));
+      }
     }
   }
 
