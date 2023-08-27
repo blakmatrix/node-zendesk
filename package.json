@@ -22,7 +22,7 @@
     "type": "git",
     "url": "git://github.com/blakmatrix/node-zendesk.git"
   },
-  "main": "./lib/client.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "node ./test/*-test.js",
     "docs:dev": "vuepress dev docs",
@@ -63,7 +63,6 @@
     "Fred Souza <fmsouza@noreply.users.github.com>"
   ],
   "dependencies": {
-    "nconf": "0.12.0",
     "request": "2.88.2"
   },
   "license": "MIT",
