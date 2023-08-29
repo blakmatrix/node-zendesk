@@ -2,50 +2,70 @@ import {assert, describe, expect, it} from 'vitest';
 import {createClient} from '../src/index.js';
 import {auth} from '../examples/exampleConfig.js';
 
-describe('Authentication', () => {
-  it('accepts unauthenticated(anonymous)', async () => {
-    const client = createClient({
+const TEST_USER = 'Farrin Reid';
+
+describe('Zendesk Client Authentication', () => {
+  const setupClient = (config) => {
+    return createClient({
       username: auth.username,
       subdomain: auth.subdomain,
+      ...config,
     });
+  };
+
+  const verifyUser = async (client, expectedName) => {
     const {result: user} = await client.users.me();
-    expect(user.name).toBe('Anonymous user');
+    expect(user.name).toBe(expectedName);
+  };
+
+  it('should authenticate an anonymous user without any credentials(fail condition)', async () => {
+    const client = setupClient({});
+    await verifyUser(client, 'Anonymous user');
   });
 
-  it('accepts username & token', async () => {
+  it('should fail authentication with an incorrect username and token combination', async () => {
+    const client = setupClient({token: 'incorrectToken'});
+    await verifyUser(client, 'Anonymous user');
+  });
+
+  it('should fail authentication with an incorrect username and password combination', async () => {
+    const client = setupClient({password: 'incorrectPassword'});
+    await verifyUser(client, 'Anonymous user');
+  });
+
+  it('should throw an error for an invalid subdomain', async () => {
     const client = createClient({
       username: auth.username,
       token: auth.token,
-      subdomain: auth.subdomain,
+      subdomain: 'invalidSubdomain',
     });
-    const {result: user} = await client.users.me();
-    expect(user.name).toBe('Farrin Reid');
+    await expect(() => client.users.me()).rejects.toThrowError(
+      'Item not found',
+    );
   });
-  it('accepts username & password', async () => {
-    const client = createClient({
-      username: auth.username,
-      password: auth.password,
-      subdomain: auth.subdomain,
-    });
-    const {result: user} = await client.users.me();
-    expect(user.name).toBe('Farrin Reid');
+
+  it('should authenticate a user using a provided username and token', async () => {
+    const client = setupClient({token: auth.token});
+    await verifyUser(client, TEST_USER);
   });
-  it('oauth throws error if no token given', async () => {
-    const client = createClient({
-      subdomain: auth.subdomain,
-      useOAuth: true,
-    });
+
+  it('should authenticate a user using a provided username and password', async () => {
+    const client = setupClient({password: auth.password});
+    await verifyUser(client, TEST_USER);
+  });
+
+  it('should throw an error when trying OAuth authentication without a token', async () => {
+    const client = setupClient({useOAuth: true});
     await expect(() => client.users.me()).rejects.toThrowError(
       'token is missing',
     );
   });
-  it('accepts oauth', async () => {
-    const client = createClient({
+
+  it('should authenticate a user using OAuth with a valid token', async () => {
+    const client = setupClient({
       token: auth.oauthAccessToken,
-      subdomain: auth.subdomain,
       useOAuth: true,
     });
-    const {result: user} = await client.users.me();
-    expect(user.name).toBe('Farrin Reid');
+    await verifyUser(client, TEST_USER);
   });
 });
