@@ -194,8 +194,7 @@ function checkRequestResponse(response, result) {
 
   let statusCode;
   try {
-    statusCode = response.statusCode;
-    result = JSON.parse(result);
+    statusCode = response.status;
   } catch (error) {
     return {
       exception: error,

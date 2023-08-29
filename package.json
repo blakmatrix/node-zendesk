@@ -66,17 +66,14 @@
     "Heriberto Madrigal <magic-madrigal@noreply.users.github.com>",
     "Fred Souza <fmsouza@noreply.users.github.com>"
   ],
-  "dependencies": {
-    "request": "2.88.2"
-  },
   "license": "MIT",
   "engines": {
     "node": ">= 16"
   },
   "devDependencies": {
-    "vitest": "^0.34.3",
     "@vitest/coverage-v8": "^0.34.3",
     "dotenv": "^16.3.1",
+    "vitest": "^0.34.3",
     "xo": "^0.56.0"
   },
   "xo": {
