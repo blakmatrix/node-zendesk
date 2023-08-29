@@ -1,6 +1,7 @@
 // Client.js - main client file that does most of the processing
 'use strict';
 
+const {Buffer} = require('node:buffer');
 const {constants} = require('node:crypto');
 const fs = require('node:fs');
 const process = require('node:process');
@@ -15,6 +16,7 @@ const {
   checkRequestResponse,
   processResponseBody,
 } = require('./helpers');
+
 
 /**
  * Represents a client to interact with the Zendesk API, providing functionalities to make various types of requests.
@@ -95,56 +97,83 @@ class Client {
     return this.sendRequest(options);
   }
 
-  prepareOptionsForRequest(method, uri, body) {
+  prepareOptionsForRequest(method = 'GET', uri, body) {
     const url = assembleUrl(this, uri);
-    const headers = this.getHeadersForRequest(body);
+    const bodyContent = this.getBodyForRequest(method, body);
+    const headers = this.getHeadersForRequest(bodyContent);
 
     return {
       ...this.options,
       headers,
       uri: url,
-      method: method || 'GET',
-      body,
+      method,
+      body: bodyContent,
     };
+  }
+
+  getBodyForRequest(method, body) {
+    if (method === 'GET') return undefined;
+
+    if (!body && this.getContentType() === 'application/json') return '{}';
+
+    if (body) {
+      try {
+        return JSON.stringify(body);
+      } catch (error) {
+        throw new Error(
+          `Failed to stringify the request body: ${error.message}`,
+        );
+      }
+    }
+
+    return undefined;
   }
 
   getHeadersForRequest(body) {
     const headers = {
-      'Content-Type': 'application/json',
+      'Content-Type': this.getContentType(),
       Accept: 'application/json',
       'User-Agent': this.userAgent,
+      ...this.options.get('customHeaders'),
     };
 
     if (body) {
-      headers['Content-Length'] = body.length;
+      headers['Content-Length'] = Buffer.byteLength(body, 'utf8');
     }
 
-    const auth = this.options.get('password')
-      ? ':' + this.options.get('password')
-      : '/token:' + this.options.get('token');
-    const encoded = require('node:buffer')
-      .Buffer.from(this.options.get('username') + auth)
-      .toString('base64');
+    headers.Authorization = this.createAuthorizationHeader();
 
-    const useOAuth = this.options.get('oauth');
-    const token = this.options.get('token');
     const asUser = this.options.get('asUser');
-    const customHeaders = this.options.get('customHeaders');
-
-    headers.Authorization = useOAuth ? 'Bearer ' + token : 'Basic ' + encoded;
-
     if (asUser) {
       headers['X-On-Behalf-Of'] = asUser;
     }
 
-    if (customHeaders) {
-      return {
-        ...headers,
-        ...customHeaders,
-      };
+    return headers;
+  }
+
+  getContentType() {
+    return 'application/json';
+  }
+
+  createAuthorizationHeader() {
+    const useOAuth = this.options.get('oauth');
+    if (useOAuth) {
+      const token = this.options.get('token');
+      if (!token) throw new Error('OAuth is enabled, but token is missing.');
+      return `Bearer ${token}`;
     }
 
-    return headers;
+    const username = this.options.get('username');
+    const passwordOrToken = this.options.get('password')
+      ? `:${this.options.get('password')}`
+      : `/token:${this.options.get('token')}`;
+    if (!username || !passwordOrToken)
+      throw new Error('Missing credentials for Basic Authentication.');
+
+    const encoded = Buffer.from(`${username}${passwordOrToken}`).toString(
+      'base64',
+    );
+    return `Basic ${encoded}`;
   }
 
   sendRequest(options) {
