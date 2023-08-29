@@ -25,10 +25,11 @@
   "main": "./src/index.js",
   "scripts": {
     "test": "node ./test/*-test.js",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
     "lint": "xo",
-    "lint:fix": "xo --fix"
+    "lint:fix": "xo --fix",
+    "docs:preview": "vitepress preview docs"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "contributors": [
