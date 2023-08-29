@@ -5,10 +5,13 @@ examples/
 .github/
 .vscode/
 .travis.yml
+coverage/
 test/
 docs/
 doc/
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
-deploy.docs.sh
+deploy.docs.*
 SECURITY.md
+.env
+.env.example

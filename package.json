@@ -24,7 +24,8 @@
   },
   "main": "./src/index.js",
   "scripts": {
-    "test": "node ./test/*-test.js",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "lint": "xo",
@@ -73,6 +74,9 @@
     "node": ">= 16"
   },
   "devDependencies": {
+    "vitest": "^0.34.3",
+    "@vitest/coverage-v8": "^0.34.3",
+    "dotenv": "^16.3.1",
     "xo": "^0.56.0"
   },
   "xo": {
