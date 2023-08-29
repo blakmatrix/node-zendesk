@@ -192,6 +192,11 @@ function checkRequestResponse(response, result) {
     return createError('Zendesk returned an empty result', 204);
   }
 
+  // The following occurs on delete requests
+  if (response.statusCode === 204 && response.statusMessage === 'No Content') {
+    return createError(response.statusMessage, response.statusCode);
+  }
+
   let statusCode;
   try {
     statusCode = response.statusCode;
