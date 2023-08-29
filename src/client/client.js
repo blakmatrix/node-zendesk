@@ -17,7 +17,6 @@ const {
   processResponseBody,
 } = require('./helpers');
 
-
 /**
  * Represents a client to interact with the Zendesk API, providing functionalities to make various types of requests.
  * This client handles request construction, response processing, event emission, and more.
@@ -137,9 +136,9 @@ class Client {
       ...this.options.get('customHeaders'),
     };
 
-    if (body) {
-      headers['Content-Length'] = Buffer.byteLength(body, 'utf8');
-    }
+    headers['Content-Length'] = body
+      ? Buffer.byteLength(body, 'utf8')
+      : undefined;
 
     headers.Authorization = this.createAuthorizationHeader();
 
@@ -200,19 +199,19 @@ class Client {
   }
 
   async get(resource) {
-    return this.makeRequest('GET', resource);
+    return this.request('GET', resource);
   }
 
   async put(resource, body) {
-    return this.makeRequest('PUT', resource, body);
+    return this.request('PUT', resource, body);
   }
 
   async post(resource, body) {
-    return this.makeRequest('POST', resource, body);
+    return this.request('POST', resource, body);
   }
 
   async delete(resource) {
-    return this.makeRequest('DELETE', resource);
+    return this.request('DELETE', resource);
   }
 
   async getAll(resource) {
@@ -238,14 +237,15 @@ class Client {
       typeof args.at(-1) === 'object' &&
       !Array.isArray(args.at(-1)) &&
       args.pop();
-    const options = this.prepareRequestOptions(method, uri, body);
+    const options = this.prepareOptionsForRequest(method, uri, body);
     this.emit('debug::request', options);
 
     try {
       const {response, result} = await this.sendRequest(options);
+      this.emit('debug::response', response);
       const checkResult = checkRequestResponse(response, result);
       const responseBody = processResponseBody(checkResult, this);
-      return {response, body: responseBody};
+      return {response, result: responseBody};
     } catch (error) {
       throw new Error(`Request failed: ${error.message}`);
     }
@@ -261,8 +261,8 @@ class Client {
       __request = throttler(this, this.request, throttle);
     }
 
-    const processPage = ({body, response}) => {
-      bodyList.push(body);
+    const processPage = ({result, response}) => {
+      bodyList.push(result);
 
       // Determining the next page
       if (response && response.links && response.links.next) {
