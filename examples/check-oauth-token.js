@@ -1,19 +1,27 @@
 const process = require('node:process');
-const zd = require('../lib/client');
+const zd = require('../src/index');
 const exampleConfig = require('./exampleConfig');
 
-const client = zd.createClient({
-  username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
-  token: process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
-  remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
-  oauth: true,
-});
+function getZendeskConfig() {
+  return {
+    token: process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
+    subdomain:
+      process.env.ZENDESK_TEST_SUBDOMAIN || exampleConfig.auth.subdomain,
+    oauth: true,
+    debug: true,
+  };
+}
 
-client.users.auth(function (error, request, result) {
-  if (error) {
-    console.log(error);
-    return;
+const client = zd.createClient(getZendeskConfig());
+
+async function checkOAuth() {
+  try {
+    const {result} = await client.users.auth();
+    const user = result;
+    console.log(user.verified);
+  } catch (error) {
+    console.error(`Failed to check OAuth: ${error.message}`);
   }
+}
 
-  console.log(JSON.stringify(result.verified, null, 2, true));
-});
+checkOAuth();
