@@ -24,9 +24,7 @@ const failCodes = {
  */
 function getJobStatuses(options, jobID, interval, maxAttempts, cb) {
   let attempts = 0;
-  const client = require('../client').createClient(
-    options.stores.defaults.store,
-  );
+  const client = require('./client').createClient(options);
   // Interval handle
   const nIntervId = setInterval(() => getJobStatus(jobID), interval || 500);
 
