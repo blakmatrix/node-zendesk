@@ -33,7 +33,7 @@ describe('Authentication', () => {
   it('oauth throws error if no token given', async () => {
     const client = createClient({
       subdomain: auth.subdomain,
-      oauth: true,
+      useOAuth: true,
     });
     await expect(() => client.users.me()).rejects.toThrowError(
       'token is missing',
@@ -43,7 +43,7 @@ describe('Authentication', () => {
     const client = createClient({
       token: auth.oauthAccessToken,
       subdomain: auth.subdomain,
-      oauth: true,
+      useOAuth: true,
     });
     const {result: user} = await client.users.me();
     expect(user.name).toBe('Farrin Reid');

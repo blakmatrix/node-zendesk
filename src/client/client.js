@@ -29,7 +29,7 @@ const {
  * @property {boolean} [options['no-cookies']=false] - Flag to disable cookies.
  * @property {string} [options.password] - Password for authentication.
  * @property {string} [options.token] - Token for authentication.
- * @property {boolean} [options.oauth] - Flag to indicate if OAuth is used.
+ * @property {boolean} [options.useOAuth] - Flag to indicate if OAuth is used.
  * @property {string} [options.username] - Username for authentication.
  * @property {string} [options.asUser] - Optional header for making requests on behalf of a user.
  * @property {object} [options.customHeaders] - Any additional custom headers for the request.
@@ -155,7 +155,7 @@ class Client {
   }
 
   createAuthorizationHeader() {
-    const useOAuth = this.options.get('oauth');
+    const useOAuth = this.options.get('useOAuth');
     if (useOAuth) {
       const token = this.options.get('token');
       if (!token) throw new Error('OAuth is enabled, but token is missing.');

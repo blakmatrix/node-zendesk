@@ -8,7 +8,7 @@ function getZendeskConfig() {
       process.env.ZENDESK_OAUTH_TOKEN || exampleConfig.auth.oauthAccessToken,
     subdomain:
       process.env.ZENDESK_TEST_SUBDOMAIN || exampleConfig.auth.subdomain,
-    oauth: true,
+      useOAuth: true,
   };
 }
 
