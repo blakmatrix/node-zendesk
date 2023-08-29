@@ -25,15 +25,15 @@ class Sessions extends Client {
   }
 
   async deleteByUserIdBySessionId(userId, sessionId) {
-    return this.delete(['users', userId, 'sessions', sessionId]);
+    return super.delete(['users', userId, 'sessions', sessionId]);
   }
 
   async bulkDeleteByUserId(userId) {
-    return this.delete(['users', userId, 'sessions']);
+    return super.delete(['users', userId, 'sessions']);
   }
 
   async logMeOut() {
-    return this.delete(['users', 'me', 'sessions']);
+    return super.delete(['users', 'me', 'sessions']);
   }
 }
 

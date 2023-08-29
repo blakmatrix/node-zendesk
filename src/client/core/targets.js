@@ -29,7 +29,7 @@ class Targets extends Client {
 
   // Deleting Targets
   async delete(targetID) {
-    return this.delete(['targets', targetID]);
+    return super.delete(['targets', targetID]);
   }
 }
 

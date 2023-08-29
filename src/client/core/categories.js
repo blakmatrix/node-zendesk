@@ -31,7 +31,7 @@ class Categories extends Client {
 
   // Deleting Categories
   async delete(categoryID) {
-    return this.delete(['categories', categoryID]);
+    return super.delete(['categories', categoryID]);
   }
 }
 

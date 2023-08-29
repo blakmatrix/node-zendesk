@@ -50,11 +50,11 @@ class GroupMemberships extends Client {
 
   // Deleting GroupMemberships
   async delete(groupMembershipID) {
-    return this.delete(['group_memberships', groupMembershipID]);
+    return super.delete(['group_memberships', groupMembershipID]);
   }
 
   async deleteByUser(userID, groupMembershipID) {
-    return this.delete([
+    return super.delete([
       'users',
       userID,
       'group_memberships',

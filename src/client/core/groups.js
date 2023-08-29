@@ -37,7 +37,7 @@ class Groups extends Client {
 
   // Deleting Groups
   async delete(groupID) {
-    return this.delete(['groups', groupID]);
+    return super.delete(['groups', groupID]);
   }
 }
 

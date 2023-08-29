@@ -37,7 +37,7 @@ class ArticleComments extends Client {
 
   // Deleting an Article Comment
   async delete(articleID, commentID) {
-    return this.delete(['articles', articleID, 'comments', commentID]);
+    return super.delete(['articles', articleID, 'comments', commentID]);
   }
 }
 

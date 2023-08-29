@@ -103,11 +103,11 @@ class Tickets extends Client {
 
   // Deleting Tickets
   async delete(ticketID) {
-    return this.delete(['tickets', ticketID]);
+    return super.delete(['tickets', ticketID]);
   }
 
   async deleteMany(ticket_ids) {
-    return this.delete([
+    return super.delete([
       'tickets',
       'destroy_many',
       '?ids=' + ticket_ids.toString(),

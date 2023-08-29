@@ -39,7 +39,7 @@ class Macros extends Client {
 
   // Deleting Macros
   async delete(macroID) {
-    return this.delete(['macros', macroID]);
+    return super.delete(['macros', macroID]);
   }
 
   async createMany(users) {

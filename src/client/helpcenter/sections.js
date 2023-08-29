@@ -72,7 +72,7 @@ class Sections extends Client {
 
   // Deleting Sections
   async delete(sectionID) {
-    return this.delete(['sections', sectionID]);
+    return super.delete(['sections', sectionID]);
   }
 }
 

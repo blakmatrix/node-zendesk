@@ -29,7 +29,7 @@ class ForumSubscriptions extends Client {
 
   // Deleting ForumSubscriptions
   async delete(forumSubscriptionID) {
-    return this.delete(['forum_subscriptions', forumSubscriptionID]);
+    return super.delete(['forum_subscriptions', forumSubscriptionID]);
   }
 }
 

@@ -43,7 +43,7 @@ class Triggers extends Client {
 
   // Deleting Triggers
   async delete(triggerID) {
-    return this.delete(['triggers', triggerID]);
+    return super.delete(['triggers', triggerID]);
   }
 
   // Reorder Audits

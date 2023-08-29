@@ -29,7 +29,7 @@ class Greetings extends Client {
 
   // Delete Greeting
   async delete(greetingID) {
-    return this.delete('DELETE', ['greetings', greetingID]);
+    return super.delete('DELETE', ['greetings', greetingID]);
   }
 }
 

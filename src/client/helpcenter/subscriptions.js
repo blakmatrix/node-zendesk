@@ -44,7 +44,7 @@ class Subscriptions extends Client {
 
   // Deleting subscriptions by article
   async deletebyArticle(articleID, subscriptionID) {
-    return this.delete([
+    return super.delete([
       'articles',
       articleID,
       'subscriptions',
@@ -54,7 +54,7 @@ class Subscriptions extends Client {
 
   // Deleting subscriptions by section
   async deletebySection(sectionID, subscriptionID) {
-    return this.delete([
+    return super.delete([
       'articles',
       sectionID,
       'subscriptions',

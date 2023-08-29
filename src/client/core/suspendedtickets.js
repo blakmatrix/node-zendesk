@@ -36,7 +36,7 @@ class SuspendedTickets extends Client {
   }
 
   async destroyMany(suspendedTicketIDs) {
-    return this.delete([
+    return super.delete([
       'suspended_tickets',
       'destroy_many',
       {ids: suspendedTicketIDs},
@@ -44,7 +44,7 @@ class SuspendedTickets extends Client {
   }
 
   async deleteMany(suspendedTicketIDs) {
-    return this.delete([
+    return super.delete([
       'suspended_tickets',
       'destroy_many',
       {ids: suspendedTicketIDs},

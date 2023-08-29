@@ -54,7 +54,7 @@ class Votes extends Client {
 
   // Deleting Votes
   async delete(voteID) {
-    return this.delete(['votes', voteID]);
+    return super.delete(['votes', voteID]);
   }
 }
 

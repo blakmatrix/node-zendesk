@@ -29,7 +29,7 @@ class UserFields extends Client {
 
   // Deleting UserFields
   async delete(userFieldID) {
-    return this.delete(['user_fields', userFieldID]);
+    return super.delete(['user_fields', userFieldID]);
   }
 }
 

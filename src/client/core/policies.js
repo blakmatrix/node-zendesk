@@ -29,7 +29,7 @@ class Policies extends Client {
 
   // Deleting Policies
   async delete(policyID) {
-    return this.delete(['slas/policies', policyID]);
+    return super.delete(['slas/policies', policyID]);
   }
 }
 

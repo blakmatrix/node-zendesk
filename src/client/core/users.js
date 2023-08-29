@@ -135,7 +135,7 @@ class Users extends Client {
   }
 
   async delete(id) {
-    return this.delete(['users', id]);
+    return super.delete(['users', id]);
   }
 
   async destroyMany(...args) {
@@ -147,15 +147,15 @@ class Users extends Client {
     const users = args.length === 2 ? args[0] : args[1];
 
     if (args.length === 2) {
-      return this.delete(['users', 'destroy_many'], users);
+      return super.delete(['users', 'destroy_many'], users);
     }
 
     if (!ids) {
-      return this.delete(['users', 'destroy_many'], users);
+      return super.delete(['users', 'destroy_many'], users);
     }
 
     if (typeof ids === 'string') {
-      return this.delete(
+      return super.delete(
         ['users', 'destroy_many', '?ids=' + ids.toString()],
         users,
       );
@@ -163,21 +163,21 @@ class Users extends Client {
 
     if (typeof ids === 'object') {
       if (Array.isArray(ids)) {
-        return this.delete(
+        return super.delete(
           ['users', 'destroy_many', '?ids=' + ids.join(',')],
           users,
         );
       }
 
       if (ids.hasOwn(ids, 'ids')) {
-        return this.delete(
+        return super.delete(
           ['users', 'destroy_many', '?ids=' + ids.ids.toString()],
           users,
         );
       }
 
       if (ids.hasOwn(ids, 'external_ids')) {
-        return this.delete(
+        return super.delete(
           [
             'users',
             'destroy_many',
@@ -244,7 +244,7 @@ class Users extends Client {
   }
 
   async removeTags(userId, tags) {
-    return this.delete(['users', userId, 'tags'], tags);
+    return super.delete(['users', userId, 'tags'], tags);
   }
 }
 

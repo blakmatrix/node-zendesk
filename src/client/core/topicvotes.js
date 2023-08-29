@@ -28,7 +28,7 @@ class TopicVotes extends Client {
 
   // Deleting TopicVotes
   async delete(topicID) {
-    return this.delete(['topics', topicID, 'vote']);
+    return super.delete(['topics', topicID, 'vote']);
   }
 }
 

@@ -20,7 +20,7 @@ class OauthTokens extends Client {
   }
 
   async revoke(id) {
-    return this.delete(['oauth', 'tokens', id]);
+    return super.delete(['oauth', 'tokens', id]);
   }
 
   async create(token) {

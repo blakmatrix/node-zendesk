@@ -32,7 +32,7 @@ class OrganizationFields extends Client {
 
   // Deleting OrganizationFields
   async delete(organizationFieldID) {
-    return this.delete(['organization_fields', organizationFieldID]);
+    return super.delete(['organization_fields', organizationFieldID]);
   }
 }
 

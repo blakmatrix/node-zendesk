@@ -34,7 +34,7 @@ class Forums extends Client {
 
   // Deleting Forums
   async delete(forumID) {
-    return this.delete(['forums', forumID]);
+    return super.delete(['forums', forumID]);
   }
 }
 
