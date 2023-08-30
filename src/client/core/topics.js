@@ -48,7 +48,7 @@ class Topics extends Client {
 
   // Deleting Topics
   async delete(topicID) {
-    return this.delete(['topics', topicID]);
+    return super.delete(['topics', topicID]);
   }
 }
 

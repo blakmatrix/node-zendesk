@@ -49,7 +49,7 @@ class Organizations extends Client {
 
   // Deleting Organizations
   async delete(organizationID) {
-    return this.delete(['organizations', organizationID]);
+    return super.delete(['organizations', organizationID]);
   }
 
   // Search Organizations

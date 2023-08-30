@@ -49,7 +49,7 @@ class UserSegments extends Client {
 
   // Deleting User Segment
   async delete(userSegmentID) {
-    return this.delete(['user_segments', userSegmentID]);
+    return super.delete(['user_segments', userSegmentID]);
   }
 }
 

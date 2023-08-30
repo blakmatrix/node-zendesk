@@ -29,7 +29,7 @@ class Webhooks extends Client {
 
   // Deleting Webhooks
   async delete(webhookID) {
-    return this.delete(`/webhooks/${webhookID}`);
+    return super.delete(`/webhooks/${webhookID}`);
   }
 }
 

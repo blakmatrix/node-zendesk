@@ -29,7 +29,7 @@ class Installations extends Client {
 
   // Deleting Installations
   async delete(installationID) {
-    return this.delete(['apps', 'installations', installationID]);
+    return super.delete(['apps', 'installations', installationID]);
   }
 }
 

@@ -34,7 +34,7 @@ class Automations extends Client {
 
   // Deleting Automations
   async delete(automationID) {
-    return this.delete(['automations', automationID]);
+    return super.delete(['automations', automationID]);
   }
 
   // Reorder Audits

@@ -106,7 +106,7 @@ class Articles extends Client {
 
   // Deleting Articles
   async delete(articleID) {
-    return this.delete(['articles', articleID]);
+    return super.delete(['articles', articleID]);
   }
 }
 

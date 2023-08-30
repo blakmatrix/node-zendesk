@@ -1,7 +1,9 @@
-import 'dotenv/config.js';
 import process from 'node:process';
-import {assert, describe, expect, it} from 'vitest';
+import dotenv from 'dotenv';
+import {describe, expect, it} from 'vitest';
 import {createClient} from '../src/index.js';
+
+dotenv.config();
 
 const username = process.env.ZENDESK_USERNAME;
 const password = process.env.ZENDESK_PASSWORD;

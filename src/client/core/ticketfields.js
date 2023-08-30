@@ -29,7 +29,7 @@ class TicketFields extends Client {
 
   // Deleting Tickets Fields
   async delete(ticketFieldID) {
-    return this.delete(['ticket_fields', ticketFieldID]);
+    return super.delete(['ticket_fields', ticketFieldID]);
   }
 }
 

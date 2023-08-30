@@ -30,7 +30,7 @@ class Brand extends Client {
 
   // Delete Brand
   async delete(brandId) {
-    return this.delete(['brands', brandId]);
+    return super.delete(['brands', brandId]);
   }
 
   // Check Host Mapping Validity

@@ -62,7 +62,7 @@ class UserIdentities extends Client {
 
   // Deleting UserIdentities
   async delete(userID, userIdentityID) {
-    return this.delete(['users', userID, 'identities', userIdentityID]);
+    return super.delete(['users', userID, 'identities', userIdentityID]);
   }
 }
 

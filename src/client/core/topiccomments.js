@@ -38,7 +38,7 @@ class TopicComments extends Client {
 
   // Deleting TopicComments
   async delete(topicID, commentID) {
-    return this.delete(['topics', topicID, 'comments', commentID]);
+    return super.delete(['topics', topicID, 'comments', commentID]);
   }
 }
 

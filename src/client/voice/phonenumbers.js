@@ -34,7 +34,7 @@ class PhoneNumbers extends Client {
 
   // Delete PhoneNumbers
   async delete(phoneID) {
-    return this.delete(['phone_numbers', phoneID]);
+    return super.delete(['phone_numbers', phoneID]);
   }
 }
 

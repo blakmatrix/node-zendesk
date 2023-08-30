@@ -27,7 +27,7 @@ class DynamicContent extends Client {
   }
 
   async deleteItem(itemID) {
-    return this.delete(['dynamic_content', 'items', itemID]);
+    return super.delete(['dynamic_content', 'items', itemID]);
   }
 
   async listVariants(itemID) {
@@ -60,7 +60,7 @@ class DynamicContent extends Client {
   }
 
   async deleteVariant(itemID, variantID) {
-    return this.delete([
+    return super.delete([
       'dynamic_content',
       'items',
       itemID,

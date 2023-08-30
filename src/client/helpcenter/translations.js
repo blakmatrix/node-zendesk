@@ -91,7 +91,7 @@ class Translations extends Client {
 
   // Deleting Translations
   async delete(translationID) {
-    return this.delete(['translations', translationID]);
+    return super.delete(['translations', translationID]);
   }
 
   // Listing All Enabled Locales And Default Locale

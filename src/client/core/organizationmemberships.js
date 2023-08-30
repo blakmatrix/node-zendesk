@@ -65,11 +65,11 @@ class OrganizationMemberships extends Client {
 
   // Deleting Organization Memberships
   async delete(organizationMembershipID) {
-    return this.delete(['organization_memberships', organizationMembershipID]);
+    return super.delete(['organization_memberships', organizationMembershipID]);
   }
 
   async deleteByUser(userID, organizationMembershipID) {
-    return this.delete([
+    return super.delete([
       'users',
       userID,
       'organization_memberships',
@@ -78,7 +78,7 @@ class OrganizationMemberships extends Client {
   }
 
   async deleteMany(organizationMembershipIDs) {
-    return this.delete(
+    return super.delete(
       ['organization_memberships', 'destroy_many'],
       organizationMembershipIDs,
     );

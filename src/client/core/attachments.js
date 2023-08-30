@@ -30,7 +30,7 @@ class Attachments extends Client {
 
   // Deleteing Upload
   async deleteUpload(token) {
-    return this.delete(['uploads', token]);
+    return super.delete(['uploads', token]);
   }
 
   // Show an Attachment
@@ -40,12 +40,12 @@ class Attachments extends Client {
 
   // Delete an Attachment
   async delete(attachmentID) {
-    return this.delete(['attachments', attachmentID]);
+    return super.delete(['attachments', attachmentID]);
   }
 
   // Redacting Attachment Comments
   async redactAttachmentComment(ticketID, commentID, attachmentID) {
-    return this.delete(
+    return super.delete(
       [
         'tickets',
         ticketID,

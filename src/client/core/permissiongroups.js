@@ -29,7 +29,7 @@ class PermissionGroups extends Client {
 
   // Deleting Permission Groups
   async delete(groupID) {
-    return this.delete(['guide', 'permission_groups', groupID]);
+    return super.delete(['guide', 'permission_groups', groupID]);
   }
 }
 

@@ -29,7 +29,7 @@ class ArticleLabels extends Client {
 
   // Deleting Article Labels
   async delete(articleID, labelID) {
-    return this.delete(['articles', articleID, 'labels', labelID]);
+    return super.delete(['articles', articleID, 'labels', labelID]);
   }
 }
 

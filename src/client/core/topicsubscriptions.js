@@ -28,7 +28,7 @@ class TopicSubscriptions extends Client {
 
   // Deleting TopicSubscriptions
   async delete(topicSubscriptionsID) {
-    return this.delete(['topic_subscriptions', topicSubscriptionsID]);
+    return super.delete(['topic_subscriptions', topicSubscriptionsID]);
   }
 }
 

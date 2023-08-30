@@ -40,7 +40,7 @@ class ArticleAttachments extends Client {
 
   // Deleting Article Attachments
   async delete(attachmentID) {
-    return this.delete(['articles', 'attachments', attachmentID]);
+    return super.delete(['articles', 'attachments', attachmentID]);
   }
 }
 
