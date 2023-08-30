@@ -68,7 +68,7 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">= 16"
+    "node": ">= 18"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^0.34.3",
