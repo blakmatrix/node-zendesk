@@ -64,19 +64,6 @@ class Client {
     return `node-zendesk/${version} (node/${process.versions.node})`;
   }
 
-  getDefaultRequestOptions() {
-    return {
-      encoding: this.options.get('encoding') || null,
-      timeout: this.options.get('timeout') || 240_000,
-      proxy: this.options.get('proxy') || null,
-      // eslint-disable-next-line no-bitwise
-      secureOptions: constants.SSL_OP_NO_TLSv1 | constants.SSL_OP_NO_TLSv1_1,
-      forever: true,
-      pool: {maxSockets: 100},
-      secureProtocol: 'TLSv1_2_method',
-    };
-  }
-
   initializeJsonAPINames() {
     this.jsonAPINames = this.jsonAPINames || [];
   }
@@ -164,7 +151,7 @@ class Client {
   }
 
   fetchWithOptions(uri, options) {
-    return fetch(options.uri, {...this.getDefaultRequestOptions(), ...options});
+    return fetch(options.uri, options);
   }
 
   async sendRequest(options) {
