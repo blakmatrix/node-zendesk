@@ -128,10 +128,6 @@ class Client {
       ...this.options.get('customHeaders'),
     };
 
-    // headers['Content-Length'] = body
-    //   ? Buffer.byteLength(body, 'utf8')
-    //   : undefined;
-
     headers.Authorization = this.createAuthorizationHeader();
 
     const asUser = this.options.get('asUser');
