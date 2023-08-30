@@ -156,11 +156,16 @@ class Client {
 
   async sendRequest(options) {
     const response = await this.fetchWithOptions(options.uri, options);
-    let result;
-    if (response.json) {
+
+    let result = {};
+    if (
+      response.status !== 204 &&
+      response.headers.get('content-type')?.includes('application/json')
+    ) {
       result = await response.json();
     }
-    return { response, result };
+
+    return {response, result};
   }
 
   // Client methods
@@ -301,7 +306,11 @@ class Client {
         response = await this.fetchWithOptions(options.uri, this.options);
       } else {
         const fileStream = fs.createReadStream(file);
-        response = await this.fetchWithOptions(options.uri, { ...options, body: fileStream, duplex: "half" });
+        response = await this.fetchWithOptions(options.uri, {
+          ...options,
+          body: fileStream,
+          duplex: 'half',
+        });
       }
 
       const result = await response.json();

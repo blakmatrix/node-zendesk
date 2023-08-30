@@ -193,8 +193,8 @@ function checkRequestResponse(response, result) {
   }
 
   // The following occurs on delete requests
-  if (response.statusCode === 204 && response.statusMessage === 'No Content') {
-    return createError(response.statusMessage, response.statusCode);
+  if (response.status === 204 && response.statusText === 'No Content') {
+    return createError(response.statusText, response.status);
   }
 
   let statusCode;
@@ -208,7 +208,7 @@ function checkRequestResponse(response, result) {
     };
   }
 
-  const retryAfter = response.headers['retry-after'];
+  const retryAfter = response.headers.get('retry-after');
   if (retryAfter) {
     return createError(
       'Zendesk rate limits 200 requests per minute',
