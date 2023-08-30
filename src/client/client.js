@@ -315,10 +315,10 @@ class Client {
     try {
       let response;
       if (binary) {
-        response = await this.fetchWithOptions(this.options.uri, this.options);
+        response = await this.fetchWithOptions(options.uri, this.options);
       } else {
         const fileStream = fs.createReadStream(file);
-        response = await this.fetchWithOptions(this.options.uri, { ...this.options, body: fileStream });
+        response = await this.fetchWithOptions(options.uri, { ...options, body: fileStream, duplex: "half" });
       }
 
       const result = await response.json();
