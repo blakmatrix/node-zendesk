@@ -124,7 +124,7 @@ class Client {
 
   async sendRequest(options) {
     const response = await this.fetchWithOptions(options.uri, options);
-
+    this.emit('debug::response', response);
     let result = {};
     if (
       response.status !== 204 &&
@@ -191,7 +191,6 @@ class Client {
 
     try {
       const {response, result} = await this.sendRequest(options);
-      this.emit('debug::response', response);
       const checkResult = checkRequestResponse(response, result);
       const responseBody = processResponseBody(checkResult, this);
       return {response, result: responseBody};
