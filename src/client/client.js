@@ -1,12 +1,12 @@
 // Client.js - main client file that does most of the processing
 'use strict';
 
-const {Buffer} = require('node:buffer');
 const fs = require('node:fs');
 const process = require('node:process');
 const stream = require('node:stream');
 const pjson = require('../../package.json');
 const {CustomEventTarget} = require('./custom-event-target');
+const {AuthorizationHandler} = require('./authorization-handler');
 const throttler = require('./throttle');
 const {
   flatten,
@@ -42,6 +42,7 @@ class Client {
     this.sideLoad = [];
     this.userAgent = this.generateUserAgent();
     this.initializeJsonAPINames();
+    this.authHandler = new AuthorizationHandler(this.options);
   }
 
   // Helper methods
@@ -73,7 +74,7 @@ class Client {
   prepareOptionsForRequest(method = 'GET', uri, body) {
     const url = assembleUrl(this, uri);
     const bodyContent = this.getBodyForRequest(method, body);
-    const headers = this.getHeadersForRequest(bodyContent);
+    const headers = this.getHeadersForRequest();
 
     return {
       ...this.options,
@@ -87,30 +88,27 @@ class Client {
   getBodyForRequest(method, body) {
     if (method === 'GET') return undefined;
 
-    if (!body && this.getContentType() === 'application/json') return '{}';
-
-    if (body) {
-      try {
-        return JSON.stringify(body);
-      } catch (error) {
-        throw new Error(
-          `Failed to stringify the request body: ${error.message}`,
-        );
-      }
-    }
-
-    return undefined;
+    return body ? this.getJSONBody(body) : undefined;
   }
 
-  getHeadersForRequest(body) {
+  getJSONBody(body) {
+    if (!body) return '{}';
+
+    try {
+      return JSON.stringify(body);
+    } catch (error) {
+      throw new Error(`Failed to stringify the request body: ${error.message}`);
+    }
+  }
+
+  getHeadersForRequest() {
     const headers = {
-      'Content-Type': this.getContentType(),
+      Authorization: this.authHandler.createAuthorizationHeader(),
+      'Content-Type': 'application/json',
       Accept: 'application/json',
       'User-Agent': this.userAgent,
       ...this.options.get('customHeaders'),
     };
-
-    headers.Authorization = this.createAuthorizationHeader();
 
     const asUser = this.options.get('asUser');
     if (asUser) {
@@ -118,31 +116,6 @@ class Client {
     }
 
     return headers;
-  }
-
-  getContentType() {
-    return 'application/json';
-  }
-
-  createAuthorizationHeader() {
-    const useOAuth = this.options.get('useOAuth');
-    if (useOAuth) {
-      const token = this.options.get('token');
-      if (!token) throw new Error('OAuth is enabled, but token is missing.');
-      return `Bearer ${token}`;
-    }
-
-    const username = this.options.get('username');
-    const passwordOrToken = this.options.get('password')
-      ? `:${this.options.get('password')}`
-      : `/token:${this.options.get('token')}`;
-    if (!username || !passwordOrToken)
-      throw new Error('Missing credentials for Basic Authentication.');
-
-    const encoded = Buffer.from(`${username}${passwordOrToken}`).toString(
-      'base64',
-    );
-    return `Basic ${encoded}`;
   }
 
   fetchWithOptions(uri, options) {
@@ -195,7 +168,7 @@ class Client {
   }
 
   prepareRequestOptions(method, uri, body) {
-    const headers = this.getHeadersForRequest(body);
+    const headers = this.getHeadersForRequest();
     const url = assembleUrl(this, uri);
 
     return {
