@@ -1,18 +1,14 @@
 // Client.js - main client file that does most of the processing
 'use strict';
 
-const fs = require('node:fs');
-const process = require('node:process');
-const stream = require('node:stream');
-const pjson = require('../../package.json');
 const {CustomEventTarget} = require('./custom-event-target');
-const {AuthorizationHandler} = require('./authorization-handler');
+const {Transporter} = require('./transporter');
 const throttler = require('./throttle');
 const {
   flatten,
-  assembleUrl,
   checkRequestResponse,
   processResponseBody,
+  generateUserAgent,
 } = require('./helpers');
 
 /**
@@ -30,7 +26,6 @@ const {
  * @property {boolean} [options.throttle] - Flag to enable throttling of requests.
  * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
  * @property {array} sideLoad - Array to handle side-loaded resources.
- * @property {string} userAgent - User agent string for the request header.
  * @property {array} jsonAPINames - Array to hold names used in the JSON API.
  *
  */
@@ -38,105 +33,21 @@ class Client {
   constructor(options) {
     this.options = options;
     this.ensureOptionsGetFunction();
-    this.eventTarget = new CustomEventTarget();
     this.sideLoad = [];
-    this.userAgent = this.generateUserAgent();
+    this.userAgent = generateUserAgent();
     this.initializeJsonAPINames();
-    this.authHandler = new AuthorizationHandler(this.options);
+    this.transporter = new Transporter(this.options);
+    this.eventTarget = new CustomEventTarget();
+
+    // Listen to transporter's debug events and re-emit them on the Client
+    this.transporter.on('debug::request', (eventData) => {
+      this.emit('debug::request', eventData.detail);
+    });
+
+    this.transporter.on('debug::response', (eventData) => {
+      this.emit('debug::response', eventData.detail);
+    });
   }
-
-  // Helper methods
-
-  ensureOptionsGetFunction() {
-    this.options.get = this.options.get || ((key) => this.options[key]);
-  }
-
-  setSideLoad(array) {
-    this.sideLoad = array;
-  }
-
-  generateUserAgent() {
-    const {version} = pjson;
-    return `node-zendesk/${version} (node/${process.versions.node})`;
-  }
-
-  initializeJsonAPINames() {
-    this.jsonAPINames = this.jsonAPINames || [];
-  }
-
-  // Request logic
-
-  async makeRequest(method, uri, body = null) {
-    const options = this.prepareOptionsForRequest(method, uri, body);
-    return this.sendRequest(options);
-  }
-
-  prepareOptionsForRequest(method = 'GET', uri, body) {
-    const url = assembleUrl(this, uri);
-    const bodyContent = this.getBodyForRequest(method, body);
-    const headers = this.getHeadersForRequest();
-
-    return {
-      ...this.options,
-      headers,
-      uri: url,
-      method,
-      body: bodyContent,
-    };
-  }
-
-  getBodyForRequest(method, body) {
-    if (method === 'GET') return undefined;
-
-    return body ? this.getJSONBody(body) : undefined;
-  }
-
-  getJSONBody(body) {
-    if (!body) return '{}';
-
-    try {
-      return JSON.stringify(body);
-    } catch (error) {
-      throw new Error(`Failed to stringify the request body: ${error.message}`);
-    }
-  }
-
-  getHeadersForRequest() {
-    const headers = {
-      Authorization: this.authHandler.createAuthorizationHeader(),
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'User-Agent': this.userAgent,
-      ...this.options.get('customHeaders'),
-    };
-
-    const asUser = this.options.get('asUser');
-    if (asUser) {
-      headers['X-On-Behalf-Of'] = asUser;
-    }
-
-    return headers;
-  }
-
-  fetchWithOptions(uri, options) {
-    return fetch(options.uri, options);
-  }
-
-  async sendRequest(options) {
-    const response = await this.fetchWithOptions(options.uri, options);
-    this.emit('debug::response', response);
-    let result = {};
-    if (
-      response.status !== 204 &&
-      response.headers.get('content-type')?.includes('application/json')
-    ) {
-      result = await response.json();
-    }
-
-    return {response, result};
-  }
-
-  // Client methods
 
   emit(eventType, eventData) {
     const event = {type: eventType, detail: eventData};
@@ -146,6 +57,21 @@ class Client {
   on(eventType, callback) {
     this.eventTarget.addEventListener(eventType, callback);
   }
+
+  // Helper methods
+  ensureOptionsGetFunction() {
+    this.options.get = this.options.get || ((key) => this.options[key]);
+  }
+
+  setSideLoad(array) {
+    this.sideLoad = array;
+  }
+
+  initializeJsonAPINames() {
+    this.jsonAPINames = this.jsonAPINames || [];
+  }
+
+  // Client methods
 
   async get(resource) {
     return this.request('GET', resource);
@@ -167,32 +93,24 @@ class Client {
     return this.requestAll('GET', resource);
   }
 
-  prepareRequestOptions(method, uri, body) {
-    const headers = this.getHeadersForRequest();
-    const url = assembleUrl(this, uri);
-
-    return {
-      ...this.options,
-      headers,
-      uri: url,
-      method: method || 'GET',
-      body,
-    };
-  }
-
   // Request method that handles various HTTP methods
   async request(method, uri, ...args) {
     const body =
       typeof args.at(-1) === 'object' &&
       !Array.isArray(args.at(-1)) &&
       args.pop();
-    const options = this.prepareOptionsForRequest(method, uri, body);
-    this.emit('debug::request', options);
 
     try {
-      const {response, result} = await this.sendRequest(options);
+      const {response, result} = await this.transporter.request(
+        method,
+        uri,
+        body,
+      );
+
+      // Post-process the result
       const checkResult = checkRequestResponse(response, result);
       const responseBody = processResponseBody(checkResult, this);
+
       return {response, result: responseBody};
     } catch (error) {
       throw new Error(`Request failed: ${error.message}`);
@@ -254,33 +172,8 @@ class Client {
 
   // Request method for uploading files
   async requestUpload(uri, file) {
-    const options = this.prepareRequestOptions('POST', uri, null);
-    // Const uploadOptions = this.options;
-    const binary = uri[1]
-      ? uri[1].binary || file instanceof stream.Stream
-      : false;
-
-    // Fixes ERR_STREAM_WRITE_AFTER_END after new ticket creation
-    if (options.body) delete options.body;
-
-    options.headers['Content-Type'] = 'application/binary';
-
-    this.emit('debug::request', this.options);
-
     try {
-      let response;
-      if (binary) {
-        response = await this.fetchWithOptions(options.uri, this.options);
-      } else {
-        const fileStream = fs.createReadStream(file);
-        response = await this.fetchWithOptions(options.uri, {
-          ...options,
-          body: fileStream,
-          duplex: 'half',
-        });
-      }
-
-      const result = await response.json();
+      const {response, result} = await this.transporter.upload(uri, file);
       return checkRequestResponse(response, result);
     } catch (error) {
       throw new Error(`Upload failed: ${error.message}`);
