@@ -140,7 +140,7 @@ function assembleUrl(self, uri) {
 
   const remoteUri = self.options.get('remoteUri');
   const sideLoadParameter =
-    self.sideLoad.length > 0 ? `include=${self.sideLoad.join(',')}` : '';
+    self.sideLoad?.length > 0 ? `include=${self.sideLoad.join(',')}` : '';
 
   const buildUrl = (base, segments, queryParameters = '') => {
     const joinedSegments = segments.join('/');
@@ -256,10 +256,18 @@ function processResponseBody(result_, self) {
   return body;
 }
 
+function generateUserAgent() {
+  const {version} = require('../../package.json');
+  return `node-zendesk/${version} (node/${
+    require('node:process').versions.node
+  })`;
+}
+
 module.exports = {
   flatten,
   getJobStatuses,
   assembleUrl,
   checkRequestResponse,
   processResponseBody,
+  generateUserAgent,
 };
