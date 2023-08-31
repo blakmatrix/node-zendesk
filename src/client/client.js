@@ -6,7 +6,6 @@ const {constants} = require('node:crypto');
 const fs = require('node:fs');
 const process = require('node:process');
 const stream = require('node:stream');
-const request = require('request');
 const pjson = require('../../package.json');
 const {CustomEventTarget} = require('./custom-event-target');
 const throttler = require('./throttle');
@@ -47,7 +46,6 @@ class Client {
     this.eventTarget = new CustomEventTarget();
     this.sideLoad = [];
     this.userAgent = this.generateUserAgent();
-    this._request = this.createDefaultRequest();
     this.initializeJsonAPINames();
   }
 
@@ -64,25 +62,6 @@ class Client {
   generateUserAgent() {
     const {version} = pjson;
     return `node-zendesk/${version} (node/${process.versions.node})`;
-  }
-
-  createDefaultRequest() {
-    return request.defaults(this.getDefaultRequestOptions());
-  }
-
-  getDefaultRequestOptions() {
-    const jar = this.options['no-cookies'] ? false : request.jar();
-    return {
-      jar,
-      encoding: this.options.get('encoding') || null,
-      timeout: this.options.get('timeout') || 240_000,
-      proxy: this.options.get('proxy') || null,
-      // eslint-disable-next-line no-bitwise
-      secureOptions: constants.SSL_OP_NO_TLSv1 | constants.SSL_OP_NO_TLSv1_1,
-      forever: true,
-      pool: {maxSockets: 100},
-      secureProtocol: 'TLSv1_2_method',
-    };
   }
 
   initializeJsonAPINames() {
@@ -136,10 +115,6 @@ class Client {
       ...this.options.get('customHeaders'),
     };
 
-    headers['Content-Length'] = body
-      ? Buffer.byteLength(body, 'utf8')
-      : undefined;
-
     headers.Authorization = this.createAuthorizationHeader();
 
     const asUser = this.options.get('asUser');
@@ -175,16 +150,22 @@ class Client {
     return `Basic ${encoded}`;
   }
 
-  sendRequest(options) {
-    return new Promise((resolve, reject) => {
-      this._request(options, (error, response, result) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve({response, result});
-        }
-      });
-    });
+  fetchWithOptions(uri, options) {
+    return fetch(options.uri, options);
+  }
+
+  async sendRequest(options) {
+    const response = await this.fetchWithOptions(options.uri, options);
+
+    let result = {};
+    if (
+      response.status !== 204 &&
+      response.headers.get('content-type')?.includes('application/json')
+    ) {
+      result = await response.json();
+    }
+
+    return {response, result};
   }
 
   // Client methods
@@ -322,21 +303,18 @@ class Client {
     try {
       let response;
       if (binary) {
-        response = await this._request(this.options);
+        response = await this.fetchWithOptions(options.uri, this.options);
       } else {
-        response = await new Promise((resolve, reject) => {
-          const outStream = this._request(
-            options,
-            (error, response_ /* , result */) => {
-              if (error) reject(error);
-              else resolve(response_);
-            },
-          );
-          fs.createReadStream(file).pipe(outStream);
+        const fileStream = fs.createReadStream(file);
+        response = await this.fetchWithOptions(options.uri, {
+          ...options,
+          body: fileStream,
+          duplex: 'half',
         });
       }
 
-      return checkRequestResponse(response, response.body);
+      const result = await response.json();
+      return checkRequestResponse(response, result);
     } catch (error) {
       throw new Error(`Upload failed: ${error.message}`);
     }
