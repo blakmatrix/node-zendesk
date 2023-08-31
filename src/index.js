@@ -18,10 +18,6 @@ const {MODULES, ENDPOINTS} = require('./constants');
  *                                       Determines which sub-client to use.
  * @property {string} [options.endpointUri] - The base URI for the Zendesk API. Overrides and ignores `subdomain` if provided.
  * @property {function} [options.get] - Function to get specific options. By default, accesses property from the options.
- * @property {string|Buffer} [options.encoding=null] - Encoding type for the request.
- * @property {number} [options.timeout=240000] - Timeout for the request in milliseconds.
- * @property {string} [options.proxy=null] - Proxy URL if needed for the request.
- * @property {boolean} [options['no-cookies']=false] - Flag to disable cookies.
  * @property {boolean} [options.oauth] - Flag to indicate if OAuth is used.
  * @property {string} [options.asUser] - Optional header for making requests on behalf of a user.
  * @property {object} [options.customHeaders] - Any additional custom headers for the request.

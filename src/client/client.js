@@ -2,7 +2,6 @@
 'use strict';
 
 const {Buffer} = require('node:buffer');
-const {constants} = require('node:crypto');
 const fs = require('node:fs');
 const process = require('node:process');
 const stream = require('node:stream');
@@ -22,10 +21,6 @@ const {
  *
  * @class
  * @property {object} options - Configuration options for the client.
- * @property {string|Buffer} [options.encoding=null] - Encoding type for the request.
- * @property {number} [options.timeout=240000] - Timeout for the request in milliseconds.
- * @property {string} [options.proxy=null] - Proxy URL if needed for the request.
- * @property {boolean} [options['no-cookies']=false] - Flag to disable cookies.
  * @property {string} [options.password] - Password for authentication.
  * @property {string} [options.token] - Token for authentication.
  * @property {boolean} [options.useOAuth] - Flag to indicate if OAuth is used.
