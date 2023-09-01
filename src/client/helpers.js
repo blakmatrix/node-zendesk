@@ -126,54 +126,90 @@ function populateFields(data, response, map) {
 }
 
 /**
- * AssembleUrl -  This function is used to assemble the url for the request
+ * Constructs a URL based on the provided `uri` and pre-defined settings within the context.
  *
- * @param {Object} self - The object that contains the options and sideLoad array
- * @param {string} uri - The uri to be assembled
- * @returns {string} - The assembled url
+ * The function prioritizes query parameters from `self.options.get('queryParams')` over other sources.
+ * If `uri` is an array, the last element can be an object representing query parameters or a query string.
+ * If the `uri` is a string, it's treated as the URL's endpoint path.
+ *
+ * The function also utilizes `self.sideLoad` to include side-loaded resources if available.
+ * Any conflict in query parameters is resolved with `queryParams` taking the highest priority, followed by `sideLoad`, and then the provided `uri`.
+ *
+ * @param {Object} self - The context containing options and side-loading settings.
+ *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'remoteUri' and 'queryParams'.
+ *   @property {Array<string>} [sideLoad] - An array of resources to side-load. It gets converted into a query parameter format.
+ *
+ * @param {Array<string|Object>} [uri] - An array representing the URL segments. The last element can be an object of query parameters or a query string.
+ * @returns {string} The assembled URL.
+ *
+ * @example
+ * const context = {
+ *   options: new Map([['remoteUri', 'http://api.example.com'], ['queryParams', { page: { size: 100 } }]]),
+ *   sideLoad: ['comments', 'likes']
+ * };
+ * assembleUrl(context, ['users', 'list', '?foo=bar']);
+ * // Expected: "http://api.example.com/users/list.json?foo=bar&include=comments,likes&page[size]=100"
+ *
+ * @throws Will throw an error if `self.options` does not implement the 'get' method.
  */
 function assembleUrl(self, uri) {
+  // Helper functions
   const isObject = (value) =>
     typeof value === 'object' && !Array.isArray(value);
-  const isQueryString = (value) =>
-    typeof value === 'string' && value.startsWith('?');
 
+  const mergeQueryParameters = (baseParameters, ...additionalParameters) => {
+    const merged = new URLSearchParams(baseParameters);
+    for (const parameters of additionalParameters) {
+      const temporary = new URLSearchParams(parameters);
+      for (const [key, value] of temporary.entries()) {
+        merged.set(key, value); // Overwrite if key exists
+      }
+    }
+
+    return merged.toString();
+  };
+
+  // Base information
   const remoteUri = self.options.get('remoteUri');
   const sideLoadParameter =
     self.sideLoad?.length > 0 ? `include=${self.sideLoad.join(',')}` : '';
+  const defaultQueryParameters = serialize(
+    self.options.get('queryParams') || {},
+  );
 
-  const buildUrl = (base, segments, queryParameters = '') => {
-    const joinedSegments = segments.join('/');
-    return `${base}/${joinedSegments}.json${queryParameters}`;
-  };
+  // Process uri
+  let segments = [];
+  let queryString = '';
 
   if (Array.isArray(uri)) {
     const lastElement = uri.pop();
 
-    if (lastElement) {
-      if (isObject(lastElement)) {
-        lastElement.include = sideLoadParameter;
-        return buildUrl(remoteUri, uri, '?' + serialize(lastElement));
-      }
-
-      if (isQueryString(lastElement)) {
-        const queryParameters = sideLoadParameter
-          ? `${lastElement}&${sideLoadParameter}`
-          : lastElement;
-        return buildUrl(remoteUri, uri, queryParameters);
-      }
-
+    if (isObject(lastElement)) {
+      queryString = serialize(lastElement);
+    } else if (typeof lastElement === 'string' && lastElement.startsWith('?')) {
+      queryString = lastElement.slice(1);
+    } else {
       uri.push(lastElement);
     }
 
-    return buildUrl(remoteUri, uri);
+    segments = uri;
+  } else if (typeof uri === 'string') {
+    if (uri.includes(remoteUri)) {
+      return uri; // Return the uri unchanged if it already contains remoteUri
+    }
+
+    segments = [uri];
   }
 
-  if (typeof uri === 'string' && !uri.includes(remoteUri)) {
-    return buildUrl(remoteUri, [uri]);
-  }
+  queryString = mergeQueryParameters(
+    queryString,
+    sideLoadParameter,
+    defaultQueryParameters,
+  );
 
-  return uri;
+  // Construct the URL
+  const basePath = `${remoteUri}/${segments.join('/')}.json`;
+  return queryString ? `${basePath}?${queryString}` : basePath;
 }
 
 /**
