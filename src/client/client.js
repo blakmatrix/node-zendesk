@@ -93,27 +93,30 @@ class Client {
     return this.requestAll('GET', resource);
   }
 
-  // Request method that handles various HTTP methods
-  async request(method, uri, ...args) {
+  async _rawRequest(method, uri, ...args) {
     const body =
       typeof args.at(-1) === 'object' &&
       !Array.isArray(args.at(-1)) &&
       args.pop();
 
     try {
-      const {response, result} = await this.transporter.request(
-        method,
-        uri,
-        body,
+      return await this.transporter.request(method, uri, body);
+    } catch (error) {
+      throw new Error(`Raw request failed: ${error.message}`);
+    }
+  }
+
+  // Request method that handles various HTTP methods
+  async request(method, uri, ...args) {
+    try {
+      const {response, result} = await this._rawRequest(method, uri, ...args);
+      const responseBody = processResponseBody(
+        checkRequestResponse(response, result),
+        this,
       );
-
-      // Post-process the result
-      const checkResult = checkRequestResponse(response, result);
-      const responseBody = processResponseBody(checkResult, this);
-
       return {response, result: responseBody};
     } catch (error) {
-      throw new Error(`Request failed: ${error.message}`);
+      throw new Error(`Request processing failed: ${error.message}`);
     }
   }
 
@@ -121,29 +124,33 @@ class Client {
   async requestAll(method, uri, ...args) {
     const bodyList = [];
     const throttle = this.options.get('throttle');
-    let __request = this.request;
+    let __request = this._rawRequest; // Use _rawRequest directly
 
     if (throttle) {
-      __request = throttler(this, this.request, throttle);
+      __request = throttler(this, this._rawRequest, throttle);
     }
 
     const processPage = ({result, response}) => {
-      bodyList.push(result);
+      const currentPage = checkRequestResponse(response, result);
+      const item = processResponseBody(currentPage, this);
 
-      // Determining the next page
-      if (response && response.links && response.links.next) {
-        return response.links.next;
+      bodyList.push(item);
+
+      // Check for cursor-based pagination first
+      if (currentPage && currentPage.links && currentPage.links.next) {
+        return currentPage.links.next;
       }
 
-      if (response) {
-        return response.next_page;
+      // Fall back to offset-based pagination
+      if (currentPage && currentPage.next_page) {
+        return currentPage.next_page;
       }
 
       return null;
     };
 
     const fetchPagesRecursively = async (pageUri) => {
-      const isIncremental = pageUri[0] === 'incremental';
+      const isIncremental = pageUri.includes('incremental');
 
       try {
         const responseData = await __request.call(
@@ -161,13 +168,16 @@ class Client {
           return fetchPagesRecursively(nextPage);
         }
       } catch (error) {
-        throw new Error(`Request all failed: ${error.message}`);
+        throw new Error(`Request all failed during fetching: ${error.message}`);
       }
     };
 
-    await fetchPagesRecursively(uri);
-
-    return flatten(bodyList);
+    try {
+      await fetchPagesRecursively(uri);
+      return flatten(bodyList);
+    } catch (error) {
+      throw new Error(`RequestAll processing failed: ${error.message}`);
+    }
   }
 
   // Request method for uploading files
