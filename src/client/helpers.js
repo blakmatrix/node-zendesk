@@ -128,15 +128,15 @@ function populateFields(data, response, map) {
 /**
  * Constructs a URL based on the provided `uri` and pre-defined settings within the context.
  *
- * The function prioritizes query parameters from `self.options.get('queryParams')` over other sources.
+ * The function prioritizes query parameters from `self.options.get('query')` over other sources.
  * If `uri` is an array, the last element can be an object representing query parameters or a query string.
  * If the `uri` is a string, it's treated as the URL's endpoint path.
  *
  * The function also utilizes `self.sideLoad` to include side-loaded resources if available.
- * Any conflict in query parameters is resolved with `queryParams` taking the highest priority, followed by `sideLoad`, and then the provided `uri`.
+ * Any conflict in query parameters is resolved with `query` taking the highest priority, followed by `sideLoad`, and then the provided `uri`.
  *
  * @param {Object} self - The context containing options and side-loading settings.
- *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'remoteUri' and 'queryParams'.
+ *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'remoteUri' and 'query'.
  *   @property {Array<string>} [sideLoad] - An array of resources to side-load. It gets converted into a query parameter format.
  *
  * @param {Array<string|Object>} [uri] - An array representing the URL segments. The last element can be an object of query parameters or a query string.
@@ -144,7 +144,7 @@ function populateFields(data, response, map) {
  *
  * @example
  * const context = {
- *   options: new Map([['remoteUri', 'http://api.example.com'], ['queryParams', { page: { size: 100 } }]]),
+ *   options: new Map([['remoteUri', 'http://api.example.com'], ['query', { page: { size: 100 } }]]),
  *   sideLoad: ['comments', 'likes']
  * };
  * assembleUrl(context, ['users', 'list', '?foo=bar']);
@@ -173,9 +173,7 @@ function assembleUrl(self, uri) {
   const remoteUri = self.options.get('remoteUri');
   const sideLoadParameter =
     self.sideLoad?.length > 0 ? `include=${self.sideLoad.join(',')}` : '';
-  const defaultQueryParameters = serialize(
-    self.options.get('queryParams') || {},
-  );
+  const defaultQueryParameters = serialize(self.options.get('query') || {});
 
   // Process uri
   let segments = [];
