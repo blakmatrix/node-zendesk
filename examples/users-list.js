@@ -1,20 +1,23 @@
+#!/usr/bin/env node
 const process = require('node:process');
-const zd = require('../src/index');
-const exampleConfig = require('./exampleConfig');
+const dotenv = require('dotenv');
+const zd = require('../src/index.js');
 
-function getZendeskConfig() {
-  return {
-    username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
-    token: process.env.ZENDESK_TEST_TOKEN || exampleConfig.auth.token,
-    remoteUri:
-      process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
-  };
-}
+dotenv.config();
 
-const client = zd.createClient(getZendeskConfig());
+const setupClient = (config) => {
+  return zd.createClient({
+    username: process.env.ZENDESK_USERNAME,
+    subdomain: process.env.ZENDESK_SUBDOMAIN,
+    token: process.env.ZENDESK_TOKEN,
+    ...config,
+  });
+};
+
 
 async function usersList() {
   try {
+    const client = setupClient({debug: false});
     const result = await client.users.list();
     console.log(
       JSON.stringify(
