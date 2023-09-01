@@ -153,11 +153,7 @@ function assembleUrl(self, uri) {
     if (lastElement) {
       if (isObject(lastElement)) {
         lastElement.include = sideLoadParameter;
-        return buildUrl(
-          remoteUri,
-          uri,
-          '?' + new URLSearchParams(lastElement).toString(),
-        );
+        return buildUrl(remoteUri, uri, '?' + serialize(lastElement));
       }
 
       if (isQueryString(lastElement)) {
@@ -179,6 +175,37 @@ function assembleUrl(self, uri) {
 
   return uri;
 }
+
+/**
+ * Serializes a JavaScript object into a query string format.
+ *
+ * Supports nested objects. For non-object values, it encodes them with the provided prefix.
+ * For objects, it recursively encodes each nested key-value pair using a bracket notation.
+ *
+ * @example
+ * serialize({ a: 1 })                // "a=1"
+ * serialize({ a: { b: 2 } })        // "a[b]=2"
+ * serialize('test', 'key')          // "key=test"
+ *
+ * @param {Object|string|number} object - The object to serialize.
+ * @param {string} [prefix=''] - The prefix for the current serialization level. Useful for handling nested objects.
+ * @returns {string} The serialized query string.
+ */
+const serialize = (object, prefix = '') => {
+  // Base condition: non-object values
+  if (object === null || typeof object !== 'object') {
+    return `${encodeURIComponent(prefix)}=${encodeURIComponent(object)}`;
+  }
+
+  // Recursive serialization for object values
+  return Object.entries(object)
+    .map(([key, value]) => {
+      // Construct the nested key structure
+      const nestedKey = prefix ? `${prefix}[${key}]` : key;
+      return serialize(value, nestedKey);
+    })
+    .join('&');
+};
 
 function createError(message, statusCode, result = null) {
   const error = new Error(message);
