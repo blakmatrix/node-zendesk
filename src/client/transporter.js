@@ -2,6 +2,7 @@
 
 const {AuthorizationHandler} = require('./authorization-handler');
 const {CustomEventTarget} = require('./custom-event-target');
+const {EndpointChecker} = require('./endpoint-checker');
 const {assembleUrl} = require('./helpers');
 
 class Transporter {
@@ -9,6 +10,7 @@ class Transporter {
     this.options = options;
     this.authHandler = new AuthorizationHandler(this.options);
     this.eventTarget = new CustomEventTarget();
+    this.endpointChecker = new EndpointChecker();
   }
 
   // Transporter methods
@@ -27,6 +29,7 @@ class Transporter {
   }
 
   async upload(uri, file) {
+    const method = 'POST';
     const isBinary = file instanceof require('node:stream').Stream;
     const headers = this.getHeadersForRequest();
 
@@ -37,8 +40,8 @@ class Transporter {
     const options = {
       ...this.options,
       headers,
-      uri: assembleUrl(this, uri),
-      method: 'POST',
+      uri: assembleUrl(this, method, uri),
+      method,
       body: isBinary ? file : require('node:fs').createReadStream(file),
     };
     return this.sendRequest(options);
@@ -56,11 +59,12 @@ class Transporter {
       result = await response.json();
     }
 
+    this.emit('debug::result', result);
     return {response, result};
   }
 
   prepareOptionsForRequest(method = 'GET', uri, body, isBinary = false) {
-    const url = assembleUrl(this, uri);
+    const url = assembleUrl(this, method, uri);
     const bodyContent = isBinary ? body : this.getBodyForRequest(method, body);
 
     const headers = this.getHeadersForRequest();

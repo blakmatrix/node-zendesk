@@ -126,7 +126,7 @@ function populateFields(data, response, map) {
 }
 
 /**
- * Constructs a URL based on the provided `uri` and pre-defined settings within the context.
+ * Constructs a URL based on the provided `method`, `uri`, and pre-defined settings within the context.
  *
  * The function prioritizes query parameters from `self.options.get('query')` over other sources.
  * If `uri` is an array, the last element can be an object representing query parameters or a query string.
@@ -139,6 +139,7 @@ function populateFields(data, response, map) {
  *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'remoteUri' and 'query'.
  *   @property {Array<string>} [sideLoad] - An array of resources to side-load. It gets converted into a query parameter format.
  *
+ * @param {string} method - The HTTP method. Can be "GET", "POST", "PUT", or "DELETE".
  * @param {Array<string|Object>} [uri] - An array representing the URL segments. The last element can be an object of query parameters or a query string.
  * @returns {string} The assembled URL.
  *
@@ -147,12 +148,12 @@ function populateFields(data, response, map) {
  *   options: new Map([['remoteUri', 'http://api.example.com'], ['query', { page: { size: 100 } }]]),
  *   sideLoad: ['comments', 'likes']
  * };
- * assembleUrl(context, ['users', 'list', '?foo=bar']);
+ * assembleUrl(context, 'GET', ['users', 'list', '?foo=bar']);
  * // Expected: "http://api.example.com/users/list.json?foo=bar&include=comments,likes&page[size]=100"
  *
  * @throws Will throw an error if `self.options` does not implement the 'get' method.
  */
-function assembleUrl(self, uri) {
+function assembleUrl(self, method, uri) {
   // Helper functions
   const isObject = (value) =>
     typeof value === 'object' && !Array.isArray(value);
@@ -199,8 +200,18 @@ function assembleUrl(self, uri) {
     segments = [uri];
   }
 
+  let paginationParameters = '';
+
+  if (
+    method === 'GET' &&
+    self.endpointChecker.supportsCursorPagination(segments.join('/'))
+  ) {
+    paginationParameters = serialize({page: {size: 100}});
+  }
+
   queryString = mergeQueryParameters(
     queryString,
+    paginationParameters,
     sideLoadParameter,
     defaultQueryParameters,
   );

@@ -9,7 +9,7 @@ class SuspendedTickets extends Client {
 
   // Listing SuspendedTickets
   async list() {
-    return this.getAll(['suspended_tickets', '?page[size]=100']);
+    return this.getAll(['suspended_tickets']);
   }
 
   // Viewing SuspendedTickets

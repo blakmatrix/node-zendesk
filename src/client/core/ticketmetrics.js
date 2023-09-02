@@ -14,7 +14,7 @@ class TicketMetrics extends Client {
 
   // Listing ALL TicketMetrics
   async listAll() {
-    return this.getAll(['ticket_metrics', '?page[size]=100']);
+    return this.getAll(['ticket_metrics']);
   }
 
   // Viewing A Single TicketMetric

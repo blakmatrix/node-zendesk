@@ -73,6 +73,7 @@ class ZendeskClient {
         this.client[moduleName] = new ModuleClass({...this.config, remoteUri});
         this.client[moduleName].on('debug::request', this._debug.bind(this));
         this.client[moduleName].on('debug::response', this._debug.bind(this));
+        this.client[moduleName].on('debug::result', this._debug.bind(this));
       }
     }
   }

@@ -10,7 +10,7 @@ class Automations extends Client {
 
   // Listing Automations
   async list() {
-    return this.getAll(['automations', '?page[size]=100']);
+    return this.getAll(['automations']);
   }
 
   async listActive() {

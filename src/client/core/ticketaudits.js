@@ -13,7 +13,7 @@ class TicketAudits extends Client {
 
   // Listing TicketAudits
   async list(ticketID) {
-    return this.getAll(['tickets', ticketID, 'audits', '?page[size]=100']);
+    return this.getAll(['tickets', ticketID, 'audits']);
   }
 }
 

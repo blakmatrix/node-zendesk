@@ -9,11 +9,11 @@ class Macros extends Client {
 
   // Listing Macros
   async list() {
-    return this.gettAll(['macros', 'active', '?page[size]=100']);
+    return this.gettAll(['macros', 'active']);
   }
 
   async listByParams(parameters) {
-    return this.gettAll(['macros', parameters + '&page[size]=100']);
+    return this.gettAll(['macros', parameters]);
   }
 
   async apply(macroID) {

@@ -16,7 +16,7 @@ class OauthTokens extends Client {
   }
 
   async list() {
-    return this.getAll(['oauth', 'tokens', '?page[size]=100']);
+    return this.getAll(['oauth', 'tokens']);
   }
 
   async revoke(id) {

@@ -77,7 +77,7 @@ class Requests extends Client {
 
   // Listing Comments
   async listComments(requestID) {
-    return this.getAll(['requests', requestID, 'comments', '?page[size]=100']);
+    return this.getAll(['requests', requestID, 'comments']);
   }
 
   // Get Comment

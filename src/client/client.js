@@ -47,6 +47,10 @@ class Client {
     this.transporter.on('debug::response', (eventData) => {
       this.emit('debug::response', eventData.detail);
     });
+
+    this.transporter.on('debug::result', (eventData) => {
+      this.emit('debug::result', eventData.detail);
+    });
   }
 
   emit(eventType, eventData) {
@@ -132,21 +136,20 @@ class Client {
 
     const processPage = ({result, response}) => {
       const currentPage = checkRequestResponse(response, result);
+      const hasCursorPagination = (page) =>
+        page && page.links && page.links.next;
+      const hasOffsetPagination = (page) => page && page.next_page;
+      const getNextPage = (page) =>
+        hasCursorPagination(page)
+          ? page.links.next
+          : hasOffsetPagination(page)
+          ? page.next_page
+          : null;
       const item = processResponseBody(currentPage, this);
 
       bodyList.push(item);
 
-      // Check for cursor-based pagination first
-      if (currentPage && currentPage.links && currentPage.links.next) {
-        return currentPage.links.next;
-      }
-
-      // Fall back to offset-based pagination
-      if (currentPage && currentPage.next_page) {
-        return currentPage.next_page;
-      }
-
-      return null;
+      return getNextPage(currentPage);
     };
 
     const fetchPagesRecursively = async (pageUri) => {

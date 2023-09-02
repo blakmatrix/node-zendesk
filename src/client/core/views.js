@@ -9,7 +9,7 @@ class Views extends Client {
 
   // Listing Views
   async list() {
-    return this.getAll(['views', '?page[size]=100']);
+    return this.getAll(['views']);
   }
 
   // Listing Active Views

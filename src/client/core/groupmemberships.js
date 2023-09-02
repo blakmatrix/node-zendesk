@@ -13,20 +13,15 @@ class GroupMemberships extends Client {
 
   // Listing GroupMemberships
   async list() {
-    return this.getAll(['group_memberships', '?page[size]=100']);
+    return this.getAll(['group_memberships']);
   }
 
   async listByUser(userID) {
-    return this.getAll([
-      'users',
-      userID,
-      'group_memberships',
-      '?page[size]=100',
-    ]);
+    return this.getAll(['users', userID, 'group_memberships']);
   }
 
   async listByGroup(groupID) {
-    return this.getAll(['groups', groupID, 'memberships', '?page[size]=100']);
+    return this.getAll(['groups', groupID, 'memberships']);
   }
 
   // Viewing GroupMemberships

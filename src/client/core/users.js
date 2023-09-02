@@ -32,19 +32,19 @@ class Users extends Client {
   }
 
   async list() {
-    return this.getAll(['users', '?page[size]=100']);
+    return this.getAll(['users']);
   }
 
   async listWithFilter(type, value) {
-    return this.getAll(['users', {[type]: value}, '?page[size]=100']);
+    return this.getAll(['users', {[type]: value}]);
   }
 
   async listByGroup(id) {
-    return this.getAll(['groups', id, 'users', '?page[size]=100']);
+    return this.getAll(['groups', id, 'users']);
   }
 
   async listByOrganization(id) {
-    return this.getAll(['organizations', id, 'users', '?page[size]=100']);
+    return this.getAll(['organizations', id, 'users']);
   }
 
   async show(id) {

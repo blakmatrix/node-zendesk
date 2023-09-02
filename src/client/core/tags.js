@@ -10,7 +10,7 @@ class Tags extends Client {
 
   // Listing Tags
   async list() {
-    return this.getAll(['tags', '?page[size]=100']);
+    return this.getAll(['tags']);
   }
 }
 

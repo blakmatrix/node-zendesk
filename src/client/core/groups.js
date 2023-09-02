@@ -12,12 +12,12 @@ class Groups extends Client {
 
   // Listing Groups
   async list() {
-    return this.getAll(['groups', '?page[size]=100']);
+    return this.getAll(['groups']);
   }
 
   // Viewing Groups
   async assignable() {
-    return this.getAll(['groups', 'assignable', '?page[size]=100']);
+    return this.getAll(['groups', 'assignable']);
   }
 
   async show(groupID) {

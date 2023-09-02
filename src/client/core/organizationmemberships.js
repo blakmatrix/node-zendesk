@@ -9,16 +9,11 @@ class OrganizationMemberships extends Client {
 
   // Listing Organization Memberships
   async list() {
-    return this.getAll(['organization_memberships', '?page[size]=100']);
+    return this.getAll(['organization_memberships']);
   }
 
   async listByUser(userID) {
-    return this.getAll([
-      'users',
-      userID,
-      'organization_memberships',
-      '?page[size]=100',
-    ]);
+    return this.getAll(['users', userID, 'organization_memberships']);
   }
 
   async listByOrganization(organiationID) {
@@ -26,7 +21,6 @@ class OrganizationMemberships extends Client {
       'organizations',
       organiationID,
       'organization_memberships',
-      '?page[size]=100',
     ]);
   }
 

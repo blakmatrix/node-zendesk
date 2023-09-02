@@ -9,11 +9,11 @@ class SatisfactionRatings extends Client {
 
   // Listing SatisfactionRatings
   async list() {
-    return this.getAll(['satisfaction_ratings', '?page[size]=100']);
+    return this.getAll(['satisfaction_ratings']);
   }
 
   async received() {
-    return this.getAll(['satisfaction_ratings', 'received', '?page[size]=100']);
+    return this.getAll(['satisfaction_ratings', 'received']);
   }
 
   async show(satisfactionRatingID) {

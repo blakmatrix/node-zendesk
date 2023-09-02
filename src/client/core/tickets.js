@@ -20,43 +20,31 @@ class Tickets extends Client {
 
   // Listing Tickets
   async list() {
-    return this.getAll(['tickets', '?page[size]=100']);
+    return this.getAll(['tickets']);
   }
 
   async listAssigned(userID) {
-    return this.getAll([
-      'users',
-      userID,
-      'tickets',
-      'assigned',
-      '?page[size]=100',
-    ]);
+    return this.getAll(['users', userID, 'tickets', 'assigned']);
   }
 
   async listByOrganization(orgID) {
-    return this.getAll(['organizations', orgID, 'tickets', '?page[size]=100']);
+    return this.getAll(['organizations', orgID, 'tickets']);
   }
 
   async listByUserRequested(userID) {
-    return this.getAll([
-      'users',
-      userID,
-      'tickets',
-      'requested',
-      '?page[size]=100',
-    ]);
+    return this.getAll(['users', userID, 'tickets', 'requested']);
   }
 
   async listByUserCCD(userID) {
-    return this.getAll(['users', userID, 'tickets', 'ccd', '?page[size]=100']);
+    return this.getAll(['users', userID, 'tickets', 'ccd']);
   }
 
   async listWithFilter(type, value) {
-    return this.getAll(['tickets', {[type]: value}, '?page[size]=100']);
+    return this.getAll(['tickets', {[type]: value}]);
   }
 
   async listRecent() {
-    return this.getAll(['tickets', 'recent', '?page[size]=100']);
+    return this.getAll(['tickets', 'recent']);
   }
 
   async listCollaborators(ticketID) {
@@ -64,7 +52,7 @@ class Tickets extends Client {
   }
 
   async listIncidents(ticketID) {
-    return this.getAll(['tickets', ticketID, 'incidents', '?page[size]=100']);
+    return this.getAll(['tickets', ticketID, 'incidents']);
   }
 
   async listMetrics(ticketID) {

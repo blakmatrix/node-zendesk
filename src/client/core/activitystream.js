@@ -10,7 +10,7 @@ class ActivityStream extends Client {
 
   // Listing ActivityStream
   async list() {
-    return this.getAll('GET', ['activities', '?page[size]=100']);
+    return this.getAll('GET', ['activities']);
   }
 
   // Viewing ActivityStream

@@ -9,7 +9,7 @@ class Organizations extends Client {
 
   // Listing Organizations
   async list() {
-    return this.getAll(['organizations', '?page[size]=100']);
+    return this.getAll(['organizations']);
   }
 
   // Viewing Organizations

@@ -19,7 +19,7 @@ class Triggers extends Client {
 
   // Listing Triggers
   async list() {
-    return this.getAll(['triggers', '?page[size]=100']);
+    return this.getAll(['triggers']);
   }
 
   async listActive() {
