@@ -136,7 +136,7 @@ function populateFields(data, response, map) {
  * Any conflict in query parameters is resolved with `query` taking the highest priority, followed by `sideLoad`, and then the provided `uri`.
  *
  * @param {Object} self - The context containing options and side-loading settings.
- *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'remoteUri' and 'query'.
+ *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'endpointUri' and 'query'.
  *   @property {Array<string>} [sideLoad] - An array of resources to side-load. It gets converted into a query parameter format.
  *
  * @param {string} method - The HTTP method. Can be "GET", "POST", "PUT", or "DELETE".
@@ -145,7 +145,7 @@ function populateFields(data, response, map) {
  *
  * @example
  * const context = {
- *   options: new Map([['remoteUri', 'http://api.example.com'], ['query', { page: { size: 100 } }]]),
+ *   options: new Map([['endpointUri', 'http://api.example.com'], ['query', { page: { size: 100 } }]]),
  *   sideLoad: ['comments', 'likes']
  * };
  * assembleUrl(context, 'GET', ['users', 'list', '?foo=bar']);
@@ -171,7 +171,7 @@ function assembleUrl(self, method, uri) {
   };
 
   // Base information
-  const remoteUri = self.options.get('remoteUri');
+  const endpointUri = self.options.get('endpointUri');
   const sideLoadParameter =
     self.sideLoad?.length > 0 ? `include=${self.sideLoad.join(',')}` : '';
   const defaultQueryParameters = serialize(self.options.get('query') || {});
@@ -193,8 +193,8 @@ function assembleUrl(self, method, uri) {
 
     segments = uri;
   } else if (typeof uri === 'string') {
-    if (uri.includes(remoteUri)) {
-      return uri; // Return the uri unchanged if it already contains remoteUri
+    if (uri.includes(endpointUri)) {
+      return uri; // Return the uri unchanged if it already contains endpointUri
     }
 
     segments = [uri];
@@ -217,7 +217,7 @@ function assembleUrl(self, method, uri) {
   );
 
   // Construct the URL
-  const basePath = `${remoteUri}/${segments.join('/')}.json`;
+  const basePath = `${endpointUri}/${segments.join('/')}.json`;
   return queryString ? `${basePath}?${queryString}` : basePath;
 }
 

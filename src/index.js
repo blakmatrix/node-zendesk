@@ -51,7 +51,7 @@ class ZendeskClient {
     const {
       subdomain,
       apiType = ['core'],
-      remoteUri: providedRemoteUri,
+      endpointUri: providedEndpointUri,
     } = this.config;
 
     // Ensure apiType is always an array
@@ -63,14 +63,18 @@ class ZendeskClient {
       }
 
       const endpoint = this._getEndpoint(type);
-      const remoteUri = providedRemoteUri || `https://${subdomain}${endpoint}`;
+      const endpointUri =
+        providedEndpointUri || `https://${subdomain}${endpoint}`;
 
       const clientModules = MODULES[type];
 
       for (const module of clientModules) {
         const moduleName = module.toLowerCase();
         const ModuleClass = require(`./client/${type}/${moduleName}`)[module];
-        this.client[moduleName] = new ModuleClass({...this.config, remoteUri});
+        this.client[moduleName] = new ModuleClass({
+          ...this.config,
+          endpointUri,
+        });
         this.client[moduleName].on('debug::request', this._debug.bind(this));
         this.client[moduleName].on('debug::response', this._debug.bind(this));
         this.client[moduleName].on('debug::result', this._debug.bind(this));
