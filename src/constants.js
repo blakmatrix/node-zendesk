@@ -84,4 +84,6 @@ const ENDPOINTS = {
   voice: '.zendesk.com/api/v2/channels/voice',
 };
 
-module.exports = {MODULES, ENDPOINTS};
+const MOCK_API = (['development', 'test'].includes(process.env.NODE_ENV));
+
+module.exports = {MODULES, ENDPOINTS, MOCK_API};

@@ -1,18 +1,22 @@
 import process from 'node:process';
 import crypto from 'node:crypto';
 import dotenv from 'dotenv';
-import {beforeAll, afterAll, describe, expect, it} from 'vitest';
+import {describe, expect, it, beforeAll} from 'vitest';
 import {createClient} from '../src/index.js';
+
 
 dotenv.config();
 
 const {ZENDESK_USERNAME, ZENDESK_SUBDOMAIN, ZENDESK_TOKEN} = process.env;
 
-describe('Zendesk Client Pagination', () => {
-  const testOrganizations = [];
+const nockBack = require('nock').back
 
-  const uniqueOrgName = () =>
-    `Test Organization ${crypto.randomBytes(16).toString('hex')}`;
+describe('Zendesk Client Pagination', () => {
+
+  beforeAll(async() =>  {
+    nockBack.setMode('record')
+    nockBack.fixtures = __dirname + '/fixtures'
+  })
 
   const setupClient = (config = {}) =>
     createClient({
@@ -23,33 +27,31 @@ describe('Zendesk Client Pagination', () => {
     });
 
   const defaultClient = setupClient();
-
-  async function createTestOrganization() {
-    const {result: organization} = await defaultClient.organizations.create({
-      organization: {name: uniqueOrgName()},
-    });
-    testOrganizations.push(organization);
+  const paginatedClient = setupClient({query: {page: {size: 1}}});
+  let entities_to_test = {
+    'organizations': {
+      paginatedClient: paginatedClient.organizations,
+      defaultClient: defaultClient.organizations
+    },
+    'users': {
+      paginatedClient: paginatedClient.users,
+      defaultClient: defaultClient.users
+    }
   }
 
-  beforeAll(async () => {
-    await Promise.all([createTestOrganization(), createTestOrganization()]);
-  });
+  it('Paginates Users', async() => {
+    const { nockDone, context } = await nockBack('PaginatedUsers.json')
+    let paginated_objects = await entities_to_test['users'].paginatedClient.list();
+    let unpaginated_objects = await entities_to_test['users'].defaultClient.list();
+    expect(paginated_objects.length).toBe(unpaginated_objects.length);
+    nockDone();
+  })
 
-  it('should fetch all test items even with pagination applied/forced', async () => {
-    const paginatedClient = setupClient({query: {page: {size: 1}}});
-    const organizations = await paginatedClient.organizations.list();
-    const orgNames = organizations.map((org) => org.name);
-
-    for (const testOrg of testOrganizations) {
-      expect(orgNames).toContain(testOrg.name);
-    }
-  });
-
-  afterAll(async () => {
-    await Promise.all(
-      testOrganizations.map((org) =>
-        defaultClient.organizations.delete(org.id),
-      ),
-    );
-  });
+  it('Paginates Organizations', async() => {
+    const { nockDone, context } = await nockBack('PaginatedOrganizations.json')
+    let paginated_objects = await entities_to_test['organizations'].paginatedClient.list();
+    let unpaginated_objects = await entities_to_test['organizations'].defaultClient.list();
+    expect(paginated_objects.length).toBe(unpaginated_objects.length);
+    nockDone();
+  })
 });

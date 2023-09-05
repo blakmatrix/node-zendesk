@@ -3,7 +3,13 @@
 const {AuthorizationHandler} = require('./authorization-handler');
 const {CustomEventTarget} = require('./custom-event-target');
 const {EndpointChecker} = require('./endpoint-checker');
-const {assembleUrl} = require('./helpers');
+const {assembleUrl, responseHeaderRetrieve, responseBodyJSON, responseGetStatus} = require('./helpers');
+const {MOCK_API} = require('../constants');
+
+let requestApi = null;
+if(MOCK_API) {
+  requestApi = require("request");
+}
 
 class Transporter {
   constructor(options) {
@@ -53,10 +59,11 @@ class Transporter {
     this.emit('debug::response', response); // Emit after the request
     let result = {};
     if (
-      response.status !== 204 &&
-      response.headers.get('content-type')?.includes('application/json')
+
+      responseGetStatus(response) !== 204 &&
+        responseHeaderRetrieve(response, 'content-type')?.includes('application/json')
     ) {
-      result = await response.json();
+      result = await responseBodyJSON(response);
     }
 
     this.emit('debug::result', result);
@@ -81,7 +88,23 @@ class Transporter {
     };
   }
 
-  fetchWithOptions(uri, options) {
+  async fetchWithOptions(uri, options) {
+    if(['development', 'test'].includes(process.env.NODE_ENV)) {
+      /*
+      ** This development code facilitates nock.
+      ** This should only be used in Test/Dev mode.
+       */
+      let p = new Promise(function (myResolve, myReject) {
+        requestApi(options, function(error, response, body) {
+          if (error == null && (response)) {
+            myResolve(response);
+          } else {
+            myReject(error)
+          }
+        });
+      })
+      return await p;
+    }
     return fetch(options.uri, options);
   }
 

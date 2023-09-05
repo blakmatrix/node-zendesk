@@ -1,4 +1,5 @@
 /* eslint-disable max-params */
+const {MOCK_API} = require('../constants');
 
 const failCodes = {
   400: 'Bad Request',
@@ -12,6 +13,45 @@ const failCodes = {
   500: 'Internal Server Error',
   503: 'Service Unavailable',
 };
+
+/**
+ * Gets a response header, switching between development/test modalities and production
+ *
+ * @param {Object} response - Response object.
+ * @param {string} target - The target to retrieve.
+ * @returns {Object} - Returns object in response header.
+ */
+function responseHeaderRetrieve(response, target) {
+  if(MOCK_API) {
+    return response.headers[target];
+  }
+  return response.headers.get(target);
+}
+function responseGetStatus(response) {
+  if(MOCK_API) {
+    return response.statusCode;
+  }
+  return response.status;
+}
+function responseStatusText(response) {
+  if(MOCK_API) {
+    return response.statusMessage;
+  }
+  return response.statusText;
+
+}
+/**
+ * Gets a response body json, switching between development/test modalities and production
+ *
+ * @param {Object} response - Response object.
+ * @returns {Object} - Target header object.
+ */
+function responseBodyJSON(response) {
+  if(MOCK_API) {
+    return JSON.parse(response.body);
+  }
+  return response.json();
+}
 /**
  * Continuously checks the status of a job using intervals and invokes a callback when the job status changes.
  *
@@ -265,13 +305,13 @@ function checkRequestResponse(response, result) {
   }
 
   // The following occurs on delete requests
-  if (response.status === 204 && response.statusText === 'No Content') {
-    return createError(response.statusText, response.status);
+  if (responseGetStatus(response) === 204 && responseStatusText(response)=== 'No Content') {
+    return createError(responseStatusText(response), responseGetStatus(response));
   }
 
   let statusCode;
   try {
-    statusCode = response.status;
+    statusCode = responseGetStatus(response);
   } catch (error) {
     return {
       exception: error,
@@ -280,7 +320,7 @@ function checkRequestResponse(response, result) {
     };
   }
 
-  const retryAfter = response.headers.get('retry-after');
+  const retryAfter = responseHeaderRetrieve(response, 'retry-after');
   if (retryAfter) {
     return createError(
       'Zendesk rate limits 200 requests per minute',
@@ -342,4 +382,7 @@ module.exports = {
   checkRequestResponse,
   processResponseBody,
   generateUserAgent,
+  responseHeaderRetrieve,
+  responseBodyJSON,
+  responseGetStatus
 };

@@ -1,0 +1,54 @@
+[
+    {
+        "scope": "https://invalidsubdomain.zendesk.com:443",
+        "method": "GET",
+        "path": "/api/v2/users/me.json",
+        "body": "",
+        "status": 404,
+        "response": {
+            "error": {
+                "title": "No help desk at invalidsubdomain.zendesk.com",
+                "message": "There is no help desk configured at this address. This means that the address is available and that you can claim it at http://www.zendesk.com/signup"
+            }
+        },
+        "rawHeaders": [
+            "Date",
+            "Mon, 11 Sep 2023 18:59:21 GMT",
+            "Content-Type",
+            "application/json; charset=utf-8",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "close",
+            "strict-transport-security",
+            "max-age=0;",
+            "cache-control",
+            "no-cache",
+            "x-zendesk-origin-server",
+            "classic-app-server-69f7585fdf-kz9lt",
+            "x-request-id",
+            "805225bbc944fb40-SJC",
+            "X-Request-ID",
+            "805225bbc944fb40-SJC",
+            "x-runtime",
+            "0.015032",
+            "X-Zendesk-Zorg",
+            "yes",
+            "CF-Cache-Status",
+            "DYNAMIC",
+            "Set-Cookie",
+            "__cf_bm=zyiJb4eGVegeTiKpNt1m521rVvezVUotbBNBFzuJFcE-1694458761-0-AQcdIEm3qbziB5l8enMS5nWxV/EKSsx2znNILGhYB/lezzf4xnBALDQwzCJjVVhADWqyL4KPGM3AkW0X/1kh1iV8Hs0rE+4xizbUI3nvV00c; path=/; expires=Mon, 11-Sep-23 19:29:21 GMT; domain=.zendesk.com; HttpOnly; Secure",
+            "Report-To",
+            "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=%2BXuW%2B9Bb3%2B8oqi6A6C3YSW1m%2FULAy%2BMkdD%2FPzQ3BslrfPrEB5mzG7MA%2BFsg12DGQGhOCbpq5bzlwv2%2FDZv1EW5fB8nX%2F4hzcrnXtW4Motk6pZcZ76Hqp3siS3rzp3CKcEjDSEFcWJbLUM7SitX4%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+            "NEL",
+            "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+            "Set-Cookie",
+            "__cfruid=6d0fb6ff4e4c9480d758db0f04051d3c6a998ee1-1694458761; path=/; domain=.zendesk.com; HttpOnly; Secure; SameSite=None",
+            "Server",
+            "cloudflare",
+            "CF-RAY",
+            "805225bbc944fb40-SJC"
+        ],
+        "responseIsBinary": false
+    }
+]

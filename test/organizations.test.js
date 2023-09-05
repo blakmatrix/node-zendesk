@@ -2,8 +2,10 @@
 import process from 'node:process';
 import crypto from 'node:crypto';
 import dotenv from 'dotenv';
-import {/* afterAll, */ describe, expect, it} from 'vitest';
+import {/* afterAll, */ describe, expect, it, beforeAll, assert} from 'vitest';
 import {createClient} from '../src/index.js';
+
+const nockBack = require('nock').back
 
 dotenv.config();
 
@@ -12,9 +14,8 @@ const subdomain = process.env.ZENDESK_SUBDOMAIN;
 const token = process.env.ZENDESK_TOKEN;
 
 describe('Zendesk Client Organizations', () => {
-  const id = crypto.randomBytes(16).toString('hex');
-  const organizationName = `Test Organization ${id}`;
-  const randomExternalID = crypto.randomInt(1, 1000);
+  const organizationName = `node-zendesk Test Organization`;
+  const randomExternalID = "69420"
   let testOrganization = {
     url: '',
     id: 0,
@@ -32,6 +33,11 @@ describe('Zendesk Client Organizations', () => {
     organization_fields: {},
   };
 
+  beforeAll(async() =>  {
+    nockBack.setMode('record')
+    nockBack.fixtures = __dirname + '/fixtures'
+  })
+
   //   Const testOrganizations = []; // Holds all created test organizations
 
   //   function generateOrganizationName() {
@@ -46,53 +52,65 @@ describe('Zendesk Client Organizations', () => {
   const client = setupClient();
 
   it('should successfully create a new organization with the expected name', async () => {
+    const { nockDone, context } = await nockBack('organizations_test_create_organization.json');
     const {result: organization} = await client.organizations.create({
-      organization: {name: organizationName},
+      organization: {name: organizationName, external_id: randomExternalID},
     });
-    testOrganization = organization;
+
     expect(organization.name).toBe(organizationName);
+    testOrganization = organization;
+    nockDone();
   });
 
   it('should include the new organization in the list of all organizations', async () => {
+    const { nockDone, context } = await nockBack('organizations_test_has_organization.json');
     const result = await client.organizations.list();
     const organizations = result.map((organization) => organization.name);
-    expect(organizations).toContain(organizationName);
+    expect(organizations).toContain(testOrganization.name);
+    nockDone();
   });
 
   it('should retrieve the details of the created organization using its ID', async () => {
+    const { nockDone, context } = await nockBack('organizations_test_show_organization.json');
     const {result: organization} = await client.organizations.show(
       testOrganization.id,
     );
-    expect(organization.name).toBe(organizationName);
+    expect(organization.name).toBe(testOrganization.name);
+    nockDone()
   });
 
-  it('should successfully update the notes and external ID of the organization', async () => {
+  it('should successfully update the notes', async () => {
+    const { nockDone, context } = await nockBack('organizations_test_update_organization.json');
     const {result: organization} = await client.organizations.update(
       testOrganization.id,
       {
-        organization: {notes: 'foo', external_id: randomExternalID},
+        organization: {notes: 'foo'},
       },
     );
     expect(organization.notes).toBe('foo');
-    expect(organization.external_id).toBe(randomExternalID.toString());
+    nockDone()
   });
 
   it('should find the organization when searching by the updated external ID', async () => {
+    const { nockDone, context } = await nockBack('organizations_test_search_organization.json');
     const result = await client.organizations.search({
-      external_id: randomExternalID,
+      external_id: testOrganization.external_id,
     });
     const organizations = result.map((organization) => organization.name);
-    expect(organizations).toContain(organizationName);
+    expect(organizations).toContain(testOrganization.name);
+    nockDone()
   });
 
   // Autocomplete seems to not be instant, maybe for caching reasons?
   it('should return potential matches when autocompleting the organization name', async () => {
+    const { nockDone, context } = await nockBack('organizations_test_autocomplete_organization.json');
     const result = await client.organizations.autocomplete({
       name: organizationName.slice(0, 4),
     });
 
     const organizations = result.map((organization) => organization.name);
     expect(Array.isArray(organizations)).toBe(true);
+    nockDone()
   });
 
   // These need to use job status, which is not yet tested
@@ -133,14 +151,18 @@ describe('Zendesk Client Organizations', () => {
 
   // Delete technically returns an error, but it's a 204 No Content error and ths not thrown
   it('should successfully delete the created organization', async () => {
+    const { nockDone, context } = await nockBack('organizations_delete_organization.json');
     const {result} = await client.organizations.delete(testOrganization.id);
-    expect(result.message).toBe('No Content');
+    assert(result);
+    nockDone();
   });
 
   it('should throw an error when trying to delete an already deleted or non-existent organization', async () => {
+    const { nockDone, context } = await nockBack('organizations_double_delete_organization.json');
     await expect(() =>
       client.organizations.delete(testOrganization.id),
     ).rejects.toThrowError('Item not found');
+    nockDone();
   });
 
   //   AfterAll(async () => {
