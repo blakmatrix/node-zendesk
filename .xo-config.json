@@ -1,0 +1,26 @@
+{
+    "prettier": true,
+    "space": 2,
+    "rules": {
+      "unicorn/prefer-module": "off",
+      "unicorn/prefer-top-level-await": "off",
+      "import/extensions": "off",
+      "no-multi-assign": "off",
+      "camelcase": [
+        "warn",
+        {
+          "allow": [
+            "automation_ids",
+            "label_names",
+            "phone_number",
+            "previous_password",
+            "start_time",
+            "ticket_ids",
+            "trigger_ids",
+            "host_mapping",
+            "malware_access_override"
+          ]
+        }
+      ]
+    }
+  }

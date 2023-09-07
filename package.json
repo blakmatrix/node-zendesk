@@ -75,30 +75,5 @@
     "dotenv": "^16.3.1",
     "vitest": "^0.34.3",
     "xo": "^0.56.0"
-  },
-  "xo": {
-    "prettier": true,
-    "space": 2,
-    "rules": {
-      "unicorn/prefer-module": "off",
-      "unicorn/prefer-top-level-await": "off",
-      "import/extensions": "off",
-      "no-multi-assign": "off",
-      "camelcase": [
-        "warn",
-        {
-          "allow": [
-            "automation_ids",
-            "label_names",
-            "phone_number",
-            "previous_password",
-            "start_time",
-            "ticket_ids",
-            "trigger_ids",
-            "host_mapping"
-          ]
-        }
-      ]
-    }
   }
 }
