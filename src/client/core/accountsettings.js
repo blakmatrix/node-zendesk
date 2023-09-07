@@ -19,7 +19,7 @@ class AccountSettings extends Client {
    * @returns {Promise<Object>} A promise that resolves to the account settings.
    * {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/account_settings/#show-settings | See the Zendesk API documentation for more details}.
    * @example
-   * const settings = await zd.accountSettings.show();
+   * const settings = await client.accountsettings.show();
    */
   async show() {
     return this.get(['account', 'settings']);
@@ -32,7 +32,7 @@ class AccountSettings extends Client {
    * @returns {Promise<Object>} A promise that resolves to the updated account settings.
    * {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/account_settings/#update-account-settings | See the Zendesk API documentation for more details}.
    * @example
-   * const settings = await zd.accountSettings.update({ "settings": { "active_features": { "customer_satisfaction": false }}});
+   * const settings = await client.accountsettings.update({ "settings": { "active_features": { "customer_satisfaction": false }}});
    */
   async update(settings) {
     return this.put(['account', 'settings'], settings);
