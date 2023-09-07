@@ -94,7 +94,8 @@
             "previous_password",
             "start_time",
             "ticket_ids",
-            "trigger_ids"
+            "trigger_ids",
+            "host_mapping"
           ]
         }
       ]
