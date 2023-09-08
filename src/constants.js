@@ -5,7 +5,6 @@ const MODULES = {
     'Attachments',
     'Automations',
     'Brand',
-    'Categories',
     'CustomAgentRoles',
     'DynamicContent',
     'DynamicContentVariants',

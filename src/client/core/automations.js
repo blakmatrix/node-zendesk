@@ -153,4 +153,4 @@ class Automations extends Client {
   }
 }
 
-module.exports = Automations;
+exports.Automations = Automations;
