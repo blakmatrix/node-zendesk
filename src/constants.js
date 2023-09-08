@@ -8,6 +8,7 @@ const MODULES = {
     'Categories',
     'CustomAgentRoles',
     'DynamicContent',
+    'DynamicContentVariants',
     'Forums',
     'ForumSubscriptions',
     'GroupMemberships',
