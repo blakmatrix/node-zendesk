@@ -8,8 +8,6 @@ const MODULES = {
     'CustomAgentRoles',
     'DynamicContent',
     'DynamicContentVariants',
-    'Forums',
-    'ForumSubscriptions',
     'GroupMemberships',
     'Groups',
     'Imports',
