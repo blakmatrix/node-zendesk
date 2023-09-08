@@ -24,78 +24,93 @@ class Requests extends Client {
   /**
    * List all ticket requests.
    * @async
-   * @param {Object} [params] - Optional parameters.
-   * @param {string} [params.sort_by] - Sort by "updated_at" or "created_at".
-   * @param {string} [params.sort_order] - Sort order: "asc" or "desc".
+   * @param {Object} [parameters] - Optional parameters.
+   * @param {string} [parameters.sort_by] - Sort by "updated_at" or "created_at".
+   * @param {string} [parameters.sort_order] - Sort order: "asc" or "desc".
    * @returns {Promise<Object[]>} List of ticket requests.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#list-requests}
    * @example const requests = await client.requests.list({ sort_by: 'updated_at', sort_order: 'desc' });
    */
-  async list() {
-    return this.getAll(['requests']);
+  async list(parameters) {
+    return this.getAll(['requests', parameters]);
   }
 
   /**
    * List all ticket requests that are open.
    * @async
+   * @param {Object} [parameters] - Optional parameters.
+   * @param {string} [parameters.sort_by] - Sort by "updated_at" or "created_at".
+   * @param {string} [parameters.sort_order] - Sort order: "asc" or "desc".
    * @returns {Promise<Object[]>} List of open ticket requests.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#list-requests}
    * @example const openRequests = await client.requests.listOpen();
    */
-  async listOpen() {
-    return this.getAll(['requests', 'open']);
+  async listOpen(parameters) {
+    return this.getAll(['requests', 'open', parameters]);
   }
 
   /**
    * List all ticket requests that are solved.
    * @async
+   * @param {Object} [parameters] - Optional parameters.
+   * @param {string} [parameters.sort_by] - Sort by "updated_at" or "created_at".
+   * @param {string} [parameters.sort_order] - Sort order: "asc" or "desc".
    * @returns {Promise<Object[]>} List of solved ticket requests.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#list-requests}
    * @example const solvedRequests = await client.requests.listSolved();
    */
-  async listSolved() {
-    return this.getAll(['requests', 'solved']);
+  async listSolved(parameters) {
+    return this.getAll(['requests', 'solved', parameters]);
   }
 
   /**
    * List all CCD ticket requests.
    * @async
+   * @param {Object} [parameters] - Optional parameters.
+   * @param {string} [parameters.sort_by] - Sort by "updated_at" or "created_at".
+   * @param {string} [parameters.sort_order] - Sort order: "asc" or "desc".
    * @returns {Promise<Object[]>} List of CCD ticket requests.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#list-requests}
    * @example const ccdRequests = await client.requests.listCCD();
    */
-  async listCCD() {
-    return this.getAll(['requests', 'ccd']);
+  async listCCD(parameters) {
+    return this.getAll(['requests', 'ccd', parameters]);
   }
 
   /**
    * List all ticket requests by a specific user.
    * @async
    * @param {number} userID - The ID of the user.
+   * @param {Object} [parameters] - Optional parameters.
+   * @param {string} [parameters.sort_by] - Sort by "updated_at" or "created_at".
+   * @param {string} [parameters.sort_order] - Sort order: "asc" or "desc".
    * @returns {Promise<Object[]>} List of ticket requests for the specified user.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#list-requests}
    * @example const userRequests = await client.requests.listByUser(12345);
    */
-  async listByUser(userID) {
-    return this.getAll(['users', userID, 'requests']);
+  async listByUser(userID, parameters) {
+    return this.getAll(['users', userID, 'requests', parameters]);
   }
 
   /**
    * List all ticket requests by a specific organization.
    * @async
    * @param {number} orgID - The ID of the organization.
+   * @param {Object} [parameters] - Optional parameters.
+   * @param {string} [parameters.sort_by] - Sort by "updated_at" or "created_at".
+   * @param {string} [parameters.sort_order] - Sort order: "asc" or "desc".
    * @returns {Promise<Object[]>} List of ticket requests for the specified organization.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#list-requests}
    * @example const orgRequests = await client.requests.listByOrganization(6789);
    */
-  async listByOrganization(orgID) {
-    return this.getAll(['organizations', orgID, 'requests']);
+  async listByOrganization(orgID, parameters) {
+    return this.getAll(['organizations', orgID, 'requests', parameters]);
   }
 
   /**
