@@ -19,7 +19,8 @@
             "trigger_ids",
             "host_mapping",
             "malware_access_override",
-            "group_memberships"
+            "group_memberships",
+            "available_locales"
           ]
         }
       ]
