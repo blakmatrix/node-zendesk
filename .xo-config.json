@@ -22,7 +22,8 @@
             "group_memberships",
             "available_locales",
             "organization_field_ids",
-            "external_id"
+            "external_id",
+            "sla_policy_ids"
           ]
         }
       ]
