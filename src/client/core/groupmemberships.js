@@ -220,9 +220,13 @@ class GroupMemberships extends Client {
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#bulk-delete-memberships}
    */
   async bulkDelete(ids) {
-    return this.delete(['group_memberships', 'destroy_many'], {
-      ids: ids.join(','),
-    });
+    return super.delete([
+      'group_memberships',
+      'destroy_many',
+      {
+        ids: ids.join(','),
+      },
+    ]);
   }
 }
 
