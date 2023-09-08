@@ -20,7 +20,8 @@
             "host_mapping",
             "malware_access_override",
             "group_memberships",
-            "available_locales"
+            "available_locales",
+            "organization_field_ids"
           ]
         }
       ]
