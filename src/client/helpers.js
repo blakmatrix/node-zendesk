@@ -1,5 +1,3 @@
-/* eslint-disable max-params */
-
 const failCodes = {
   400: 'Bad Request',
   401: 'Not Authorized',
@@ -12,56 +10,48 @@ const failCodes = {
   500: 'Internal Server Error',
   503: 'Service Unavailable',
 };
+
 /**
  * Continuously checks the status of a job using intervals and invokes a callback when the job status changes.
  *
  * @param {Object} options - Options object.
- * @param {string} options.stores.defaults.store - The store to use.
  * @param {string} jobID - The ID of the job to monitor.
  * @param {number} [interval=500] - The interval in milliseconds at which to check the job status.
  * @param {number} [maxAttempts=5] - The maximum number of attempts to check the job status.
- * @param {function(Error, Object, Object): void} cb - Callback function to be invoked when the job status changes.
  */
-function getJobStatuses(options, jobID, interval, maxAttempts, cb) {
+async function getJobStatuses(options, jobID, interval = 500, maxAttempts = 5) {
   let attempts = 0;
-  const client = require('./client').createClient(options);
-  // Interval handle
-  const nIntervId = setInterval(() => getJobStatus(jobID), interval || 500);
+  const client = require('../index').createClient(options);
 
-  function getJobStatus(id) {
-    client.jobstatuses.show(id, function (error, request, result) {
-      if (error && error.statusCode === 404 && attempts < (maxAttempts || 5)) {
-        ++attempts;
-        console.log('Waiting for job to become available...[' + attempts + ']');
-      } else {
-        if (error) {
-          clearInterval(nIntervId);
-          return cb(error);
-        } // Error
-
+  // eslint-disable-next-line no-async-promise-executor
+  return new Promise(async (resolve, reject) => {
+    const nIntervId = setInterval(async () => {
+      try {
+        const result = await client.jobstatuses.show(jobID);
         if (
           result.job_status.status === 'completed' ||
           result.job_status.status === 'failed' ||
           result.job_status.status === 'killed'
         ) {
-          stopGetJobStatus();
-          console.log('Job ' + id + ' completed!');
-          return cb(null, request, result);
+          clearInterval(nIntervId);
+          console.log(`Job ${jobID} completed!`);
+          resolve(result);
+        } else {
+          console.log(
+            `Job progress: ${result.job_status.progress} out of ${result.job_status.total}`,
+          );
         }
-
-        console.log(
-          'Job prgress: ' +
-            result.job_status.progress +
-            ' out of ' +
-            result.job_status.total,
-        );
+      } catch (error) {
+        if (error && error.statusCode === 404 && attempts < maxAttempts) {
+          ++attempts;
+          console.log(`Waiting for job to become available...[${attempts}]`);
+        } else {
+          clearInterval(nIntervId);
+          reject(error);
+        }
       }
-    });
-  }
-
-  function stopGetJobStatus() {
-    clearInterval(nIntervId);
-  }
+    }, interval);
+  });
 }
 
 /**
