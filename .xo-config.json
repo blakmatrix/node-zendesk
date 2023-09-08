@@ -21,7 +21,8 @@
             "malware_access_override",
             "group_memberships",
             "available_locales",
-            "organization_field_ids"
+            "organization_field_ids",
+            "external_id"
           ]
         }
       ]
