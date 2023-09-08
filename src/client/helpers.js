@@ -177,8 +177,8 @@ function assembleUrl(self, method, uri) {
       queryString = serialize(lastElement);
     } else if (typeof lastElement === 'string' && lastElement.startsWith('?')) {
       queryString = lastElement.slice(1);
-    } else {
-      uri.push(lastElement);
+    } else if (lastElement !== undefined && lastElement !== '') {
+      uri.push(lastElement); // Check for undefined and empty strings
     }
 
     segments = uri;
@@ -207,7 +207,9 @@ function assembleUrl(self, method, uri) {
   );
 
   // Construct the URL
-  const basePath = `${endpointUri}/${segments.join('/')}.json`;
+  const basePath = `${endpointUri}/${segments
+    .filter((segment) => segment !== undefined && segment !== '')
+    .join('/')}.json`;
   return queryString ? `${basePath}?${queryString}` : basePath;
 }
 
