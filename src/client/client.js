@@ -36,7 +36,7 @@ class Client {
     this.sideLoad = [];
     this.userAgent = generateUserAgent();
     this.initializeJsonAPINames();
-    this.transporter = new Transporter(this.options);
+    this.transporter = new Transporter(this.options, this.sideLoad);
     this.eventTarget = new CustomEventTarget();
 
     // Listen to transporter's debug events and re-emit them on the Client
@@ -69,6 +69,7 @@ class Client {
 
   setSideLoad(array) {
     this.sideLoad = array;
+    this.transporter.setSideLoad(array);
   }
 
   initializeJsonAPINames() {

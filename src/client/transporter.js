@@ -23,8 +23,9 @@ const defaultTransportConfig = {
   },
 };
 class Transporter {
-  constructor(options) {
+  constructor(options, sideLoad = []) {
     this.options = options;
+    this.sideLoad = sideLoad;
     this.authHandler = new AuthorizationHandler(this.options);
     this.eventTarget = new CustomEventTarget();
     this.endpointChecker = new EndpointChecker();
@@ -136,6 +137,10 @@ class Transporter {
     } catch (error) {
       throw new Error(`Failed to stringify the request body: ${error.message}`);
     }
+  }
+
+  setSideLoad(array) {
+    this.sideLoad = array;
   }
 }
 
