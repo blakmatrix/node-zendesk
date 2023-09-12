@@ -5,12 +5,33 @@ const {CustomEventTarget} = require('./custom-event-target');
 const {EndpointChecker} = require('./endpoint-checker');
 const {assembleUrl} = require('./helpers');
 
+// Default transport config using fetch
+const defaultTransportConfig = {
+  transportFn(uri, options) {
+    return fetch(uri, options);
+  },
+
+  responseAdapter(response) {
+    return {
+      json: () => response.json(),
+      status: response.status,
+      headers: {
+        get: (headerName) => response.headers.get(headerName),
+      },
+      statusText: response.statusText,
+    };
+  },
+};
 class Transporter {
   constructor(options) {
     this.options = options;
     this.authHandler = new AuthorizationHandler(this.options);
     this.eventTarget = new CustomEventTarget();
     this.endpointChecker = new EndpointChecker();
+    const transportConfig =
+      this.options.transportConfig || defaultTransportConfig;
+    this.transportFn = transportConfig.transportFn;
+    this.responseAdapter = transportConfig.responseAdapter;
   }
 
   // Transporter methods
@@ -49,7 +70,10 @@ class Transporter {
 
   async sendRequest(options) {
     this.emit('debug::request', options); // Emit before the request
-    const response = await this.fetchWithOptions(options.uri, options);
+
+    const rawResponse = await this.transportFn(options.uri, options);
+    const response = this.responseAdapter(rawResponse);
+
     this.emit('debug::response', response); // Emit after the request
     let result = {};
     if (
@@ -79,10 +103,6 @@ class Transporter {
       method,
       body: bodyContent,
     };
-  }
-
-  fetchWithOptions(uri, options) {
-    return fetch(options.uri, options);
   }
 
   getHeadersForRequest() {

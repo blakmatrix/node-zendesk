@@ -24,6 +24,9 @@ const {MODULES, ENDPOINTS} = require('./constants');
  * @property {boolean} [options.throttle] - Flag to enable throttling of requests.
  * @property {boolean} [options.debug=false] - Flag to enable or disable debug logging.
  * @property {object} [options.logger=ConsoleLogger] - Optional logger for logging. Should have methods like `info`, `error`, etc. Defaults to a basic console logger.
+ * @property {object} [options.transportConfig] - Configuration for custom transport functionality.
+ * @property {function} [options.transportConfig.transportFn] - Custom function to perform the request. By default, it uses `fetch`. It should return a response object.
+ * @property {function} [options.transportConfig.responseAdapter] - Custom function to adapt the response from `transportFn` into a consistent format. By default, it adapts for `fetch` response.
  *
  * @example
  * const zendeskOptions = {
