@@ -13,14 +13,15 @@ const transportConfigUsingRequest = {
       ...options,
       uri,
       headers: options.headers,
-      json: true, // Automatically stringifies the body to JSON
     };
 
     return new Promise((resolve, reject) => {
-      request(requestOptions, (error, response) => {
+      request(requestOptions, (error, response, body) => {
         if (error) {
           reject(error);
         } else {
+          // Include the body in the response object for the adapter to handle
+          response.body = body;
           resolve(response);
         }
       });
@@ -29,7 +30,15 @@ const transportConfigUsingRequest = {
 
   responseAdapter(response) {
     return {
-      json: () => Promise.resolve(response.body),
+      json() {
+        try {
+          return Promise.resolve(JSON.parse(response.body));
+        } catch (error) {
+          return Promise.reject(
+            new Error(`Failed to parse JSON: ${error.message}`),
+          );
+        }
+      },
       status: response.statusCode,
       headers: {
         get: (headerName) => response.headers[headerName.toLowerCase()],
