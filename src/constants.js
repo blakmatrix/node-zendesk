@@ -82,4 +82,27 @@ const ENDPOINTS = {
   voice: '.zendesk.com/api/v2/channels/voice',
 };
 
-module.exports = {MODULES, ENDPOINTS};
+const MODULE_BASE_PATHS = {
+  core: './client/core/',
+  helpcenter: './client/helpcenter/',
+  nps: './client/nps/',
+  services: './client/services/',
+  voice: './client/voice/',
+};
+
+const MODULE_MAP = {};
+
+for (const apiType in MODULES) {
+  if (Object.prototype.hasOwnProperty.call(MODULES, apiType)) {
+    MODULE_MAP[apiType] = {};
+
+    for (const moduleName of MODULES[apiType]) {
+      const modulePath = `${
+        MODULE_BASE_PATHS[apiType]
+      }${moduleName.toLowerCase()}`;
+      MODULE_MAP[apiType][moduleName.toLowerCase()] = require(modulePath);
+    }
+  }
+}
+
+module.exports = {MODULES, MODULE_BASE_PATHS, MODULE_MAP, ENDPOINTS};
