@@ -78,9 +78,7 @@ describe('Zendesk Client Organizations', () => {
   });
 
   it('should find the organization when searching by the updated external ID', async () => {
-    const result = await client.organizations.search({
-      external_id: randomExternalID,
-    });
+    const result = await client.organizations.search(randomExternalID);
     const organizations = result.map((organization) => organization.name);
     expect(organizations).toContain(organizationName);
   });
