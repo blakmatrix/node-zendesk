@@ -206,10 +206,10 @@ class Organizations extends Client {
 
   /**
    * @async
-   * @description Searches organizations based on extrnal ID.
-   * @param {Object} externalID - Search by externalID.
+   * @description Searches organizations based on external ID.
+   * @param {Number} externalID - Search by externalID.
    * @returns {Promise<Object[]>} List of organizations matching the search.
-   * @example const foundOrganizations = await client.organizations.search({ name: 'Test Org' });
+   * @example const foundOrganizations = await client.organizations.search(1234);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#search-organizations-by-external-id}
    */
   async search(externalID) {
