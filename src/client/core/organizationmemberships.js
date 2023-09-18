@@ -174,8 +174,7 @@ class OrganizationMemberships extends Client {
    */
   async deleteMany(organizationMembershipIDs) {
     return super.delete(
-      ['organization_memberships', 'destroy_many'],
-      organizationMembershipIDs,
+      ['organization_memberships', 'destroy_many', { ids: organizationMembershipIDs.join(',') }],
     );
   }
 
