@@ -23,7 +23,8 @@
             "available_locales",
             "organization_field_ids",
             "external_id",
-            "sla_policy_ids"
+            "sla_policy_ids",
+            "job_status"
           ]
         }
       ]

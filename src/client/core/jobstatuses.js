@@ -1,6 +1,6 @@
 // JobStatuses.js: Client for the zendesk API.
 const {Client} = require('../client');
-const {getJobStatuses} = require('../helpers');
+const JobMonitor = require('../job-monitor');
 
 /**
  * Represents the Job Statuses in Zendesk. A status record is created when somebody kicks off a job
@@ -70,23 +70,25 @@ class JobStatuses extends Client {
    * @param {string} jobID - The ID of the job to watch.
    * @param {number} interval - The time (in milliseconds) to wait between each check.
    * @param {number} maxAttempts - The maximum number of attempts to check the job status.
-   * @returns {Promise<void>} - A promise that resolves when the job is completed or the maximum attempts are reached.
+   * @returns {Promise<Object>} - A promise that resolves with the job status when the job is completed or the maximum attempts are reached.
    * @throws {Error} If there's an error in the request or if the maximum attempts are reached without the job completing.
    * @example
    * await client.jobstatuses.watch("dd9321f29967688b27bc9499ebb4ae8d", 1000, 5);
    */
   async watch(jobID, interval, maxAttempts) {
-    getJobStatuses(this.options, jobID, interval, maxAttempts);
+    const jobMonitor = new JobMonitor(this.options);
+
     try {
-      const result = await getJobStatuses(
-        this.options,
+      const jobStatus = await jobMonitor.monitorJobStatus(
         jobID,
         interval,
         maxAttempts,
       );
-      super.emit('debug::result', ('Job completed with result:', result));
+      super.emit('debug::result', jobStatus);
+      return jobStatus;
     } catch (error) {
-      super.emit('debug::result', ('Error watching job status:', error));
+      super.emit('debug::result', `Error watching job status: ${error}`);
+      throw error;
     }
   }
 }

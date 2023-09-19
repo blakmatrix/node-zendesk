@@ -12,49 +12,6 @@ const failCodes = {
 };
 
 /**
- * Continuously checks the status of a job using intervals and invokes a callback when the job status changes.
- *
- * @param {Object} options - Options object.
- * @param {string} jobID - The ID of the job to monitor.
- * @param {number} [interval=500] - The interval in milliseconds at which to check the job status.
- * @param {number} [maxAttempts=5] - The maximum number of attempts to check the job status.
- */
-async function getJobStatuses(options, jobID, interval = 500, maxAttempts = 5) {
-  let attempts = 0;
-  const client = require('../index').createClient(options);
-
-  // eslint-disable-next-line no-async-promise-executor
-  return new Promise(async (resolve, reject) => {
-    const nIntervId = setInterval(async () => {
-      try {
-        const result = await client.jobstatuses.show(jobID);
-        if (
-          result.job_status.status === 'completed' ||
-          result.job_status.status === 'failed' ||
-          result.job_status.status === 'killed'
-        ) {
-          clearInterval(nIntervId);
-          console.log(`Job ${jobID} completed!`);
-          resolve(result);
-        } else {
-          console.log(
-            `Job progress: ${result.job_status.progress} out of ${result.job_status.total}`,
-          );
-        }
-      } catch (error) {
-        if (error && error.statusCode === 404 && attempts < maxAttempts) {
-          ++attempts;
-          console.log(`Waiting for job to become available...[${attempts}]`);
-        } else {
-          clearInterval(nIntervId);
-          reject(error);
-        }
-      }
-    }, interval);
-  });
-}
-
-/**
  * Flattens a nested array to a single-level array.
  *
  * @param {Array} array - The array to be flattened.
@@ -339,7 +296,6 @@ function generateUserAgent() {
 
 module.exports = {
   flatten,
-  getJobStatuses,
   assembleUrl,
   checkRequestResponse,
   processResponseBody,

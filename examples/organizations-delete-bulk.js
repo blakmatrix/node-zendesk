@@ -22,21 +22,6 @@ function getTestOrganizationIds(organizations) {
     .map((org) => org.id);
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function waitForJobsToComplete(client) {
-  let jobCount = 30; // Assuming maximum allowed jobs at first
-  while (jobCount >= 30) {
-    // While the queue is full
-    console.log('Waiting for job queue to clear...');
-    await sleep(1000); // Wait for 1 second before checking again
-    const jobs = await client.jobstatuses.list();
-    jobCount = jobs.length;
-  }
-}
-
 function chunkArray(array, chunkSize) {
   const chunks = [];
   for (let i = 0; i < array.length; i += chunkSize) {
@@ -44,6 +29,15 @@ function chunkArray(array, chunkSize) {
   }
 
   return chunks;
+}
+
+async function monitorJobCompletion(client, jobID) {
+  try {
+    await client.jobstatuses.watch(jobID, 1000, 30);
+  } catch (error) {
+    console.error('Error watching job status:', error);
+    throw error;
+  }
 }
 
 async function bulkDeleteTestOrganizations() {
@@ -55,20 +49,23 @@ async function bulkDeleteTestOrganizations() {
     const chunks = chunkArray(orgIdsToDelete, 30);
 
     for (const chunk of chunks) {
-      await waitForJobsToComplete(client);
-
       const {result} = await client.organizations.bulkDelete(chunk);
+      const {job_status} = result;
 
-      if (result.message === 'No Content') {
+      if (job_status && job_status.id) {
+        await monitorJobCompletion(client, job_status.id);
+      }
+
+      if (job_status && job_status.status) {
         console.log(
           `Successfully deleted chunk of ${chunk.length} organizations.`,
         );
       } else {
-        console.dir(result);
+        console.dir(job_status);
       }
     }
 
-    console.log('All test organizations deleted successfully.');
+    console.log('All organizations deleted successfully.');
   } catch (error) {
     if (error.message.includes('TooManyJobs')) {
       console.error(
