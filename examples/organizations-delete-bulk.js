@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-await-in-loop */
 
 const process = require('node:process');
 const dotenv = require('dotenv');
@@ -21,21 +22,63 @@ function getTestOrganizationIds(organizations) {
     .map((org) => org.id);
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function waitForJobsToComplete(client) {
+  let jobCount = 30; // Assuming maximum allowed jobs at first
+  while (jobCount >= 30) {
+    // While the queue is full
+    console.log('Waiting for job queue to clear...');
+    await sleep(1000); // Wait for 1 second before checking again
+    const jobs = await client.jobstatuses.list();
+    jobCount = jobs.length;
+  }
+}
+
+function chunkArray(array, chunkSize) {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+
+  return chunks;
+}
+
 async function bulkDeleteTestOrganizations() {
   const client = initializeZendeskClient();
 
   try {
     const organizations = await client.organizations.list();
     const orgIdsToDelete = getTestOrganizationIds(organizations);
-    const {result} = await client.organizations.bulkDelete(orgIdsToDelete);
+    const chunks = chunkArray(orgIdsToDelete, 30);
 
-    if (result.message === 'No Content') {
-      console.log('Test organizations deleted successfully.');
-    } else {
-      console.dir(result);
+    for (const chunk of chunks) {
+      await waitForJobsToComplete(client);
+
+      const {result} = await client.organizations.bulkDelete(chunk);
+
+      if (result.message === 'No Content') {
+        console.log(
+          `Successfully deleted chunk of ${chunk.length} organizations.`,
+        );
+      } else {
+        console.dir(result);
+      }
     }
+
+    console.log('All test organizations deleted successfully.');
   } catch (error) {
-    console.error(`Failed to bulk delete test organizations: ${error.message}`);
+    if (error.message.includes('TooManyJobs')) {
+      console.error(
+        'Too many jobs are currently queued or running. Try again later.',
+      );
+    } else {
+      console.error(
+        `Failed to bulk delete test organizations: ${error.message}`,
+      );
+    }
   }
 }
 
