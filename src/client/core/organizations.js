@@ -192,16 +192,20 @@ class Organizations extends Client {
   /**
    * @async
    * @description Deletes multiple organizations based on their IDs.
-   * @param {number[]} organizationIDs - Array of organization IDs.
+   * @param {number[]} organizationIds - Array of organization IDs.
    * @returns {Promise<void>}
    * @example await client.organizations.bulkDelete([12345, 67890]);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#bulk-delete-organizations}
    * @throws {Error} Throws an error if deletion fails.
    */
-  async bulkDelete(organizationIDs) {
-    return super.delete(['organizations', 'destroy_many'], {
-      ids: organizationIDs.join(','),
-    });
+  async bulkDelete(organizationIds) {
+    return super.delete([
+      'organizations',
+      'destroy_many',
+      {
+        ids: organizationIds,
+      },
+    ]);
   }
 
   /**

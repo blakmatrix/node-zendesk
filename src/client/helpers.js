@@ -216,12 +216,15 @@ function assembleUrl(self, method, uri) {
 /**
  * Serializes a JavaScript object into a query string format.
  *
- * Supports nested objects. For non-object values, it encodes them with the provided prefix.
- * For objects, it recursively encodes each nested key-value pair using a bracket notation.
+ * Supports nested objects and arrays:
+ * - For non-object values, it encodes them with the provided prefix.
+ * - For array values, it encodes them as comma-separated lists without indexing.
+ * - For objects, it recursively encodes each nested key-value pair using a bracket notation.
  *
  * @example
  * serialize({ a: 1 })                // "a=1"
  * serialize({ a: { b: 2 } })        // "a[b]=2"
+ * serialize({ ids: [1,2,3,4] })     // "ids=1,2,3,4"
  * serialize('test', 'key')          // "key=test"
  *
  * @param {Object|string|number} object - The object to serialize.
@@ -232,6 +235,13 @@ const serialize = (object, prefix = '') => {
   // Base condition: non-object values
   if (object === null || typeof object !== 'object') {
     return `${encodeURIComponent(prefix)}=${encodeURIComponent(object)}`;
+  }
+
+  // Handle arrays differently: join with commas
+  if (Array.isArray(object)) {
+    return `${encodeURIComponent(prefix)}=${encodeURIComponent(
+      object.join(','),
+    )}`;
   }
 
   // Recursive serialization for object values
