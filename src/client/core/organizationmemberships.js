@@ -116,16 +116,24 @@ class OrganizationMemberships extends Client {
   }
 
   /**
+   * An object that relates a Zendesk user to a Zendesk organization.
+   * @typedef {object} OrganizationMembership
+   * @property {number} user_id The Zendesk identifier of the user.
+   * @property {number} organization_id The Zendesk identifier of the
+   *   organization.
+   */
+
+  /**
    * Create multiple organization memberships at once.
    * @async
-   * @param {Object[]} organizationMemberships - An array of organization membership data.
+   * @param {OrganizationMembership[]} organizationMemberships - An array of organization membership data.
    * @returns {Promise<Object>} A promise resolving to a job status.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#create-many-memberships}
    * @example
    * const jobStatus = await client.organizationmemberships.createMany([{ user_id: 123, organization_id: 456 }, ...]);
    */
   async createMany(organizationMemberships) {
-    return this.put(
+    return this.post(
       ['organization_memberships', 'create_many'],
       organizationMemberships,
     );
