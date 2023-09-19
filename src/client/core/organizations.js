@@ -193,7 +193,7 @@ class Organizations extends Client {
    * @async
    * @description Deletes multiple organizations based on their IDs.
    * @param {number[]} organizationIds - Array of organization IDs.
-   * @returns {Promise<void>}
+   * @returns {Promise<Object>} Returns a job status JSON object.
    * @example await client.organizations.bulkDelete([12345, 67890]);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#bulk-delete-organizations}
    * @throws {Error} Throws an error if deletion fails.
@@ -204,6 +204,25 @@ class Organizations extends Client {
       'destroy_many',
       {
         ids: organizationIds,
+      },
+    ]);
+  }
+
+  /**
+   * @async
+   * @description Deletes multiple organizations based on their external IDs.
+   * @param {string[]} organizationExternalIds - Array of organization external IDs.
+   * @returns {Promise<Object>} Returns a job status JSON object.
+   * @example await client.organizations.bulkDeleteByExternalId(['ext-12345', 'ext-67890']);
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#bulk-delete-organizations}
+   * @throws {Error} Throws an error if deletion fails.
+   */
+  async bulkDeleteByExternalId(organizationExternalIds) {
+    return super.delete([
+      'organizations',
+      'destroy_many',
+      {
+        external_ids: organizationExternalIds,
       },
     ]);
   }
