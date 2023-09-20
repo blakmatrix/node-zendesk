@@ -98,9 +98,31 @@ class Organizations extends Client {
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#show-many-organizations}
    */
   async showMany(organizationIDs) {
-    return this.getAll(['organizations', 'show_many'], {
-      ids: organizationIDs.join(','),
-    });
+    return this.getAll([
+      'organizations',
+      'show_many',
+      {
+        ids: organizationIDs,
+      },
+    ]);
+  }
+
+  /**
+   * @async
+   * @description Retrieves details of multiple organizations based on their External IDs.
+   * @param {string[]} externalOrganizationIds - Array of organization IDs.
+   * @returns {Promise<Object[]>} List of organizations' details.
+   * @example const orgDetails = await client.organizations.showMany(['12345', '67890']);
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#show-many-organizations}
+   */
+  async showManyByExternalIds(externalOrganizationIds) {
+    return this.getAll([
+      'organizations',
+      'show_many',
+      {
+        external_ids: externalOrganizationIds,
+      },
+    ]);
   }
 
   /**

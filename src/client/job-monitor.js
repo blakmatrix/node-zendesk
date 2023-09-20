@@ -35,21 +35,23 @@ class JobMonitor {
 
           if (TERMINAL_STATUSES.has(jobStatus.status)) {
             clearInterval(nIntervId);
-            console.log(`Job ${jobID} completed!`);
+            // This.client.emit('debug::result', `Job ${jobID} completed!`);
             resolve(jobStatus);
           } else {
-            console.log(
-              `[${jobStatus.message || 'pending'}] Job progress: ${
-                jobStatus.progress || 0
-              } out of ${jobStatus.total}`,
-            );
+            // This.client.emit(
+            //   'debug::result',
+            //   `[${jobStatus.message || 'pending'}] Job progress: ${
+            //     jobStatus.progress || 0
+            //   } out of ${jobStatus.total}`,
+            // );
           }
         } catch (error) {
           if (error && error.statusCode === 404 && attempts < maxAttempts) {
             ++attempts;
-            console.log(
-              `Waiting for job to become available(attempt: ${attempts})...`,
-            );
+            // This.client.emit(
+            //   'debug::result',
+            //   `Waiting for job to become available(attempt: ${attempts})...`,
+            // );
           } else {
             clearInterval(nIntervId);
             reject(error);

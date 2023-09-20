@@ -35,15 +35,19 @@ describe('Zendesk Client Pagination', () => {
     await Promise.all([createTestOrganization(), createTestOrganization()]);
   });
 
-  it('should fetch all test items even with pagination applied/forced', async () => {
-    const paginatedClient = setupClient({query: {page: {size: 1}}});
-    const organizations = await paginatedClient.organizations.list();
-    const orgNames = organizations.map((org) => org.name);
+  it(
+    'should fetch all test items even with pagination applied/forced',
+    async () => {
+      const paginatedClient = setupClient({query: {page: {size: 1}}});
+      const organizations = await paginatedClient.organizations.list();
+      const orgNames = organizations.map((org) => org.name);
 
-    for (const testOrg of testOrganizations) {
-      expect(orgNames).toContain(testOrg.name);
-    }
-  });
+      for (const testOrg of testOrganizations) {
+        expect(orgNames).toContain(testOrg.name);
+      }
+    },
+    {timeout: 20_000},
+  );
 
   afterAll(async () => {
     await Promise.all(
