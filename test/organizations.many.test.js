@@ -1,63 +1,22 @@
 /* eslint-disable no-await-in-loop */
-import process from 'node:process';
-import crypto from 'node:crypto';
 import dotenv from 'dotenv';
 import {describe, expect, it} from 'vitest';
-import {createClient} from '../src/index.js';
+import {setupClient, generateMultipleOrganizations} from './setup.js';
+import {JobRunner} from './job-runner.js';
 
 dotenv.config();
 
-const username = process.env.ZENDESK_USERNAME;
-const subdomain = process.env.ZENDESK_SUBDOMAIN;
-const token = process.env.ZENDESK_TOKEN;
-
-describe('Zendesk Client Organizations(many)', () => {
+describe('Zendesk Client Organizations(many/bulk)', () => {
   const testOrganizations = [];
-
   let organizationsToCreate = [];
 
-  function generateOrganizationName() {
-    const id = crypto.randomBytes(16).toString('hex');
-    return `Test Organization ${id}`;
-  }
-
-  function generateMultipleOrganizations(n) {
-    const organizations = [];
-    for (let i = 0; i < n; i++) {
-      organizations.push({
-        name: generateOrganizationName(),
-      });
-    }
-
-    return organizations;
-  }
-
-  const setupClient = (config) => {
-    return createClient({username, subdomain, token, ...config});
-  };
-
   const client = setupClient();
-
-  async function executeJob(initiateFunction, validateJobDetails) {
-    const {result} = await initiateFunction();
-
-    expect(result.job_status).toHaveProperty('id');
-    expect(result.job_status.status).toBe('queued');
-
-    const finalJobResults = await client.jobstatuses.watch(
-      result.job_status.id,
-      1000,
-      30,
-    );
-    expect(finalJobResults.status).toBe('completed');
-
-    await validateJobDetails(finalJobResults);
-  }
+  const jobs = new JobRunner(client);
 
   it(
     'should create multiple organizations',
     async () => {
-      await executeJob(
+      await jobs.run(
         async () => {
           organizationsToCreate = generateMultipleOrganizations(30);
           return client.organizations.createMany({
@@ -68,13 +27,18 @@ describe('Zendesk Client Organizations(many)', () => {
           const createdOrgIDs = finalJobResults.results.map((org) => org.id);
           const orgDetails = await client.organizations.showMany(createdOrgIDs);
 
-          expect(orgDetails.length).toBe(createdOrgIDs.length);
+          expect(orgDetails.length).toBe(
+            createdOrgIDs.length,
+            `Expected ${createdOrgIDs.length} organizations, but got ${orgDetails.length}`,
+          );
 
           for (const org of organizationsToCreate) {
             const orgDetail = orgDetails.find(
               (detail) => detail.name === org.name,
             );
-            expect(orgDetail).toBeTruthy();
+            expect(orgDetail).toBeTruthy(
+              `Expected to find organization with name ${org.name}, but did not.`,
+            );
             testOrganizations.push(orgDetail);
           }
         },
@@ -86,7 +50,7 @@ describe('Zendesk Client Organizations(many)', () => {
   it(
     'should update multiple organizations',
     async () => {
-      await executeJob(
+      await jobs.run(
         async () => {
           const ids = testOrganizations.map((org) => org.id);
           return client.organizations.updateMany({
@@ -104,35 +68,43 @@ describe('Zendesk Client Organizations(many)', () => {
             await client.organizations.showMany(updatedOrgIDs);
 
           const updatedNotes = updatedOrgDetails.map((org) => org.notes);
-          expect(updatedNotes).toContain('updatedFoo');
-          expect(updatedNotes).toContain('updatedBar');
+          expect(updatedNotes).toContain(
+            'updatedFoo',
+            `Expected notes to contain 'updatedFoo', but found ${updatedNotes}`,
+          );
+          expect(updatedNotes).toContain(
+            'updatedBar',
+            `Expected notes to contain 'updatedBar', but found ${updatedNotes}`,
+          );
         },
       );
     },
     {timeout: 20_000},
   );
+
   it(
     'should bulk delete organizations',
     async () => {
-      await executeJob(
+      await jobs.run(
         async () => {
           const ids = testOrganizations.map((org) => org.id);
           return client.organizations.bulkDelete(ids);
         },
         async (finalDeleteJobResults) => {
-          // Assuming the deletion job also returns the IDs of the deleted items
           const deletedOrgIDs = finalDeleteJobResults.results.map(
             (org) => org.id,
           );
-
-          // For validation, we try fetching them. If they're gone, they should return null or throw a not found error
           for (const orgId of deletedOrgIDs) {
             try {
               const orgDetail = await client.organizations.show(orgId);
-              expect(orgDetail).toBeNull();
+              expect(orgDetail).toBeNull(
+                `Expected organization with ID ${orgId} to be deleted, but it was found.`,
+              );
             } catch (error) {
-              // Assuming 404 or similar status for not found entities
-              expect(error.message).toContain('Item not found');
+              expect(error.message).toContain(
+                'Item not found',
+                `Expected 'Item not found' error, but got: ${error.message}`,
+              );
             }
           }
         },

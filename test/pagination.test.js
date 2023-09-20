@@ -1,26 +1,15 @@
-import process from 'node:process';
 import crypto from 'node:crypto';
 import dotenv from 'dotenv';
 import {beforeAll, afterAll, describe, expect, it} from 'vitest';
-import {createClient} from '../src/index.js';
+import {setupClient} from './setup.js';
 
 dotenv.config();
-
-const {ZENDESK_USERNAME, ZENDESK_SUBDOMAIN, ZENDESK_TOKEN} = process.env;
 
 describe('Zendesk Client Pagination', () => {
   const testOrganizations = [];
 
   const uniqueOrgName = () =>
     `Test Organization ${crypto.randomBytes(16).toString('hex')}`;
-
-  const setupClient = (config = {}) =>
-    createClient({
-      username: ZENDESK_USERNAME,
-      subdomain: ZENDESK_SUBDOMAIN,
-      token: ZENDESK_TOKEN,
-      ...config,
-    });
 
   const defaultClient = setupClient();
 

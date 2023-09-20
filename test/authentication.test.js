@@ -1,21 +1,18 @@
 import process from 'node:process';
 import dotenv from 'dotenv';
 import {describe, expect, it} from 'vitest';
-import {createClient} from '../src/index.js';
+import {initializeClient} from './setup.js';
 
 dotenv.config();
 
 const username = process.env.ZENDESK_USERNAME;
 const password = process.env.ZENDESK_PASSWORD;
-const subdomain = process.env.ZENDESK_SUBDOMAIN;
 const token = process.env.ZENDESK_TOKEN;
 const oauthAccessToken = process.env.ZENDESK_OAUTH_ACCESS_TOKEN;
 const TEST_USER = process.env.ZENDESK_FULL_NAME;
 
 describe('Zendesk Client Authentication', () => {
-  const setupClient = (config) => {
-    return createClient({username, subdomain, ...config});
-  };
+  const setupClient = initializeClient;
 
   const verifyUser = async (client, expectedName) => {
     const {result: user} = await client.users.me();
@@ -38,7 +35,7 @@ describe('Zendesk Client Authentication', () => {
   });
 
   it('should throw an error for an invalid subdomain', async () => {
-    const client = createClient({
+    const client = initializeClient({
       username,
       token,
       subdomain: 'invalidSubdomain',

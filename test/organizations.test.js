@@ -1,19 +1,13 @@
 /* eslint-disable camelcase */
-import process from 'node:process';
 import crypto from 'node:crypto';
 import dotenv from 'dotenv';
-import {/* afterAll, */ describe, expect, it} from 'vitest';
-import {createClient} from '../src/index.js';
+import {describe, expect, it} from 'vitest';
+import {setupClient, generateOrganizationName} from './setup.js';
 
 dotenv.config();
 
-const username = process.env.ZENDESK_USERNAME;
-const subdomain = process.env.ZENDESK_SUBDOMAIN;
-const token = process.env.ZENDESK_TOKEN;
-
 describe('Zendesk Client Organizations', () => {
-  const id = crypto.randomBytes(16).toString('hex');
-  const organizationName = `Test Organization ${id}`;
+  const organizationName = generateOrganizationName();
   const randomExternalID = crypto.randomInt(1, 1000);
   let testOrganization = {
     url: '',
@@ -30,17 +24,6 @@ describe('Zendesk Client Organizations', () => {
     group_id: null,
     tags: [],
     organization_fields: {},
-  };
-
-  //   Const testOrganizations = []; // Holds all created test organizations
-
-  //   function generateOrganizationName() {
-  //     const id = crypto.randomBytes(16).toString('hex');
-  //     return `Test Organization ${id}`;
-  //   }
-
-  const setupClient = (config) => {
-    return createClient({username, subdomain, token, ...config});
   };
 
   const client = setupClient();
@@ -93,42 +76,6 @@ describe('Zendesk Client Organizations', () => {
     expect(Array.isArray(organizations)).toBe(true);
   });
 
-  // These need to use job status, which is not yet tested
-  //   it('should create multiple organizations', async () => {
-  //     const organizationName1 = generateOrganizationName();
-  //     const organizationName2 = generateOrganizationName();
-
-  //     const {result} = await client.organizations.createMany({
-  //       organizations: [{name: organizationName1}, {name: organizationName2}],
-  //     });
-  //     console.dir(results)
-
-  //     const orgNames = organizations.map((org) => org.name);
-  //     expect(orgNames).toContain(organizationName1);
-  //     expect(orgNames).toContain(organizationName2);
-
-  //     // Storing the ids for cleanup later
-  //     for (const org of organizations) {
-  //       testOrganizations.push(org);
-  //     }
-  //   });
-
-  //   it('should update multiple organizations', async () => {
-  //     const ids = testOrganizations.map((org) => org.id);
-
-  //     const {results: updatedOrganizations} =
-  //       await client.organizations.updateMany({
-  //         organizations: [
-  //           {id: ids[0], notes: 'updatedFoo'},
-  //           {id: ids[1], notes: 'updatedBar'},
-  //         ],
-  //       });
-
-  //     const updatedNotes = updatedOrganizations.map((org) => org.notes);
-  //     expect(updatedNotes).toContain('updatedFoo');
-  //     expect(updatedNotes).toContain('updatedBar');
-  //   });
-
   // Delete technically returns an error, but it's a 204 No Content error and ths not thrown
   it('should successfully delete the created organization', async () => {
     const {result} = await client.organizations.delete(testOrganization.id);
@@ -140,10 +87,4 @@ describe('Zendesk Client Organizations', () => {
       client.organizations.delete(testOrganization.id),
     ).rejects.toThrowError('Item not found');
   });
-
-  //   AfterAll(async () => {
-  //     for (const org of testOrganizations) {
-  //       await client.organizations.delete(org.id);
-  //     }
-  //   });
 });
