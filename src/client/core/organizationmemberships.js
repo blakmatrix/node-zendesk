@@ -181,9 +181,11 @@ class OrganizationMemberships extends Client {
    * const jobStatus = await client.organizationmemberships.deleteMany([789, 790, 791]);
    */
   async deleteMany(organizationMembershipIDs) {
-    return super.delete(
-      ['organization_memberships', 'destroy_many', { ids: organizationMembershipIDs.join(',') }],
-    );
+    return super.delete([
+      'organization_memberships',
+      'destroy_many',
+      {ids: organizationMembershipIDs.join(',')},
+    ]);
   }
 
   /**

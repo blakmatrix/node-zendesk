@@ -98,10 +98,7 @@ class EndpointChecker {
   _initSupportedRegexes() {
     for (const pattern of this.SUPPORTED_ENDPOINTS) {
       const regex = new RegExp(
-        `^${pattern
-          .replaceAll('.', '\\.')
-          .replaceAll('/', '\\/')
-          .replaceAll(/{.+}/g, '.+')}$`,
+        `^${pattern.replaceAll('/', '\\/').replaceAll(/{.+}/g, '.+')}$`,
       );
       this.SUPPORTED_REGEXES.add(regex);
     }
