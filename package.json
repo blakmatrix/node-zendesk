@@ -67,6 +67,7 @@
     "Fred Souza <fmsouza@noreply.users.github.com>"
   ],
   "license": "MIT",
+  "funding": "https://github.com/blakmatrix/node-zendesk?sponsor=1",
   "engines": {
     "node": ">= 18"
   },
