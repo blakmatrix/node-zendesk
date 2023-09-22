@@ -24,6 +24,7 @@ class EndpointChecker {
       'tickets_audits',
       'tickets',
       'tickets/incremental/.*',
+      'incremental/tickets/.*',
       'ticket_metrics',
       'ticket/.+/audits',
       'tags',
