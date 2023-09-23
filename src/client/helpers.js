@@ -224,8 +224,8 @@ function checkRequestResponse(response, result) {
   }
 
   // The following occurs on delete requests
-  if (response.status === 204 && response.statusText === 'No Content') {
-    return createError(response.statusText, response.status);
+  if (response.status === 204 && (response.statusText == null || response.statusText === 'No Content')) {
+    return createError('No Content', response.status);
   }
 
   let statusCode;

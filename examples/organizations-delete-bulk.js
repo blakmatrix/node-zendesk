@@ -18,7 +18,7 @@ function initializeZendeskClient() {
 
 function getTestOrganizationIds(organizations) {
   return organizations
-    .filter((org) => org.name.startsWith('Test Organization'))
+    .filter((org) => org.name.startsWith('test') || org.name.startsWith('Test'))
     .map((org) => org.id);
 }
 
