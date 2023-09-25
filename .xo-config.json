@@ -24,7 +24,8 @@
             "organization_field_ids",
             "external_id",
             "sla_policy_ids",
-            "job_status"
+            "job_status",
+            "sharing_agreement"
           ]
         }
       ]
