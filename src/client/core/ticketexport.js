@@ -40,6 +40,33 @@ class TicketExport extends Client {
   }
 
   /**
+   *
+   * Export incremental tickets based on a specified start time and optional include parameters.
+   *
+   * @async
+   * @param {string} startTime - The start time for exporting incremental tickets.
+   * @param {string} include - Optional parameters to include in the export.
+   * @returns {Promise<Array>} A promise that resolves with an array of exported incremental tickets.
+   *
+   * @throws {Error} If `startTime` is not a valid string.
+   *
+   * @example
+   * // Export incremental tickets based on a start time with optional include parameters
+   * const startTime = '2023-01-01T00:00:00Z';
+   * const include = 'users,groups';
+   * const incrementalTickets = await client.tickets.ticketexport(startTime, include);
+   *
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export-incremental-include}
+   */
+  async exportWithInclude(startTime, include) {
+    return this.getAll([
+      'incremental',
+      'tickets',
+      {start_time: startTime, include},
+    ]);
+  }
+
+  /**
    * Export tickets using the cursor-based approach.
    * @async
    * @param {number} start_time - The time to start the incremental export from.
@@ -64,6 +91,27 @@ class TicketExport extends Client {
    */
   async exportAudit(ticketID) {
     return this.getAll(['tickets', ticketID, 'audits']);
+  }
+
+  /**
+
+   * Export a sample of tickets based on a specified start time.
+   *
+   * @async
+   * @param {string} startTime - The start time for exporting the sample of tickets.
+   * @returns {Promise<Object>} A promise that resolves with the exported sample of tickets.
+   *
+   * @throws {Error} If `startTime` is not a valid string.
+   *
+   * @example
+   * // Export a sample of tickets based on a start time
+   * const startTime = '2023-01-01T00:00:00Z';
+   * const exportedSample = await client.ticketexport.sample(startTime);
+   *
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-sample-export}
+  */
+  async sample(startTime) {
+    return this.get(['exports', 'tickets', 'sample', {start_time: startTime}]);
   }
 }
 
