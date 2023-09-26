@@ -25,7 +25,9 @@
             "external_id",
             "sla_policy_ids",
             "job_status",
-            "sharing_agreement"
+            "sharing_agreement",
+            "prepend_clone_title",
+            "ticket_form_ids"
           ]
         }
       ]
