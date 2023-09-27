@@ -1,8 +1,10 @@
 import process from 'node:process';
+import path from 'node:path';
 import dotenv from 'dotenv';
 import {beforeAll, describe, expect, it} from 'vitest';
+import {back as nockBack} from 'nock';
 import {initializeClient} from './setup.js';
-const nockBack = require('nock').back
+
 dotenv.config();
 
 const username = process.env.ZENDESK_USERNAME;
@@ -14,7 +16,7 @@ const TEST_USER = process.env.ZENDESK_FULL_NAME;
 describe('Zendesk Client Authentication', () => {
   beforeAll(async () => {
     nockBack.setMode('record');
-    nockBack.fixtures = __dirname + '/fixtures';
+    nockBack.fixtures = path.join(__dirname, '/fixtures');
   });
 
   const setupClient = initializeClient;
@@ -25,28 +27,32 @@ describe('Zendesk Client Authentication', () => {
   };
 
   it('should authenticate an anonymous user without any credentials(fail condition)', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_no_creds.json');
+    const {nockDone} = await nockBack('authentication_test_no_creds.json');
     const client = setupClient({});
     await verifyUser(client, 'Anonymous user');
-    nockDone()
+    nockDone();
   });
 
   it('should fail authentication with an incorrect username and token combination', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_incorrect_token.json');
+    const {nockDone} = await nockBack(
+      'authentication_test_incorrect_token.json',
+    );
     const client = setupClient({token: 'incorrectToken'});
     await verifyUser(client, 'Anonymous user');
-    nockDone()
+    nockDone();
   });
 
   it('should fail authentication with an incorrect username and password combination', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_incorrect_u_p.json');
+    const {nockDone} = await nockBack('authentication_test_incorrect_u_p.json');
     const client = setupClient({password: 'incorrectPassword'});
     await verifyUser(client, 'Anonymous user');
-    nockDone()
+    nockDone();
   });
 
   it('should throw an error for an invalid subdomain', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_incorrect_subdomain.json');
+    const {nockDone} = await nockBack(
+      'authentication_test_incorrect_subdomain.json',
+    );
     const client = initializeClient({
       username,
       token,
@@ -55,39 +61,45 @@ describe('Zendesk Client Authentication', () => {
     await expect(() => client.users.me()).rejects.toThrowError(
       'Item not found',
     );
-    nockDone()
+    nockDone();
   });
 
   it('should authenticate a user using a provided username and token', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_correct_u_token.json');
+    const {nockDone} = await nockBack(
+      'authentication_test_correct_u_token.json',
+    );
     const client = setupClient({token});
     await verifyUser(client, TEST_USER);
-    nockDone()
+    nockDone();
   });
 
   it('should authenticate a user using a provided username and password', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_user_pass.json');
+    const {nockDone} = await nockBack('authentication_test_user_pass.json');
     const client = setupClient({password});
     await verifyUser(client, TEST_USER);
-    nockDone()
+    nockDone();
   });
 
   it('should throw an error when trying OAuth authentication without a token', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_incorrect_sans_token.json');
+    const {nockDone} = await nockBack(
+      'authentication_test_incorrect_sans_token.json',
+    );
     const client = setupClient({useOAuth: true});
     await expect(() => client.users.me()).rejects.toThrowError(
       'token is missing',
     );
-    nockDone()
+    nockDone();
   });
 
   it('should authenticate a user using OAuth with a valid token', async () => {
-    const { nockDone, context } = await nockBack('authentication_test_correct_oauthtoken.json');
+    const {nockDone} = await nockBack(
+      'authentication_test_correct_oauthtoken.json',
+    );
     const client = setupClient({
       token: oauthAccessToken,
       useOAuth: true,
     });
     await verifyUser(client, TEST_USER);
-    nockDone()
+    nockDone();
   });
 });

@@ -1,5 +1,4 @@
 const process = require('node:process');
-const path = require('node:path');
 const zd = require('../src/index');
 const exampleConfig = require('../examples/exampleConfig');
 

@@ -144,12 +144,9 @@ class Automations extends Client {
    * const status = await client.automations.reorder([67890, 12345]);
    */
   async reorder(automationIDs) {
-    return this.requestAll(
-      // TODO: putAll
-      'PUT',
-      ['automations', 'reorder'],
-      {automation_ids: automationIDs},
-    );
+    return this.requestAll('PUT', ['automations', 'reorder'], {
+      automation_ids: automationIDs,
+    });
   }
 }
 

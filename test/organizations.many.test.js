@@ -1,9 +1,10 @@
 /* eslint-disable no-await-in-loop */
+import path from 'node:path';
 import dotenv from 'dotenv';
 import {beforeAll, describe, expect, it} from 'vitest';
+import {back as nockBack} from 'nock';
 import {JobRunner} from './job-runner.js';
-const nockBack = require('nock').back
-import {generateMultipleOrganizations, setupClient} from './setup';
+import {generateMultipleOrganizations, setupClient} from './setup.js';
 
 dotenv.config();
 
@@ -14,15 +15,17 @@ describe('Zendesk Client Organizations(many/bulk)', () => {
   const client = setupClient();
   const jobs = new JobRunner(client);
 
-    beforeAll(async () => {
-        nockBack.setMode('record');
-        nockBack.fixtures = __dirname + '/fixtures';
-    });
+  beforeAll(async () => {
+    nockBack.setMode('record');
+    nockBack.fixtures = path.join(__dirname, '/fixtures');
+  });
 
   it(
     'should create multiple organizations',
     async () => {
-     const { nockDone, context } = await nockBack('organizations_many_test_create_multiple.json');
+      const {nockDone} = await nockBack(
+        'organizations_many_test_create_multiple.json',
+      );
       await jobs.run(
         async () => {
           organizationsToCreate = generateMultipleOrganizations(30);
@@ -58,7 +61,9 @@ describe('Zendesk Client Organizations(many/bulk)', () => {
   it(
     'should update multiple organizations',
     async () => {
-      const { nockDone, context } = await nockBack('organizations_many_test_update_multiple.json');
+      const {nockDone} = await nockBack(
+        'organizations_many_test_update_multiple.json',
+      );
       await jobs.run(
         async () => {
           const ids = testOrganizations.map((org) => org.id);
@@ -95,7 +100,9 @@ describe('Zendesk Client Organizations(many/bulk)', () => {
   it(
     'should bulk delete organizations',
     async () => {
-      const { nockDone, context } = await nockBack('organizations_many_test_bulk_delete.json');
+      const {nockDone} = await nockBack(
+        'organizations_many_test_bulk_delete.json',
+      );
       await jobs.run(
         async () => {
           const ids = testOrganizations.map((org) => org.id);

@@ -1,16 +1,13 @@
 // Setup.js
 
 import process from 'node:process';
-import crypto from 'node:crypto';
 import dotenv from 'dotenv';
+import request from 'request';
 import {createClient} from '../src/index.js';
-import request from "request";
 
 dotenv.config();
 
 const {ZENDESK_USERNAME, ZENDESK_SUBDOMAIN, ZENDESK_TOKEN} = process.env;
-
-
 
 export const generateOrganizationName = (id) => {
   return `Test Organization ${id}`;
@@ -26,6 +23,7 @@ export const generateMultipleOrganizations = (n) => {
 
   return organizations;
 };
+
 export const transportConfigUsingRequest = {
   transportFn(uri, options) {
     // Convert the options to be compatible with the request library
@@ -55,7 +53,7 @@ export const transportConfigUsingRequest = {
           return Promise.resolve(JSON.parse(response.body));
         } catch (error) {
           return Promise.reject(
-              new Error(`Failed to parse JSON: ${error.message}`),
+            new Error(`Failed to parse JSON: ${error.message}`),
           );
         }
       },
@@ -69,14 +67,18 @@ export const transportConfigUsingRequest = {
 };
 
 export const initializeClient = (config) => {
-    return createClient({username: ZENDESK_USERNAME, subdomain: ZENDESK_SUBDOMAIN, ...config});
+  return createClient({
+    username: ZENDESK_USERNAME,
+    subdomain: ZENDESK_SUBDOMAIN,
+    ...config,
+  });
 };
 
 export const setupClient = (config = {}) =>
-    createClient({
-      username: ZENDESK_USERNAME,
-      subdomain: ZENDESK_SUBDOMAIN,
-      token: ZENDESK_TOKEN,
-      transportConfig: transportConfigUsingRequest,
-      ...config,
-    });
+  createClient({
+    username: ZENDESK_USERNAME,
+    subdomain: ZENDESK_SUBDOMAIN,
+    token: ZENDESK_TOKEN,
+    transportConfig: transportConfigUsingRequest,
+    ...config,
+  });
