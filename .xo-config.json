@@ -27,7 +27,8 @@
             "job_status",
             "sharing_agreement",
             "prepend_clone_title",
-            "ticket_form_ids"
+            "ticket_form_ids",
+            "user_field_ids"
           ]
         }
       ]
