@@ -29,7 +29,8 @@
             "prepend_clone_title",
             "ticket_form_ids",
             "user_field_ids",
-            "view_order"
+            "view_order",
+            "custom_role"
           ]
         }
       ]
