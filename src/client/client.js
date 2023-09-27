@@ -82,6 +82,10 @@ class Client {
     return this.request('GET', resource);
   }
 
+  async patch(resource, body) {
+    return this.request('PATCH', resource, body);
+  }
+
   async put(resource, body) {
     return this.request('PUT', resource, body);
   }

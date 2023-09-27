@@ -86,7 +86,7 @@ function populateFields(data, response, map) {
  *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'endpointUri' and 'query'.
  *   @property {Array<string>} [sideLoad] - An array of resources to side-load. It gets converted into a query parameter format.
  *
- * @param {string} method - The HTTP method. Can be "GET", "POST", "PUT", or "DELETE".
+ * @param {string} method - The HTTP method. Can be "GET", "PATCH", "POST", "PUT", or "DELETE".
  * @param {Array<string|Object>} [uri] - An array representing the URL segments. The last element can be an object of query parameters or a query string.
  * @returns {string} The assembled URL.
  *
@@ -224,7 +224,10 @@ function checkRequestResponse(response, result) {
   }
 
   // The following occurs on delete requests
-  if (response.status === 204 && (response.statusText == null || response.statusText === 'No Content')) {
+  if (
+    response.status === 204 &&
+    (response.statusText ?? 'No Content') === 'No Content'
+  ) {
     return createError('No Content', response.status);
   }
 
