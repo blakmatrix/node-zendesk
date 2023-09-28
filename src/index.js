@@ -1,7 +1,7 @@
 // Index.js - node-zendesk client initialization
 'use strict';
 
-const {MODULES, MODULE_MAP, ENDPOINTS} = require('./constants');
+const {MODULES, ENDPOINTS} = require('./constants');
 
 /**
  * Represents the main client to interface with the Zendesk API.
@@ -71,9 +71,9 @@ class ZendeskClient {
 
       const clientModules = MODULES[type];
 
-      for (const module of clientModules) {
+      for (const module in clientModules) {
         const moduleName = module.toLowerCase();
-        const ModuleClass = MODULE_MAP[type][moduleName][module];
+        const ModuleClass = MODULES[type][module][module];
         this.client[moduleName] = new ModuleClass({
           ...this.config,
           endpointUri,
