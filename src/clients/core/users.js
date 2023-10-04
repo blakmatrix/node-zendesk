@@ -364,7 +364,7 @@ class Users extends Client {
    * @async
    * @returns {Promise<import('../client.js').ApiResponse<any>>} The authenticated user's details.
    * @example
-   * const user = await client.of(Users).me();
+   * const user = await client.users.me();
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-the-currently-authenticated-user}
    */
   async me() {
