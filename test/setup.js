@@ -6,7 +6,7 @@ import request from 'request';
 import {createClient} from '../src/index.js';
 
 dotenv.config({
-  path: '.env.test'
+  path: '.env.test',
 });
 
 const {ZENDESK_USERNAME, ZENDESK_SUBDOMAIN, ZENDESK_TOKEN} = process.env;
