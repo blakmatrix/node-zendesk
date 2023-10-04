@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vitest';
-import {EndpointChecker} from '../src/client/endpoint-checker.js';
+import {EndpointChecker} from '../src/clients/endpoint-checker.js';
 
 describe('Zendesk Client Endpoint Checker', () => {
   const checker = new EndpointChecker();

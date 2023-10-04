@@ -1,6 +1,7 @@
 const process = require('node:process');
 const zd = require('../src/index');
 const exampleConfig = require('../examples/exampleConfig');
+const { Organizations } = require('../src/clients/core/organizations');
 
 const client = zd.createClient({
   username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
@@ -21,7 +22,7 @@ async function performZendeskOperations() {
   // await client.organizations.list();
   // await client.organizations.show(123);
   // await client.organizations.create({organization: {name: 'food'}});
-  await client.organizations.createMany({
+  await client.get(Organizations).createMany({
     organizations: [{name: 'foo'}, {name: 'bar'}],
   });
   // Await client.organizations.update(123, {organization: {notes: 'foo'}});

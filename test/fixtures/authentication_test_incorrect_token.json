@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "scope": "https://nodejsapi.zendesk.com:443",
+    "method": "GET",
+    "path": "/api/v2/users/me.json",
+    "body": "",
+    "status": 200,
+    "response": {
+      "user": {
+        "name": "Anonymous user"
+      }
+    },
+    "responseIsBinary": false
+  }
+]

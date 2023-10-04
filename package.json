@@ -22,8 +22,21 @@
     "type": "git",
     "url": "git://github.com/blakmatrix/node-zendesk.git"
   },
-  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./*": "./src/*.js"
+  },
+  "files": [
+    "src/**/*",
+    "README.md",
+    "package.json"
+  ],
   "scripts": {
+    "clean:types": "npx rimraf ./src/*.d.ts ./src/**/*.d.ts ./src/**/**/*.d.ts",
+    "build:types": "npx -p typescript tsc ./src/**/**/*.js --declaration --allowJs --emitDeclarationOnly",
+    "build": "npm run clean:types && npm run build:types",
+    "prepublishOnly": "npm run build",
+    "postpublish": "npm run clean:types",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "docs:dev": "vitepress dev docs",
@@ -76,6 +89,9 @@
   ],
   "engines": {
     "node": ">= 18"
+  },
+  "dependencies": {
+    "cross-fetch": "^4.0.0"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^0.34.3",
