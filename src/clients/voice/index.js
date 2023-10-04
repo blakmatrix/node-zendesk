@@ -20,29 +20,29 @@ class ZendeskClientVoice {
   }
 
   get currentqueueactivity() {
-    const { CurrentQueueActivity } = require('./currentqueueactivity');
+    const {CurrentQueueActivity} = require('./currentqueueactivity');
     return this._instantiate(CurrentQueueActivity);
   }
 
   get greetingcategories() {
-    const { GreetingCategories } = require('./greetingcategories');
+    const {GreetingCategories} = require('./greetingcategories');
     return this._instantiate(GreetingCategories);
   }
 
   get greetings() {
-    const { Greetings } = require('./greetings');
+    const {Greetings} = require('./greetings');
     return this._instantiate(Greetings);
   }
 
   get historicalqueueactivity() {
-    const { HistoricalQueueActivity } = require('./historicalqueueactivity');
+    const {HistoricalQueueActivity} = require('./historicalqueueactivity');
     return this._instantiate(HistoricalQueueActivity);
   }
 
   get phonenumbers() {
-    const { PhoneNumbers } = require('./phonenumbers');
+    const {PhoneNumbers} = require('./phonenumbers');
     return this._instantiate(PhoneNumbers);
   }
 }
 
-module.exports = { ZendeskClientVoice };
+module.exports = {ZendeskClientVoice};

@@ -7,9 +7,8 @@ const ApiTypes = {
   helpcenter: 'helpcenter',
   services: 'services',
   voice: 'voice',
-  nps: 'nps'
+  nps: 'nps',
 };
-
 
 /**
  * @readonly
@@ -23,4 +22,4 @@ const Endpoints = {
   voice: '.zendesk.com/api/v2/channels/voice',
 };
 
-module.exports = { ApiTypes, Endpoints };
+module.exports = {ApiTypes, Endpoints};

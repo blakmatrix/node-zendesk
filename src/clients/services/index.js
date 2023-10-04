@@ -20,9 +20,9 @@ class ZendeskClientServices {
   }
 
   get links() {
-    const { Links } = require('./links');
+    const {Links} = require('./links');
     return this._instantiate(Links);
   }
 }
 
-module.exports = { ZendeskClientServices };
+module.exports = {ZendeskClientServices};

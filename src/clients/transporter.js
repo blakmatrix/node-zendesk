@@ -1,10 +1,10 @@
 'use strict';
 
+const {fetch} = require('cross-fetch');
 const {AuthorizationHandler} = require('./authorization-handler');
 const {CustomEventTarget} = require('./custom-event-target');
 const {EndpointChecker} = require('./endpoint-checker');
 const {assembleUrl} = require('./helpers');
-const { fetch } = require('cross-fetch');
 
 // Default transport config using fetch
 const defaultTransportConfig = {
@@ -30,7 +30,8 @@ class Transporter {
     this.authHandler = new AuthorizationHandler(this.options);
     this.eventTarget = new CustomEventTarget();
     this.endpointChecker = new EndpointChecker();
-    const transportConfig = this.options.transportConfig ?? defaultTransportConfig;
+    const transportConfig =
+      this.options.transportConfig ?? defaultTransportConfig;
     this.transportFn = transportConfig.transportFn;
     this.responseAdapter = transportConfig.responseAdapter;
   }

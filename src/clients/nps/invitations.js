@@ -1,6 +1,6 @@
 // Invitations.js: Client for the Zendesk NPS API.
 const {Client} = require('../client');
-const { ApiTypes } = require('../../constants');
+const {ApiTypes} = require('../../constants');
 
 class Invitations extends Client {
   constructor(options) {

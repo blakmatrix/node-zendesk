@@ -1,6 +1,7 @@
 // Client.js - main client file that does most of the processing
 'use strict';
 
+const {ApiTypes, Endpoints} = require('../constants');
 const {CustomEventTarget} = require('./custom-event-target');
 const {Transporter} = require('./transporter');
 const throttler = require('./throttle');
@@ -10,7 +11,6 @@ const {
   processResponseBody,
   generateUserAgent,
 } = require('./helpers');
-const { ApiTypes, Endpoints } = require('../constants');
 
 /**
  * @template T
@@ -61,7 +61,7 @@ class Client {
     this.eventTarget = new CustomEventTarget();
   }
 
-  // we only create the transporter one demand
+  // We only create the transporter one demand
   get transporter() {
     if (this._transporter) return this._transporter;
 
@@ -98,10 +98,10 @@ class Client {
    */
   _buildOptions(options, apiType = ApiTypes.core) {
     const endpointUri = this._getEndpointUri(options.subdomain, apiType);
-    const data = { ...options, endpointUri };
+    const data = {...options, endpointUri};
     return {
       ...data,
-      get: (key) => data[key]
+      get: (key) => data[key],
     };
   }
 

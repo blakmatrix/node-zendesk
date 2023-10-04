@@ -1,6 +1,6 @@
 // AgentActivity.js: Client for the Zendesk Voice API.
 const {Client} = require('../client');
-const { ApiTypes } = require('../../constants');
+const {ApiTypes} = require('../../constants');
 
 class AgentActivity extends Client {
   constructor(options) {

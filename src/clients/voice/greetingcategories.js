@@ -1,6 +1,6 @@
 // GreetingCategories.js: Client for the zendesk API.
 const {Client} = require('../client');
-const { ApiTypes } = require('../../constants');
+const {ApiTypes} = require('../../constants');
 
 class GreetingCategories extends Client {
   constructor(options) {

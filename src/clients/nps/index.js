@@ -20,14 +20,14 @@ class ZendeskClientNps {
   }
 
   get invitations() {
-    const { Invitations } = require('./invitations');
+    const {Invitations} = require('./invitations');
     return this._instantiate(Invitations);
   }
 
   get surveys() {
-    const { Surveys } = require('./surveys');
+    const {Surveys} = require('./surveys');
     return this._instantiate(Surveys);
   }
 }
 
-module.exports = { ZendeskClientNps };
+module.exports = {ZendeskClientNps};

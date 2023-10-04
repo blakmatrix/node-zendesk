@@ -1,7 +1,7 @@
 // AccessPolicies.js: Client for the zendesk help center API.
 
 const {Client} = require('../client');
-const { ApiTypes } = require('../../constants');
+const {ApiTypes} = require('../../constants');
 
 class AccessPolicies extends Client {
   constructor(options) {

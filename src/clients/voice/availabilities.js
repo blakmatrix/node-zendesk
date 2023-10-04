@@ -1,6 +1,6 @@
 // Availabilities.js: Client for the Zendesk Voice API.
 const {Client} = require('../client');
-const { ApiTypes } = require('../../constants');
+const {ApiTypes} = require('../../constants');
 
 class Availabilities extends Client {
   constructor(options) {

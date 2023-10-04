@@ -2,10 +2,10 @@
 'use strict';
 
 const ConsoleLogger = require('./logger');
-const { ZendeskClientHelpcenter } = require('./clients/helpcenter');
-const { ZendeskClientNps } = require('./clients/nps');
-const { ZendeskClientServices } = require('./clients/services');
-const { ZendeskClientVoice } = require('./clients/voice');
+const {ZendeskClientHelpcenter} = require('./clients/helpcenter');
+const {ZendeskClientNps} = require('./clients/nps');
+const {ZendeskClientServices} = require('./clients/services');
+const {ZendeskClientVoice} = require('./clients/voice');
 
 /**
  * @typedef {Object} ZendeskClientOptions
@@ -29,7 +29,6 @@ const { ZendeskClientVoice } = require('./clients/voice');
  * @property {function} [ZendeskClientOptions.transportConfig.transportFn] - Custom function to perform the request. By default, it uses `fetch`. It should return a response object.
  * @property {function} [ZendeskClientOptions.transportConfig.responseAdapter] - Custom function to adapt the response from `transportFn` into a consistent format. By default, it adapts for `fetch` response.
  */
-
 
 /**
  * Represents the main client to interface with the Zendesk API.
@@ -63,252 +62,256 @@ class ZendeskClient {
 
   /**
    * @template {T} [T=import('./client/client.js').Client]
-   * @param {{ new (options: ZendeskClientOptions): T }} clazz
+   * @param {{ new (options: ZendeskClientOptions): T }} ServiceClass
    * @return {T}
    * @private
    */
-  _instantiate(clazz) {
+  _instantiate(ServiceClass) {
     /**
      * @private
      */
     this.instances = this.instances ?? {};
 
-    // if the instance already exists, return it
-    if (this.instances[clazz]) {
-      return this.instances[clazz];
+    // If the instance already exists, return it
+    if (this.instances[ServiceClass]) {
+      return this.instances[ServiceClass];
     }
 
-    const client = new clazz(this.config);
+    const client = new ServiceClass(this.config);
     client.on('debug::request', this._debug.bind(this));
     client.on('debug::response', this._debug.bind(this));
     client.on('debug::result', this._debug.bind(this));
-    this.instances[clazz] = client;
+    this.instances[ServiceClass] = client;
 
     return client;
   }
 
   get accountsettings() {
-    const { AccountSettings } = require('./clients/core/accountsettings');
+    const {AccountSettings} = require('./clients/core/accountsettings');
     return this._instantiate(AccountSettings);
   }
 
   get activitystream() {
-    const { ActivityStream } = require('./clients/core/activitystream');
+    const {ActivityStream} = require('./clients/core/activitystream');
     return this._instantiate(ActivityStream);
   }
 
   get attachments() {
-    const { Attachments } = require('./clients/core/attachments');
+    const {Attachments} = require('./clients/core/attachments');
     return this._instantiate(Attachments);
   }
 
   get automations() {
-    const { Automations } = require('./clients/core/automations');
+    const {Automations} = require('./clients/core/automations');
     return this._instantiate(Automations);
   }
 
   get brand() {
-    const { Brand } = require('./clients/core/brand');
+    const {Brand} = require('./clients/core/brand');
     return this._instantiate(Brand);
   }
 
   get customagentroles() {
-    const { CustomAgentRoles } = require('./clients/core/customagentroles');
+    const {CustomAgentRoles} = require('./clients/core/customagentroles');
     return this._instantiate(CustomAgentRoles);
   }
 
   get dynamiccontent() {
-    const { DynamicContent } = require('./clients/core/dynamiccontent');
+    const {DynamicContent} = require('./clients/core/dynamiccontent');
     return this._instantiate(DynamicContent);
   }
 
   get dynamiccontentvariants() {
-    const { DynamicContentVariants } = require('./clients/core/dynamiccontentvariants');
+    const {
+      DynamicContentVariants,
+    } = require('./clients/core/dynamiccontentvariants');
     return this._instantiate(DynamicContentVariants);
   }
 
   get groupmemberships() {
-    const { GroupMemberships } = require('./clients/core/groupmemberships');
+    const {GroupMemberships} = require('./clients/core/groupmemberships');
     return this._instantiate(GroupMemberships);
   }
 
   get groups() {
-    const { Groups } = require('./clients/core/groups');
+    const {Groups} = require('./clients/core/groups');
     return this._instantiate(Groups);
   }
 
   get imports() {
-    const { Imports } = require('./clients/core/imports');
+    const {Imports} = require('./clients/core/imports');
     return this._instantiate(Imports);
   }
 
   get installations() {
-    const { Installations } = require('./clients/core/installations');
+    const {Installations} = require('./clients/core/installations');
     return this._instantiate(Installations);
   }
 
   get jobstatuses() {
-    const { JobStatuses } = require('./clients/core/jobstatuses');
+    const {JobStatuses} = require('./clients/core/jobstatuses');
     return this._instantiate(JobStatuses);
   }
 
   get locales() {
-    const { Locales } = require('./clients/core/locales');
+    const {Locales} = require('./clients/core/locales');
     return this._instantiate(Locales);
   }
 
   get macros() {
-    const { Macros } = require('./clients/core/macros');
+    const {Macros} = require('./clients/core/macros');
     return this._instantiate(Macros);
   }
 
   get oauthtokens() {
-    const { OauthTokens } = require('./clients/core/oauthtokens');
+    const {OauthTokens} = require('./clients/core/oauthtokens');
     return this._instantiate(OauthTokens);
   }
 
   get organizationfields() {
-    const { OrganizationFields } = require('./clients/core/organizationfields');
+    const {OrganizationFields} = require('./clients/core/organizationfields');
     return this._instantiate(OrganizationFields);
   }
 
   get organizationmemberships() {
-    const { OrganizationMemberships } = require('./clients/core/organizationmemberships');
+    const {
+      OrganizationMemberships,
+    } = require('./clients/core/organizationmemberships');
     return this._instantiate(OrganizationMemberships);
   }
 
   get organizations() {
-    const { Organizations } = require('./clients/core/organizations');
+    const {Organizations} = require('./clients/core/organizations');
     return this._instantiate(Organizations);
   }
 
   get permissiongroups() {
-    const { PermissionGroups } = require('./clients/core/permissiongroups');
+    const {PermissionGroups} = require('./clients/core/permissiongroups');
     return this._instantiate(PermissionGroups);
   }
 
   get policies() {
-    const { Policies } = require('./clients/core/policies');
+    const {Policies} = require('./clients/core/policies');
     return this._instantiate(Policies);
   }
 
   get requests() {
-    const { Requests } = require('./clients/core/requests');
+    const {Requests} = require('./clients/core/requests');
     return this._instantiate(Requests);
   }
 
   get satisfactionratings() {
-    const { SatisfactionRatings } = require('./clients/core/satisfactionratings');
+    const {SatisfactionRatings} = require('./clients/core/satisfactionratings');
     return this._instantiate(SatisfactionRatings);
   }
 
   get search() {
-    const { Search } = require('./clients/core/search');
+    const {Search} = require('./clients/core/search');
     return this._instantiate(Search);
   }
 
   get sessions() {
-    const { Sessions } = require('./clients/core/sessions');
+    const {Sessions} = require('./clients/core/sessions');
     return this._instantiate(Sessions);
   }
 
   get sharingagreement() {
-    const { SharingAgreement } = require('./clients/core/sharingagreement');
+    const {SharingAgreement} = require('./clients/core/sharingagreement');
     return this._instantiate(SharingAgreement);
   }
 
   get suspendedtickets() {
-    const { SuspendedTickets } = require('./clients/core/suspendedtickets');
+    const {SuspendedTickets} = require('./clients/core/suspendedtickets');
     return this._instantiate(SuspendedTickets);
   }
 
   get tags() {
-    const { Tags } = require('./clients/core/tags');
+    const {Tags} = require('./clients/core/tags');
     return this._instantiate(Tags);
   }
 
   get targets() {
-    const { Targets } = require('./clients/core/targets');
+    const {Targets} = require('./clients/core/targets');
     return this._instantiate(Targets);
   }
 
   get ticketaudits() {
-    const { TicketAudits } = require('./clients/core/ticketaudits');
+    const {TicketAudits} = require('./clients/core/ticketaudits');
     return this._instantiate(TicketAudits);
   }
 
   get ticketevents() {
-    const { TicketEvents } = require('./clients/core/ticketevents');
+    const {TicketEvents} = require('./clients/core/ticketevents');
     return this._instantiate(TicketEvents);
   }
 
   get ticketexport() {
-    const { TicketExport } = require('./clients/core/ticketexport');
+    const {TicketExport} = require('./clients/core/ticketexport');
     return this._instantiate(TicketExport);
   }
 
   get ticketfields() {
-    const { TicketFields } = require('./clients/core/ticketfields');
+    const {TicketFields} = require('./clients/core/ticketfields');
     return this._instantiate(TicketFields);
   }
 
   get ticketforms() {
-    const { TicketForms } = require('./clients/core/ticketforms');
+    const {TicketForms} = require('./clients/core/ticketforms');
     return this._instantiate(TicketForms);
   }
 
   get ticketimport() {
-    const { TicketImport } = require('./clients/core/ticketimport');
+    const {TicketImport} = require('./clients/core/ticketimport');
     return this._instantiate(TicketImport);
   }
 
   get ticketmetrics() {
-    const { TicketMetrics } = require('./clients/core/ticketmetrics');
+    const {TicketMetrics} = require('./clients/core/ticketmetrics');
     return this._instantiate(TicketMetrics);
   }
 
   get tickets() {
-    const { Tickets } = require('./clients/core/tickets');
+    const {Tickets} = require('./clients/core/tickets');
     return this._instantiate(Tickets);
   }
 
   get triggers() {
-    const { Triggers } = require('./clients/core/triggers');
+    const {Triggers} = require('./clients/core/triggers');
     return this._instantiate(Triggers);
   }
 
   get userfields() {
-    const { UserFields } = require('./clients/core/userfields');
+    const {UserFields} = require('./clients/core/userfields');
     return this._instantiate(UserFields);
   }
 
   get useridentities() {
-    const { UserIdentities } = require('./clients/core/useridentities');
+    const {UserIdentities} = require('./clients/core/useridentities');
     return this._instantiate(UserIdentities);
   }
 
   get users() {
-    const { Users } = require('./clients/core/users');
+    const {Users} = require('./clients/core/users');
     return this._instantiate(Users);
   }
 
   get views() {
-    const { Views } = require('./clients/core/views');
+    const {Views} = require('./clients/core/views');
     return this._instantiate(Views);
   }
 
   get webhooks() {
-    const { Webhooks } = require('./clients/core/webhooks');
+    const {Webhooks} = require('./clients/core/webhooks');
     return this._instantiate(Webhooks);
   }
 
   get agentactivity() {
-    const { AgentActivity } = require('./clients/voice/agentactivity');
+    const {AgentActivity} = require('./clients/voice/agentactivity');
     return this._instantiate(AgentActivity);
   }
 
   get availabilities() {
-    const { Availabilities } = require('./clients/voice/availabilities');
+    const {Availabilities} = require('./clients/voice/availabilities');
     return this._instantiate(Availabilities);
   }
 
@@ -336,5 +339,5 @@ function createClient(options) {
 }
 
 module.exports = {
-  createClient
+  createClient,
 };
