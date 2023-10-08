@@ -22,28 +22,29 @@
     "type": "git",
     "url": "git://github.com/blakmatrix/node-zendesk.git"
   },
+  "types": "./dist/types/index.d.ts",
   "exports": {
-    ".": "./src/index.js",
-    "./*": "./src/*.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
   },
-  "files": [
-    "src/**/*",
-    "README.md",
-    "package.json"
-  ],
+  "files": ["dist"],
   "scripts": {
-    "clean:types": "npx rimraf ./src/*.d.ts ./src/**/*.d.ts ./src/**/**/*.d.ts",
-    "build:types": "npx -p typescript tsc ./src/**/**/*.js --declaration --allowJs --emitDeclarationOnly",
-    "build": "npm run clean:types && npm run build:types",
+    "clean:dist": "npx rimraf ./dist",
+    "esbuild": "npx esbuild ./src/index.js --bundle --outdir=dist --platform=node --target=node18 --minify --packages=external --format=cjs",
+    "build:types": "npx -p typescript tsc ./src/**/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir dist/types",
+    "build": "npm run clean:dist && npm run build:types && npm run esbuild",
     "prepublishOnly": "npm run build",
-    "postpublish": "npm run clean:types",
+    "postpublish": "npm run clean:dist",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
     "lint": "xo",
     "lint:fix": "xo --fix",
-    "docs:preview": "vitepress preview docs"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "release": "git push origin --follow-tags"
   },
   "author": "Farrin Reid <blakmatrix@gmail.com>",
   "contributors": [
