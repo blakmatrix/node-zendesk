@@ -1,8 +1,8 @@
-import process from 'node:process';
 import path from 'node:path';
+import process from 'node:process';
 import dotenv from 'dotenv';
-import {beforeAll, describe, expect, it} from 'vitest';
 import {back as nockBack} from 'nock';
+import {beforeAll, describe, expect, it} from 'vitest';
 import {initializeClient} from './setup.js';
 
 dotenv.config();
@@ -21,6 +21,12 @@ describe('Zendesk Client Authentication', () => {
 
   const setupClient = initializeClient;
 
+  /**
+   *
+   * @param client {import('../src/index.js').ZendeskClient}
+   * @param expectedName {string}
+   * @return {Promise<void>}
+   */
   const verifyUser = async (client, expectedName) => {
     const {result: user} = await client.users.me();
     expect(user.name).toBe(expectedName);

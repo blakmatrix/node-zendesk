@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "scope": "https://invalidSubdomain.zendesk.com:443",
+    "method": "GET",
+    "path": "/api/v2/users/me.json",
+    "body": "",
+    "status": 404,
+    "response": {
+    },
+    "responseIsBinary": false
+  }
+]

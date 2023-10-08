@@ -50,3 +50,5 @@ docs/.vitepress/cache
 
 # vitest
 coverage/
+
+*.d.ts
