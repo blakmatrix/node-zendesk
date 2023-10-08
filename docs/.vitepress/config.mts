@@ -1,35 +1,36 @@
 import { defineConfig } from 'vitepress'
+import { generateSidebar } from "vitepress-sidebar";
+
+
+const getSideBar = (): any => {
+  const generatedSidebar = generateSidebar([
+    {
+      documentRootPath: "docs",
+      //scanStartPath: 'api',
+      useTitleFromFileHeading: true,
+      hyphenToSpace: true,
+      keepMarkdownSyntaxFromTitle: true,
+    },
+  ]);
+  return generatedSidebar ?? [];
+};
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "node-zendesk",
   description: "A Zendesk API client wrapper",
+  //base: "/node-zendesk/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/Node_Zendesk_logo.svg',
-    github: 'blakmatrix/node-zendesk',
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' },
-      {
-        text: 'Guide',
-        link: '/guide/',
-      },
-      {
-        text: 'API',
-        link: '/api/'
-      }
+      { text: "Home", link: "/" },
+      { text: "Guide", link: "/guide/" },
+      { text: "API Example", link: "/code/README" },
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+    sidebar: getSideBar(),
+    outline: { level: [2, 6] },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/blakmatrix/node-zendesk' }
