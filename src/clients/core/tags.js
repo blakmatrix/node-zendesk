@@ -12,8 +12,8 @@ class Tags extends Client {
 
   /**
    * Retrieves all tags available to the user.
+   * @returns {Promise<object[]>} A promise that resolves with the list of tags.
    * @async
-   * @returns {Promise<Object[]>} A promise that resolves with the list of tags.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#retrieve-all-tags}
    * @example
    * const client = createClient({...});
@@ -25,11 +25,11 @@ class Tags extends Client {
 
   /**
    * Creates a new tag.
-   * @async
-   * @param {Object} tagData - Data for the new tag.
+   * @param {object} tagData - Data for the new tag.
    * @param {string} tagData.name - Name of the tag.
    * @param {string} tagData.resource_type - Type of resource the tag is attached to (lead, contact, deal).
-   * @returns {Promise<Object>} A promise that resolves with the created tag.
+   * @returns {Promise<object>} A promise that resolves with the created tag.
+   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#create-a-tag}
    * @example
@@ -42,9 +42,9 @@ class Tags extends Client {
 
   /**
    * Retrieves a single tag by its ID.
-   * @async
    * @param {number} id - Unique identifier of the tag.
-   * @returns {Promise<Object>} A promise that resolves with the retrieved tag.
+   * @returns {Promise<object>} A promise that resolves with the retrieved tag.
+   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#retrieve-a-single-tag}
    * @example
@@ -57,10 +57,10 @@ class Tags extends Client {
 
   /**
    * Updates a tag's information.
-   * @async
    * @param {number} id - Unique identifier of the tag.
-   * @param {Object} updatedData - Data to update.
-   * @returns {Promise<Object>} A promise that resolves with the updated tag.
+   * @param {object} updatedData - Data to update.
+   * @returns {Promise<object>} A promise that resolves with the updated tag.
+   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#update-a-tag}
    * @example
@@ -73,9 +73,9 @@ class Tags extends Client {
 
   /**
    * Deletes a tag by its ID.
-   * @async
    * @param {number} id - Unique identifier of the tag.
    * @returns {Promise<void>} A promise that resolves when the tag has been deleted.
+   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#delete-a-tag}
    * @example

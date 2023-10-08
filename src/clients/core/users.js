@@ -30,11 +30,11 @@ class Users extends Client {
 
   /**
    * Authenticates the current user.
+   * @returns {Promise<object>} The authenticated user's details.
    * @async
-   * @returns {Promise<Object>} The authenticated user's details.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-the-currently-authenticated-user}
    * @example
    * const user = await client.users.auth();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-the-currently-authenticated-user}
    */
   async auth() {
     return this.get(['users', 'me']);
@@ -42,11 +42,11 @@ class Users extends Client {
 
   /**
    * Lists all users.
+   * @returns {Promise<Array<object>>} An array of user objects.
    * @async
-   * @returns {Promise<Array<Object>>} An array of user objects.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
    * const users = await client.users.list();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    */
   async list() {
     return this.getAll(['users']);
@@ -54,13 +54,13 @@ class Users extends Client {
 
   /**
    * Lists users with a specific filter.
-   * @async
    * @param {string} type - The type of filter.
    * @param {string|number} value - The value for the filter.
-   * @returns {Promise<Array<Object>>} An array of user objects.
+   * @returns {Promise<Array<object>>} An array of user objects.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
    * const users = await client.users.listWithFilter('type', 'value');
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    */
   async listWithFilter(type, value) {
     return this.getAll(['users', {[type]: value}]);
@@ -68,12 +68,12 @@ class Users extends Client {
 
   /**
    * Lists users by group ID.
-   * @async
    * @param {number} id - The ID of the group.
-   * @returns {Promise<Array<Object>>} An array of user objects.
+   * @returns {Promise<Array<object>>} An array of user objects.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
    * const users = await client.users.listByGroup(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    */
   async listByGroup(id) {
     return this.getAll(['groups', id, 'users']);
@@ -81,12 +81,12 @@ class Users extends Client {
 
   /**
    * Lists users by organization ID.
-   * @async
    * @param {number} id - The ID of the organization.
-   * @returns {Promise<Array<Object>>} An array of user objects.
+   * @returns {Promise<Array<object>>} An array of user objects.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
    * const users = await client.users.listByOrganization(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    */
   async listByOrganization(id) {
     return this.getAll(['organizations', id, 'users']);
@@ -94,12 +94,12 @@ class Users extends Client {
 
   /**
    * Shows details of a user by ID.
-   * @async
    * @param {number} id - The ID of the user.
-   * @returns {Promise<Object>} The user's details.
+   * @returns {Promise<object>} The user's details.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-user}
    * @example
    * const user = await client.users.show(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-user}
    */
   async show(id) {
     return this.get(['users', id]);
@@ -107,12 +107,12 @@ class Users extends Client {
 
   /**
    * Shows details of multiple users by their IDs.
-   * @async
    * @param {Array<number>} userIds - An array of user IDs.
-   * @returns {Promise<Array<Object>>} An array of user details.
+   * @returns {Promise<Array<object>>} An array of user details.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-many-users}
    * @example
    * const users = await client.users.showMany([12345, 67890]);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-many-users}
    */
   async showMany(userIds) {
     return this.get(['users', 'show_many', {ids: userIds}]);
@@ -120,12 +120,12 @@ class Users extends Client {
 
   /**
    * Creates a new user.
+   * @param {object} user - The user details.
+   * @returns {Promise<object>} The created user's details.
    * @async
-   * @param {Object} user - The user details.
-   * @returns {Promise<Object>} The created user's details.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-user}
    * @example
    * const newUser = await client.users.create({name: 'John Doe', email: 'john@example.com'});
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-user}
    */
   async create(user) {
     return this.post(['users'], user);
@@ -133,12 +133,12 @@ class Users extends Client {
 
   /**
    * Creates multiple users.
+   * @param {Array<object>} users - An array of user details.
+   * @returns {Promise<Array<object>>} An array of created user details.
    * @async
-   * @param {Array<Object>} users - An array of user details.
-   * @returns {Promise<Array<Object>>} An array of created user details.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-many-users}
    * @example
    * const newUsers = await client.users.createMany([{name: 'John Doe', email: 'john@example.com'}, {name: 'Jane Smith', email: 'jane@example.com'}]);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-many-users}
    */
   async createMany(users) {
     return this.post(['users', 'create_many'], users);
@@ -146,12 +146,12 @@ class Users extends Client {
 
   /**
    * Creates or updates a user.
+   * @param {object} user - The user details.
+   * @returns {Promise<object>} The created or updated user's details.
    * @async
-   * @param {Object} user - The user details.
-   * @returns {Promise<Object>} The created or updated user's details.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-or-update-user}
    * @example
    * const user = await client.users.createOrUpdate({name: 'John Doe', email: 'john@example.com'});
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-or-update-user}
    */
   async createOrUpdate(user) {
     return this.post(['users', 'create_or_update'], user);
@@ -159,12 +159,12 @@ class Users extends Client {
 
   /**
    * Creates or updates multiple users.
+   * @param {Array<object>} users - An array of user details.
+   * @returns {Promise<Array<object>>} An array of created or updated user details.
    * @async
-   * @param {Array<Object>} users - An array of user details.
-   * @returns {Promise<Array<Object>>} An array of created or updated user details.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-or-update-many-users}
    * @example
    * const users = await client.users.createOrUpdateMany([{name: 'John Doe', email: 'john@example.com'}, {name: 'Jane Smith', email: 'jane@example.com'}]);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-or-update-many-users}
    */
   async createOrUpdateMany(users) {
     return this.post(['users', 'create_or_update_many'], users);
@@ -172,13 +172,13 @@ class Users extends Client {
 
   /**
    * Updates a user by ID.
-   * @async
    * @param {number} id - The ID of the user.
-   * @param {Object} user - The updated user details.
-   * @returns {Promise<Object>} The updated user's details.
+   * @param {object} user - The updated user details.
+   * @returns {Promise<object>} The updated user's details.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#update-user}
    * @example
    * const updatedUser = await client.users.update(12345, {name: 'Johnathan Doe'});
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#update-user}
    */
   async update(id, user) {
     return this.put(['users', id], user);
@@ -186,13 +186,13 @@ class Users extends Client {
 
   /**
    * Updates multiple users.
-   * @async
    * @param {...*} args - Arguments including optional IDs and user details.
-   * @returns {Promise<Array<Object>>} An array of updated user details.
+   * @returns {Promise<Array<object>>} An array of updated user details.
+   * @async
    * @throws {Error} Throws an error if not enough arguments are provided.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#update-many-users}
    * @example
    * const updatedUsers = await client.users.updateMany([12345, 67890], [{name: 'John Doe'}, {name: 'Jane Smith'}]);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#update-many-users}
    */
   async updateMany(...args /* Optional ids, users, cb */) {
     if (args.length < 2) {
@@ -247,12 +247,12 @@ class Users extends Client {
 
   /**
    * Suspends a user by ID.
-   * @async
    * @param {number} id - The ID of the user to suspend.
-   * @returns {Promise<Object>} The suspended user's details.
+   * @returns {Promise<object>} The suspended user's details.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#suspend-user}
    * @example
    * await client.users.suspend(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#suspend-user}
    */
   async suspend(id) {
     return this.put(['users', id], {user: {suspended: true}});
@@ -260,12 +260,12 @@ class Users extends Client {
 
   /**
    * Unsuspends a user by ID.
-   * @async
    * @param {number} id - The ID of the user to unsuspend.
-   * @returns {Promise<Object>} The unsuspended user's details.
+   * @returns {Promise<object>} The unsuspended user's details.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#unsuspend-user}
    * @example
    * await client.users.unsuspend(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#unsuspend-user}
    */
   async unsuspend(id) {
     return this.put(['users', id], {user: {suspended: false}});
@@ -273,13 +273,13 @@ class Users extends Client {
 
   /**
    * Deletes a user by ID.
-   * @async
    * @param {number} id - The ID of the user to delete.
    * @returns {Promise<void>}
+   * @async
    * @throws {Error} Throws an error if the user cannot be deleted.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#delete-user}
    * @example
    * await client.users.delete(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#delete-user}
    */
   async delete(id) {
     return super.delete(['users', id]);
@@ -287,13 +287,13 @@ class Users extends Client {
 
   /**
    * Deletes multiple users.
-   * @async
    * @param {...*} args - Arguments including optional IDs and user details.
    * @returns {Promise<void>}
+   * @async
    * @throws {Error} Throws an error if not enough arguments are provided.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#delete-many-users}
    * @example
    * await client.users.destroyMany([12345, 67890]);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#delete-many-users}
    */
   async destroyMany(...args) {
     if (args.length < 2) {
@@ -348,12 +348,12 @@ class Users extends Client {
 
   /**
    * Searches for users based on specific parameters.
+   * @param {object} parameters - The search parameters.
+   * @returns {Promise<Array<object>>} An array of user objects that match the search criteria.
    * @async
-   * @param {Object} parameters - The search parameters.
-   * @returns {Promise<Array<Object>>} An array of user objects that match the search criteria.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#search-users}
    * @example
    * const users = await client.users.search({query: 'john@example.com'});
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#search-users}
    */
   async search(parameters) {
     return this.getAll(['users', 'search', parameters]);
@@ -361,11 +361,11 @@ class Users extends Client {
 
   /**
    * Retrieves details of the currently authenticated user.
-   * @async
    * @returns {Promise<import('../client.js').ApiResponse<any>>} The authenticated user's details.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-the-currently-authenticated-user}
    * @example
    * const user = await client.users.me();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-the-currently-authenticated-user}
    */
   async me() {
     return this.get(['users', 'me']);
@@ -373,13 +373,13 @@ class Users extends Client {
 
   /**
    * Merges a user into another user.
-   * @async
    * @param {number} id - The ID of the user to be merged.
    * @param {number} targetId - The ID of the user into which the first user will be merged.
-   * @returns {Promise<Object>} The details of the merged user.
+   * @returns {Promise<object>} The details of the merged user.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#merge-user-into-another-user}
    * @example
    * await client.users.merge(12345, 67890);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#merge-user-into-another-user}
    */
   async merge(id, targetId) {
     return this.put(['users', id, 'merge'], {user: {id: targetId}});
@@ -387,14 +387,14 @@ class Users extends Client {
 
   /**
    * Changes the password of a user.
-   * @async
    * @param {number} userId - The ID of the user whose password is to be changed.
    * @param {string} oldPassword - The current password of the user.
    * @param {string} newPassword - The new password for the user.
-   * @returns {Promise<Object>} The user's details after the password change.
+   * @returns {Promise<object>} The user's details after the password change.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#change-password}
    * @example
    * await client.users.password(12345, 'oldPassword123', 'newPassword456');
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#change-password}
    */
   async password(userId, oldPassword, newPassword) {
     return this.put(['users', userId, 'password'], {
@@ -405,13 +405,13 @@ class Users extends Client {
 
   /**
    * Retrieves users incrementally with included related data.
-   * @async
    * @param {number} startTime - The start time for the incremental export.
    * @param {string} include - The related data to include.
-   * @returns {Promise<Array<Object>>} An array of user objects with included data.
+   * @returns {Promise<Array<object>>} An array of user objects with included data.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#incremental-export-users}
    * @example
    * const users = await client.users.incrementalInclude(1632614395, 'relatedData');
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#incremental-export-users}
    */
   async incrementalInclude(startTime, include) {
     return this.getAll([
@@ -423,12 +423,12 @@ class Users extends Client {
 
   /**
    * Retrieves users incrementally.
-   * @async
    * @param {number} startTime - The start time for the incremental export.
-   * @returns {Promise<Array<Object>>} An array of user objects.
+   * @returns {Promise<Array<object>>} An array of user objects.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#incremental-export-users}
    * @example
    * const users = await client.users.incremental(1632614395);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#incremental-export-users}
    */
   async incremental(startTime) {
     return this.getAll(['incremental', 'users', {start_time: startTime}]);
@@ -436,12 +436,12 @@ class Users extends Client {
 
   /**
    * Retrieves a sample of users incrementally.
-   * @async
    * @param {number} startTime - The start time for the incremental export.
-   * @returns {Promise<Array<Object>>} A sample array of user objects.
+   * @returns {Promise<Array<object>>} A sample array of user objects.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#incremental-sample-export-users}
    * @example
    * const usersSample = await client.users.incrementalSample(1632614395);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#incremental-sample-export-users}
    */
   async incrementalSample(startTime) {
     return this.get([
@@ -454,12 +454,12 @@ class Users extends Client {
 
   /**
    * Lists tags associated with a user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @returns {Promise<Array<string>>} An array of tags associated with the user.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#list-tags}
    * @example
    * const tags = await client.users.listTags(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#list-tags}
    */
   async listTags(userId) {
     return this.getAll(['users', userId, 'tags']);
@@ -467,13 +467,13 @@ class Users extends Client {
 
   /**
    * Sets tags for a user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {Array<string>} tags - An array of tags to set for the user.
-   * @returns {Promise<Object>} The user's details with the updated tags.
+   * @returns {Promise<object>} The user's details with the updated tags.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#set-tags}
    * @example
    * await client.users.setTags(12345, ['tag1', 'tag2']);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#set-tags}
    */
   async setTags(userId, tags) {
     return this.post(['users', userId, 'tags'], tags);
@@ -481,13 +481,13 @@ class Users extends Client {
 
   /**
    * Adds tags to a user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {Array<string>} tags - An array of tags to add to the user.
-   * @returns {Promise<Object>} The user's details with the added tags.
+   * @returns {Promise<object>} The user's details with the added tags.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#add-tags}
    * @example
    * await client.users.addTags(12345, ['tag3', 'tag4']);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#add-tags}
    */
   async addTags(userId, tags) {
     return this.put(['users', userId, 'tags'], tags);
@@ -495,13 +495,13 @@ class Users extends Client {
 
   /**
    * Removes tags from a user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {Array<string>} tags - An array of tags to remove from the user.
    * @returns {Promise<void>}
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#remove-tags}
    * @example
    * await client.users.removeTags(12345, ['tag3', 'tag4']);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user-tags/#remove-tags}
    */
   async removeTags(userId, tags) {
     return super.delete(['users', userId, 'tags'], tags);

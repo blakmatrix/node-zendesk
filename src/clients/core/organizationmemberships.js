@@ -13,8 +13,8 @@ class OrganizationMemberships extends Client {
 
   /**
    * List all organization memberships.
+   * @returns {Promise<object[]>} A promise resolving to an array of organization memberships.
    * @async
-   * @returns {Promise<Object[]>} A promise resolving to an array of organization memberships.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#list-memberships}
    * @example
    * const memberships = await client.organizationmemberships.list();
@@ -25,9 +25,9 @@ class OrganizationMemberships extends Client {
 
   /**
    * List organization memberships by a specific user ID.
-   * @async
    * @param {number} userID - The user ID.
-   * @returns {Promise<Object[]>} A promise resolving to an array of organization memberships for the user.
+   * @returns {Promise<object[]>} A promise resolving to an array of organization memberships for the user.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#list-memberships}
    * @example
    * const memberships = await client.organizationmemberships.listByUser(123);
@@ -38,9 +38,9 @@ class OrganizationMemberships extends Client {
 
   /**
    * List organization memberships by a specific organization ID.
-   * @async
    * @param {number} organiationID - The organization ID.
-   * @returns {Promise<Object[]>} A promise resolving to an array of organization memberships for the organization.
+   * @returns {Promise<object[]>} A promise resolving to an array of organization memberships for the organization.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#list-memberships}
    * @example
    * const memberships = await client.organizationmemberships.listByOrganization(456);
@@ -55,9 +55,9 @@ class OrganizationMemberships extends Client {
 
   /**
    * Retrieve a specific organization membership by its ID.
-   * @async
    * @param {number} organizationMembershipID - The organization membership ID.
-   * @returns {Promise<Object>} A promise resolving to the organization membership.
+   * @returns {Promise<object>} A promise resolving to the organization membership.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#show-membership}
    * @example
    * const membership = await client.organizationmemberships.show(789);
@@ -68,10 +68,10 @@ class OrganizationMemberships extends Client {
 
   /**
    * Retrieve a specific organization membership by user ID and membership ID.
-   * @async
    * @param {number} userID - The user ID.
    * @param {number} organizationMembershipID - The organization membership ID.
-   * @returns {Promise<Object>} A promise resolving to the organization membership.
+   * @returns {Promise<object>} A promise resolving to the organization membership.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#show-membership}
    * @example
    * const membership = await client.organizationmemberships.showByUser(123, 789);
@@ -87,9 +87,9 @@ class OrganizationMemberships extends Client {
 
   /**
    * Create a new organization membership.
+   * @param {object} organizationMembership - The organization membership data.
+   * @returns {Promise<object>} A promise resolving to the created organization membership.
    * @async
-   * @param {Object} organizationMembership - The organization membership data.
-   * @returns {Promise<Object>} A promise resolving to the created organization membership.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#create-membership}
    * @example
    * const newMembership = await client.organizationmemberships.create({ user_id: 123, organization_id: 456 });
@@ -100,10 +100,10 @@ class OrganizationMemberships extends Client {
 
   /**
    * Create a new organization membership for a specific user.
-   * @async
    * @param {number} userID - The user ID.
-   * @param {Object} organizationMembership - The organization membership data.
-   * @returns {Promise<Object>} A promise resolving to the created organization membership.
+   * @param {object} organizationMembership - The organization membership data.
+   * @returns {Promise<object>} A promise resolving to the created organization membership.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#create-membership}
    * @example
    * const newMembership = await client.organizationmemberships.createByUser(123, { organization_id: 456 });
@@ -125,9 +125,9 @@ class OrganizationMemberships extends Client {
 
   /**
    * Create multiple organization memberships at once.
-   * @async
    * @param {OrganizationMembership[]} organizationMemberships - An array of organization membership data.
-   * @returns {Promise<Object>} A promise resolving to a job status.
+   * @returns {Promise<object>} A promise resolving to a job status.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#create-many-memberships}
    * @example
    * const jobStatus = await client.organizationmemberships.createMany([{ user_id: 123, organization_id: 456 }, ...]);
@@ -141,9 +141,9 @@ class OrganizationMemberships extends Client {
 
   /**
    * Delete a specific organization membership by its ID.
-   * @async
    * @param {number} organizationMembershipID - The organization membership ID.
    * @returns {Promise<void>} A promise indicating the completion of the delete operation.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#delete-membership}
    * @example
    * await client.organizationmemberships.delete(789);
@@ -154,10 +154,10 @@ class OrganizationMemberships extends Client {
 
   /**
    * Delete a specific organization membership by user ID and membership ID.
-   * @async
    * @param {number} userID - The user ID.
    * @param {number} organizationMembershipID - The organization membership ID.
    * @returns {Promise<void>} A promise indicating the completion of the delete operation.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#delete-membership}
    * @example
    * await client.organizationmemberships.deleteByUser(123, 789);
@@ -173,9 +173,9 @@ class OrganizationMemberships extends Client {
 
   /**
    * Delete multiple organization memberships by their IDs.
-   * @async
    * @param {number[]} organizationMembershipIDs - An array of organization membership IDs.
-   * @returns {Promise<Object>} A promise resolving to a job status.
+   * @returns {Promise<object>} A promise resolving to a job status.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#bulk-delete-memberships}
    * @example
    * const jobStatus = await client.organizationmemberships.deleteMany([789, 790, 791]);
@@ -190,10 +190,10 @@ class OrganizationMemberships extends Client {
 
   /**
    * Set a specific organization membership as the default for a user.
-   * @async
    * @param {number} userID - The user ID.
    * @param {number} organizationMembershipID - The organization membership ID.
-   * @returns {Promise<Object>} A promise resolving to the updated organization membership.
+   * @returns {Promise<object>} A promise resolving to the updated organization membership.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#set-membership-as-default}
    * @example
    * const updatedMembership = await client.organizationmemberships.setDefault(123, 789);

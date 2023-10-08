@@ -13,9 +13,9 @@ class Search extends Client {
 
   /**
    * Search for the given term and retrieve results.
-   * @async
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<Object>} A JSON object with the search results.
+   * @returns {Promise<object>} A JSON object with the search results.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#list-search-results}
    * @example
    * const results = await client.search.query('open tickets');
@@ -26,9 +26,9 @@ class Search extends Client {
 
   /**
    * Search for the given term and retrieve all results.
-   * @async
    * @param {string} searchTerm - The term to search for.
    * @returns {Promise<Array>} An array of search results.
+   * @async
    * @example
    * const allResults = await client.search.queryAll('open tickets');
    */
@@ -38,9 +38,9 @@ class Search extends Client {
 
   /**
    * Anonymous search for the given term and retrieve results.
-   * @async
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<Object>} A JSON object with the search results.
+   * @returns {Promise<object>} A JSON object with the search results.
+   * @async
    * @example
    * const anonResults = await client.search.queryAnonymous('open tickets');
    */
@@ -50,9 +50,9 @@ class Search extends Client {
 
   /**
    * Anonymous search for the given term and retrieve all results.
-   * @async
    * @param {string} searchTerm - The term to search for.
    * @returns {Promise<Array>} An array of search results.
+   * @async
    * @example
    * const allAnonResults = await client.search.queryAnonymousAll('open tickets');
    */
@@ -62,9 +62,9 @@ class Search extends Client {
 
   /**
    * Retrieve the count of search results for the given term.
-   * @async
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<Object>} An Object with the number of items matching the query.
+   * @returns {Promise<object>} An Object with the number of items matching the query.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#show-results-count}
    * @example
    * const { count } = await client.search.showResultsCount('open tickets');
@@ -75,11 +75,11 @@ class Search extends Client {
 
   /**
    * Export the search results for the given term.
-   * @async
    * @param {string} searchTerm - The term to search for.
    * @param {string} objectType - The type of object to return (ticket, organization, user, or group).
    * @param {number} [pageSize=100] - The number of results per page.
    * @returns {Promise<Array>} An array of search results.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#export-search-results}
    * @example
    * const { results } = await client.search.exportResults('open tickets', 'ticket');

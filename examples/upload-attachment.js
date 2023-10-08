@@ -6,6 +6,9 @@ const exampleConfig = require('./exampleConfig');
 const ATTACHMENT_PATH = path.resolve('./examples/busey.gif');
 const FILENAME = 'busey.gif';
 
+/**
+ *
+ */
 function getZendeskConfig() {
   return {
     username: process.env.ZENDESK_TEST_USERNAME || exampleConfig.auth.username,
@@ -17,6 +20,11 @@ function getZendeskConfig() {
 
 const client = zd.createClient(getZendeskConfig());
 
+/**
+ *
+ * @param filePath
+ * @param fileName
+ */
 async function uploadAttachment(filePath, fileName) {
   try {
     const result = await client.attachments.upload(filePath, {

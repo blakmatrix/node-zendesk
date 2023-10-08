@@ -18,6 +18,9 @@ const setupClient = (config) => {
 // Placeholder organization ID for development/testing.
 // IMPORTANT: Replace with a valid organization ID before running in production.
 
+/**
+ *
+ */
 async function organizationsDelete() {
   let collector = [];
   try {

@@ -7,7 +7,7 @@ const {Client} = require('../client');
 class SatisfactionRatings extends Client {
   /**
    * Creates a new SatisfactionRatings instance.
-   * @param {Object} options - Options for initializing the client.
+   * @param {object} options - Options for initializing the client.
    */
   constructor(options) {
     super(options);
@@ -16,10 +16,10 @@ class SatisfactionRatings extends Client {
 
   /**
    * Lists all satisfaction ratings.
+   * @returns {Array} A list of satisfaction ratings.
    * @async
-   * @return {Array} A list of satisfaction ratings.
-   * @example const ratings = await client.satisfactionratings.list();
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/satisfaction_ratings/#list-satisfaction-ratings}
+   * @example const ratings = await client.satisfactionratings.list();
    */
   async list() {
     return this.getAll(['satisfaction_ratings']);
@@ -27,8 +27,8 @@ class SatisfactionRatings extends Client {
 
   /**
    * Lists all received satisfaction ratings.
+   * @returns {Array} A list of received satisfaction ratings.
    * @async
-   * @return {Array} A list of received satisfaction ratings.
    * @example const ratingsReceived = await client.satisfactionratings.received();
    */
   async received() {
@@ -37,11 +37,11 @@ class SatisfactionRatings extends Client {
 
   /**
    * Retrieves details of a specific satisfaction rating.
-   * @async
    * @param {number} satisfactionRatingID - The ID of the satisfaction rating to retrieve.
-   * @return {Object} Details of the satisfaction rating.
-   * @example const ratingDetails = await client.satisfactionratings.show(12345);
+   * @returns {object} Details of the satisfaction rating.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/satisfaction_ratings/#show-satisfaction-rating}
+   * @example const ratingDetails = await client.satisfactionratings.show(12345);
    */
   async show(satisfactionRatingID) {
     return this.get(['satisfaction_ratings', satisfactionRatingID]);
@@ -49,17 +49,17 @@ class SatisfactionRatings extends Client {
 
   /**
    * Creates a satisfaction rating for a ticket.
-   * @async
    * @param {number} ticketID - The ID of the ticket.
-   * @param {Object} satisfactionRating - The details of the satisfaction rating to create.
-   * @return {Object} The created satisfaction rating.
+   * @param {object} satisfactionRating - The details of the satisfaction rating to create.
+   * @returns {object} The created satisfaction rating.
+   * @async
    * @throws Will throw an error if the requester is not an end user of the ticket or if the ticket is not solved.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/satisfaction_ratings/#create-a-satisfaction-rating}
    * @example
    * const rating = {
    *   satisfaction_rating: { score: "good", comment: "Awesome support." }
    * };
    * const newRating = await client.satisfactionratings.create(12345, rating);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/satisfaction_ratings/#create-a-satisfaction-rating}
    */
   async create(ticketID, satisfactionRating) {
     return this.post(
@@ -70,11 +70,11 @@ class SatisfactionRatings extends Client {
 
   /**
    * Incrementally exports satisfaction ratings based on a start time.
-   * @async
    * @param {number} startTime - The start time for the incremental export (Unix epoch time).
-   * @return {Array} A list of satisfaction ratings from the specified start time.
-   * @example const ratingsExported = await client.satisfactionratings.incremental(1498151194);
+   * @returns {Array} A list of satisfaction ratings from the specified start time.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/live-chat/chat-api/incremental_export/#start-time}
+   * @example const ratingsExported = await client.satisfactionratings.incremental(1498151194);
    */
   async incremental(startTime) {
     this.get(['satisfaction_ratings', {start_time: startTime}]);

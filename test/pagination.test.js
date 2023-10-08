@@ -14,6 +14,10 @@ describe('Zendesk Client Pagination', () => {
 
   const defaultClient = setupClient();
 
+  /**
+   *
+   * @param iteration
+   */
   async function createTestOrganization(iteration) {
     const {result: organization} = await defaultClient.organizations.create({
       organization: {name: uniqueOrgName(iteration)},

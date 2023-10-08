@@ -11,8 +11,8 @@ const ApiTypes = {
 };
 
 /**
- * @readonly
  * @type {Record<ApiTypes, string>}
+ * @readonly
  */
 const Endpoints = {
   core: '.zendesk.com/api/v2',

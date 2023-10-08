@@ -9,6 +9,9 @@ const client = zd.createClient({
   debug: true,
 });
 
+/**
+ *
+ */
 async function performZendeskOperations() {
   /** Job Statuses Methods */
   // await client.jobstatuses.show(123);

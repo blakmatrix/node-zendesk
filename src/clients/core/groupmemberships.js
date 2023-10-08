@@ -17,8 +17,8 @@ class GroupMemberships extends Client {
 
   /**
    * List all group memberships.
+   * @returns {Promise<object[]>} Array of group memberships.
    * @async
-   * @returns {Promise<Object[]>} Array of group memberships.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#list-memberships}
    * @example
    * const memberships = await client.groupmemberships.list();
@@ -29,9 +29,9 @@ class GroupMemberships extends Client {
 
   /**
    * List group memberships by user ID.
-   * @async
    * @param {number} userID - The ID of the user.
-   * @returns {Promise<Object[]>} Array of group memberships.
+   * @returns {Promise<object[]>} Array of group memberships.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#list-memberships}
    * @example
    * const memberships = await client.groupmemberships.listByUser(123);
@@ -42,9 +42,9 @@ class GroupMemberships extends Client {
 
   /**
    * List group memberships by group ID.
-   * @async
    * @param {number} groupID - The ID of the group.
-   * @returns {Promise<Object[]>} Array of group memberships.
+   * @returns {Promise<object[]>} Array of group memberships.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#list-memberships}
    * @example
    * const memberships = await client.groupmemberships.listByGroup(123);
@@ -57,9 +57,9 @@ class GroupMemberships extends Client {
 
   /**
    * Show details of a specific group membership.
-   * @async
    * @param {number} groupMembershipID - The ID of the group membership.
-   * @returns {Promise<Object>} Details of the group membership.
+   * @returns {Promise<object>} Details of the group membership.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#show-membership}
    * @example
    * const membershipDetails = await client.groupmemberships.show(123);
@@ -70,10 +70,10 @@ class GroupMemberships extends Client {
 
   /**
    * Show details of a group membership by user ID.
-   * @async
    * @param {number} userID - The ID of the user.
    * @param {number} groupMembershipID - The ID of the group membership.
-   * @returns {Promise<Object>} Details of the group membership.
+   * @returns {Promise<object>} Details of the group membership.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#show-membership}
    * @example
    * const membershipDetails = await client.groupmemberships.showByUser(123, 456);
@@ -84,9 +84,9 @@ class GroupMemberships extends Client {
 
   /**
    * Create a new group membership.
+   * @param {object} groupMembership - The group membership details.
+   * @returns {Promise<object>} The created group membership.
    * @async
-   * @param {Object} groupMembership - The group membership details.
-   * @returns {Promise<Object>} The created group membership.
    * @throws {Error} Throws an error if the creation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#create-membership}
    * @example
@@ -98,10 +98,10 @@ class GroupMemberships extends Client {
 
   /**
    * Create a new group membership by user ID.
-   * @async
    * @param {number} userID - The ID of the user.
-   * @param {Object} groupMembership - The group membership details.
-   * @returns {Promise<Object>} The created group membership.
+   * @param {object} groupMembership - The group membership details.
+   * @returns {Promise<object>} The created group membership.
+   * @async
    * @throws {Error} Throws an error if the creation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#create-membership}
    * @example
@@ -113,9 +113,9 @@ class GroupMemberships extends Client {
 
   /**
    * Delete a group membership.
-   * @async
    * @param {number} groupMembershipID - The ID of the group membership.
    * @returns {Promise<void>}
+   * @async
    * @throws {Error} Throws an error if the deletion fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#delete-membership}
    * @example
@@ -127,10 +127,10 @@ class GroupMemberships extends Client {
 
   /**
    * Delete a group membership by user ID.
-   * @async
    * @param {number} userID - The ID of the user.
    * @param {number} groupMembershipID - The ID of the group membership.
    * @returns {Promise<void>}
+   * @async
    * @throws {Error} Throws an error if the deletion fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#delete-membership}
    * @example
@@ -147,10 +147,10 @@ class GroupMemberships extends Client {
 
   /**
    * Set a group membership as default.
-   * @async
    * @param {number} userID - The ID of the user.
    * @param {number} groupMembershipID - The ID of the group membership.
-   * @returns {Promise<Object>} Updated group membership.
+   * @returns {Promise<object>} Updated group membership.
+   * @async
    * @throws {Error} Throws an error if the operation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#set-membership-as-default}
    * @example
@@ -168,12 +168,12 @@ class GroupMemberships extends Client {
 
   /**
    * List all assignable group memberships.
-   * @async
    * @returns {Promise<Array>} List of assignable group memberships.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#list-assignable-memberships}
    * @example
    * const memberships = await client.groupmemberships.listAssignable();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#list-assignable-memberships}
    */
   async listAssignable() {
     return this.getAll(['group_memberships', 'assignable']);
@@ -181,13 +181,13 @@ class GroupMemberships extends Client {
 
   /**
    * List all assignable group memberships by group.
-   * @async
    * @param {number} groupID - The ID of the group.
    * @returns {Promise<Array>} List of assignable group memberships for the specified group.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#list-assignable-memberships}
    * @example
    * const memberships = await client.groupmemberships.listAssignableByGroup(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#list-assignable-memberships}
    */
   async listAssignableByGroup(groupID) {
     return this.getAll(['groups', groupID, 'memberships', 'assignable']);
@@ -195,13 +195,13 @@ class GroupMemberships extends Client {
 
   /**
    * Bulk create group memberships.
-   * @async
    * @param {Array} groupMemberships - Array of group memberships to be created.
-   * @returns {Promise<Object>} Job status indicating the progress of the bulk create operation.
+   * @returns {Promise<object>} Job status indicating the progress of the bulk create operation.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#bulk-create-memberships}
    * @example
    * const jobStatus = await client.groupmemberships.bulkCreate([{ user_id: 72, group_id: 88 }, { user_id: 73, group_id: 88 }]);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#bulk-create-memberships}
    */
   async bulkCreate(groupMemberships) {
     return this.post(['group_memberships', 'create_many'], {
@@ -211,13 +211,13 @@ class GroupMemberships extends Client {
 
   /**
    * Bulk delete group memberships.
-   * @async
    * @param {Array<number>} ids - Array of group membership IDs to be deleted.
-   * @returns {Promise<Object>} Response object indicating the result of the bulk delete operation.
+   * @returns {Promise<object>} Response object indicating the result of the bulk delete operation.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#bulk-delete-memberships}
    * @example
    * const response = await client.groupmemberships.bulkDelete([1, 2, 3]);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#bulk-delete-memberships}
    */
   async bulkDelete(ids) {
     return super.delete([

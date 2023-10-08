@@ -12,7 +12,7 @@ class ZendeskClientVoice {
   /**
    * @template {T} [T=import('../../client/client.js').Client]
    * @param {{ new (options: import('../../index.js').ZendeskClientOptions): T }} className
-   * @return {T}
+   * @returns {T}
    * @private
    */
   _instantiate(className) {

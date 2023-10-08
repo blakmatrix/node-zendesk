@@ -12,10 +12,10 @@ class Brand extends Client {
 
   /**
    * List all brands.
+   * @returns {Promise<object>} The list of brands.
    * @async
-   * @returns {Promise<Object>} The list of brands.
-   * @example const brands = await client.brands.list();
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#list-brands}
+   * @example const brands = await client.brands.list();
    */
   async list() {
     return this.get(['brands']);
@@ -23,11 +23,11 @@ class Brand extends Client {
 
   /**
    * Show a specific brand by ID.
-   * @async
    * @param {number} brandId - The ID of the brand.
-   * @returns {Promise<Object>} The brand details.
-   * @example const brand = await client.brands.show(47);
+   * @returns {Promise<object>} The brand details.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#show-a-brand}
+   * @example const brand = await client.brands.show(47);
    */
   async show(brandId) {
     return this.get(['brands', brandId]);
@@ -35,11 +35,11 @@ class Brand extends Client {
 
   /**
    * Create a new brand.
+   * @param {object} brand - The brand data.
+   * @returns {Promise<object>} The created brand details.
    * @async
-   * @param {Object} brand - The brand data.
-   * @returns {Promise<Object>} The created brand details.
-   * @example const newBrand = await client.brands.create({name: "Brand 1", subdomain: "Brand1"});
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#create-brand}
+   * @example const newBrand = await client.brands.create({name: "Brand 1", subdomain: "Brand1"});
    */
   async create(brand) {
     return this.post(['brands'], brand);
@@ -47,12 +47,12 @@ class Brand extends Client {
 
   /**
    * Update an existing brand.
-   * @async
-   * @param {Object} brand - The updated brand data.
+   * @param {object} brand - The updated brand data.
    * @param {number} brandId - The ID of the brand to update.
-   * @returns {Promise<Object>} The updated brand details.
-   * @example const updatedBrand = await client.brands.update({name: "Updated Brand"}, 47);
+   * @returns {Promise<object>} The updated brand details.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#update-a-brand}
+   * @example const updatedBrand = await client.brands.update({name: "Updated Brand"}, 47);
    */
   async update(brand, brandId) {
     return this.put(['brands', brandId], brand);
@@ -60,11 +60,11 @@ class Brand extends Client {
 
   /**
    * Delete a brand.
-   * @async
    * @param {number} brandId - The ID of the brand to delete.
-   * @returns {Promise<Object>} The deletion status.
-   * @example await client.brands.delete(47);
+   * @returns {Promise<object>} The deletion status.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#delete-a-brand}
+   * @example await client.brands.delete(47);
    */
   async delete(brandId) {
     return super.delete(['brands', brandId]);
@@ -72,12 +72,12 @@ class Brand extends Client {
 
   /**
    * Check host mapping validity for a given subdomain and host mapping.
-   * @async
    * @param {string} hostMapping - The host mapping to check.
    * @param {string} subdomain - The subdomain to check.
-   * @returns {Promise<Object>} The check result.
-   * @example await client.brands.checkHostMapping("brand1.com", "brand1");
+   * @returns {Promise<object>} The check result.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#check-host-mapping-validity}
+   * @example await client.brands.checkHostMapping("brand1.com", "brand1");
    */
   async checkHostMapping(hostMapping, subdomain) {
     return this.get([
@@ -89,11 +89,11 @@ class Brand extends Client {
 
   /**
    * Check host mapping validity for an existing brand.
-   * @async
    * @param {number} brandId - The ID of the brand to check.
-   * @returns {Promise<Object>} The check result.
-   * @example await client.brands.checkHostMappingForExistingBrand(47);
+   * @returns {Promise<object>} The check result.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#check-host-mapping-validity-for-an-existing-brand}
+   * @example await client.brands.checkHostMappingForExistingBrand(47);
    */
   async checkHostMappingForExistingBrand(brandId) {
     return this.get(['brands', brandId, 'check_host_mapping']);

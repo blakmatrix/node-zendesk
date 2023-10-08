@@ -11,10 +11,10 @@ class EndpointChecker {
    */
   constructor() {
     /**
-     * @private
      * @type {Set<string>}
      * A set containing the supported endpoints.
      * {@link https://support.zendesk.com/hc/en-us/articles/5591904358938-New-limits-for-offset-based-pagination
+     * @private
      */
     this.SUPPORTED_ENDPOINTS = new Set([
       'views',
@@ -82,9 +82,9 @@ class EndpointChecker {
     ]);
 
     /**
-     * @private
      * @type {Set<RegExp>}
      * A set containing the regex patterns derived from the supported endpoints.
+     * @private
      */
     this.SUPPORTED_REGEXES = new Set();
 
@@ -107,7 +107,6 @@ class EndpointChecker {
 
   /**
    * Checks if the given endpoint supports cursor pagination.
-   *
    * @param {string} endpoint - The endpoint string to be checked.
    * @returns {boolean} - Returns true if the endpoint supports cursor pagination, otherwise false.
    */

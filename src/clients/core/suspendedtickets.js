@@ -3,8 +3,8 @@ const {Client} = require('../client');
 
 /**
  * @class SuspendedTickets
- * @extends Client
  * @description A thin wrapper around the Zendesk Suspended Tickets API
+ * @augments Client
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/}
  */
 class SuspendedTickets extends Client {
@@ -15,10 +15,10 @@ class SuspendedTickets extends Client {
 
   /**
    * List all suspended tickets
-   * @async
    * @returns {Promise} Returns a promise that resolves to a list of suspended tickets
-   * @example const tickets = await client.suspendedtickets.list();
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#list-suspended-tickets}
+   * @example const tickets = await client.suspendedtickets.list();
    */
   async list() {
     return this.getAll(['suspended_tickets']);
@@ -26,11 +26,11 @@ class SuspendedTickets extends Client {
 
   /**
    * Get details of a specific suspended ticket by ID
-   * @async
    * @param {number} suspendedTicketID - ID of the suspended ticket
    * @returns {Promise} Returns a promise that resolves to the details of the suspended ticket
-   * @example const ticket = await client.suspendedtickets.show(12345);
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#show-suspended-ticket}
+   * @example const ticket = await client.suspendedtickets.show(12345);
    */
   async show(suspendedTicketID) {
     return this.get(['suspended_tickets', suspendedTicketID]);
@@ -38,11 +38,11 @@ class SuspendedTickets extends Client {
 
   /**
    * Recover a specific suspended ticket by ID
-   * @async
    * @param {number} suspendedTicketID - ID of the suspended ticket to recover
    * @returns {Promise} Returns a promise that resolves once the ticket has been recovered
-   * @example await client.suspendedtickets.recover(12345);
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#recover-suspended-ticket}
+   * @example await client.suspendedtickets.recover(12345);
    */
   async recover(suspendedTicketID) {
     return this.put(['suspended_tickets', suspendedTicketID, 'recover']);
@@ -50,11 +50,11 @@ class SuspendedTickets extends Client {
 
   /**
    * Recover multiple suspended tickets by their IDs
-   * @async
    * @param {Array<number>} suspendedTicketIDs - An array of suspended ticket IDs to recover
    * @returns {Promise} Returns a promise that resolves once the tickets have been recovered
-   * @example await client.suspendedtickets.recoverMany([12345, 67890]);
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#recover-multiple-suspended-tickets}
+   * @example await client.suspendedtickets.recoverMany([12345, 67890]);
    */
   async recoverMany(suspendedTicketIDs) {
     return this.put([
@@ -66,12 +66,12 @@ class SuspendedTickets extends Client {
 
   /**
    * Delete a specific suspended ticket by ID
-   * @async
    * @param {number} suspendedTicketID - ID of the suspended ticket to delete
    * @returns {Promise} Returns a promise that resolves once the ticket has been deleted
-   * @example await client.suspendedtickets.delete(12345);
+   * @async
    * @throws Will throw an error if the request fails
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#delete-suspended-ticket}
+   * @example await client.suspendedtickets.delete(12345);
    */
   async delete(suspendedTicketID) {
     return super.delete(['suspended_tickets', suspendedTicketID]);
@@ -79,12 +79,12 @@ class SuspendedTickets extends Client {
 
   /**
    * Deletes multiple suspended tickets by their IDs
-   * @async
    * @param {Array<number>} suspendedTicketIDs - An array of suspended ticket IDs to delete
    * @returns {Promise} Returns a promise that resolves once the tickets have been deleted
-   * @example await client.suspendedtickets.destroyMany([12345, 67890]);
+   * @async
    * @throws Will throw an error if the request fails
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#delete-multiple-suspended-tickets}
+   * @example await client.suspendedtickets.destroyMany([12345, 67890]);
    */
   async destroyMany(suspendedTicketIDs) {
     return super.delete([
@@ -97,13 +97,13 @@ class SuspendedTickets extends Client {
   }
 
   /**
-   * @deprecated Use `destroyMany` method instead.
-   * Deletes multiple suspended tickets by their IDs. This method is deprecated.
-   * @async
    * @param {Array<number>} suspendedTicketIDs - An array of suspended ticket IDs to delete
    * @returns {Promise} Returns a promise that resolves once the tickets have been deleted
-   * @example await client.suspendedtickets.deleteMany([12345, 67890]);
+   * @async
    * @throws Will throw an error if the request fails
+   * @example await client.suspendedtickets.deleteMany([12345, 67890]);
+   * @deprecated Use `destroyMany` method instead.
+   * Deletes multiple suspended tickets by their IDs. This method is deprecated.
    */
   async deleteMany(suspendedTicketIDs) {
     return this.destroyMany(suspendedTicketIDs);
@@ -111,11 +111,11 @@ class SuspendedTickets extends Client {
 
   /**
    * Get attachments for a specific suspended ticket by ID
-   * @async
    * @param {number} suspendedTicketID - ID of the suspended ticket to get attachments from
    * @returns {Promise} Returns a promise that resolves to the attachments of the suspended ticket
-   * @example const attachments = await client.suspendedtickets.attachments(12345);
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#suspended-ticket-attachments}
+   * @example const attachments = await client.suspendedtickets.attachments(12345);
    */
   async attachments(suspendedTicketID) {
     return this.post(['suspended_tickets', suspendedTicketID, 'attachments']);
@@ -123,10 +123,10 @@ class SuspendedTickets extends Client {
 
   /**
    * Export suspended tickets for the Zendesk Support instance
-   * @async
    * @returns {Promise} Returns a promise that resolves once the export request has been initiated
-   * @example await client.suspendedtickets.exportTickets();
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#export-suspended-tickets}
+   * @example await client.suspendedtickets.exportTickets();
    */
   async exportTickets() {
     return this.post(['suspended_tickets', 'export']);

@@ -13,9 +13,9 @@ class OrganizationFields extends Client {
 
   /**
    * List all organization fields.
+   * @returns {Promise<object>} The organization fields.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_fields/#list-organization-fields}
-   * @returns {Promise<Object>} The organization fields.
    * @example const orgFields = await client.organizationfields.list();
    */
   async list() {
@@ -24,9 +24,9 @@ class OrganizationFields extends Client {
 
   /**
    * Show a specific organization field.
-   * @async
    * @param {number} organizationFieldID - The ID of the organization field.
-   * @returns {Promise<Object>} The organization field details.
+   * @returns {Promise<object>} The organization field details.
+   * @async
    * @throws {Error} Throws an error if the organization field is not found.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_fields/#show-organization-field}
    * @example const orgField = await client.organizationfields.show(12345);
@@ -37,9 +37,9 @@ class OrganizationFields extends Client {
 
   /**
    * Create a new organization field.
+   * @param {object} organizationField - The organization field object.
+   * @returns {Promise<object>} The newly created organization field.
    * @async
-   * @param {Object} organizationField - The organization field object.
-   * @returns {Promise<Object>} The newly created organization field.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_fields/#create-organization-field}
    * @example const newOrgField = await client.organizationfields.create({ type: 'text', title: 'Support description' });
    */
@@ -49,10 +49,10 @@ class OrganizationFields extends Client {
 
   /**
    * Update an existing organization field.
-   * @async
    * @param {number} organizationFieldID - The ID of the organization field to update.
-   * @param {Object} organizationField - The updated organization field object.
-   * @returns {Promise<Object>} The updated organization field.
+   * @param {object} organizationField - The updated organization field object.
+   * @returns {Promise<object>} The updated organization field.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_fields/#update-organization-field}
    * @example const updatedOrgField = await client.organizationfields.update(12345, { title: 'New title' });
    */
@@ -65,9 +65,9 @@ class OrganizationFields extends Client {
 
   /**
    * Delete an organization field.
-   * @async
    * @param {number} organizationFieldID - The ID of the organization field to delete.
-   * @returns {Promise<Object>} Response indicating the deletion status.
+   * @returns {Promise<object>} Response indicating the deletion status.
+   * @async
    * @throws {Error} Throws an error if the deletion fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_fields/#delete-organization-field}
    * @example await client.organizationfields.delete(12345);
@@ -78,9 +78,9 @@ class OrganizationFields extends Client {
 
   /**
    * Reorder the organization fields.
-   * @async
    * @param {Array<number>} organizationFieldIds - An array of organization field IDs in the desired order.
-   * @returns {Promise<Object>} The reordered organization fields.
+   * @returns {Promise<object>} The reordered organization fields.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_fields/#reorder-organization-field}
    * @example await client.organizationfields.reorder([3, 4]);
    */

@@ -25,7 +25,7 @@ describe('Zendesk Client Authentication', () => {
    *
    * @param client {import('../src/index.js').ZendeskClient}
    * @param expectedName {string}
-   * @return {Promise<void>}
+   * @returns {Promise<void>}
    */
   const verifyUser = async (client, expectedName) => {
     const {result: user} = await client.users.me();

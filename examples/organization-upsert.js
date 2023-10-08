@@ -21,6 +21,10 @@ client.organizations.upsert(organization, function (error, request, result) {
   console.log(JSON.stringify(result, null, 2, true));
 });
 
+/**
+ *
+ * @param error
+ */
 function handleError(error) {
   console.log(error);
   process.exit(-1);

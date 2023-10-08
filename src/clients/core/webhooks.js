@@ -13,8 +13,8 @@ class Webhooks extends Client {
 
   /**
    * List all webhooks.
+   * @returns {Promise<object>} A promise that resolves to the list of webhooks.
    * @async
-   * @returns {Promise<Object>} A promise that resolves to the list of webhooks.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#list-webhooks}
    * @example const webhooks = await client.webhooks.list();
    */
@@ -24,9 +24,9 @@ class Webhooks extends Client {
 
   /**
    * Retrieve a specific webhook by ID.
-   * @async
    * @param {string} webhookID - The ID of the webhook to retrieve.
-   * @returns {Promise<Object>} A promise that resolves to the specified webhook.
+   * @returns {Promise<object>} A promise that resolves to the specified webhook.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#show-webhook}
    * @example const webhook = await client.webhooks.show('webhookID123');
    */
@@ -36,9 +36,9 @@ class Webhooks extends Client {
 
   /**
    * Create a new webhook.
+   * @param {object} webhook - The webhook data to create.
+   * @returns {Promise<object>} A promise that resolves to the created webhook.
    * @async
-   * @param {Object} webhook - The webhook data to create.
-   * @returns {Promise<Object>} A promise that resolves to the created webhook.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#create-or-clone-webhook}
    * @example
    * const newWebhook = {
@@ -52,10 +52,10 @@ class Webhooks extends Client {
 
   /**
    * Update a specific webhook by ID.
-   * @async
    * @param {string} webhookID - The ID of the webhook to update.
-   * @param {Object} webhook - The updated webhook data.
-   * @returns {Promise<Object>} A promise that resolves to the updated webhook.
+   * @param {object} webhook - The updated webhook data.
+   * @returns {Promise<object>} A promise that resolves to the updated webhook.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#update-webhook}
    * @example
    * const updatedData = {
@@ -69,9 +69,9 @@ class Webhooks extends Client {
 
   /**
    * Delete a specific webhook by ID.
-   * @async
    * @param {string} webhookID - The ID of the webhook to delete.
-   * @returns {Promise<Object>} A promise that resolves when the webhook is deleted.
+   * @returns {Promise<object>} A promise that resolves when the webhook is deleted.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#delete-webhook}
    * @example await client.webhooks.delete('webhookID123');
    */
@@ -83,10 +83,10 @@ class Webhooks extends Client {
 
   /**
    * Test a new or existing webhook.
-   * @async
-   * @param {Object} request - The request data for testing the webhook.
+   * @param {object} request - The request data for testing the webhook.
    * @param {string} [webhookID] - The ID of the webhook to be tested (for existing webhooks).
-   * @returns {Promise<Object>} A promise that resolves to the test result.
+   * @returns {Promise<object>} A promise that resolves to the test result.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#test-webhook}
    * @example
    * const requestData = {
@@ -103,9 +103,9 @@ class Webhooks extends Client {
 
   /**
    * List invocations for a specific webhook.
-   * @async
    * @param {string} webhookID - The ID of the webhook.
-   * @returns {Promise<Object>} A promise that resolves to the list of invocations.
+   * @returns {Promise<object>} A promise that resolves to the list of invocations.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#list-webhook-invocations}
    * @example const invocations = await client.webhooks.listInvocations('webhookID123');
    */
@@ -115,10 +115,10 @@ class Webhooks extends Client {
 
   /**
    * List invocation attempts for a specific webhook.
-   * @async
    * @param {string} webhookID - The ID of the webhook.
    * @param {string} invocationID - The ID of the webhook invocation.
-   * @returns {Promise<Object>} A promise that resolves to the list of invocation attempts.
+   * @returns {Promise<object>} A promise that resolves to the list of invocation attempts.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#list-webhook-invocation-attempts}
    * @example const attempts = await client.webhooks.listInvocationAttempts('webhookID123', 'invocationID123');
    */
@@ -134,9 +134,9 @@ class Webhooks extends Client {
 
   /**
    * Retrieve the signing secret of a specific webhook.
-   * @async
    * @param {string} webhookID - The ID of the webhook.
-   * @returns {Promise<Object>} A promise that resolves to the signing secret.
+   * @returns {Promise<object>} A promise that resolves to the signing secret.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#show-webhook-signing-secret}
    * @example const secret = await client.webhooks.getSigningSecret('webhookID123');
    */
@@ -146,9 +146,9 @@ class Webhooks extends Client {
 
   /**
    * Reset the signing secret for a specific webhook.
-   * @async
    * @param {string} webhookID - The ID of the webhook.
-   * @returns {Promise<Object>} A promise that resolves to the new signing secret.
+   * @returns {Promise<object>} A promise that resolves to the new signing secret.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#reset-webhook-signing-secret}
    * @example const newSecret = await client.webhooks.resetSigningSecret('webhookID123');
    */
@@ -158,10 +158,10 @@ class Webhooks extends Client {
 
   /**
    * Patch a specific webhook by ID.
-   * @async
    * @param {string} webhookID - The ID of the webhook to patch.
-   * @param {Object} webhook - The data to patch.
-   * @returns {Promise<Object>} A promise that resolves to the patched webhook.
+   * @param {object} webhook - The data to patch.
+   * @returns {Promise<object>} A promise that resolves to the patched webhook.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#patch-webhook}
    * @example
    * const patchData = {

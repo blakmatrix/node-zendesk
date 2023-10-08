@@ -2,6 +2,9 @@ const process = require('node:process');
 const zd = require('../src/index');
 const exampleConfig = require('./exampleConfig');
 
+/**
+ *
+ */
 function getZendeskConfig() {
   return {
     token:
@@ -14,6 +17,9 @@ function getZendeskConfig() {
 
 const client = zd.createClient(getZendeskConfig());
 
+/**
+ *
+ */
 async function checkOAuth() {
   try {
     const {result: user} = await client.users.auth();

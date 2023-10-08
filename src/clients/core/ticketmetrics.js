@@ -12,14 +12,14 @@ class TicketMetrics extends Client {
 
   /**
    * Lists the Ticket Metrics for a specific ticket.
-   * @async
    * @param {number} ticketID - The ID of the ticket.
-   * @returns {Promise<Object>} The ticket metrics data.
+   * @returns {Promise<object>} The ticket metrics data.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#show-ticket-metrics}
    * @example
    * const client = createClient({...});
    * const metrics = await client.ticketmetrics.list(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#show-ticket-metrics}
    */
   async list(ticketID) {
     return this.get(['tickets', ticketID, 'metrics']);
@@ -27,13 +27,13 @@ class TicketMetrics extends Client {
 
   /**
    * Lists all Ticket Metrics.
+   * @returns {Promise<object[]>} An array of all ticket metrics data.
    * @async
-   * @returns {Promise<Object[]>} An array of all ticket metrics data.
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#list-ticket-metrics}
    * @example
    * const client = createClient({...});
    * const allMetrics = await client.ticketmetrics.listAll();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#list-ticket-metrics}
    */
   async listAll() {
     return this.getAll(['ticket_metrics']);
@@ -41,14 +41,14 @@ class TicketMetrics extends Client {
 
   /**
    * Shows a specific Ticket Metric by its ID.
-   * @async
    * @param {number} ticketMetricId - The ID of the ticket metric to retrieve.
-   * @returns {Promise<Object>} The ticket metric data.
+   * @returns {Promise<object>} The ticket metric data.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#show-ticket-metrics}
    * @example
    * const client = createClient({...});
    * const metric = await client.ticketmetrics.show(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#show-ticket-metrics}
    */
   async show(ticketMetricId) {
     return this.get(['ticket_metrics', ticketMetricId]);

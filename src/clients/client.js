@@ -13,14 +13,14 @@ const {
 } = require('./helpers');
 
 /**
+ * @typedef {object} ApiResponse<T>
  * @template T
- * @typedef {Object} ApiResponse<T>
  * @property {object} response - Response object from the request.
  * @property {T} result - Result object from the request.
  */
 
 /**
- * @typedef {Object} ClientOptions
+ * @typedef {object} ClientOptions
  * @property {string} ClientOptions.subdomain - Subdomain for the Zendesk instance.
  * @property {string} [ClientOptions.password] - Password for authentication.
  * @property {string} [ClientOptions.token] - Token for authentication.
@@ -30,19 +30,18 @@ const {
  * @property {object} [ClientOptions.customHeaders] - Any additional custom headers for the request.
  * @property {boolean} [ClientOptions.throttle] - Flag to enable throttling of requests.
  * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
- * @property {array} sideLoad - Array to handle side-loaded resources.
- * @property {array} jsonAPINames - Array to hold names used in the JSON API.
+ * @property {Array} sideLoad - Array to handle side-loaded resources.
+ * @property {Array} jsonAPINames - Array to hold names used in the JSON API.
  */
 
 /**
  * Represents a client to interact with the Zendesk API, providing functionalities to make various types of requests.
  * This client handles request construction, response processing, event emission, and more.
- *
  * @class
  * @property {ClientOptions} options - Configuration options for the client.
- * @property {array} sideLoad - Array to handle side-loaded resources.
+ * @property {Array} sideLoad - Array to handle side-loaded resources.
  * @property {string} userAgent - User agent for the client.
- * @property {array} jsonAPINames - Array to hold names used in the JSON API.
+ * @property {Array} jsonAPINames - Array to hold names used in the JSON API.
  * @property {ApiTypes} apiType - Type of Zendesk API to initialize (e.g., 'core', 'helpcenter').
  * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
  * @property {Transporter} transporter - Transporter for making requests.
@@ -91,10 +90,10 @@ class Client {
 
   // Helper methods
   /**
-   * @private
    * @param options {ClientOptions}
    * @param apiType {ApiTypes}
-   * @return {ClientOptions & {get: (function(key: string): any)}}
+   * @returns {ClientOptions & {get: (function(key: string): any)}}
+   * @private
    */
   _buildOptions(options, apiType = ApiTypes.core) {
     const endpointUri = this._getEndpointUri(options.subdomain, apiType);
@@ -106,7 +105,9 @@ class Client {
   }
 
   /**
-   * @return {string}
+   * @param subdomain
+   * @param apiType
+   * @returns {string}
    * @private
    */
   _getEndpointUri(subdomain, apiType) {
@@ -164,7 +165,7 @@ class Client {
    * @param {string} method
    * @param {string} uri
    * @param args
-   * @return {Promise<ApiResponse<T>>}
+   * @returns {Promise<ApiResponse<T>>}
    */
   async request(method, uri, ...args) {
     try {

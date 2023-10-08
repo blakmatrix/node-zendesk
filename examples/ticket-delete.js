@@ -14,6 +14,10 @@ client.tickets.delete(ticketId, function (error) {
   if (error) return handleError(error);
 });
 
+/**
+ *
+ * @param error
+ */
 function handleError(error) {
   console.log(error);
   process.exit(-1);

@@ -13,7 +13,6 @@ const failCodes = {
 
 /**
  * Flattens a nested array to a single-level array.
- *
  * @param {Array} array - The array to be flattened.
  * @returns {Array} - A new array containing all elements from the input array,
  *                   with any nested arrays recursively flattened to a single level.
@@ -30,11 +29,10 @@ function flatten(array) {
 
 /**
  * Populates specified fields in the given data records using response data based on a mapping.
- *
- * @param {Object|Array} data - The data record(s) to be populated.
- * @param {Object} response - The response data containing datasets.
+ * @param {object | Array} data - The data record(s) to be populated.
+ * @param {object} response - The response data containing datasets.
  * @param {Array} map - An array of mapping objects specifying how to populate fields.
- * @returns {Object|Array} - The data record(s) with populated fields.
+ * @returns {object | Array} - The data record(s) with populated fields.
  */
 function populateFields(data, response, map) {
   const datasetCache = new Map();
@@ -81,15 +79,13 @@ function populateFields(data, response, map) {
  *
  * The function also utilizes `self.sideLoad` to include side-loaded resources if available.
  * Any conflict in query parameters is resolved with `query` taking the highest priority, followed by `sideLoad`, and then the provided `uri`.
- *
- * @param {Object} self - The context containing options and side-loading settings.
+ * @param {object} self - The context containing options and side-loading settings.
+ * @param {string} method - The HTTP method. Can be "GET", "PATCH", "POST", "PUT", or "DELETE".
+ * @param {Array<string | object>} [uri] - An array representing the URL segments. The last element can be an object of query parameters or a query string.
  *   @property {Map} options - A map-like object with settings. Specifically used to retrieve 'endpointUri' and 'query'.
  *   @property {Array<string>} [sideLoad] - An array of resources to side-load. It gets converted into a query parameter format.
- *
- * @param {string} method - The HTTP method. Can be "GET", "PATCH", "POST", "PUT", or "DELETE".
- * @param {Array<string|Object>} [uri] - An array representing the URL segments. The last element can be an object of query parameters or a query string.
  * @returns {string} The assembled URL.
- *
+ * @throws Will throw an error if `self.options` does not implement the 'get' method.
  * @example
  * const context = {
  *   options: new Map([['endpointUri', 'http://api.example.com'], ['query', { page: { size: 100 } }]]),
@@ -97,8 +93,6 @@ function populateFields(data, response, map) {
  * };
  * assembleUrl(context, 'GET', ['users', 'list', '?foo=bar']);
  * // Expected: "http://api.example.com/users/list.json?foo=bar&include=comments,likes&page[size]=100"
- *
- * @throws Will throw an error if `self.options` does not implement the 'get' method.
  */
 function assembleUrl(self, method, uri) {
   // Helper functions
@@ -177,16 +171,14 @@ function assembleUrl(self, method, uri) {
  * - For non-object values, it encodes them with the provided prefix.
  * - For array values, it encodes them as comma-separated lists without indexing.
  * - For objects, it recursively encodes each nested key-value pair using a bracket notation.
- *
+ * @param {object | string | number} object - The object to serialize.
+ * @param {string} [prefix=''] - The prefix for the current serialization level. Useful for handling nested objects.
+ * @returns {string} The serialized query string.
  * @example
  * serialize({ a: 1 })                // "a=1"
  * serialize({ a: { b: 2 } })        // "a[b]=2"
  * serialize({ ids: [1,2,3,4] })     // "ids=1,2,3,4"
  * serialize('test', 'key')          // "key=test"
- *
- * @param {Object|string|number} object - The object to serialize.
- * @param {string} [prefix=''] - The prefix for the current serialization level. Useful for handling nested objects.
- * @returns {string} The serialized query string.
  */
 const serialize = (object, prefix = '') => {
   // Base condition: non-object values
@@ -211,6 +203,12 @@ const serialize = (object, prefix = '') => {
     .join('&');
 };
 
+/**
+ *
+ * @param message
+ * @param statusCode
+ * @param result
+ */
 function createError(message, statusCode, result = null) {
   const error = new Error(message);
   error.statusCode = statusCode;
@@ -218,6 +216,11 @@ function createError(message, statusCode, result = null) {
   return error;
 }
 
+/**
+ *
+ * @param response
+ * @param result
+ */
 function checkRequestResponse(response, result) {
   if (!result) {
     return createError('Zendesk returned an empty result', 204);
@@ -263,6 +266,11 @@ function checkRequestResponse(response, result) {
   return result;
 }
 
+/**
+ *
+ * @param result_
+ * @param self
+ */
 function findBody(result_, self) {
   if (!result_) {
     return '';
@@ -280,6 +288,11 @@ function findBody(result_, self) {
   return result_;
 }
 
+/**
+ *
+ * @param result_
+ * @param self
+ */
 function processResponseBody(result_, self) {
   let body = findBody(result_, self);
 
@@ -290,6 +303,9 @@ function processResponseBody(result_, self) {
   return body;
 }
 
+/**
+ *
+ */
 function generateUserAgent() {
   const {version} = require('../../package.json');
   return `node-zendesk/${version} (node/${

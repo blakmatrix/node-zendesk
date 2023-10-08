@@ -7,6 +7,9 @@ const zd = require('../src/index.js');
 
 dotenv.config();
 
+/**
+ *
+ */
 function initializeZendeskClient() {
   return zd.createClient({
     username: process.env.ZENDESK_USERNAME,
@@ -16,12 +19,21 @@ function initializeZendeskClient() {
   });
 }
 
+/**
+ *
+ * @param organizations
+ */
 function getTestOrganizationIds(organizations) {
   return organizations
     .filter((org) => org.name.startsWith('test') || org.name.startsWith('Test'))
     .map((org) => org.id);
 }
 
+/**
+ *
+ * @param array
+ * @param chunkSize
+ */
 function chunkArray(array, chunkSize) {
   const chunks = [];
   for (let i = 0; i < array.length; i += chunkSize) {
@@ -31,6 +43,11 @@ function chunkArray(array, chunkSize) {
   return chunks;
 }
 
+/**
+ *
+ * @param client
+ * @param jobID
+ */
 async function monitorJobCompletion(client, jobID) {
   try {
     await client.jobstatuses.watch(jobID, 1000, 30);
@@ -40,6 +57,9 @@ async function monitorJobCompletion(client, jobID) {
   }
 }
 
+/**
+ *
+ */
 async function bulkDeleteTestOrganizations() {
   const client = initializeZendeskClient();
 

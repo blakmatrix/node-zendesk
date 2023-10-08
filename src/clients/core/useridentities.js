@@ -12,12 +12,12 @@ class UserIdentities extends Client {
 
   /**
    * List all identities for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
-   * @returns {Promise<Object[]>} A list of user identities.
+   * @returns {Promise<object[]>} A list of user identities.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const identities = await client.useridentities.list(12345);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#list-identities}
+   * @example const identities = await client.useridentities.list(12345);
    */
   async list(userId) {
     return this.getAll(['users', userId, 'identities']);
@@ -25,13 +25,13 @@ class UserIdentities extends Client {
 
   /**
    * Show a specific identity for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} userIdentityId - The ID of the user identity to show.
-   * @returns {Promise<Object>} The user identity details.
+   * @returns {Promise<object>} The user identity details.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const identity = await client.useridentities.show(12345, 67890);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#show-identity}
+   * @example const identity = await client.useridentities.show(12345, 67890);
    */
   async show(userId, userIdentityId) {
     return this.get(['users', userId, 'identities', userIdentityId]);
@@ -39,13 +39,13 @@ class UserIdentities extends Client {
 
   /**
    * Create a new identity for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
-   * @param {Object} userIdentity - The user identity details to create.
-   * @returns {Promise<Object>} The created user identity.
+   * @param {object} userIdentity - The user identity details to create.
+   * @returns {Promise<object>} The created user identity.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const newIdentity = await client.useridentities.create(12345, {type: 'email', value: 'test@example.com'});
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#create-identity}
+   * @example const newIdentity = await client.useridentities.create(12345, {type: 'email', value: 'test@example.com'});
    */
   async create(userId, userIdentity) {
     if (
@@ -62,14 +62,14 @@ class UserIdentities extends Client {
 
   /**
    * Update a specific identity for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} userIdentityId - The ID of the user identity to update.
-   * @param {Object} identity - The updated identity details.
-   * @returns {Promise<Object>} The updated user identity.
+   * @param {object} identity - The updated identity details.
+   * @returns {Promise<object>} The updated user identity.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const updatedIdentity = await client.useridentities.update(12345, 67890, {verified: true});
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#update-identity}
+   * @example const updatedIdentity = await client.useridentities.update(12345, 67890, {verified: true});
    */
   async update(userId, userIdentityId, identity) {
     return this.put(['users', userId, 'identities', userIdentityId], identity);
@@ -77,13 +77,13 @@ class UserIdentities extends Client {
 
   /**
    * Make a specific identity the primary identity for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} userIdentityId - The ID of the user identity to make primary.
-   * @returns {Promise<Object>} The updated user identity.
+   * @returns {Promise<object>} The updated user identity.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example await client.useridentities.makePrimary(12345, 67890);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#make-identity-primary}
+   * @example await client.useridentities.makePrimary(12345, 67890);
    */
   async makePrimary(userId, userIdentityId) {
     return this.put([
@@ -97,13 +97,13 @@ class UserIdentities extends Client {
 
   /**
    * Verify a specific identity for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} userIdentityId - The ID of the user identity to verify.
-   * @returns {Promise<Object>} The verified user identity.
+   * @returns {Promise<object>} The verified user identity.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example await client.useridentities.verify(12345, 67890);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#verify-identity}
+   * @example await client.useridentities.verify(12345, 67890);
    */
   async verify(userId, userIdentityId) {
     return this.put(['users', userId, 'identities', userIdentityId, 'verify']);
@@ -111,13 +111,13 @@ class UserIdentities extends Client {
 
   /**
    * Request verification for a specific identity for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} userIdentityId - The ID of the user identity to request verification for.
-   * @returns {Promise<Object>} The user identity verification request details.
+   * @returns {Promise<object>} The user identity verification request details.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example await client.useridentities.requestVerification(12345, 67890);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#request-user-verification}
+   * @example await client.useridentities.requestVerification(12345, 67890);
    */
   async requestVerification(userId, userIdentityId) {
     return this.put([
@@ -131,13 +131,13 @@ class UserIdentities extends Client {
 
   /**
    * Delete a specific identity for a given user.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} userIdentityId - The ID of the user identity to delete.
    * @returns {Promise<void>}
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example await client.useridentities.delete(12345, 67890);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/user_identities/#delete-identity}
+   * @example await client.useridentities.delete(12345, 67890);
    */
   async delete(userId, userIdentityId) {
     return super.delete(['users', userId, 'identities', userIdentityId]);

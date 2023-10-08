@@ -8,7 +8,7 @@ const {ZendeskClientServices} = require('./clients/services');
 const {ZendeskClientVoice} = require('./clients/voice');
 
 /**
- * @typedef {Object} ZendeskClientOptions
+ * @typedef {object} ZendeskClientOptions
  * @property {string} ZendeskClientOptions.name
  * @property {string} ZendeskClientOptions.username - The username used for authentication.
  * @property {string} ZendeskClientOptions.token - The authentication token.
@@ -18,7 +18,7 @@ const {ZendeskClientVoice} = require('./clients/voice');
  * @property {string[]} [ZendeskClientOptions.apiType=['core']] - Type of Zendesk API to initialize (e.g., 'core', 'helpcenter').
  *                                    Determines which sub-client to use.
  * @property {string} [ZendeskClientOptions.endpointUri] - The base URI for the Zendesk API. Overrides and ignores `subdomain` if provided.
- * @property {function} [ZendeskClientOptions.get] - Function to get specific options. By default, accesses property from the options.
+ * @property {Function} [ZendeskClientOptions.get] - Function to get specific options. By default, accesses property from the options.
  * @property {boolean} [ZendeskClientOptions.oauth] - Flag to indicate if OAuth is used.
  * @property {string} [ZendeskClientOptions.asUser] - Optional header for making requests on behalf of a user.
  * @property {object} [ZendeskClientOptions.customHeaders] - Any additional custom headers for the request.
@@ -26,14 +26,13 @@ const {ZendeskClientVoice} = require('./clients/voice');
  * @property {boolean} [ZendeskClientOptions.debug=false] - Flag to enable or disable debug logging.
  * @property {object} [ZendeskClientOptions.logger=ConsoleLogger] - Optional logger for logging. Should have methods like `info`, `error`, etc. Defaults to a basic console logger.
  * @property {object} [ZendeskClientOptions.transportConfig] - Configuration for custom transport functionality.
- * @property {function} [ZendeskClientOptions.transportConfig.transportFn] - Custom function to perform the request. By default, it uses `fetch`. It should return a response object.
- * @property {function} [ZendeskClientOptions.transportConfig.responseAdapter] - Custom function to adapt the response from `transportFn` into a consistent format. By default, it adapts for `fetch` response.
+ * @property {Function} [ZendeskClientOptions.transportConfig.transportFn] - Custom function to perform the request. By default, it uses `fetch`. It should return a response object.
+ * @property {Function} [ZendeskClientOptions.transportConfig.responseAdapter] - Custom function to adapt the response from `transportFn` into a consistent format. By default, it adapts for `fetch` response.
  */
 
 /**
  * Represents the main client to interface with the Zendesk API.
  * This class acts as a high-level interface, making it easier to interact with specific Zendesk APIs.
- *
  * @class
  * @property {ZendeskClientOptions} config - Configuration options for the client.
  * @property {ConsoleLogger} logger - Logger for logging.
@@ -63,7 +62,7 @@ class ZendeskClient {
   /**
    * @template {T} [T=import('./client/client.js').Client]
    * @param {{ new (options: ZendeskClientOptions): T }} ServiceClass
-   * @return {T}
+   * @returns {T}
    * @private
    */
   _instantiate(ServiceClass) {
@@ -316,6 +315,7 @@ class ZendeskClient {
   }
 
   /**
+   * @param args
    * @private
    */
   _debug(args) {
@@ -332,7 +332,7 @@ class ZendeskClient {
 /**
  * @function createClient
  * @param {ZendeskClientOptions} options
- * @return {ZendeskClient}
+ * @returns {ZendeskClient}
  */
 function createClient(options) {
   return new ZendeskClient(options);

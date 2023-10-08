@@ -13,11 +13,11 @@ class Sessions extends Client {
 
   /**
    * List all sessions.
+   * @returns {Promise<object[]>} Array of sessions.
    * @async
-   * @returns {Promise<Object[]>} Array of sessions.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#list-sessions}
    * @example
    * const sessions = await client.sessions.get();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#list-sessions}
    */
   async get() {
     return this.getAll(['sessions']);
@@ -25,12 +25,12 @@ class Sessions extends Client {
 
   /**
    * List sessions by user ID.
-   * @async
    * @param {number} userId - The ID of the user.
-   * @returns {Promise<Object[]>} Array of sessions.
+   * @returns {Promise<object[]>} Array of sessions.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#list-sessions}
    * @example
    * const sessions = await client.sessions.getByUserId(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#list-sessions}
    */
   async getByUserId(userId) {
     return this.getAll(['users', userId, 'sessions']);
@@ -38,13 +38,13 @@ class Sessions extends Client {
 
   /**
    * Retrieve a specific session by user ID and session ID.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} sessionId - The ID of the session.
-   * @returns {Promise<Object>} Session details.
+   * @returns {Promise<object>} Session details.
+   * @async
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-session}
    * @example
    * const session = await client.sessions.getByUserIdBySessionId(12345, 67890);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-session}
    */
   async getByUserIdBySessionId(userId, sessionId) {
     return this.get(['users', userId, 'sessions', sessionId]);
@@ -52,11 +52,11 @@ class Sessions extends Client {
 
   /**
    * Retrieve details of the currently authenticated session.
+   * @returns {Promise<object>} Session details.
    * @async
-   * @returns {Promise<Object>} Session details.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-the-currently-authenticated-session}
    * @example
    * const session = await client.sessions.getMyAuthenticatedSession();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-the-currently-authenticated-session}
    */
   async getMyAuthenticatedSession() {
     return this.get(['users', 'me', 'session']);
@@ -64,14 +64,14 @@ class Sessions extends Client {
 
   /**
    * Delete a specific session by user ID and session ID.
-   * @async
    * @param {number} userId - The ID of the user.
    * @param {number} sessionId - The ID of the session.
    * @returns {Promise<void>}
+   * @async
    * @throws Will throw an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#delete-session}
    * @example
    * await client.sessions.deleteByUserIdBySessionId(12345, 67890);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#delete-session}
    */
   async deleteByUserIdBySessionId(userId, sessionId) {
     return super.delete(['users', userId, 'sessions', sessionId]);
@@ -79,13 +79,13 @@ class Sessions extends Client {
 
   /**
    * Delete all sessions for a specific user by user ID.
-   * @async
    * @param {number} userId - The ID of the user.
    * @returns {Promise<void>}
+   * @async
    * @throws Will throw an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#bulk-delete-sessions}
    * @example
    * await client.sessions.bulkDeleteByUserId(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#bulk-delete-sessions}
    */
   async bulkDeleteByUserId(userId) {
     return super.delete(['users', userId, 'sessions']);
@@ -93,12 +93,12 @@ class Sessions extends Client {
 
   /**
    * Logs out the current authenticated user.
-   * @async
    * @returns {Promise<void>}
+   * @async
    * @throws Will throw an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#delete-the-authenticated-session}
    * @example
    * await client.sessions.logMeOut();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#delete-the-authenticated-session}
    */
   async logMeOut() {
     return super.delete(['users', 'me', 'sessions']);

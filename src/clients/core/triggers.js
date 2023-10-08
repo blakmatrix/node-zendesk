@@ -13,12 +13,12 @@ class Triggers extends Client {
 
   /**
    * Searches for triggers based on the provided search term.
-   * @async
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<Object>} The search results.
+   * @returns {Promise<object>} The search results.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const results = await client.triggers.search('exampleTerm');
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#search-triggers}
+   * @example const results = await client.triggers.search('exampleTerm');
    */
   async search(searchTerm) {
     return this.get(['triggers', 'search', {query: searchTerm}]);
@@ -26,11 +26,11 @@ class Triggers extends Client {
 
   /**
    * Retrieves trigger definitions.
+   * @returns {Promise<object>} The trigger definitions.
    * @async
-   * @returns {Promise<Object>} The trigger definitions.
    * @throws {Error} Throws an error if the request fails.
-   * @example const definitions = await client.triggers.definitions();
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#list-trigger-action-and-condition-definitions}
+   * @example const definitions = await client.triggers.definitions();
    */
   async definitions() {
     return this.getAll(['triggers', 'definitions']);
@@ -38,18 +38,18 @@ class Triggers extends Client {
 
   /**
    * Lists all triggers, with optional filtering and sorting.
-   * @async
-   * @param {Object} [options] - Optional parameters for listing triggers.
+   * @param {object} [options] - Optional parameters for listing triggers.
    * @param {boolean} [options.active] - Filter by active triggers if true or inactive triggers if false.
    * @param {string} [options.category_id] - Filter triggers by category ID.
    * @param {string} [options.sort_by] - Possible values are "alphabetical", "created_at", "updated_at", "usage_1h", "usage_24h", or "usage_7d". Defaults to "position".
    * @param {string} [options.sort_order] - One of "asc" or "desc". Defaults to "asc" for alphabetical and position sort, "desc" for all others.
-   * @returns {Promise<Object>} A list of all triggers.
+   * @returns {Promise<object>} A list of all triggers.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#list-triggers}
    * @example
    * const triggers = await client.triggers.list();
    * const activeTriggers = await client.triggers.list({ active: true });
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#list-triggers}
    */
   async list(options = {}) {
     return this.getAll(['triggers', options]);
@@ -57,11 +57,11 @@ class Triggers extends Client {
 
   /**
    * Lists all active triggers.
+   * @returns {Promise<object>} A list of all active triggers.
    * @async
-   * @returns {Promise<Object>} A list of all active triggers.
    * @throws {Error} Throws an error if the request fails.
-   * @example const activeTriggers = await client.triggers.listActive();
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#list-active-triggers}
+   * @example const activeTriggers = await client.triggers.listActive();
    */
   async listActive() {
     return this.getAll(['triggers', 'active']);
@@ -69,12 +69,12 @@ class Triggers extends Client {
 
   /**
    * Retrieves details of a specific trigger.
-   * @async
    * @param {number} triggerID - The ID of the trigger.
-   * @returns {Promise<Object>} Details of the specified trigger.
+   * @returns {Promise<object>} Details of the specified trigger.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const triggerDetails = await client.triggers.show(12345);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#show-trigger}
+   * @example const triggerDetails = await client.triggers.show(12345);
    */
   async show(triggerID) {
     return this.get(['triggers', triggerID]);
@@ -82,10 +82,11 @@ class Triggers extends Client {
 
   /**
    * Creates a new trigger.
+   * @param {object} trigger - The trigger object to be created.
+   * @returns {Promise<object>} The created trigger.
    * @async
-   * @param {Object} trigger - The trigger object to be created.
-   * @returns {Promise<Object>} The created trigger.
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#create-trigger}
    * @example
    * const newTrigger = {
    *   title: "Example Trigger",
@@ -93,7 +94,6 @@ class Triggers extends Client {
    *   actions: [...]
    * };
    * const response = await client.triggers.create(newTrigger);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#create-trigger}
    */
   async create(trigger) {
     return this.post(['triggers'], trigger);
@@ -101,11 +101,12 @@ class Triggers extends Client {
 
   /**
    * Updates an existing trigger.
-   * @async
    * @param {number} triggerID - The ID of the trigger to be updated.
-   * @param {Object} trigger - The updated trigger object.
-   * @returns {Promise<Object>} The updated trigger.
+   * @param {object} trigger - The updated trigger object.
+   * @returns {Promise<object>} The updated trigger.
+   * @async
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#update-trigger}
    * @example
    * const updatedTrigger = {
    *   title: "Updated Trigger",
@@ -113,7 +114,6 @@ class Triggers extends Client {
    *   actions: [...]
    * };
    * const response = await client.triggers.update(12345, updatedTrigger);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#update-trigger}
    */
   async update(triggerID, trigger) {
     return this.put(['triggers', triggerID], trigger);
@@ -121,17 +121,17 @@ class Triggers extends Client {
 
   /**
    * Updates multiple triggers.
+   * @param {Array<object>} triggers - An array of trigger objects to be updated.
+   * @returns {Promise<object>} The response from the update request.
    * @async
-   * @param {Array<Object>} triggers - An array of trigger objects to be updated.
-   * @returns {Promise<Object>} The response from the update request.
    * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#update-many-triggers}
    * @example
    * const triggersToUpdate = [
    *   {id: 12345, position: 3},
    *   {id: 67890, position: 5}
    * ];
    * const response = await client.triggers.updateMany(triggersToUpdate);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#update-many-triggers}
    */
   async updateMany(triggers) {
     return this.put(['triggers', 'update_many'], {triggers});
@@ -139,12 +139,12 @@ class Triggers extends Client {
 
   /**
    * Deletes a specified trigger.
-   * @async
    * @param {number} triggerID - The ID of the trigger to be deleted.
-   * @returns {Promise<Object>} The response from the deletion request.
+   * @returns {Promise<object>} The response from the deletion request.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const response = await client.triggers.delete(12345);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#delete-trigger}
+   * @example const response = await client.triggers.delete(12345);
    */
   async delete(triggerID) {
     return super.delete(['triggers', triggerID]);
@@ -152,12 +152,12 @@ class Triggers extends Client {
 
   /**
    * Deletes multiple triggers based on their IDs.
-   * @async
    * @param {Array<number>} triggerIDs - An array of trigger IDs to be deleted.
-   * @returns {Promise<Object>} The response from the deletion request.
+   * @returns {Promise<object>} The response from the deletion request.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const response = await client.triggers.bulkDelete([12345, 67890]);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#bulk-delete-triggers}
+   * @example const response = await client.triggers.bulkDelete([12345, 67890]);
    */
   async bulkDelete(triggerIDs) {
     return this.delete([
@@ -171,12 +171,12 @@ class Triggers extends Client {
 
   /**
    * Reorders the triggers based on the provided trigger IDs.
-   * @async
    * @param {Array<number>} triggerIDs - An array of trigger IDs in the desired order.
-   * @returns {Promise<Object>} The response from the reorder request.
+   * @returns {Promise<object>} The response from the reorder request.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const response = await client.triggers.reorder([12345, 67890, 11223]);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#reorder-triggers}
+   * @example const response = await client.triggers.reorder([12345, 67890, 11223]);
    */
   async reorder(triggerIDs) {
     return this.requestAll('PUT', ['triggers', 'reorder'], {
@@ -186,12 +186,12 @@ class Triggers extends Client {
 
   /**
    * Lists the revisions associated with a trigger.
-   * @async
    * @param {number} triggerID - The ID of the trigger.
-   * @returns {Promise<Object>} A list of revisions for the specified trigger.
+   * @returns {Promise<object>} A list of revisions for the specified trigger.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const revisions = await client.triggers.listRevisions(12345);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#list-trigger-revisions}
+   * @example const revisions = await client.triggers.listRevisions(12345);
    */
   async listRevisions(triggerID) {
     return this.getAll(['triggers', triggerID, 'revisions']);
@@ -199,13 +199,13 @@ class Triggers extends Client {
 
   /**
    * Fetches a specific revision associated with a trigger.
-   * @async
    * @param {number} triggerID - The ID of the trigger.
    * @param {number} revisionID - The ID of the revision.
-   * @returns {Promise<Object>} Details of the specified trigger revision.
+   * @returns {Promise<object>} Details of the specified trigger revision.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const revisionDetails = await client.triggers.showRevision(12345, 67890);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#show-trigger-revision}
+   * @example const revisionDetails = await client.triggers.showRevision(12345, 67890);
    */
   async showRevision(triggerID, revisionID) {
     return this.get(['triggers', triggerID, 'revisions', revisionID]);

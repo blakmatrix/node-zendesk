@@ -18,6 +18,9 @@ const setupClient = (config) => {
 // IMPORTANT: Replace with a valid organization ID before running in production.
 const organizationID = 1_234_567_890;
 
+/**
+ *
+ */
 async function organizationsDelete() {
   try {
     const client = setupClient({debug: false});

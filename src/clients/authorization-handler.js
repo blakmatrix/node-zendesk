@@ -5,7 +5,6 @@
 class AuthorizationHandler {
   /**
    * Creates a new instance of the AuthorizationHandler.
-   *
    * @param {Map} options - A Map object containing the necessary configuration options.
    */
   constructor(options) {
@@ -14,7 +13,6 @@ class AuthorizationHandler {
 
   /**
    * Determines the authentication method and creates the appropriate authorization header.
-   *
    * @returns {string} The resulting authorization header string.
    */
   createAuthorizationHeader() {
@@ -27,7 +25,6 @@ class AuthorizationHandler {
 
   /**
    * Checks if OAuth should be used for authentication.
-   *
    * @returns {boolean} True if OAuth is the chosen method; false otherwise.
    */
   isOAuth() {
@@ -36,9 +33,8 @@ class AuthorizationHandler {
 
   /**
    * Creates the OAuth authorization header.
-   *
-   * @throws {Error} When the token is missing in the options.
    * @returns {string} The OAuth authorization header.
+   * @throws {Error} When the token is missing in the options.
    */
   createOAuthHeader() {
     const token = this.options.get('token');
@@ -52,9 +48,8 @@ class AuthorizationHandler {
 
   /**
    * Creates the Basic Authentication authorization header.
-   *
-   * @throws {Error} When username or password/token is missing in the options.
    * @returns {string} The Basic Authentication header.
+   * @throws {Error} When username or password/token is missing in the options.
    */
   createBasicAuthHeader() {
     const username = this.options.get('username');
@@ -71,7 +66,6 @@ class AuthorizationHandler {
   /**
    * Retrieves the password or token for Basic Authentication.
    * The method first checks for a password and if none is found, it fetches the token.
-   *
    * @returns {string} The password or token prefixed with the appropriate separator.
    */
   getPasswordOrToken() {
@@ -85,7 +79,6 @@ class AuthorizationHandler {
 
   /**
    * Encodes the provided credentials using base64 encoding.
-   *
    * @param {string} credentials - The credentials to be encoded.
    * @returns {string} The base64 encoded string of the provided credentials.
    */

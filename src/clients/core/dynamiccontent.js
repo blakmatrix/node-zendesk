@@ -3,13 +3,12 @@ const {Client} = require('../client');
 /**
  * Represents the Dynamic Content section of the Zendesk API.
  * Provides methods to interact with the Dynamic Content Items.
- *
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/}
  */
 class DynamicContent extends Client {
   /**
    * Creates an instance of the DynamicContent.
-   * @param {Object} options - The options for the client.
+   * @param {object} options - The options for the client.
    */
   constructor(options) {
     super(options);
@@ -18,12 +17,11 @@ class DynamicContent extends Client {
 
   /**
    * Lists the dynamic content items.
-   *
+   * @returns {Promise<object>} The dynamic content items.
    * @async
-   * @returns {Promise<Object>} The dynamic content items.
    * @throws {Error} Throws an error if the request fails.
-   * @example const items = await client.dynamiccontent.listItems();
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#list-items}
+   * @example const items = await client.dynamiccontent.listItems();
    */
   async listItems() {
     return this.get(['dynamic_content', 'items']);
@@ -31,9 +29,8 @@ class DynamicContent extends Client {
 
   /**
    * Lists all dynamic content items.
-   *
+   * @returns {Promise<object>} All the dynamic content items.
    * @async
-   * @returns {Promise<Object>} All the dynamic content items.
    * @throws {Error} Throws an error if the request fails.
    * @example const allItems = await client.dynamiccontent.listAllItems();
    */
@@ -43,13 +40,12 @@ class DynamicContent extends Client {
 
   /**
    * Shows a specific dynamic content item.
-   *
-   * @async
    * @param {number} itemID - The ID of the dynamic content item.
-   * @returns {Promise<Object>} The specified dynamic content item.
+   * @returns {Promise<object>} The specified dynamic content item.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const item = await client.dynamiccontent.showItem(12345);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#show-item}
+   * @example const item = await client.dynamiccontent.showItem(12345);
    */
   async showItem(itemID) {
     return this.get(['dynamic_content', 'items', itemID]);
@@ -57,16 +53,13 @@ class DynamicContent extends Client {
 
   /**
    * Retrieves multiple dynamic content items using their identifiers.
-   *
-   * @async
    * @param {string[]} identifiers - An array of identifiers for the dynamic content items.
-   * @returns {Promise<Object>} Returns the fetched dynamic content items.
+   * @returns {Promise<object>} Returns the fetched dynamic content items.
+   * @async
    * @throws {Error} Throws an error if the provided identifiers parameter is not a valid array or is empty.
-   *
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#show-many-items}
    * @example
    * const items = await client.dynamiccontent.showManyItems(['item_one', 'item_two']);
-   *
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#show-many-items}
    */
   async showManyItems(identifiers) {
     if (!Array.isArray(identifiers) || identifiers.length === 0) {
@@ -78,13 +71,12 @@ class DynamicContent extends Client {
 
   /**
    * Creates a new dynamic content item.
-   *
+   * @param {object} item - The item to create.
+   * @returns {Promise<object>} The created dynamic content item.
    * @async
-   * @param {Object} item - The item to create.
-   * @returns {Promise<Object>} The created dynamic content item.
    * @throws {Error} Throws an error if the request fails.
-   * @example const newItem = await client.dynamiccontent.createItem({name: "Sample Item", default_locale_id: 1, variants: [...]});
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#create-item}
+   * @example const newItem = await client.dynamiccontent.createItem({name: "Sample Item", default_locale_id: 1, variants: [...]});
    */
   async createItem(item) {
     return this.post(['dynamic_content', 'items'], item);
@@ -92,14 +84,13 @@ class DynamicContent extends Client {
 
   /**
    * Updates a specific dynamic content item.
-   *
-   * @async
    * @param {number} itemID - The ID of the dynamic content item.
-   * @param {Object} item - The updated item details.
-   * @returns {Promise<Object>} The updated dynamic content item.
+   * @param {object} item - The updated item details.
+   * @returns {Promise<object>} The updated dynamic content item.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example const updatedItem = await client.dynamiccontent.updateItem(12345, {name: "Updated Name"});
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#update-item}
+   * @example const updatedItem = await client.dynamiccontent.updateItem(12345, {name: "Updated Name"});
    */
   async updateItem(itemID, item) {
     return this.put(['dynamic_content', 'items', itemID], item);
@@ -107,13 +98,12 @@ class DynamicContent extends Client {
 
   /**
    * Deletes a specific dynamic content item.
-   *
-   * @async
    * @param {number} itemID - The ID of the dynamic content item.
-   * @returns {Promise<Object>} The response after deletion.
+   * @returns {Promise<object>} The response after deletion.
+   * @async
    * @throws {Error} Throws an error if the request fails.
-   * @example await client.dynamiccontent.deleteItem(12345);
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#delete-item}
+   * @example await client.dynamiccontent.deleteItem(12345);
    */
   async deleteItem(itemID) {
     return super.delete(['dynamic_content', 'items', itemID]);

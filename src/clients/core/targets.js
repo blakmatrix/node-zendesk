@@ -12,8 +12,8 @@ class Targets extends Client {
 
   /**
    * Lists all targets.
+   * @returns {Promise<object>} A promise that resolves to the list of targets.
    * @async
-   * @returns {Promise<Object>} A promise that resolves to the list of targets.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#list-targets}
    * @example
    * const targets = await client.targets.list();
@@ -24,9 +24,9 @@ class Targets extends Client {
 
   /**
    * Retrieves details of a specific target.
-   * @async
    * @param {number} targetId - The ID of the target to retrieve.
-   * @returns {Promise<Object>} A promise that resolves to the target details.
+   * @returns {Promise<object>} A promise that resolves to the target details.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#show-target}
    * @example
    * const target = await client.targets.show(12345);
@@ -37,9 +37,9 @@ class Targets extends Client {
 
   /**
    * Creates a new target.
+   * @param {object} target - The target data.
+   * @returns {Promise<object>} A promise that resolves to the created target's details.
    * @async
-   * @param {Object} target - The target data.
-   * @returns {Promise<Object>} A promise that resolves to the created target's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#create-target}
    * @example
    * const target = {
@@ -56,10 +56,10 @@ class Targets extends Client {
 
   /**
    * Updates a specific target.
-   * @async
    * @param {number} targetId - The ID of the target to update.
-   * @param {Object} target - The updated target data.
-   * @returns {Promise<Object>} A promise that resolves to the updated target's details.
+   * @param {object} target - The updated target data.
+   * @returns {Promise<object>} A promise that resolves to the updated target's details.
+   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#update-target}
    * @example
    * const updatedData = { email: 'updated@example.com' };
@@ -71,9 +71,9 @@ class Targets extends Client {
 
   /**
    * Deletes a specific target.
-   * @async
    * @param {number} targetId - The ID of the target to delete.
    * @returns {Promise<void>} A promise that resolves once the target has been deleted.
+   * @async
    * @throws {Error} Throws an error if deletion fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#delete-target}
    * @example

@@ -14,12 +14,12 @@ class CustomAgentRoles extends Client {
 
   /**
    * List all Custom Agent Roles.
+   * @returns {Promise<object[]>} Returns a promise that resolves with the list of custom agent roles.
    * @async
-   * @return {Promise<Object[]>} Returns a promise that resolves with the list of custom agent roles.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#list-custom-roles}
    * @example
    * const client = createClient({...});
    * const roles = await client.customagentroles.list();
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#list-custom-roles}
    */
   list() {
     return this.getAll(['custom_roles']);
@@ -27,14 +27,14 @@ class CustomAgentRoles extends Client {
 
   /**
    * Retrieve a specific Custom Agent Role by its ID.
-   * @async
    * @param {number} roleId The ID of the custom agent role to retrieve.
-   * @return {Promise<Object>} Returns a promise that resolves with the specified custom agent role.
+   * @returns {Promise<object>} Returns a promise that resolves with the specified custom agent role.
+   * @async
    * @throws Will throw an error if unable to retrieve the role.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#show-custom-role}
    * @example
    * const client = createClient({...});
    * const role = await client.customagentroles.show(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#show-custom-role}
    */
   show(roleId) {
     return this.get(['custom_roles', roleId]);
@@ -42,9 +42,9 @@ class CustomAgentRoles extends Client {
 
   /**
    * Creates a new custom agent role.
+   * @param {object} roleData - The data for the new custom agent role.
+   * @returns {Promise<object>} The created custom agent role.
    * @async
-   * @param {Object} roleData - The data for the new custom agent role.
-   * @returns {Promise<Object>} The created custom agent role.
    * @throws Will throw an error if creation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#create-custom-role}
    * @example
@@ -61,10 +61,10 @@ class CustomAgentRoles extends Client {
 
   /**
    * Updates an existing custom agent role.
-   * @async
    * @param {number} customRoleId - The ID of the custom agent role to update.
-   * @param {Object} updatedData - The updated data for the custom agent role.
-   * @returns {Promise<Object>} The updated custom agent role.
+   * @param {object} updatedData - The updated data for the custom agent role.
+   * @returns {Promise<object>} The updated custom agent role.
+   * @async
    * @throws Will throw an error if the update fails or custom agent role ID is not found.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#update-custom-role}
    * @example
@@ -77,14 +77,14 @@ class CustomAgentRoles extends Client {
 
   /**
    * Delete a specific Custom Agent Role by its ID.
-   * @async
    * @param {number} roleId The ID of the custom agent role to delete.
-   * @return {Promise<void>} Returns a promise that resolves when the role is deleted.
+   * @returns {Promise<void>} Returns a promise that resolves when the role is deleted.
+   * @async
    * @throws Will throw an error if unable to delete the role.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#delete-custom-role}
    * @example
    * const client = createClient({...});
    * await client.customagentroles.delete(12345);
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#delete-custom-role}
    */
   delete(roleId) {
     return super.delete(['custom_roles', roleId]);

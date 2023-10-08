@@ -14,6 +14,9 @@ const setupClient = (config) => {
   });
 };
 
+/**
+ *
+ */
 async function usersList() {
   try {
     const client = setupClient({debug: false});

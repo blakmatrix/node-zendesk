@@ -58,6 +58,9 @@ const setupClient = (config) => {
   });
 };
 
+/**
+ *
+ */
 async function foo() {
   try {
     const client = setupClient({debug: false});

@@ -20,7 +20,6 @@ class Invitations extends Client {
 
   /**
    * Create invitation https://developer.zendesk.com/rest_api/docs/nps-api/nps_invitations
-   *
    * @param {object} params
    * @param {string} params.surveyId
    * @param {{

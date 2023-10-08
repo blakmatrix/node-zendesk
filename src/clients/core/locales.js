@@ -14,8 +14,8 @@ class Locales extends Client {
 
   /**
    * Lists all the translation locales available for the account.
+   * @returns {Promise<object[]>} List of locales.
    * @async
-   * @returns {Promise<Object[]>} List of locales.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#list-locales}
    * @example
@@ -28,9 +28,9 @@ class Locales extends Client {
 
   /**
    * Retrieves information about a specific locale based on the localeID.
-   * @async
    * @param {number|string} localeID - The ID or the BCP-47 code of the locale (e.g., 'en-US', 'es-419').
-   * @returns {Promise<Object>} Details of the specified locale.
+   * @returns {Promise<object>} Details of the specified locale.
+   * @async
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#show-locale}
    * @example
@@ -43,8 +43,8 @@ class Locales extends Client {
 
   /**
    * Retrieves the locale information of the currently logged-in user.
+   * @returns {Promise<object>} Details of the current user's locale.
    * @async
-   * @returns {Promise<Object>} Details of the current user's locale.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#show-current-locale}
    * @example
@@ -57,8 +57,8 @@ class Locales extends Client {
 
   /**
    * Alias for showCurrent. Retrieves the locale information of the currently logged-in user.
+   * @returns {Promise<object>} Details of the current user's locale.
    * @async
-   * @returns {Promise<Object>} Details of the current user's locale.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#show-current-locale}
    * @example
@@ -71,8 +71,8 @@ class Locales extends Client {
 
   /**
    * Lists the translation locales that have been localized for agents on a specific account.
+   * @returns {Promise<object[]>} List of locales available for agents.
    * @async
-   * @returns {Promise<Object[]>} List of locales available for agents.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#list-locales-for-agent}
    * @example
@@ -85,8 +85,8 @@ class Locales extends Client {
 
   /**
    * Lists the translation locales that are available to all accounts.
+   * @returns {Promise<object[]>} List of public locales available to all accounts.
    * @async
-   * @returns {Promise<Object[]>} List of public locales available to all accounts.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#list-available-public-locales}
    * @example
@@ -99,9 +99,9 @@ class Locales extends Client {
 
   /**
    * Detects the best language/locale for the user based on provided available locales.
-   * @async
    * @param {string[]} availableLocales - Array of available locales e.g., ['es', 'ja', 'en-uk'].
-   * @returns {Promise<Object>} Best detected locale for the user.
+   * @returns {Promise<object>} Best detected locale for the user.
+   * @async
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#detect-best-language-for-user}
    * @example
