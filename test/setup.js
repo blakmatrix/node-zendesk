@@ -25,7 +25,6 @@ export const generateMultipleOrganizations = (n) => {
   return organizations;
 };
 
-
 export const initializeClient = (config) => {
   return createClient({
     username: ZENDESK_USERNAME,
