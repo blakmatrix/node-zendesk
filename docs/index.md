@@ -12,7 +12,7 @@ hero:
       link: /guide/
     - theme: alt
       text: API Examples
-      link: /api/
+      link: /code/README
   image:
     src: /Node_Zendesk_logo.svg
     alt: node-zendesk logo
