@@ -32,6 +32,10 @@ export default defineConfig({
     sidebar: getSideBar(),
     outline: { level: [2, 6] },
 
+    search: {
+      provider: 'local'
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/blakmatrix/node-zendesk' }
     ],
