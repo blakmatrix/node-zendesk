@@ -48,6 +48,7 @@ jspm_packages/
 docs/.vitepress/dist
 docs/.vitepress/cache
 docs/api/
+docs/code/
 
 # vitest
 coverage/

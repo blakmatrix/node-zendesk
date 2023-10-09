@@ -204,10 +204,11 @@ const serialize = (object, prefix = '') => {
 };
 
 /**
- *
- * @param message
- * @param statusCode
- * @param result
+ * Creates an error object with the given message, status code, and result.
+ * @param {string} message - The error message.
+ * @param {number} statusCode - The HTTP status code.
+ * @param {object} [result=null] - Additional error data.
+ * @returns {Error} - The constructed error object.
  */
 function createError(message, statusCode, result = null) {
   const error = new Error(message);
@@ -217,9 +218,10 @@ function createError(message, statusCode, result = null) {
 }
 
 /**
- *
- * @param response
- * @param result
+ * Checks the response and result from a request and returns an error or the result.
+ * @param {object} response - The HTTP response object.
+ * @param {object} result - The result data from the request.
+ * @returns {object} - The result or an error object.
  */
 function checkRequestResponse(response, result) {
   if (!result) {
@@ -267,9 +269,10 @@ function checkRequestResponse(response, result) {
 }
 
 /**
- *
- * @param result_
- * @param self
+ * Finds the body of the response based on the result and context.
+ * @param {object} result_ - The result data.
+ * @param {object} self - The context containing additional settings.
+ * @returns {string} - The body of the response.
  */
 function findBody(result_, self) {
   if (!result_) {
@@ -289,9 +292,10 @@ function findBody(result_, self) {
 }
 
 /**
- *
- * @param result_
- * @param self
+ * Processes the body of the response based on the result and context.
+ * @param {object} result_ - The result data.
+ * @param {object} self - The context containing additional settings.
+ * @returns {object} - The processed body of the response.
  */
 function processResponseBody(result_, self) {
   let body = findBody(result_, self);
@@ -304,7 +308,8 @@ function processResponseBody(result_, self) {
 }
 
 /**
- *
+ * Generates a user agent string based on the package version and node version.
+ * @returns {string} - The generated user agent string.
  */
 function generateUserAgent() {
   const {version} = require('../../package.json');

@@ -142,7 +142,12 @@ class Requests extends Client {
 
   /**
    * Retrieve a specific ticket request.
-   * @param requestId
+   * @param {number} requestId - The ID of the ticket request.
+   * @returns {Promise<object>} The ticket request details.
+   * @async
+   * @throws {Error} Throws an error if request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#show-request}
+   * @example const requestDetails = await client.requests.show(1234);
    * @deprecated Use show instead
    */
   async getRequest(requestId) {

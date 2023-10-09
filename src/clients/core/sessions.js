@@ -19,7 +19,7 @@ class Sessions extends Client {
    * @example
    * const sessions = await client.sessions.get();
    */
-  async get() {
+  async list() {
     return this.getAll(['sessions']);
   }
 

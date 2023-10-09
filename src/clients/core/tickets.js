@@ -9,7 +9,7 @@ const {Client} = require('../client');
 class Tickets extends Client {
   /**
    * @constructs Tickets
-   * @param options {import('../client').ZendeskClientOptions} The client options.
+   * @param {import('../client').ZendeskClientOptions} options - The client options.
    */
   constructor(options) {
     super(options);

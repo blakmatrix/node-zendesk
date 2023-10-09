@@ -3,7 +3,7 @@ const {Client} = require('../client');
 
 /**
  * Represents a GroupMembership in Zendesk.
- * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/
+ * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/ }
  */
 class GroupMemberships extends Client {
   constructor(options) {

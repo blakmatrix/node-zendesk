@@ -13,21 +13,12 @@ class Macros extends Client {
 
   /**
    * Lists all shared and personal macros available to the current user.
-   * @param {object} [options] - The options object.
-   * @param {string} [options.access] - Filter macros by access.
-   * @param {boolean} [options.active] - Filter by active macros.
-   * @param {number} [options.category] - Filter macros by category.
-   * @param {number} [options.group_id] - Filter macros by group.
-   * @param {string} [options.include] - A sideload to include in the response.
-   * @param {boolean} [options.only_viewable=false] - If true, returns only macros that can be applied to tickets.
-   * @param {string} [options.sort_by="alphabetical"] - Possible values are "alphabetical", "created_at", etc.
-   * @param {string} [options.sort_order="asc"] - One of "asc" or "desc".
    * @returns {Promise<Array>} Returns a promise that resolves to an array of macros.
    * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-macros} Zendesk List Macros API
    * @example
-   * const macros = await client.macros.list({ active: true });
+   * const macros = await client.macros.list();
    */
   async list() {
     return this.gettAll(['macros', 'active']);
@@ -35,8 +26,7 @@ class Macros extends Client {
 
   /**
    * Retrieves details of a specific macro.
-   * @param macroID
-   * @param {number} macro_id - The ID of the macro to retrieve.
+   * @param {number} macroID - The ID of the macro to retrieve.
    * @returns {Promise<object>} Returns a promise that resolves to the macro's details.
    * @async
    * @throws {Error} Throws an error if the request fails.
@@ -77,16 +67,7 @@ class Macros extends Client {
 
   /**
    * Lists macros based on provided parameters.
-   * @param {object} params - The filtering parameters.
-   * @param {string} [params.access] - Filter macros by access. Possible values are "personal", "agents", "shared", or "account".
-   * @param {boolean} [params.active] - Filter by active macros.
-   * @param {number} [params.category] - Filter macros by category.
-   * @param {number} [params.group_id] - Filter macros by group.
-   * @param {string} [params.include] - A sideload to include in the response.
-   * @param {boolean} [params.only_viewable] - If true, returns only macros that can be applied to tickets.
-   * @param {string} [params.sort_by] - The field by which to sort results.
-   * @param parameters
-   * @param {string} [params.sort_order] - One of "asc" or "desc".
+   * @param {object} parameters - The filtering parameters.
    * @returns {Promise<object>} - A promise that resolves to a list of macros.
    * @async
    * @throws {Error} Throws an error if the request fails.
@@ -100,8 +81,7 @@ class Macros extends Client {
 
   /**
    * Applies a macro to a ticket.
-   * @param macroID
-   * @param {number} macroId - The ID of the macro.
+   * @param {number} macroID - The ID of the macro.
    * @returns {Promise<object>} - A promise that resolves to the applied macro's result.
    * @async
    * @throws {Error} Throws an error if the request fails.
@@ -115,15 +95,14 @@ class Macros extends Client {
 
   /**
    * Creates a macro representation derived from a ticket.
-   * @param ticketID
-   * @param macroID
-   * @param {number} ticketId - The ID of the ticket from which to build a macro replica.
+   * @param {number} ticketID - The ID of the ticket from which to build a macro replica.
+   * @param {number} macroID - The ID of the macro.
    * @returns {Promise<object>} - A promise that resolves to the macro replica.
    * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#show-macro-replica}
    * @example
-   * const replica = await client.macros.applyTicket(12345);
+   * const replica = await client.macros.applyTicket(12345, 67890);
    */
   async applyTicket(ticketID, macroID) {
     return this.get(['tickets', ticketID, 'macros', macroID, 'apply']);
@@ -165,10 +144,8 @@ class Macros extends Client {
 
   /**
    * Updates an existing macro.
-   * @param {number} macroId - The ID of the macro to update.
-   * @param macroID
-   * @param macro
-   * @param {object} updates - The updates to apply to the macro.
+   * @param {number} macroID - The ID of the macro to update.
+   * @param {object} macro - The updates to apply to the macro.
    * @returns {Promise<object>} - A promise that resolves to the updated macro.
    * @async
    * @throws {Error} Throws an error if the request fails.
@@ -184,8 +161,7 @@ class Macros extends Client {
 
   /**
    * Deletes a specified macro.
-   * @param macroID
-   * @param {number} macroId - The ID of the macro to delete.
+   * @param {number} macroID - The ID of the macro to delete.
    * @returns {Promise<void>} - A promise indicating successful deletion.
    * @async
    * @throws {Error} Throws an error if the request fails.
@@ -195,24 +171,6 @@ class Macros extends Client {
    */
   async delete(macroID) {
     return super.delete(['macros', macroID]);
-  }
-
-  /**
-   * Creates multiple macros.
-   * @param users
-   * @param {Array<object>} macros - An array of macro objects to be created.
-   * @returns {Promise<Array<object>>} - A promise that resolves to an array of created macros.
-   * @async
-   * @throws {Error} Throws an error if the request fails.
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#bulk-create-macros}
-   * @example
-   * const newMacros = await client.macros.createMany([
-   *   { title: "Macro One", actions: [{ field: "status", value: "pending" }] },
-   *   { title: "Macro Two", actions: [{ field: "priority", value: "urgent" }] }
-   * ]);
-   */
-  async createMany(users) {
-    return this.post(['users', 'create_many'], users);
   }
 
   /**

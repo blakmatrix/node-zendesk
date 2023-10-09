@@ -8,7 +8,8 @@ const zd = require('../src/index.js');
 dotenv.config();
 
 /**
- *
+ * Initializes and returns a Zendesk client.
+ * @returns {object} Zendesk client instance.
  */
 function initializeZendeskClient() {
   return zd.createClient({
@@ -20,8 +21,9 @@ function initializeZendeskClient() {
 }
 
 /**
- *
- * @param organizations
+ * Filters and returns organization IDs that start with "test" or "Test".
+ * @param {Array} organizations - List of organizations.
+ * @returns {Array} List of organization IDs.
  */
 function getTestOrganizationIds(organizations) {
   return organizations
@@ -30,9 +32,10 @@ function getTestOrganizationIds(organizations) {
 }
 
 /**
- *
- * @param array
- * @param chunkSize
+ * Splits an array into chunks of a specified size.
+ * @param {Array} array - The array to split.
+ * @param {number} chunkSize - The size of each chunk.
+ * @returns {Array} An array of chunks.
  */
 function chunkArray(array, chunkSize) {
   const chunks = [];
@@ -44,9 +47,10 @@ function chunkArray(array, chunkSize) {
 }
 
 /**
- *
- * @param client
- * @param jobID
+ * Monitors the completion of a job.
+ * @param {object} client - The Zendesk client instance.
+ * @param {string} jobID - The ID of the job to monitor.
+ * @returns {Promise<void>} Resolves when the job is complete.
  */
 async function monitorJobCompletion(client, jobID) {
   try {
@@ -58,7 +62,8 @@ async function monitorJobCompletion(client, jobID) {
 }
 
 /**
- *
+ * Performs a bulk deletion of test organizations.
+ * @returns {Promise<void>} Resolves when all organizations are deleted.
  */
 async function bulkDeleteTestOrganizations() {
   const client = initializeZendeskClient();

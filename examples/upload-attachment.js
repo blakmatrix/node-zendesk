@@ -7,7 +7,8 @@ const ATTACHMENT_PATH = path.resolve('./examples/busey.gif');
 const FILENAME = 'busey.gif';
 
 /**
- *
+ * Initializes and returns a Zendesk client.
+ * @returns {object} Zendesk client instance.
  */
 function getZendeskConfig() {
   return {
@@ -21,9 +22,9 @@ function getZendeskConfig() {
 const client = zd.createClient(getZendeskConfig());
 
 /**
- *
- * @param filePath
- * @param fileName
+ * Uploads an attachment to Zendesk.
+ * @param {string} filePath - The path to the file to be uploaded.
+ * @param {string} fileName - The name of the file to be uploaded.
  */
 async function uploadAttachment(filePath, fileName) {
   try {

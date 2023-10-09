@@ -3,16 +3,16 @@
  */
 class ZendeskClientServices {
   /**
-   * @param client {import('../../index.js').ZendeskClient}
+   * @param {import('../../index.js').ZendeskClient} client - The Zendesk client instance.
    */
   constructor(client) {
     this.client = client;
   }
 
   /**
-   * @template {T} [T=import('../../client/client.js').Client]
-   * @param {{ new (options: import('../../index.js').ZendeskClientOptions): T }} className
-   * @returns {T}
+   * @template T
+   * @param {new (options: import('../../index.js').ZendeskClientOptions) => T} className - The class to instantiate.
+   * @returns {T} An instance of the provided class.
    * @private
    */
   _instantiate(className) {

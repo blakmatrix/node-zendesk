@@ -22,8 +22,8 @@ client.organizations.upsert(organization, function (error, request, result) {
 });
 
 /**
- *
- * @param error
+ * Handles errors by logging them and exiting the process.
+ * @param {Error} error - The error object to be handled.
  */
 function handleError(error) {
   console.log(error);

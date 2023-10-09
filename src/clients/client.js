@@ -13,22 +13,15 @@ const {
 } = require('./helpers');
 
 /**
- * @typedef {object} ApiResponse<T>
- * @template T
- * @property {object} response - Response object from the request.
- * @property {T} result - Result object from the request.
- */
-
-/**
  * @typedef {object} ClientOptions
- * @property {string} ClientOptions.subdomain - Subdomain for the Zendesk instance.
- * @property {string} [ClientOptions.password] - Password for authentication.
- * @property {string} [ClientOptions.token] - Token for authentication.
- * @property {boolean} [ClientOptions.useOAuth] - Flag to indicate if OAuth is used.
- * @property {string} [ClientOptions.username] - Username for authentication.
- * @property {string} [ClientOptions.asUser] - Optional header for making requests on behalf of a user.
- * @property {object} [ClientOptions.customHeaders] - Any additional custom headers for the request.
- * @property {boolean} [ClientOptions.throttle] - Flag to enable throttling of requests.
+ * @property {string} subdomain - Subdomain for the Zendesk instance.
+ * @property {string} [password] - Password for authentication.
+ * @property {string} [token] - Token for authentication.
+ * @property {boolean} [useOAuth] - Flag to indicate if OAuth is used.
+ * @property {string} [username] - Username for authentication.
+ * @property {string} [asUser] - Optional header for making requests on behalf of a user.
+ * @property {object} [customHeaders] - Any additional custom headers for the request.
+ * @property {boolean} [throttle] - Flag to enable throttling of requests.
  * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
  * @property {Array} sideLoad - Array to handle side-loaded resources.
  * @property {Array} jsonAPINames - Array to hold names used in the JSON API.
@@ -88,11 +81,11 @@ class Client {
     this.eventTarget.addEventListener(eventType, callback);
   }
 
-  // Helper methods
   /**
-   * @param options {ClientOptions}
-   * @param apiType {ApiTypes}
-   * @returns {ClientOptions & {get: (function(key: string): any)}}
+   * Helper method to build client options.
+   * @param {ClientOptions} options - Client configuration options.
+   * @param {ApiTypes} apiType - Type of Zendesk API.
+   * @returns {ClientOptions & {get: (key: string) => any}} - Built client options.
    * @private
    */
   _buildOptions(options, apiType = ApiTypes.core) {
@@ -105,9 +98,10 @@ class Client {
   }
 
   /**
-   * @param subdomain
-   * @param apiType
-   * @returns {string}
+   * Helper method to get the endpoint URI.
+   * @param {string} subdomain - The subdomain for the Zendesk instance.
+   * @param {ApiTypes} apiType - Type of Zendesk API.
+   * @returns {string} - The endpoint URI.
    * @private
    */
   _getEndpointUri(subdomain, apiType) {
@@ -126,7 +120,15 @@ class Client {
     return this.request('GET', resource);
   }
 
-  async patch(resource, body) {
+  /**
+   * Patches a resource.
+   * @param {...any} args - The resources or parts of the resource path followed by the body.
+   * @returns {Promise<void|object>} - Either void or response object
+   */
+  async patch(...args) {
+    const body = args.pop();
+    const resource = Array.isArray(args[0]) ? args[0] : args;
+
     return this.request('PATCH', resource, body);
   }
 
@@ -138,7 +140,14 @@ class Client {
     return this.request('POST', resource, body);
   }
 
-  async delete(resource) {
+  /**
+   * Deletes a resource.
+   * @param {...any} args - The resources or parts of the resource path.
+   * @returns {Promise<void|object>} - Either void or response object
+   */
+  async delete(...args) {
+    // Check if the first argument is an array
+    const resource = Array.isArray(args[0]) ? args[0] : args;
     return this.request('DELETE', resource);
   }
 
@@ -160,12 +169,19 @@ class Client {
   }
 
   /**
-   * Request method that handles various HTTP methods
    * @template T
-   * @param {string} method
-   * @param {string} uri
-   * @param args
-   * @returns {Promise<ApiResponse<T>>}
+   * @type {object} ApiResponse<T>
+   * @property {object} response - Response object from the request.
+   * @property {T} result - Result object from the request.
+   */
+
+  /**
+   * Request method that handles various HTTP methods.
+   * @template T
+   * @param {string} method - HTTP method (e.g., 'GET', 'POST').
+   * @param {string} uri - The URI for the request.
+   * @param {...any} args - Additional arguments for the request.
+   * @returns {Promise<module:client.ApiResponse<T>>} - The API response.
    */
   async request(method, uri, ...args) {
     try {

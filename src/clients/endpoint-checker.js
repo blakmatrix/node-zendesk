@@ -13,8 +13,8 @@ class EndpointChecker {
     /**
      * @type {Set<string>}
      * A set containing the supported endpoints.
-     * {@link https://support.zendesk.com/hc/en-us/articles/5591904358938-New-limits-for-offset-based-pagination
      * @private
+     * @see {@link https://support.zendesk.com/hc/en-us/articles/5591904358938-New-limits-for-offset-based-pagination }
      */
     this.SUPPORTED_ENDPOINTS = new Set([
       'views',

@@ -3,31 +3,26 @@
 
 const ConsoleLogger = require('./logger');
 const {ZendeskClientHelpcenter} = require('./clients/helpcenter');
-const {ZendeskClientNps} = require('./clients/nps');
 const {ZendeskClientServices} = require('./clients/services');
 const {ZendeskClientVoice} = require('./clients/voice');
 
 /**
  * @typedef {object} ZendeskClientOptions
- * @property {string} ZendeskClientOptions.name
- * @property {string} ZendeskClientOptions.username - The username used for authentication.
- * @property {string} ZendeskClientOptions.token - The authentication token.
- * @property {string} [ZendeskClientOptions.subdomain] - The subdomain for the Zendesk account (e.g., 'mycompany' for 'mycompany.zendesk.com').
- *                                     If the `endpointUri` option is provided, `subdomain` will be ignored and the logic
- *                                     to manage multi-type endpoints will be disabled.
- * @property {string[]} [ZendeskClientOptions.apiType=['core']] - Type of Zendesk API to initialize (e.g., 'core', 'helpcenter').
- *                                    Determines which sub-client to use.
- * @property {string} [ZendeskClientOptions.endpointUri] - The base URI for the Zendesk API. Overrides and ignores `subdomain` if provided.
- * @property {Function} [ZendeskClientOptions.get] - Function to get specific options. By default, accesses property from the options.
- * @property {boolean} [ZendeskClientOptions.oauth] - Flag to indicate if OAuth is used.
- * @property {string} [ZendeskClientOptions.asUser] - Optional header for making requests on behalf of a user.
- * @property {object} [ZendeskClientOptions.customHeaders] - Any additional custom headers for the request.
- * @property {boolean} [ZendeskClientOptions.throttle] - Flag to enable throttling of requests.
- * @property {boolean} [ZendeskClientOptions.debug=false] - Flag to enable or disable debug logging.
- * @property {object} [ZendeskClientOptions.logger=ConsoleLogger] - Optional logger for logging. Should have methods like `info`, `error`, etc. Defaults to a basic console logger.
- * @property {object} [ZendeskClientOptions.transportConfig] - Configuration for custom transport functionality.
- * @property {Function} [ZendeskClientOptions.transportConfig.transportFn] - Custom function to perform the request. By default, it uses `fetch`. It should return a response object.
- * @property {Function} [ZendeskClientOptions.transportConfig.responseAdapter] - Custom function to adapt the response from `transportFn` into a consistent format. By default, it adapts for `fetch` response.
+ * @property {string} [token] - Authentication token.
+ * @property {string} [username] - Username for authentication.
+ * @property {string} [subdomain] - Subdomain for the Zendesk account (e.g., 'mycompany' for 'mycompany.zendesk.com'). If `endpointUri` is provided, this is ignored.
+ * @property {string[]} [apiType=['core']] - Type of Zendesk API (e.g., 'core', 'helpcenter'). Determines the sub-client to use.
+ * @property {string} [endpointUri] - Base URI for the Zendesk API. Overrides `subdomain` if provided.
+ * @property {Function} [get] - Function to retrieve specific options. Defaults to accessing properties from the options.
+ * @property {boolean} [oauth] - Indicates if OAuth is used.
+ * @property {string} [asUser] - Optional header for requests on behalf of a user.
+ * @property {object} [customHeaders] - Additional custom headers for the request.
+ * @property {boolean} [throttle] - Enables request throttling.
+ * @property {boolean} [debug=false] - Enables or disables debug logging.
+ * @property {object} [logger=ConsoleLogger] - Logger for logging. Defaults to a basic console logger.
+ * @property {object} [transportConfig] - Configuration for custom transport.
+ * @property {Function} [transportConfig.transportFn] - Custom request function. Defaults to `fetch`.
+ * @property {Function} [transportConfig.responseAdapter] - Adapts the response from `transportFn`. Defaults to adapting for `fetch`.
  */
 
 /**
@@ -56,13 +51,12 @@ class ZendeskClient {
     this.helpcenter = new ZendeskClientHelpcenter(this);
     this.services = new ZendeskClientServices(this);
     this.voice = new ZendeskClientVoice(this);
-    this.nps = new ZendeskClientNps(this);
   }
 
   /**
    * @template {T} [T=import('./client/client.js').Client]
-   * @param {{ new (options: ZendeskClientOptions): T }} ServiceClass
-   * @returns {T}
+   * @param {new(options: ZendeskClientOptions) => T} ServiceClass - The service class to instantiate.
+   * @returns {T} An instance of the service class.
    * @private
    */
   _instantiate(ServiceClass) {
@@ -315,7 +309,7 @@ class ZendeskClient {
   }
 
   /**
-   * @param args
+   * @param {object} args - Arguments for debugging.
    * @private
    */
   _debug(args) {
@@ -330,14 +324,16 @@ class ZendeskClient {
 }
 
 /**
- * @function createClient
- * @param {ZendeskClientOptions} options
- * @returns {ZendeskClient}
+ * Creates and returns an instance of the ZendeskClient class.
+ * @function
+ * @param {ZendeskClientOptions} options - Configuration options for the Zendesk client.
+ * @returns {ZendeskClient} An instance of the ZendeskClient class.
  */
 function createClient(options) {
   return new ZendeskClient(options);
 }
 
 module.exports = {
+  ZendeskClient,
   createClient,
 };

@@ -15,8 +15,8 @@ describe('Zendesk Client Pagination', () => {
   const defaultClient = setupClient();
 
   /**
-   *
-   * @param iteration
+   * Creates a test organization based on the given iteration.
+   * @param {number} iteration - The iteration number used to generate a unique organization name.
    */
   async function createTestOrganization(iteration) {
     const {result: organization} = await defaultClient.organizations.create({

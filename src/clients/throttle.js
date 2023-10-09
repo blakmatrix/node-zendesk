@@ -4,13 +4,13 @@ module.exports = throttle;
  * Creates a throttled function that limits the rate of execution of the provided function.
  * The throttled function ensures that the wrapped function is not invoked more frequently
  * than a specified time interval.
- * @param {Function} fn - The function to be throttled.
- * @param {object} [options] - Throttling options.
- * @param {number|string} [options] - The time interval in milliseconds between function calls.
- * @param {object} [options] - Additional options for complex throttling behavior.
- * @param {number} [options.window=1] - The sliding window duration in which 'limit' number of calls are allowed.
- * @param {number} [options.limit=1] - The maximum number of function calls allowed in the specified window.
- * @param {...any} args
+ * @param {...any} args - The arguments for the throttled function. This can include:
+ *   - {Function} fn: The function to be throttled.
+ *   - {object} [options]: Throttling options.
+ *     - {number|string} [options.interval]: The time interval in milliseconds between function calls.
+ *     - {number} [options.window=1]: The sliding window duration in which 'limit' number of calls are allowed.
+ *     - {number} [options.limit=1]: The maximum number of function calls allowed in the specified window.
+ *   - {...any} additionalArgs: Additional arguments to be passed to the throttled function.
  * @returns {Function} - A throttled function that queues and limits the execution of the original function.
  * @example
  * const throttledLog = throttle(console.log, 1000); // Throttle to at most 1 call per second
@@ -31,8 +31,9 @@ function throttle(...args) {
   let timer;
 
   /**
-   *
-   * @param options
+   * Determines the milliseconds between calls based on the provided options.
+   * @param {object|number|string} options - Throttling options or interval.
+   * @returns {number} - Milliseconds between calls.
    */
   function getMsBetweenCalls(options) {
     if (typeof options === 'number') return options;
@@ -41,7 +42,8 @@ function throttle(...args) {
   }
 
   /**
-   *
+  Executes the next function in the queue.
+   * @returns {Function|null} - The executed function or null if the queue is empty.
    */
   function runQueue() {
     if (queue.length === 0) clearInterval(timer);

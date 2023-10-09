@@ -22,9 +22,9 @@ describe('Zendesk Client Authentication', () => {
   const setupClient = initializeClient;
 
   /**
-   *
-   * @param client {import('../src/index.js').ZendeskClient}
-   * @param expectedName {string}
+   * Verifies the authenticated user's name.
+   * @param {import('../src/index.js').ZendeskClient} client - The Zendesk client.
+   * @param {string} expectedName - The expected name of the authenticated user.
    * @returns {Promise<void>}
    */
   const verifyUser = async (client, expectedName) => {

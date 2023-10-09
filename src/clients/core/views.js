@@ -121,8 +121,7 @@ class Views extends Client {
 
   /**
    * Previews a new view without saving it.
-   * @param parameters
-   * @param {object} view - The view data to preview.
+   * @param {object} parameters - Additional parameters for execution.
    * @returns {Promise<object>} A promise that resolves to the previewed view results.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#preview-view}
@@ -163,11 +162,10 @@ class Views extends Client {
 
   /**
    * Exports views to a JSON file.
-   * @param viewID
-   * @param {Array<number>} viewIDs - An array of view IDs to export.
+   * @param {number} viewID - The ID of the view to export.
    * @returns {Promise<object>} A promise that resolves to the exported views in JSON format.
    * @async
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#export-views}
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#export-view}
    * @example const exportedViews = await client.views.export([12345, 67890]);
    */
   async export(viewID) {
