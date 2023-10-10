@@ -44,47 +44,36 @@
 
 To use the API, just do the standard
 
-    $ npm install --save node-zendesk
+```shell
+npm install --save node-zendesk
+```
 
 
 ## Example
 
 ```js
 var zendesk = require('node-zendesk');
+// or `import {createClient} from 'node-zendesk'` if using typescript
 
 var client = zendesk.createClient({
   username:  'username',
   token:     'token',
-  remoteUri: 'https://remote.zendesk.com/api/v2'
+  subdomain: 'subdomain'
 });
 
-client.users.list(function (err, req, result) {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log(JSON.stringify(result[0], null, 2, true));//gets the first page
+client.users.list().then(users => {
+  console.log('Total Users:', users.length);
+  console.log('User Names:', users.map(user => user.name));
+}).catch(error => {
+  console.error(`Failed to get list of users: ${error.message}`);
 });
 ```
-or you can use `Promises`, you just need to skip the callback:
-```js
-var zendesk = require('node-zendesk');
 
-var client = zendesk.createClient({
-  username:  'username',
-  token:     'token',
-  remoteUri: 'https://remote.zendesk.com/api/v2'
-});
-
-client.users.list()
-  .then(function(result) {
-    console.log(JSON.stringify(result[0], null, 2, true));//gets the first page
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
-```
 Take a look in the `examples` folder for more examples.
+
+## Getting Started
+
+If you're new to `node-zendesk`, we recommend checking out our [Getting Started Guide](https://blakmatrix.github.io/node-zendesk/guide) to help you set up and familiarize yourself with the library.
 
 ## Contributions
 
