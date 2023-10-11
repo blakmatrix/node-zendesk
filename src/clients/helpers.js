@@ -159,7 +159,7 @@ function assembleUrl(self, method, uri) {
 
   // Construct the URL
   const path = segments.filter(Boolean).join('/');
-  const extension = this.useDotJson ? '.json' : '';
+  const extension = self.useDotJson === false ? '' : '.json'; // Undefined is true (default)
   const basePath = `${endpointUri}/${path}${extension}`;
   return queryString ? `${basePath}?${queryString}` : basePath;
 }
