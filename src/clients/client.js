@@ -59,7 +59,11 @@ class Client {
   get transporter() {
     if (this._transporter) return this._transporter;
 
-    this._transporter = new Transporter(this.options, this.sideLoad);
+    this._transporter = new Transporter(
+      this.options,
+      this.sideLoad,
+      this.useDotJson,
+    );
     // Listen to transporter's debug events and re-emit them on the Client
     this._transporter.on('debug::request', (eventData) => {
       this.emit('debug::request', eventData.detail);

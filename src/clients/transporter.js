@@ -24,9 +24,10 @@ const defaultTransportConfig = {
   },
 };
 class Transporter {
-  constructor(options, sideLoad = []) {
+  constructor(options, sideLoad = [], useDotJson = true) {
     this.options = options;
     this.sideLoad = sideLoad;
+    this.useDotJson = useDotJson;
     this.authHandler = new AuthorizationHandler(this.options);
     this.eventTarget = new CustomEventTarget();
     this.endpointChecker = new EndpointChecker();
