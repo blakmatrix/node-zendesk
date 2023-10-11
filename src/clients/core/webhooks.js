@@ -9,6 +9,7 @@ class Webhooks extends Client {
   constructor(options) {
     super(options);
     this.jsonAPINames = ['webhooks', 'webhook'];
+    this.useDotJson = false;
   }
 
   /**

@@ -1,0 +1,12 @@
+[
+  {
+    "scope": "https://nodejsapi.zendesk.com:443",
+    "method": "POST",
+    "path": "/api/v2/webhooks",
+    "status": 201,
+    "response": {
+      "id": 19442893058196
+    },
+    "responseIsBinary": false
+  }
+]
