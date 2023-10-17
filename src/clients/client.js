@@ -35,6 +35,7 @@ const {
  * @property {Array} sideLoad - Array to handle side-loaded resources.
  * @property {string} userAgent - User agent for the client.
  * @property {Array} jsonAPINames - Array to hold names used in the JSON API.
+ * @property {boolean} useDotJson - Flag to indicate if the API endpoint should use '.json' ending.
  * @property {ApiTypes} apiType - Type of Zendesk API to initialize (e.g., 'core', 'helpcenter').
  * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
  * @property {Transporter} transporter - Transporter for making requests.
@@ -49,6 +50,7 @@ class Client {
     this.options = this._buildOptions(options, apiType);
     this.sideLoad = [];
     this.jsonAPINames = [];
+    this.useDotJson = true;
     this.userAgent = generateUserAgent();
     this.eventTarget = new CustomEventTarget();
   }
@@ -57,7 +59,11 @@ class Client {
   get transporter() {
     if (this._transporter) return this._transporter;
 
-    this._transporter = new Transporter(this.options, this.sideLoad);
+    this._transporter = new Transporter(
+      this.options,
+      this.sideLoad,
+      this.useDotJson,
+    );
     // Listen to transporter's debug events and re-emit them on the Client
     this._transporter.on('debug::request', (eventData) => {
       this.emit('debug::request', eventData.detail);
