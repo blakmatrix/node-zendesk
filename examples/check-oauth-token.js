@@ -1,22 +1,19 @@
+#!/usr/bin/env node
 const process = require('node:process');
-const zd = require('../src/index');
-const exampleConfig = require('./exampleConfig');
+const dotenv = require('dotenv');
+const zd = require('../src/index.js');
 
-/**
- * Retrieves the Zendesk configuration from environment variables or example config.
- * @returns {object} The Zendesk configuration object.
- */
-function getZendeskConfig() {
-  return {
-    token:
-      process.env.ZENDESK_OAUTH_TOKEN || exampleConfig.auth.oauthAccessToken,
-    subdomain:
-      process.env.ZENDESK_TEST_SUBDOMAIN || exampleConfig.auth.subdomain,
+dotenv.config();
+
+const setupClient = () => {
+  return zd.createClient({
+    token: process.env.ZENDESK_OAUTH_ACCESS_TOKEN,
+    subdomain: process.env.ZENDESK_SUBDOMAIN,
     useOAuth: true,
-  };
-}
+  });
+};
 
-const client = zd.createClient(getZendeskConfig());
+const client = setupClient();
 
 /**
  * Checks the OAuth authentication for the Zendesk client and logs the verification status.

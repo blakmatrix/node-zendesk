@@ -62,7 +62,9 @@
             "ticket_form_ids",
             "user_field_ids",
             "view_order",
-            "custom_role"
+            "custom_role",
+            "http_method",
+            "request_format"
           ]
         }
       ]
