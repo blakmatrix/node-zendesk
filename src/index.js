@@ -14,7 +14,8 @@ const {ZendeskClientVoice} = require('./clients/voice');
  * @property {string[]} [apiType=['core']] - Type of Zendesk API (e.g., 'core', 'helpcenter'). Determines the sub-client to use.
  * @property {string} [endpointUri] - Base URI for the Zendesk API. Overrides `subdomain` if provided.
  * @property {Function} [get] - Function to retrieve specific options. Defaults to accessing properties from the options.
- * @property {boolean} [oauth] - Indicates if OAuth is used.
+ * @property {boolean} [oauth] - Indicates if OAuth is used (this is the original OAuth flag).
+ * @property {boolean} [useOAuth] - Indicates if OAuth is used.
  * @property {string} [asUser] - Optional header for requests on behalf of a user.
  * @property {object} [customHeaders] - Additional custom headers for the request.
  * @property {boolean} [throttle] - Enables request throttling.

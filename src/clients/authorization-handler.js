@@ -28,7 +28,10 @@ class AuthorizationHandler {
    * @returns {boolean} True if OAuth is the chosen method; false otherwise.
    */
   isOAuth() {
-    return this.options.get('useOAuth');
+    return (
+      this.options.get('useOAuth') === true ||
+      this.options.get('oauth') === true
+    );
   }
 
   /**
