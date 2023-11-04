@@ -93,7 +93,8 @@ class Client {
    * @private
    */
   _buildOptions(options, apiType = ApiTypes.core) {
-    const endpointUri = options.endpointUri ?? this._getEndpointUri(options.subdomain, apiType);
+    const endpointUri =
+      options.endpointUri ?? this._getEndpointUri(options.subdomain, apiType);
     const data = {...options, endpointUri};
     return {
       ...data,
