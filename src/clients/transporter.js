@@ -4,7 +4,7 @@ const {fetch} = require('cross-fetch');
 const {AuthorizationHandler} = require('./authorization-handler');
 const {CustomEventTarget} = require('./custom-event-target');
 const {EndpointChecker} = require('./endpoint-checker');
-const {assembleUrl} = require('./helpers');
+const {assembleUrl, generateUserAgent} = require('./helpers');
 
 // Default transport config using fetch
 const defaultTransportConfig = {
@@ -35,6 +35,7 @@ class Transporter {
       this.options.transportConfig ?? defaultTransportConfig;
     this.transportFn = transportConfig.transportFn;
     this.responseAdapter = transportConfig.responseAdapter;
+    this.userAgent = this.options.get('userAgent') ?? generateUserAgent();
   }
 
   // Transporter methods
@@ -113,7 +114,7 @@ class Transporter {
       Authorization: this.authHandler.createAuthorizationHeader(),
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      'User-Agent': this.options.get('userAgent'),
+      'User-Agent': this.userAgent,
       ...this.options.get('customHeaders'),
     };
 
