@@ -9,7 +9,6 @@ const {
   flatten,
   checkRequestResponse,
   processResponseBody,
-  generateUserAgent,
 } = require('./helpers');
 
 /**
@@ -51,7 +50,6 @@ class Client {
     this.sideLoad = [];
     this.jsonAPINames = [];
     this.useDotJson = true;
-    this.userAgent = generateUserAgent();
     this.eventTarget = new CustomEventTarget();
   }
 
@@ -95,7 +93,7 @@ class Client {
    * @private
    */
   _buildOptions(options, apiType = ApiTypes.core) {
-    const endpointUri = this._getEndpointUri(options.subdomain, apiType);
+    const endpointUri = options.endpointUri ?? this._getEndpointUri(options.subdomain, apiType);
     const data = {...options, endpointUri};
     return {
       ...data,

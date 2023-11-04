@@ -12,6 +12,7 @@ const password = process.env.ZENDESK_PASSWORD;
 const token = process.env.ZENDESK_TOKEN;
 const oauthAccessToken = process.env.ZENDESK_OAUTH_ACCESS_TOKEN;
 const TEST_USER = process.env.ZENDESK_FULL_NAME;
+const endpointUri = process.env.ZENDESK_ENDPOINT_URI;
 
 describe('Zendesk Client Authentication', () => {
   beforeAll(async () => {
@@ -105,6 +106,13 @@ describe('Zendesk Client Authentication', () => {
       token: oauthAccessToken,
       useOAuth: true,
     });
+    await verifyUser(client, TEST_USER);
+    nockDone();
+  });
+
+  it('should authenticate a user with a valid endpoint', async () => {
+    const {nockDone} = await nockBack('authentication_test_endpoint_uri.json');
+    const client = setupClient({endpointUri, token, subdomain: undefined});
     await verifyUser(client, TEST_USER);
     nockDone();
   });
