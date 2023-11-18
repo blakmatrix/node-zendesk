@@ -157,9 +157,14 @@ class ZendeskClient {
     return this._instantiate(Macros);
   }
 
+  get oauthclients() {
+    const {OAuthClients} = require('./clients/core/oauthclients');
+    return this._instantiate(OAuthClients);
+  }
+
   get oauthtokens() {
-    const {OauthTokens} = require('./clients/core/oauthtokens');
-    return this._instantiate(OauthTokens);
+    const {OAuthTokens} = require('./clients/core/oauthtokens');
+    return this._instantiate(OAuthTokens);
   }
 
   get organizationfields() {

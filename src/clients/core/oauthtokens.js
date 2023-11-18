@@ -5,10 +5,10 @@ const {Client} = require('../client');
  * Represents a client for Zendesk OAuth Tokens API.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_tokens/}
  */
-class OauthTokens extends Client {
+class OAuthTokens extends Client {
   constructor(options) {
     super(options);
-    this.jsonAPINames = ['oauthtokens', 'oauthtoken'];
+    this.jsonAPINames = ['oauthtokens', 'oauthtoken', 'token'];
   }
 
   /**
@@ -21,7 +21,7 @@ class OauthTokens extends Client {
    * @example const tokenDetails = await client.oauthtokens.show(1234);
    */
   async show(id) {
-    return this.get('GET', ['oauth', 'tokens', id]);
+    return this.get(['oauth', 'tokens', id]);
   }
 
   /**
@@ -75,4 +75,4 @@ class OauthTokens extends Client {
   }
 }
 
-exports.OauthTokens = OauthTokens;
+exports.OAuthTokens = OAuthTokens;

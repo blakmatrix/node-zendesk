@@ -64,7 +64,8 @@
             "view_order",
             "custom_role",
             "http_method",
-            "request_format"
+            "request_format",
+            "client_id"
           ]
         }
       ]

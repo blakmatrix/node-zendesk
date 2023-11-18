@@ -197,7 +197,20 @@ class Client {
       );
       return {response, result: responseBody};
     } catch (error) {
-      throw new Error(`Request processing failed: ${error.message}`);
+      const {
+        message,
+        result: {error: {title = '', message: errorMessage = ''} = {}} = {},
+      } = error;
+
+      // Constructing a detailed error message with conditional inclusion of title and message
+      let detailedErrorMessage = `Request processing failed: ${message}`;
+      if (title.length > 0 || errorMessage.length > 0) {
+        detailedErrorMessage += ` - ${title}${
+          title.length > 0 && errorMessage.length > 0 ? ': ' : ''
+        }${errorMessage}`;
+      }
+
+      throw new Error(detailedErrorMessage);
     }
   }
 
