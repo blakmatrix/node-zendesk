@@ -147,12 +147,14 @@ class TicketFields extends Client {
    * @example
    * const client = createClient({...});
    * const newOption = await client.ticketfields.createOrUpdateOption(12345, {
-   *   name: 'Option Name',
-   *   value: 'Option Value'
+   *   custom_field_option: {
+   *     name: 'Option Name',
+   *     value: 'Option Value'
+   *   }
    * });
    */
   async createOrUpdateOption(ticketFieldId, option) {
-    return this.put(['ticket_fields', ticketFieldId, 'options'], option);
+    return this.post(['ticket_fields', ticketFieldId, 'options'], option);
   }
 
   /**
