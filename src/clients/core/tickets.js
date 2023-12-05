@@ -2,6 +2,62 @@
 const {Client} = require('../client');
 
 /**
+ * Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support.
+ * @typedef {object} Ticket
+ * @property {boolean} allow_attachments - Permission for agents to add add attachments to a comment. Defaults to true
+ * @property {boolean} allow_channelback - Is false if channelback is disabled, true otherwise. Only applicable for channels framework ticket
+ * @property {number|null} assignee_id - The agent currently assigned to the ticket
+ * @property {number|null} brand_id - Enterprise only. The id of the brand this ticket is associated with
+ * @property {Array<number>} collaborator_ids - The ids of users currently CC'ed on the ticket
+ * @property {string} created_at - When this record was created
+ * @property {Array<CustomField>} custom_fields - Custom fields for the ticket
+ * @property {number} custom_status_id - The custom ticket status id of the ticket
+ * @property {string} description - Read-only first comment on the ticket. When creating a ticket, use comment to set the description
+ * @property {string|null} due_at - If this is a ticket of type "task" it has a due date. Due date format uses ISO 8601 format
+ * @property {Array<number>} email_cc_ids - The ids of agents or end users currently CC'ed on the ticket
+ * @property {string|null} external_id - An id you can use to link Zendesk Support tickets to local records
+ * @property {Array<number>} follower_ids - The ids of agents currently following the ticket
+ * @property {Array<number>} followup_ids - The ids of the followups created from this ticket. Ids are only visible once the ticket is closed
+ * @property {number|null} forum_topic_id - The topic in the Zendesk Web portal this ticket originated from, if any. The Web portal is deprecated
+ * @property {boolean} from_messaging_channel - If true, the ticket's via type is a messaging channel.
+ * @property {number|null} group_id - The group this ticket is assigned to
+ * @property {boolean} has_incidents - Is true if a ticket is a problem type and has one or more incidents linked to it. Otherwise, the value is false.
+ * @property {number} id - Automatically assigned when the ticket is created
+ * @property {boolean} is_public - Is true if any comments are public, false otherwise
+ * @property {number|null} organization_id - The organization of the requester. You can only specify the ID of an organization associated with the requester
+ * @property {Priority} priority - The urgency with which the ticket should be addressed. Allowed values are "urgent", "high", "normal", or "low"
+ * @property {number|null} problem_id - For tickets of type "incident", the ID of the problem the incident is linked to
+ * @property {string} raw_subject - The dynamic content placeholder, if present, or the "subject" value, if not
+ * @property {string|null} recipient - The original recipient e-mail address of the ticket. Notification emails for the ticket are sent from this address
+ * @property {number} requester_id - The user who requested this ticket
+ * @property {object} satisfaction_rating - The satisfaction rating of the ticket, if it exists, or the state of satisfaction, "offered" or "unoffered". The value is null for plan types that don't support CSAT
+ * @property {Array<number>} sharing_agreement_ids - The ids of the sharing agreements used for this ticket
+ * @property {Status} status - The state of the ticket. If your account has activated custom ticket statuses, this is the ticket's status category. See custom ticket statuses. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".
+ * @property {string} subject - The value of the subject field for this ticket
+ * @property {number} submitter_id - The user who submitted the ticket. The submitter always becomes the author of the first comment on the ticket
+ * @property {Array<string>} tags - The array of tags applied to this ticket
+ * @property {number} ticket_form_id - Enterprise only. The id of the ticket form to render for the ticket
+ * @property {Type} type - The type of this ticket. Allowed values are "problem", "incident", "question", or "task".
+ * @property {string} updated_at - When this record last got updated
+ * @property {string} url - The API url of this ticket
+ * @property {object} via - For more information, see the Via object reference
+ */
+/**
+ * @typedef {object} CustomField
+ * @property {number} id - The ID of the custom field.
+ * @property {string|number|boolean} value - The value of the custom field.
+ */
+/**
+ * @typedef {'urgent' | 'high' | 'normal' | 'low'} Priority
+ */
+/**
+ * @typedef {'new' | 'open' | 'pending' | 'hold' | 'solved' | 'closed'} Status
+ */
+/**
+ * @typedef {'problem' |'incident' | 'question' | 'task'} Type
+ */
+
+/**
  * @class
  * Client for the Zendesk API - Tickets.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/}
@@ -29,7 +85,7 @@ class Tickets extends Client {
 
   /**
    * List all the tickets.
-   * @returns {Promise<Array>} An array of tickets.
+   * @returns {Promise<Array<Ticket>>} An array of tickets.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
@@ -42,7 +98,7 @@ class Tickets extends Client {
   /**
    * List all tickets assigned to a specific user.
    * @param {number} userID - The ID of the user.
-   * @returns {Promise<Array>} An array of tickets assigned to the user.
+   * @returns {Promise<Array<Ticket>>} An array of tickets assigned to the user.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
@@ -55,7 +111,7 @@ class Tickets extends Client {
   /**
    * List all tickets associated with a specific organization.
    * @param {number} orgID - The ID of the organization.
-   * @returns {Promise<Array>} An array of tickets under the organization.
+   * @returns {Promise<Array<Ticket>>} An array of tickets under the organization.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
@@ -68,7 +124,7 @@ class Tickets extends Client {
   /**
    * List all tickets requested by a specific user.
    * @param {number} userID - The ID of the user.
-   * @returns {Promise<Array>} An array of tickets requested by the user.
+   * @returns {Promise<Array<Ticket>>} An array of tickets requested by the user.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
@@ -81,7 +137,7 @@ class Tickets extends Client {
   /**
    * List all tickets where a specific user is CC'd.
    * @param {number} userID - The ID of the user.
-   * @returns {Promise<Array>} An array of tickets where the user is CC'd.
+   * @returns {Promise<Array<Ticket>>} An array of tickets where the user is CC'd.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
@@ -95,7 +151,7 @@ class Tickets extends Client {
    * List tickets based on a specific filter.
    * @param {string} type - Type of filter.
    * @param {string|number} value - Value for the filter.
-   * @returns {Promise<Array>} An array of tickets matching the filter.
+   * @returns {Promise<Array<Ticket>>} An array of tickets matching the filter.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
@@ -107,7 +163,7 @@ class Tickets extends Client {
 
   /**
    * List recently viewed tickets by the requesting agent.
-   * @returns {Promise<Array>} An array of recently viewed tickets.
+   * @returns {Promise<Array<Ticket>>} An array of recently viewed tickets.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
@@ -159,7 +215,7 @@ class Tickets extends Client {
   /**
    * Retrieve a specific ticket by its ID.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<object>} Details of the ticket.
+   * @returns {Promise<Ticket>} Details of the ticket.
    * @async
    * @throws {Error} If the ticket ID is not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#show-ticket}
@@ -173,7 +229,7 @@ class Tickets extends Client {
   /**
    * Retrieve details for multiple tickets based on their IDs.
    * @param {Array<number>} ticketIds - An array of ticket IDs to fetch.
-   * @returns {Promise<Array>} An array of ticket details.
+   * @returns {Promise<Array<Ticket>>} An array of ticket details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#show-multiple-tickets}
    * @example
@@ -186,7 +242,7 @@ class Tickets extends Client {
   /**
    * Create a new ticket.
    * @param {object} ticket - Details of the ticket to be created.
-   * @returns {Promise<object>} The created ticket details.
+   * @returns {Promise<Ticket>} The created ticket details.
    * @async
    * @throws {Error} If the ticket details are not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-ticket}
@@ -200,7 +256,7 @@ class Tickets extends Client {
   /**
    * Create multiple new tickets.
    * @param {Array<object>} tickets - An array of ticket objects to create.
-   * @returns {Promise<Array<object>>} A promise that resolves to an array of created ticket objects.
+   * @returns {Promise<Array<Ticket>>} A promise that resolves to an array of created ticket objects.
    * @async
    * @throws {Error} If the provided `tickets` is not an array or is empty.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-multiple-tickets}
@@ -220,7 +276,7 @@ class Tickets extends Client {
    * Update an existing ticket by its ID.
    * @param {number} ticketId - The ID of the ticket to update.
    * @param {object} ticket - The updated ticket data as an object.
-   * @returns {Promise<object>} A promise that resolves to the updated ticket object.
+   * @returns {Promise<Ticket>} A promise that resolves to the updated ticket object.
    * @async
    * @throws {Error} If `ticketId` is not a number or if `ticket` is not an object.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#update-ticket}
