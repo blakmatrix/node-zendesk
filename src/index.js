@@ -219,6 +219,11 @@ class ZendeskClient {
     return this._instantiate(SharingAgreement);
   }
 
+  get sideconversations() {
+    const {SideConversations} = require('./clients/core/sideconversations');
+    return this._instantiate(SideConversations);
+  }
+
   get suspendedtickets() {
     const {SuspendedTickets} = require('./clients/core/suspendedtickets');
     return this._instantiate(SuspendedTickets);
