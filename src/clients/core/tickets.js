@@ -2,6 +2,41 @@
 const {Client} = require('../client');
 
 /**
+ * @typedef {Object} Attachment
+ * @property {string} content_type - The content type of the image. Example value: "image/png"
+ * @property {string} content_url - A full URL where the attachment image file can be downloaded. The file may be hosted externally so take care not to inadvertently send Zendesk authentication credentials. See Working with url properties
+ * @property {boolean} deleted - If true, the attachment has been deleted
+ * @property {string} file_name - The name of the image file
+ * @property {string} height - The height of the image file in pixels. If height is unknown, returns null
+ * @property {number} id - Automatically assigned when created
+ * @property {boolean} inline - If true, the attachment is excluded from the attachment list and the attachment's URL can be referenced within the comment of a ticket. Default is false
+ * @property {boolean} malware_access_override - If true, you can download an attachment flagged as malware. If false, you can't download such an attachment.
+ * @property {string} malware_scan_result - The result of the malware scan. There is a delay between the time the attachment is uploaded and when the malware scan is completed. Usually the scan is done within a few seconds, but high load conditions can delay the scan results. Possible values: "malware_found", "malware_not_found", "failed_to_scan", "not_scanned"
+ * @property {string} mapped_content_url - The URL the attachment image file has been mapped to
+ * @property {number} size - The size of the image file in bytes
+ * @property {Object[]} thumbnails - An array of attachment objects. Note that photo thumbnails do not have thumbnails
+ * @property {string} url - A URL to access the attachment details
+ * @property {string} width - The width of the image file in pixels. If width is unknown, returns null
+ */
+
+/**
+ * @typedef {Object} TicketComment
+ * @property {Attachment[]} [attachments] - Attachments, if any. See Attachment
+ * @property {number} audit_id - The id of the ticket audit record. See Show Audit
+ * @property {number} author_id - The id of the comment author. See Author id
+ * @property {string} body - The comment string. See Bodies
+ * @property {string} created_at - The time the comment was created
+ * @property {string} html_body - The comment formatted as HTML. See Bodies
+ * @property {number} id - Automatically assigned when the comment is created
+ * @property {Object} [metadata] - System information (web client, IP address, etc.) and comment flags, if any. See Comment flags
+ * @property {string} plain_body - The comment presented as plain text. See Bodies
+ * @property {boolean} public - true if a public comment; false if an internal note. The initial value set on ticket creation persists for any additional comment unless you change it
+ * @property {string} type - Comment or VoiceComment. The JSON object for adding voice comments to tickets is different. See Adding voice comments to tickets
+ * @property {string[]} [uploads] - List of tokens received from uploading files for comment attachments. The files are attached by creating or updating tickets with the tokens. See Attaching files in Tickets
+ * @property {Object} [via] - Describes how the object was created. See the Via object reference
+ */
+
+/**
  * Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support.
  * @typedef {Object} Ticket
  * @property {boolean} allow_attachments - Permission for agents to add add attachments to a comment. Defaults to true
@@ -12,7 +47,7 @@ const {Client} = require('../client');
  * @property {number} [brand_id] - Enterprise only. The id of the brand this ticket is associated with
  * @property {number[]} [collaborator_ids] - The ids of users currently CC'ed on the ticket
  * @property {Object[]} [collaborators] - POST requests only. Users to add as cc's when creating a ticket. See Setting Collaborators
- * @property {Object} [comment] - Write only. An object that adds a comment to the ticket. See Ticket comments. To include an attachment with the comment, see Attaching files
+ * @property {TicketComment} [comment] - Write only. An object that adds a comment to the ticket. See Ticket comments. To include an attachment with the comment, see Attaching files
  * @property {string} created_at - When this record was created
  * @property {Array<CustomField>} [custom_fields] - Custom fields for the ticket. See Setting custom field values
  * @property {number} [custom_status_id] - The custom ticket status id of the ticket. See custom ticket statuses
@@ -74,7 +109,7 @@ const {Client} = require('../client');
  */
 
 /**
- * @typedef {Object} CreateTicket
+ * @typedef {Object} CreateOrUpdateTicket
  * @property {Partial<Ticket>} ticket - The ticket object.
  */
 
@@ -262,7 +297,7 @@ class Tickets extends Client {
 
   /**
    * Create a new ticket.
-   * @param {CreateTicket} ticket - Details of the ticket to be created.
+   * @param {CreateOrUpdateTicket} ticket - Details of the ticket to be created.
    * @returns {Promise<{result: Ticket}>} The created ticket details.
    * @async
    * @throws {Error} If the ticket details are not provided or invalid.
@@ -276,7 +311,7 @@ class Tickets extends Client {
 
   /**
    * Create multiple new tickets.
-   * @param {Array<object>} tickets - An array of ticket objects to create.
+   * @param {Array<CreateOrUpdateTicket>} tickets - An array of ticket objects to create.
    * @returns {Promise<Array<Ticket>>} A promise that resolves to an array of created ticket objects.
    * @async
    * @throws {Error} If the provided `tickets` is not an array or is empty.
@@ -296,7 +331,7 @@ class Tickets extends Client {
   /**
    * Update an existing ticket by its ID.
    * @param {number} ticketId - The ID of the ticket to update.
-   * @param {Partial<Ticket>} ticket - The updated ticket data as an object.
+   * @param {CreateOrUpdateTicket} ticket - The updated ticket data as an object.
    * @returns {Promise<{result: Ticket}>} A promise that resolves to the updated ticket object.
    * @async
    * @throws {Error} If `ticketId` is not a number or if `ticket` is not an object.
