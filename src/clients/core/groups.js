@@ -2,6 +2,12 @@
 const {Client} = require('../client');
 
 /**
+ * @typedef {object} RecursivePartial
+ * @template T
+ * @property {T[P]} [P] - The property of the object.
+ */
+
+/**
  * @typedef {object} Group
  * @property {string} created_at - The time the group was created
  * @property {boolean} default - If the group is the default one for the account
@@ -16,7 +22,7 @@ const {Client} = require('../client');
 
 /**
  * @typedef {object} CreateOrUpdateGroup
- * @property {Group} group - The group to create or update
+ * @property {RecursivePartial<Group>} group - The group to create or update
  */
 
 /**
