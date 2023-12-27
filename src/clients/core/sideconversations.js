@@ -47,6 +47,11 @@ const {ApiTypes} = require('../../constants');
  * @property {Object.<string, string>} [external_ids] - A key-value object where all values are strings. Used for conversation metadata
  */
 
+/**
+ * @typedef {object} SideConversationResponse
+ * @property {SideConversation} side_conversation - The side conversation object.
+ */
+
 class SideConversations extends Client {
   /**
    * @constructs SideConversations
@@ -61,7 +66,7 @@ class SideConversations extends Client {
    * Create a Side Conversation.
    * @param {number} ticketId - The ID of the ticket.
    * @param {CreateSideConversation} message - The side conversation object.
-   * @returns {Promise<{result: SideConversation}>} The created ticket details.
+   * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
    * @async
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#create-side-conversation
@@ -75,7 +80,7 @@ class SideConversations extends Client {
    * @param {number} ticketId - The ID of the ticket.
    * @param {number} sideConversationId - The ID of the side conversation.
    * @param {Message} message - The reply object.
-   * @returns {Promise<{result: SideConversation}>} The created ticket details.
+   * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
    * @async
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#reply-to-side-conversation
