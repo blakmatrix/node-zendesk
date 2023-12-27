@@ -140,12 +140,16 @@ class SideConversations extends Client {
    * Upload a file to be attached to a ticket comment.
    * @param {ArrayBuffer} file - The file data.
    * @param {object} options - The file options.
+   * @param options.filename
    * @returns {Promise<SideConversationAttachment>} The attachment details.
    */
-  async attachments(file, { filename }) {
+  async attachments(file, {filename}) {
     const form = new FormData();
     form.append('file', new Blob([file]), filename);
-    return this.requestUpload(['tickets', 'side_conversations', 'attachments'], form);
+    return this.requestUpload(
+      ['tickets', 'side_conversations', 'attachments'],
+      form,
+    );
   }
 }
 
