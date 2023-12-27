@@ -62,6 +62,7 @@ class Transporter {
     if (isFormData) {
       headers['Content-Type'] = 'multipart/form-data';
     }
+
     if (isStream) {
       headers['Content-Type'] = 'application/binary';
     }
@@ -72,7 +73,7 @@ class Transporter {
       headers,
       uri: assembleUrl(this, method, uri),
       method,
-      body: isDirectUpload ? file : require('node:fs').createReadStream(file)
+      body: isDirectUpload ? file : require('node:fs').createReadStream(file),
     };
     return this.sendRequest(options);
   }
