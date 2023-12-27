@@ -3,45 +3,61 @@ const {Client} = require('../client');
 
 /**
  * Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support.
- * @typedef {object} Ticket
+ * @typedef {Object} Ticket
  * @property {boolean} allow_attachments - Permission for agents to add add attachments to a comment. Defaults to true
  * @property {boolean} allow_channelback - Is false if channelback is disabled, true otherwise. Only applicable for channels framework ticket
- * @property {number|null} assignee_id - The agent currently assigned to the ticket
- * @property {number|null} brand_id - Enterprise only. The id of the brand this ticket is associated with
- * @property {Array<number>} collaborator_ids - The ids of users currently CC'ed on the ticket
+ * @property {string} [assignee_email] - Write only. The email address of the agent to assign the ticket to
+ * @property {number} [assignee_id] - The agent currently assigned to the ticket
+ * @property {number[]} [attribute_value_ids] - Write only. An array of the IDs of attribute values to be associated with the ticket
+ * @property {number} [brand_id] - Enterprise only. The id of the brand this ticket is associated with
+ * @property {number[]} [collaborator_ids] - The ids of users currently CC'ed on the ticket
+ * @property {Object[]} [collaborators] - POST requests only. Users to add as cc's when creating a ticket. See Setting Collaborators
+ * @property {Object} [comment] - Write only. An object that adds a comment to the ticket. See Ticket comments. To include an attachment with the comment, see Attaching files
  * @property {string} created_at - When this record was created
- * @property {Array<CustomField>} custom_fields - Custom fields for the ticket
- * @property {number} custom_status_id - The custom ticket status id of the ticket
- * @property {string} description - Read-only first comment on the ticket. When creating a ticket, use comment to set the description
- * @property {string|null} due_at - If this is a ticket of type "task" it has a due date. Due date format uses ISO 8601 format
- * @property {Array<number>} email_cc_ids - The ids of agents or end users currently CC'ed on the ticket
- * @property {string|null} external_id - An id you can use to link Zendesk Support tickets to local records
- * @property {Array<number>} follower_ids - The ids of agents currently following the ticket
- * @property {Array<number>} followup_ids - The ids of the followups created from this ticket. Ids are only visible once the ticket is closed
- * @property {number|null} forum_topic_id - The topic in the Zendesk Web portal this ticket originated from, if any. The Web portal is deprecated
+ * @property {Array<CustomField>} [custom_fields] - Custom fields for the ticket. See Setting custom field values
+ * @property {number} [custom_status_id] - The custom ticket status id of the ticket. See custom ticket statuses
+ * @property {string} description - Read-only first comment on the ticket. When creating a ticket, use comment to set the description. See Description and first comment
+ * @property {string} [due_at] - If this is a ticket of type "task" it has a due date. Due date format uses ISO 8601 format.
+ * @property {number[]} [email_cc_ids] - The ids of agents or end users currently CC'ed on the ticket. See CCs and followers resources in the Support Help Center
+ * @property {Object} [email_ccs] - Write only. An array of objects that represent agent or end users email CCs to add or delete from the ticket. See Setting email CCs
+ * @property {string} [external_id] - An id you can use to link Zendesk Support tickets to local records
+ * @property {number[]} [follower_ids] - The ids of agents currently following the ticket. See CCs and followers resources
+ * @property {Object} [followers] - Write only. An array of objects that represent agent followers to add or delete from the ticket. See Setting followers
+ * @property {number[]} followup_ids - The ids of the followups created from this ticket. Ids are only visible once the ticket is closed
+ * @property {number} [forum_topic_id] - The topic in the Zendesk Web portal this ticket originated from, if any. The Web portal is deprecated
  * @property {boolean} from_messaging_channel - If true, the ticket's via type is a messaging channel.
- * @property {number|null} group_id - The group this ticket is assigned to
+ * @property {number} [group_id] - The group this ticket is assigned to
  * @property {boolean} has_incidents - Is true if a ticket is a problem type and has one or more incidents linked to it. Otherwise, the value is false.
  * @property {number} id - Automatically assigned when the ticket is created
  * @property {boolean} is_public - Is true if any comments are public, false otherwise
- * @property {number|null} organization_id - The organization of the requester. You can only specify the ID of an organization associated with the requester
- * @property {Priority} priority - The urgency with which the ticket should be addressed. Allowed values are "urgent", "high", "normal", or "low"
- * @property {number|null} problem_id - For tickets of type "incident", the ID of the problem the incident is linked to
- * @property {string} raw_subject - The dynamic content placeholder, if present, or the "subject" value, if not
- * @property {string|null} recipient - The original recipient e-mail address of the ticket. Notification emails for the ticket are sent from this address
+ * @property {number} [macro_id] - Write only. A macro ID to be recorded in the ticket audit
+ * @property {number[]} [macro_ids] - POST requests only. List of macro IDs to be recorded in the ticket audit
+ * @property {Object} [metadata] - Write only. Metadata for the audit. In the audit object, the data is specified in the custom property of the metadata object. See Setting Metadata
+ * @property {number} [organization_id] - The organization of the requester. You can only specify the ID of an organization associated with the requester. See Organization Memberships
+ * @property {Priority} [priority] - The urgency with which the ticket should be addressed. Allowed values are "urgent", "high", "normal", or "low".
+ * @property {number} [problem_id] - For tickets of type "incident", the ID of the problem the incident is linked to
+ * @property {string} [raw_subject] - The dynamic content placeholder, if present, or the "subject" value, if not. See Dynamic Content Items
+ * @property {string} [recipient] - The original recipient e-mail address of the ticket. Notification emails for the ticket are sent from this address
+ * @property {Object} [requester] - Write only. See Creating a ticket with a new requester
  * @property {number} requester_id - The user who requested this ticket
- * @property {object} satisfaction_rating - The satisfaction rating of the ticket, if it exists, or the state of satisfaction, "offered" or "unoffered". The value is null for plan types that don't support CSAT
- * @property {Array<number>} sharing_agreement_ids - The ids of the sharing agreements used for this ticket
- * @property {Status} status - The state of the ticket. If your account has activated custom ticket statuses, this is the ticket's status category. See custom ticket statuses. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".
- * @property {string} subject - The value of the subject field for this ticket
- * @property {number} submitter_id - The user who submitted the ticket. The submitter always becomes the author of the first comment on the ticket
- * @property {Array<string>} tags - The array of tags applied to this ticket
- * @property {number} ticket_form_id - Enterprise only. The id of the ticket form to render for the ticket
- * @property {Type} type - The type of this ticket. Allowed values are "problem", "incident", "question", or "task".
+ * @property {boolean} [safe_update] - Write only. Optional boolean. When true and an update_stamp date is included, protects against ticket update collisions and returns a message to let you know if one occurs. See Protecting against ticket update collisions. A value of false has the same effect as true. Omit the property to force the updates to not be safe
+ * @property {Object} [satisfaction_rating] - The satisfaction rating of the ticket, if it exists, or the state of satisfaction, "offered" or "unoffered". The value is null for plan types that don't support CSAT
+ * @property {number[]} [sharing_agreement_ids] - The ids of the sharing agreements used for this ticket
+ * @property {Status} [status] - The state of the ticket. If your account has activated custom ticket statuses, this is the ticket's status category. See custom ticket statuses. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".
+ * @property {string} [subject] - The value of the subject field for this ticket
+ * @property {number} [submitter_id] - The user who submitted the ticket. The submitter always becomes the author of the first comment on the ticket
+ * @property {string[]} [tags] - The array of tags applied to this ticket
+ * @property {number} [ticket_form_id] - Enterprise only. The id of the ticket form to render for the ticket
+ * @property {Type} [type] - The type of this ticket. Allowed values are "problem", "incident", "question", or "task".
  * @property {string} updated_at - When this record last got updated
+ * @property {string} [updated_stamp] - Write only. Datetime of last update received from API. See the safe_update property
  * @property {string} url - The API url of this ticket
- * @property {object} via - For more information, see the Via object reference
+ * @property {Object} [via] - For more information, see the Via object reference
+ * @property {number} [via_followup_source_id] - POST requests only. The id of a closed ticket when creating a follow-up ticket. See Creating a follow-up ticket
+ * @property {number} [via_id] - Write only. For more information, see the Via object reference
+ * @property {Object} [voice_comment] - Write only. See Creating voicemail ticket
  */
+
 /**
  * @typedef {object} CustomField
  * @property {number} id - The ID of the custom field.
