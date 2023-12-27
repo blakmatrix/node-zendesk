@@ -2,6 +2,12 @@
 const {Client} = require('../client');
 
 /**
+ * @template T
+ * @typedef {Object} RecursivePartial
+ * @property {T[P]} [P] - The property of the object.
+ */
+
+/**
  * @typedef {Object} Attachment
  * @property {string} content_type - The content type of the image. Example value: "image/png"
  * @property {string} content_url - A full URL where the attachment image file can be downloaded. The file may be hosted externally so take care not to inadvertently send Zendesk authentication credentials. See Working with url properties
@@ -109,8 +115,8 @@ const {Client} = require('../client');
  */
 
 /**
- * @typedef {Object} CreateOrUpdateTicket
- * @property {Partial<Ticket>} ticket - The ticket object.
+ * @template T
+ * @typedef {T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T} RecursivePartial
  */
 
 /**
