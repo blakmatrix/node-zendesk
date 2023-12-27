@@ -22,6 +22,7 @@ const {ApiTypes} = require('../../constants');
  * @property {string} [html_body] - The HTML version of the body of the message
  * @property {Participant} [from] - The participant who sent the message. See Participants
  * @property {Participant[]} to - The list of participants the message was sent to. See Participants
+ * @property {string[]} [attachment_ids] - List of tokens received from uploading files for comment attachments. The files are attached by creating or updating tickets with the tokens. See Attaching files in Tickets
  * @property {Object.<string, string>} [external_ids] - A key-value object where all values are strings. Used for message metadata
  */
 
@@ -39,6 +40,16 @@ const {ApiTypes} = require('../../constants');
  * @property {number} ticket_id - The parent ticket id of the side conversation
  * @property {string} updated_at - The time of the last update of the side conversation
  * @property {string} url - The API url of the side conversation
+ */
+
+/**
+ * @typedef {object} SideConversationAttachment
+ * @property {string} content_type - The content type of the attachment. This is read-only.
+ * @property {number} height - The height of the attachment image. This is read-only.
+ * @property {string} id - The id of the side conversation attachment. This is read-only.
+ * @property {string} name - The name of the attachment.
+ * @property {number} size - The size of the attachment. This is read-only.
+ * @property {number} width - The width of the attachment image. This is read-only.
  */
 
 /**
@@ -79,7 +90,7 @@ class SideConversations extends Client {
    * Reply to a Side Conversation.
    * @param {number} ticketId - The ID of the ticket.
    * @param {string} sideConversationId - The ID of the side conversation.
-   * @param {Message} message - The reply object.
+   * @param {{message: Message}} message - The reply object.
    * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
    * @async
    * @throws {Error} If the details are not provided or invalid.
@@ -123,6 +134,18 @@ class SideConversations extends Client {
       'side_conversations',
       sideConversationId,
     ]);
+  }
+
+  /**
+   * Upload a file to be attached to a ticket comment.
+   * @param {ArrayBuffer} file - The file data.
+   * @param {object} options - The file options.
+   * @returns {Promise<SideConversationAttachment>} The attachment details.
+   */
+  async attachments(file, { filename }) {
+    const form = new FormData();
+    form.append('file', new Blob([file]), filename);
+    return this.requestUpload(['tickets', 'side_conversations', 'attachments'], form);
   }
 }
 
