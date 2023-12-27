@@ -75,7 +75,7 @@ const {Client} = require('../client');
 
 /**
  * @typedef {Object} CreateTicket
- * @property {Ticket} ticket - The ticket object.
+ * @property {Partial<Ticket>} ticket - The ticket object.
  */
 
 /**
