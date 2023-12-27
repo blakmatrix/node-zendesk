@@ -15,6 +15,11 @@ const {Client} = require('../client');
  */
 
 /**
+ * @typedef {object} CreateOrUpdateGroup
+ * @property {Group} group - The group to create or update
+ */
+
+/**
  * A client for interfacing with the Zendesk Groups API.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/}
  */
@@ -92,10 +97,8 @@ class Groups extends Client {
 
   /**
    * Creates a new group.
-   * @param {object} group - The group details to create.
-   * @param {string} group.name - The name of the group (mandatory).
-   * @param {string} [group.description] - The description of the group.
-   * @returns {Promise<Group>} A promise that resolves to the details of the created group.
+   * @param {CreateOrUpdateGroup} group - The group details to create.
+   * @returns {Promise<{group: Group}>} A promise that resolves to the details of the created group.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/#create-group}
    * @example
@@ -112,10 +115,8 @@ class Groups extends Client {
   /**
    * Updates a specified group.
    * @param {number} groupID - The ID of the group to update.
-   * @param {object} group - The updated group details.
-   * @param {string} [group.name] - The updated name of the group.
-   * @param {string} [group.description] - The updated description of the group.
-   * @returns {Promise<Group>} A promise that resolves to the details of the updated group.
+   * @param {CreateOrUpdateGroup} group - The updated group details.
+   * @returns {Promise<{group: Group}>} A promise that resolves to the details of the updated group.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/#update-group}
    * @example
