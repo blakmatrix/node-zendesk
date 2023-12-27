@@ -78,7 +78,7 @@ class SideConversations extends Client {
   /**
    * Reply to a Side Conversation.
    * @param {number} ticketId - The ID of the ticket.
-   * @param {number} sideConversationId - The ID of the side conversation.
+   * @param {string} sideConversationId - The ID of the side conversation.
    * @param {Message} message - The reply object.
    * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
    * @async
@@ -108,7 +108,7 @@ class SideConversations extends Client {
   /**
    * Retrieve a specific ticket by its ID.
    * @param {number} ticketId - The ID of the ticket.
-   * @param {number} sideConversationId - The ID of the side conversation.
+   * @param {string} sideConversationId - The ID of the side conversation.
    * @returns {Promise<{result: SideConversation}>} Details of the side conversation.
    * @async
    * @throws {Error} If the ticket ID is not provided or invalid.
