@@ -58,6 +58,11 @@ const {Client} = require('../client');
  */
 
 /**
+ * @typedef {Object} CreateTicket
+ * @property {Ticket} ticket - The ticket object.
+ */
+
+/**
  * @class
  * Client for the Zendesk API - Tickets.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/}
@@ -241,8 +246,8 @@ class Tickets extends Client {
 
   /**
    * Create a new ticket.
-   * @param {object} ticket - Details of the ticket to be created.
-   * @returns {Promise<Ticket>} The created ticket details.
+   * @param {CreateTicket} ticket - Details of the ticket to be created.
+   * @returns {Promise<{result: Ticket}>} The created ticket details.
    * @async
    * @throws {Error} If the ticket details are not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-ticket}

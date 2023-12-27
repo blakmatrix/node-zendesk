@@ -1,21 +1,94 @@
 // File: sideconversations.js
 const { Client } = require('../client');
+const { ApiTypes } = require('../../constants');
+
+/**
+ * @typedef {Object} Participant
+ * @property {number} [user_id] - If the participant is an agent, the agent's user id
+ * @property {string} [name] - The name of the participant
+ * @property {string} [email] - The email address of the participant
+ * @property {string} [slack_workspace_id] - If the participant is a Slack user or channel, the Slack workspace id
+ * @property {string} [slack_channel_id] - If the participant is a Slack channel, the Slack channel id
+ * @property {string} [support_group_id] - If the participant is a Support ticket, the support group id
+ * @property {string} [support_agent_id] - If the participant is a Support ticket, the support agent id
+ * @property {string} [msteams_channel_id] - If the participant is a Microsoft teams channel, the Teams channel id
+ */
+
+/**
+ * @typedef {Object} Message
+ * @property {string} [subject] - The subject of the message
+ * @property {string} [preview_text] - A plain text string describing the message
+ * @property {string} [body] - The plain text version of the body of the message
+ * @property {string} [html_body] - The HTML version of the body of the message
+ * @property {Participant} [from] - The participant who sent the message. See Participants
+ * @property {Participant[]} to - The list of participants the message was sent to. See Participants
+ * @property {Object.<string, string>} [external_ids] - A key-value object where all values are strings. Used for message metadata
+ */
+
+/**
+ * @typedef {Object} SideConversation
+ * @property {string} created_at - The time the side conversation was created
+ * @property {Object.<string, string>} [external_ids] - A key-value store of metadata. All values must be strings
+ * @property {string} id - Automatically assigned when the side conversation is created
+ * @property {string} message_added_at - The time of the last message on the side conversation
+ * @property {Participant[]} participants - An array of participants in the side conversation. See Participants
+ * @property {string} preview_text - A plain text text describing the side conversation
+ * @property {string} [state] - The state of the side conversation
+ * @property {string} state_updated_at - The time of the update of the state of the side conversation
+ * @property {string} [subject] - The subject of the side conversation
+ * @property {number} ticket_id - The parent ticket id of the side conversation
+ * @property {string} updated_at - The time of the last update of the side conversation
+ * @property {string} url - The API url of the side conversation
+ */
+
+/**
+ * @typedef {Object} CreateSideConversation
+ * @property {Message} message - The side conversation object.
+ * @property {Object.<string, string>} [external_ids] - A key-value object where all values are strings. Used for conversation metadata
+ */
 
 class SideConversations extends Client {
   /**
    * @constructs SideConversations
-   * @param {import('../client').ZendeskClientOptions} options - The client options.
+   * @param {import('../client').ClientOptions} options - The client options.
    */
   constructor(options) {
-    super(options);
+    super(options, ApiTypes.core);
     this.jsonAPINames = ['side_conversations'];
   }
 
   /**
-   * List all the Side Conversations tickets.
-   * @returns {Promise<Array<Ticket>>} An array of tickets.
+   * Create a Side Conversation.
+   * @param {number} ticketId - The ID of the ticket.
+   * @param {CreateSideConversation} message - The side conversation object.
+   * @returns {Promise<{result: SideConversation}>} The created ticket details.
    * @async
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#list-side-conversations}
+   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#create-side-conversation
+   * @throws {Error} If the details are not provided or invalid.
+   */
+  async create(ticketId, message) {
+    return this.post(['tickets', ticketId, 'side_conversations'], message);
+  }
+
+  /**
+   * Reply to a Side Conversation.
+   * @param {number} ticketId - The ID of the ticket.
+   * @param {number} sideConversationId - The ID of the side conversation.
+   * @param {Message} message - The reply object.
+   * @returns {Promise<{result: SideConversation}>} The created ticket details.
+   * @async
+   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#reply-to-side-conversation
+   * @throws {Error} If the details are not provided or invalid.
+   */
+  async reply(ticketId, sideConversationId, message) {
+    return this.post(['tickets', ticketId, 'side_conversations', sideConversationId, 'reply'], message);
+  }
+
+  /**
+   * List all the Side Conversations tickets.
+   * @returns {Promise<{result: Array<Ticket>}>} An array of tickets.
+   * @async
+   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#list-side-conversations
    * @example
    * const tickets = await client.sideconversations.list(123);
    */
@@ -27,10 +100,10 @@ class SideConversations extends Client {
    * Retrieve a specific ticket by its ID.
    * @param {number} ticketId - The ID of the ticket.
    * @param {number} sideConversationId - The ID of the side conversation.
-   * @returns {Promise<Ticket>} Details of the side conversation.
+   * @returns {Promise<{result: SideConversation}>} Details of the side conversation.
    * @async
    * @throws {Error} If the ticket ID is not provided or invalid.
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#show-side-conversation}
+   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#show-side-conversation
    * @example
    * const ticket = await client.sideconversations.show(12345, 12333);
    */
@@ -39,4 +112,4 @@ class SideConversations extends Client {
   }
 }
 
-exports.Tickets = SideConversations;
+exports.SideConversations = SideConversations;

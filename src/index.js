@@ -127,6 +127,9 @@ class ZendeskClient {
     return this._instantiate(GroupMemberships);
   }
 
+  /**
+   * @return {Groups}
+   */
   get groups() {
     const {Groups} = require('./clients/core/groups');
     return this._instantiate(Groups);
@@ -219,6 +222,9 @@ class ZendeskClient {
     return this._instantiate(SharingAgreement);
   }
 
+  /**
+   * @return {SideConversations}
+   */
   get sideconversations() {
     const {SideConversations} = require('./clients/core/sideconversations');
     return this._instantiate(SideConversations);
@@ -269,11 +275,17 @@ class ZendeskClient {
     return this._instantiate(TicketImport);
   }
 
+  /**
+   * @return {TicketMetrics}
+   */
   get ticketmetrics() {
     const {TicketMetrics} = require('./clients/core/ticketmetrics');
     return this._instantiate(TicketMetrics);
   }
 
+  /**
+   * @return {Tickets}
+   */
   get tickets() {
     const {Tickets} = require('./clients/core/tickets');
     return this._instantiate(Tickets);
@@ -294,6 +306,9 @@ class ZendeskClient {
     return this._instantiate(UserIdentities);
   }
 
+  /**
+   * @return {Users}
+   */
   get users() {
     const {Users} = require('./clients/core/users');
     return this._instantiate(Users);

@@ -2,6 +2,49 @@
 const {Client} = require('../client');
 
 /**
+ * @typedef {Object} User
+ * @property {boolean} active - false if the user has been deleted
+ * @property {string} [alias] - An alias displayed to end users
+ * @property {boolean} chat_only - Whether or not the user is a chat-only agent
+ * @property {string} created_at - The time the user was created
+ * @property {number} [custom_role_id] - A custom role if the user is an agent on the Enterprise plan or above
+ * @property {number} [default_group_id] - The id of the user's default group
+ * @property {string} [details] - Any details you want to store about the user, such as an address
+ * @property {string} [email] - The user's primary email address. *Writeable on create only. On update, a secondary email is added. See Email Address
+ * @property {string} [external_id] - A unique identifier from another system. The API treats the id as case insensitive. Example: "ian1" and "IAN1" are the same value.
+ * @property {string} iana_time_zone - The time zone for the user
+ * @property {number} id - Automatically assigned when the user is created
+ * @property {string} last_login_at - Last time the user signed in to Zendesk Support or made an API request using an API token or basic authentication
+ * @property {string} [locale] - The user's locale. A BCP-47 compliant tag for the locale. If both "locale" and "locale_id" are present on create or update, "locale_id" is ignored and only "locale" is used.
+ * @property {number} [locale_id] - The user's language identifier
+ * @property {boolean} [moderator] - Designates whether the user has forum moderation capabilities
+ * @property {string} name - The user's name
+ * @property {string} [notes] - Any notes you want to store about the user
+ * @property {boolean} [only_private_comments] - true if the user can only create private comments
+ * @property {number} [organization_id] - The id of the user's organization. If the user has more than one organization memberships, the id of the user's default organization. If updating, see Organization ID
+ * @property {string} [phone] - The user's primary phone number. See Phone Number below
+ * @property {Object} [photo] - The user's profile picture represented as an Attachment object
+ * @property {string} [remote_photo_url] - A URL pointing to the user's profile picture.
+ * @property {boolean} report_csv - This parameter is inert and has no effect. It may be deprecated in the future. Previously, this parameter determined whether a user could access a CSV report in a legacy Guide dashboard. This dashboard has been removed. See Announcing Guide legacy reporting upgrade to Explore
+ * @property {boolean} [restricted_agent] - If the agent has any restrictions; false for admins and unrestricted agents, true for other agents
+ * @property {string} [role] - The user's role. Possible values are "end-user", "agent", or "admin"
+ * @property {number} role_type - The user's role id. 0 for a custom agent, 1 for a light agent, 2 for a chat agent, 3 for a chat agent added to the Support account as a contributor (Chat Phase 4), 4 for an admin, and 5 for a billing admin
+ * @property {boolean} shared - If the user is shared from a different Zendesk Support instance. Ticket sharing accounts only
+ * @property {boolean} shared_agent - If the user is a shared agent from a different Zendesk Support instance. Ticket sharing accounts only
+ * @property {boolean} [shared_phone_number] - Whether the phone number is shared or not. See Phone Number below
+ * @property {string} [signature] - The user's signature. Only agents and admins can have signatures
+ * @property {boolean} [suspended] - If the agent is suspended. Tickets from suspended users are also suspended, and these users cannot sign in to the end user portal
+ * @property {string[]} [tags] - The user's tags. Only present if your account has user tagging enabled
+ * @property {string} [ticket_restriction] - Specifies which tickets the user has access to. Possible values are: "organization", "groups", "assigned", "requested", null. "groups" and "assigned" are valid only for agents. If you pass an invalid value to an end user (for example, "groups"), they will be assigned to "requested", regardless of their previous access
+ * @property {string} [time_zone] - The user's time zone. See Time Zone
+ * @property {boolean} two_factor_auth_enabled - If two factor authentication is enabled
+ * @property {string} updated_at - The time the user was last updated
+ * @property {string} url - The user's API url
+ * @property {Object} [user_fields] - Values of custom fields in the user's profile. See User Fields
+ * @property {boolean} [verified] - Any of the user's identities is verified. See User Identities
+ */
+
+/**
  * Client for the Zendesk Users API.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/}
  */
@@ -42,7 +85,7 @@ class Users extends Client {
 
   /**
    * Lists all users.
-   * @returns {Promise<Array<object>>} An array of user objects.
+   * @returns {Promise<Array<User>>} An array of user objects.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
@@ -56,7 +99,7 @@ class Users extends Client {
    * Lists users with a specific filter.
    * @param {string} type - The type of filter.
    * @param {string|number} value - The value for the filter.
-   * @returns {Promise<Array<object>>} An array of user objects.
+   * @returns {Promise<Array<User>>} An array of user objects.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
@@ -69,7 +112,7 @@ class Users extends Client {
   /**
    * Lists users by group ID.
    * @param {number} id - The ID of the group.
-   * @returns {Promise<Array<object>>} An array of user objects.
+   * @returns {Promise<Array<User>>} An array of user objects.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
@@ -82,7 +125,7 @@ class Users extends Client {
   /**
    * Lists users by organization ID.
    * @param {number} id - The ID of the organization.
-   * @returns {Promise<Array<object>>} An array of user objects.
+   * @returns {Promise<Array<User>>} An array of user objects.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#list-users}
    * @example
@@ -95,7 +138,7 @@ class Users extends Client {
   /**
    * Shows details of a user by ID.
    * @param {number} id - The ID of the user.
-   * @returns {Promise<object>} The user's details.
+   * @returns {Promise<User>} The user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-user}
    * @example
@@ -108,7 +151,7 @@ class Users extends Client {
   /**
    * Shows details of multiple users by their IDs.
    * @param {Array<number>} userIds - An array of user IDs.
-   * @returns {Promise<Array<object>>} An array of user details.
+   * @returns {Promise<Array<User>>} An array of user details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-many-users}
    * @example
@@ -121,7 +164,7 @@ class Users extends Client {
   /**
    * Creates a new user.
    * @param {object} user - The user details.
-   * @returns {Promise<object>} The created user's details.
+   * @returns {Promise<User>} The created user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-user}
    * @example
@@ -134,7 +177,7 @@ class Users extends Client {
   /**
    * Creates multiple users.
    * @param {Array<object>} users - An array of user details.
-   * @returns {Promise<Array<object>>} An array of created user details.
+   * @returns {Promise<Array<User>>} An array of created user details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-many-users}
    * @example
@@ -147,7 +190,7 @@ class Users extends Client {
   /**
    * Creates or updates a user.
    * @param {object} user - The user details.
-   * @returns {Promise<object>} The created or updated user's details.
+   * @returns {Promise<User>} The created or updated user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-or-update-user}
    * @example
@@ -160,7 +203,7 @@ class Users extends Client {
   /**
    * Creates or updates multiple users.
    * @param {Array<object>} users - An array of user details.
-   * @returns {Promise<Array<object>>} An array of created or updated user details.
+   * @returns {Promise<Array<User>>} An array of created or updated user details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#create-or-update-many-users}
    * @example
@@ -174,7 +217,7 @@ class Users extends Client {
    * Updates a user by ID.
    * @param {number} id - The ID of the user.
    * @param {object} user - The updated user details.
-   * @returns {Promise<object>} The updated user's details.
+   * @returns {Promise<User>} The updated user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#update-user}
    * @example
@@ -187,7 +230,7 @@ class Users extends Client {
   /**
    * Updates multiple users.
    * @param {...*} args - Arguments including optional IDs and user details.
-   * @returns {Promise<Array<object>>} An array of updated user details.
+   * @returns {Promise<Array<User>>} An array of updated user details.
    * @async
    * @throws {Error} Throws an error if not enough arguments are provided.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#update-many-users}
@@ -248,7 +291,7 @@ class Users extends Client {
   /**
    * Suspends a user by ID.
    * @param {number} id - The ID of the user to suspend.
-   * @returns {Promise<object>} The suspended user's details.
+   * @returns {Promise<User>} The suspended user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#suspend-user}
    * @example
@@ -261,7 +304,7 @@ class Users extends Client {
   /**
    * Unsuspends a user by ID.
    * @param {number} id - The ID of the user to unsuspend.
-   * @returns {Promise<object>} The unsuspended user's details.
+   * @returns {Promise<User>} The unsuspended user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#unsuspend-user}
    * @example
@@ -349,7 +392,7 @@ class Users extends Client {
   /**
    * Searches for users based on specific parameters.
    * @param {object} parameters - The search parameters.
-   * @returns {Promise<Array<object>>} An array of user objects that match the search criteria.
+   * @returns {Promise<Array<User>>} An array of user objects that match the search criteria.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#search-users}
    * @example
@@ -361,7 +404,7 @@ class Users extends Client {
 
   /**
    * Retrieves details of the currently authenticated user.
-   * @returns {Promise<object>} The user's details.The authenticated user's details.
+   * @returns {Promise<{result: User}>} The user's details.The authenticated user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-the-currently-authenticated-user}
    * @example
