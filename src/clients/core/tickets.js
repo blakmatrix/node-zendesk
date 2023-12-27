@@ -297,7 +297,7 @@ class Tickets extends Client {
    * Update an existing ticket by its ID.
    * @param {number} ticketId - The ID of the ticket to update.
    * @param {object} ticket - The updated ticket data as an object.
-   * @returns {Promise<Ticket>} A promise that resolves to the updated ticket object.
+   * @returns {Promise<{result: Ticket}>} A promise that resolves to the updated ticket object.
    * @async
    * @throws {Error} If `ticketId` is not a number or if `ticket` is not an object.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#update-ticket}
