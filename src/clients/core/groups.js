@@ -2,7 +2,7 @@
 const {Client} = require('../client');
 
 /**
- * @typedef {Object} Group
+ * @typedef {object} Group
  * @property {string} created_at - The time the group was created
  * @property {boolean} default - If the group is the default one for the account
  * @property {boolean} deleted - Deleted groups get marked as such

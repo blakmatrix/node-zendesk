@@ -1,9 +1,9 @@
 // File: sideconversations.js
-const { Client } = require('../client');
-const { ApiTypes } = require('../../constants');
+const {Client} = require('../client');
+const {ApiTypes} = require('../../constants');
 
 /**
- * @typedef {Object} Participant
+ * @typedef {object} Participant
  * @property {number} [user_id] - If the participant is an agent, the agent's user id
  * @property {string} [name] - The name of the participant
  * @property {string} [email] - The email address of the participant
@@ -15,7 +15,7 @@ const { ApiTypes } = require('../../constants');
  */
 
 /**
- * @typedef {Object} Message
+ * @typedef {object} Message
  * @property {string} [subject] - The subject of the message
  * @property {string} [preview_text] - A plain text string describing the message
  * @property {string} [body] - The plain text version of the body of the message
@@ -26,7 +26,7 @@ const { ApiTypes } = require('../../constants');
  */
 
 /**
- * @typedef {Object} SideConversation
+ * @typedef {object} SideConversation
  * @property {string} created_at - The time the side conversation was created
  * @property {Object.<string, string>} [external_ids] - A key-value store of metadata. All values must be strings
  * @property {string} id - Automatically assigned when the side conversation is created
@@ -42,7 +42,7 @@ const { ApiTypes } = require('../../constants');
  */
 
 /**
- * @typedef {Object} CreateSideConversation
+ * @typedef {object} CreateSideConversation
  * @property {Message} message - The side conversation object.
  * @property {Object.<string, string>} [external_ids] - A key-value object where all values are strings. Used for conversation metadata
  */
@@ -63,8 +63,8 @@ class SideConversations extends Client {
    * @param {CreateSideConversation} message - The side conversation object.
    * @returns {Promise<{result: SideConversation}>} The created ticket details.
    * @async
-   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#create-side-conversation
    * @throws {Error} If the details are not provided or invalid.
+   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#create-side-conversation
    */
   async create(ticketId, message) {
     return this.post(['tickets', ticketId, 'side_conversations'], message);
@@ -77,15 +77,19 @@ class SideConversations extends Client {
    * @param {Message} message - The reply object.
    * @returns {Promise<{result: SideConversation}>} The created ticket details.
    * @async
-   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#reply-to-side-conversation
    * @throws {Error} If the details are not provided or invalid.
+   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#reply-to-side-conversation
    */
   async reply(ticketId, sideConversationId, message) {
-    return this.post(['tickets', ticketId, 'side_conversations', sideConversationId, 'reply'], message);
+    return this.post(
+      ['tickets', ticketId, 'side_conversations', sideConversationId, 'reply'],
+      message,
+    );
   }
 
   /**
    * List all the Side Conversations tickets.
+   * @param ticketID
    * @returns {Promise<{result: Array<Ticket>}>} An array of tickets.
    * @async
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#list-side-conversations
@@ -108,7 +112,12 @@ class SideConversations extends Client {
    * const ticket = await client.sideconversations.show(12345, 12333);
    */
   async show(ticketId, sideConversationId) {
-    return this.get(['tickets', ticketId, 'side_conversations', sideConversationId]);
+    return this.get([
+      'tickets',
+      ticketId,
+      'side_conversations',
+      sideConversationId,
+    ]);
   }
 }
 

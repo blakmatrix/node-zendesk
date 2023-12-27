@@ -2,13 +2,13 @@
 const {Client} = require('../client');
 
 /**
+ * @typedef {object} RecursivePartial
  * @template T
- * @typedef {Object} RecursivePartial
  * @property {T[P]} [P] - The property of the object.
  */
 
 /**
- * @typedef {Object} Attachment
+ * @typedef {object} Attachment
  * @property {string} content_type - The content type of the image. Example value: "image/png"
  * @property {string} content_url - A full URL where the attachment image file can be downloaded. The file may be hosted externally so take care not to inadvertently send Zendesk authentication credentials. See Working with url properties
  * @property {boolean} deleted - If true, the attachment has been deleted
@@ -20,13 +20,13 @@ const {Client} = require('../client');
  * @property {string} malware_scan_result - The result of the malware scan. There is a delay between the time the attachment is uploaded and when the malware scan is completed. Usually the scan is done within a few seconds, but high load conditions can delay the scan results. Possible values: "malware_found", "malware_not_found", "failed_to_scan", "not_scanned"
  * @property {string} mapped_content_url - The URL the attachment image file has been mapped to
  * @property {number} size - The size of the image file in bytes
- * @property {Object[]} thumbnails - An array of attachment objects. Note that photo thumbnails do not have thumbnails
+ * @property {object[]} thumbnails - An array of attachment objects. Note that photo thumbnails do not have thumbnails
  * @property {string} url - A URL to access the attachment details
  * @property {string} width - The width of the image file in pixels. If width is unknown, returns null
  */
 
 /**
- * @typedef {Object} TicketComment
+ * @typedef {object} TicketComment
  * @property {Attachment[]} [attachments] - Attachments, if any. See Attachment
  * @property {number} audit_id - The id of the ticket audit record. See Show Audit
  * @property {number} author_id - The id of the comment author. See Author id
@@ -34,17 +34,17 @@ const {Client} = require('../client');
  * @property {string} created_at - The time the comment was created
  * @property {string} html_body - The comment formatted as HTML. See Bodies
  * @property {number} id - Automatically assigned when the comment is created
- * @property {Object} [metadata] - System information (web client, IP address, etc.) and comment flags, if any. See Comment flags
+ * @property {object} [metadata] - System information (web client, IP address, etc.) and comment flags, if any. See Comment flags
  * @property {string} plain_body - The comment presented as plain text. See Bodies
  * @property {boolean} public - true if a public comment; false if an internal note. The initial value set on ticket creation persists for any additional comment unless you change it
  * @property {string} type - Comment or VoiceComment. The JSON object for adding voice comments to tickets is different. See Adding voice comments to tickets
  * @property {string[]} [uploads] - List of tokens received from uploading files for comment attachments. The files are attached by creating or updating tickets with the tokens. See Attaching files in Tickets
- * @property {Object} [via] - Describes how the object was created. See the Via object reference
+ * @property {object} [via] - Describes how the object was created. See the Via object reference
  */
 
 /**
  * Tickets are the means through which your end users (customers) communicate with agents in Zendesk Support.
- * @typedef {Object} Ticket
+ * @typedef {object} Ticket
  * @property {boolean} allow_attachments - Permission for agents to add add attachments to a comment. Defaults to true
  * @property {boolean} allow_channelback - Is false if channelback is disabled, true otherwise. Only applicable for channels framework ticket
  * @property {string} [assignee_email] - Write only. The email address of the agent to assign the ticket to
@@ -52,7 +52,7 @@ const {Client} = require('../client');
  * @property {number[]} [attribute_value_ids] - Write only. An array of the IDs of attribute values to be associated with the ticket
  * @property {number} [brand_id] - Enterprise only. The id of the brand this ticket is associated with
  * @property {number[]} [collaborator_ids] - The ids of users currently CC'ed on the ticket
- * @property {Object[]} [collaborators] - POST requests only. Users to add as cc's when creating a ticket. See Setting Collaborators
+ * @property {object[]} [collaborators] - POST requests only. Users to add as cc's when creating a ticket. See Setting Collaborators
  * @property {TicketComment} [comment] - Write only. An object that adds a comment to the ticket. See Ticket comments. To include an attachment with the comment, see Attaching files
  * @property {string} created_at - When this record was created
  * @property {Array<CustomField>} [custom_fields] - Custom fields for the ticket. See Setting custom field values
@@ -60,10 +60,10 @@ const {Client} = require('../client');
  * @property {string} description - Read-only first comment on the ticket. When creating a ticket, use comment to set the description. See Description and first comment
  * @property {string} [due_at] - If this is a ticket of type "task" it has a due date. Due date format uses ISO 8601 format.
  * @property {number[]} [email_cc_ids] - The ids of agents or end users currently CC'ed on the ticket. See CCs and followers resources in the Support Help Center
- * @property {Object} [email_ccs] - Write only. An array of objects that represent agent or end users email CCs to add or delete from the ticket. See Setting email CCs
+ * @property {object} [email_ccs] - Write only. An array of objects that represent agent or end users email CCs to add or delete from the ticket. See Setting email CCs
  * @property {string} [external_id] - An id you can use to link Zendesk Support tickets to local records
  * @property {number[]} [follower_ids] - The ids of agents currently following the ticket. See CCs and followers resources
- * @property {Object} [followers] - Write only. An array of objects that represent agent followers to add or delete from the ticket. See Setting followers
+ * @property {object} [followers] - Write only. An array of objects that represent agent followers to add or delete from the ticket. See Setting followers
  * @property {number[]} followup_ids - The ids of the followups created from this ticket. Ids are only visible once the ticket is closed
  * @property {number} [forum_topic_id] - The topic in the Zendesk Web portal this ticket originated from, if any. The Web portal is deprecated
  * @property {boolean} from_messaging_channel - If true, the ticket's via type is a messaging channel.
@@ -73,16 +73,16 @@ const {Client} = require('../client');
  * @property {boolean} is_public - Is true if any comments are public, false otherwise
  * @property {number} [macro_id] - Write only. A macro ID to be recorded in the ticket audit
  * @property {number[]} [macro_ids] - POST requests only. List of macro IDs to be recorded in the ticket audit
- * @property {Object} [metadata] - Write only. Metadata for the audit. In the audit object, the data is specified in the custom property of the metadata object. See Setting Metadata
+ * @property {object} [metadata] - Write only. Metadata for the audit. In the audit object, the data is specified in the custom property of the metadata object. See Setting Metadata
  * @property {number} [organization_id] - The organization of the requester. You can only specify the ID of an organization associated with the requester. See Organization Memberships
  * @property {Priority} [priority] - The urgency with which the ticket should be addressed. Allowed values are "urgent", "high", "normal", or "low".
  * @property {number} [problem_id] - For tickets of type "incident", the ID of the problem the incident is linked to
  * @property {string} [raw_subject] - The dynamic content placeholder, if present, or the "subject" value, if not. See Dynamic Content Items
  * @property {string} [recipient] - The original recipient e-mail address of the ticket. Notification emails for the ticket are sent from this address
- * @property {Object} [requester] - Write only. See Creating a ticket with a new requester
+ * @property {object} [requester] - Write only. See Creating a ticket with a new requester
  * @property {number} requester_id - The user who requested this ticket
  * @property {boolean} [safe_update] - Write only. Optional boolean. When true and an update_stamp date is included, protects against ticket update collisions and returns a message to let you know if one occurs. See Protecting against ticket update collisions. A value of false has the same effect as true. Omit the property to force the updates to not be safe
- * @property {Object} [satisfaction_rating] - The satisfaction rating of the ticket, if it exists, or the state of satisfaction, "offered" or "unoffered". The value is null for plan types that don't support CSAT
+ * @property {object} [satisfaction_rating] - The satisfaction rating of the ticket, if it exists, or the state of satisfaction, "offered" or "unoffered". The value is null for plan types that don't support CSAT
  * @property {number[]} [sharing_agreement_ids] - The ids of the sharing agreements used for this ticket
  * @property {Status} [status] - The state of the ticket. If your account has activated custom ticket statuses, this is the ticket's status category. See custom ticket statuses. Allowed values are "new", "open", "pending", "hold", "solved", or "closed".
  * @property {string} [subject] - The value of the subject field for this ticket
@@ -93,10 +93,10 @@ const {Client} = require('../client');
  * @property {string} updated_at - When this record last got updated
  * @property {string} [updated_stamp] - Write only. Datetime of last update received from API. See the safe_update property
  * @property {string} url - The API url of this ticket
- * @property {Object} [via] - For more information, see the Via object reference
+ * @property {object} [via] - For more information, see the Via object reference
  * @property {number} [via_followup_source_id] - POST requests only. The id of a closed ticket when creating a follow-up ticket. See Creating a follow-up ticket
  * @property {number} [via_id] - Write only. For more information, see the Via object reference
- * @property {Object} [voice_comment] - Write only. See Creating voicemail ticket
+ * @property {object} [voice_comment] - Write only. See Creating voicemail ticket
  */
 
 /**
@@ -115,8 +115,8 @@ const {Client} = require('../client');
  */
 
 /**
- * @template T
  * @typedef {T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T} RecursivePartial
+ * @template T
  */
 
 /**

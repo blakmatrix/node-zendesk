@@ -128,7 +128,7 @@ class ZendeskClient {
   }
 
   /**
-   * @return {Groups}
+   * @returns {Groups}
    */
   get groups() {
     const {Groups} = require('./clients/core/groups');
@@ -223,7 +223,7 @@ class ZendeskClient {
   }
 
   /**
-   * @return {SideConversations}
+   * @returns {SideConversations}
    */
   get sideconversations() {
     const {SideConversations} = require('./clients/core/sideconversations');
@@ -276,7 +276,7 @@ class ZendeskClient {
   }
 
   /**
-   * @return {TicketMetrics}
+   * @returns {TicketMetrics}
    */
   get ticketmetrics() {
     const {TicketMetrics} = require('./clients/core/ticketmetrics');
@@ -284,7 +284,7 @@ class ZendeskClient {
   }
 
   /**
-   * @return {Tickets}
+   * @returns {Tickets}
    */
   get tickets() {
     const {Tickets} = require('./clients/core/tickets');
@@ -307,7 +307,7 @@ class ZendeskClient {
   }
 
   /**
-   * @return {Users}
+   * @returns {Users}
    */
   get users() {
     const {Users} = require('./clients/core/users');

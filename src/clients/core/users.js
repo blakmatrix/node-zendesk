@@ -2,7 +2,7 @@
 const {Client} = require('../client');
 
 /**
- * @typedef {Object} User
+ * @typedef {object} User
  * @property {boolean} active - false if the user has been deleted
  * @property {string} [alias] - An alias displayed to end users
  * @property {boolean} chat_only - Whether or not the user is a chat-only agent
@@ -23,7 +23,7 @@ const {Client} = require('../client');
  * @property {boolean} [only_private_comments] - true if the user can only create private comments
  * @property {number} [organization_id] - The id of the user's organization. If the user has more than one organization memberships, the id of the user's default organization. If updating, see Organization ID
  * @property {string} [phone] - The user's primary phone number. See Phone Number below
- * @property {Object} [photo] - The user's profile picture represented as an Attachment object
+ * @property {object} [photo] - The user's profile picture represented as an Attachment object
  * @property {string} [remote_photo_url] - A URL pointing to the user's profile picture.
  * @property {boolean} report_csv - This parameter is inert and has no effect. It may be deprecated in the future. Previously, this parameter determined whether a user could access a CSV report in a legacy Guide dashboard. This dashboard has been removed. See Announcing Guide legacy reporting upgrade to Explore
  * @property {boolean} [restricted_agent] - If the agent has any restrictions; false for admins and unrestricted agents, true for other agents
@@ -40,7 +40,7 @@ const {Client} = require('../client');
  * @property {boolean} two_factor_auth_enabled - If two factor authentication is enabled
  * @property {string} updated_at - The time the user was last updated
  * @property {string} url - The user's API url
- * @property {Object} [user_fields] - Values of custom fields in the user's profile. See User Fields
+ * @property {object} [user_fields] - Values of custom fields in the user's profile. See User Fields
  * @property {boolean} [verified] - Any of the user's identities is verified. See User Identities
  */
 

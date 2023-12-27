@@ -1,14 +1,15 @@
 // Setup.js
 
-import dotenv from 'dotenv';
 import process from 'node:process';
-import { createClient } from '../src/index.js';
+import dotenv from 'dotenv';
+import {createClient} from '../src/index.js';
 
 dotenv.config({
   path: '.env.test',
 });
 
-const {ZENDESK_USERNAME, ZENDESK_SUBDOMAIN, ZENDESK_PASSWORD, ZENDESK_TOKEN} = process.env;
+const {ZENDESK_USERNAME, ZENDESK_SUBDOMAIN, ZENDESK_PASSWORD, ZENDESK_TOKEN} =
+  process.env;
 
 export const generateOrganizationName = (id) => {
   return `Test Organization ${id}`;
@@ -36,7 +37,7 @@ export const initializeClient = (config) => {
 /**
  *
  * @param {import('../src/clients/client').ClientOptions} config
- * @return {ZendeskClient}
+ * @returns {ZendeskClient}
  */
 export const setupClient = (config = {}) =>
   createClient({
