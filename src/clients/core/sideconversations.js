@@ -27,6 +27,12 @@ const {ApiTypes} = require('../../constants');
  */
 
 /**
+ * @typedef {object} UpdateSideConversation
+ * @property {string} [subject] - The subject of the side conversation
+ * @property {'open' | 'closed'} [state] - A plain text string describing the side conversation
+ */
+
+/**
  * @typedef {object} SideConversation
  * @property {string} created_at - The time the side conversation was created
  * @property {Object.<string, string>} [external_ids] - A key-value store of metadata. All values must be strings
@@ -100,6 +106,23 @@ class SideConversations extends Client {
     return this.post(
       ['tickets', ticketId, 'side_conversations', sideConversationId, 'reply'],
       message,
+    );
+  }
+
+  /**
+   * Update to a Side Conversation.
+   * @param {number} ticketId - The ID of the ticket.
+   * @param {string} sideConversationId - The ID of the side conversation.
+   * @param {{side_conversation: Partial<UpdateSideConversation>}} update - The update object.
+   * @returns {Promise<{result: SideConversationResponse}>} The updated ticket details.
+   * @async
+   * @throws {Error} If the details are not provided or invalid.
+   * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#update-side-conversation
+   */
+  async update(ticketId, sideConversationId, update) {
+    return this.put(
+      ['tickets', ticketId, 'side_conversations', sideConversationId],
+      update,
     );
   }
 
