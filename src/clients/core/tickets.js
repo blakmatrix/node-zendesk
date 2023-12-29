@@ -277,7 +277,7 @@ class Tickets extends Client {
   /**
    * Retrieve a specific ticket by its ID.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<Ticket>} Details of the ticket.
+   * @returns {Promise<{result: Ticket}>} Details of the ticket.
    * @async
    * @throws {Error} If the ticket ID is not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#show-ticket}
