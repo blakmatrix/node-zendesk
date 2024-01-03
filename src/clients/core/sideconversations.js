@@ -23,7 +23,7 @@ const {ApiTypes} = require('../../constants');
  * @property {Participant} [from] - The participant who sent the message. See Participants
  * @property {Participant[]} to - The list of participants the message was sent to. See Participants
  * @property {string[]} [attachment_ids] - List of tokens received from uploading files for comment attachments. The files are attached by creating or updating tickets with the tokens. See Attaching files in Tickets
- * @property {Object.<string, string>} [external_ids] - A key-value object where all values are strings. Used for message metadata
+ * @property {{[key: string]: string}} [external_ids] - A key-value object where all values are strings. Used for message metadata
  */
 
 /**
@@ -35,7 +35,7 @@ const {ApiTypes} = require('../../constants');
 /**
  * @typedef {object} SideConversation
  * @property {string} created_at - The time the side conversation was created
- * @property {Object.<string, string>} [external_ids] - A key-value store of metadata. All values must be strings
+ * @property {{[key: string]: string}} [external_ids] - A key-value store of metadata. All values must be strings
  * @property {string} id - Automatically assigned when the side conversation is created
  * @property {string} message_added_at - The time of the last message on the side conversation
  * @property {Participant[]} participants - An array of participants in the side conversation. See Participants
@@ -61,7 +61,7 @@ const {ApiTypes} = require('../../constants');
 /**
  * @typedef {object} CreateSideConversation
  * @property {Message} message - The side conversation object.
- * @property {Object.<string, string>} [external_ids] - A key-value object where all values are strings. Used for conversation metadata
+ * @property {{[key: string]: string}} [external_ids] - A key-value object where all values are strings. Used for conversation metadata
  */
 
 /**
@@ -163,7 +163,7 @@ class SideConversations extends Client {
    * Upload a file to be attached to a ticket comment.
    * @param {ArrayBuffer} file - The file data.
    * @param {object} options - The file options.
-   * @param options.filename
+   * @param {string} options.filename - The name of the file.
    * @returns {Promise<SideConversationAttachment>} The attachment details.
    */
   async attachments(file, {filename}) {

@@ -115,8 +115,10 @@ const {Client} = require('../client');
  */
 
 /**
- * @typedef {T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T} RecursivePartial
- * @template T
+ * Recursively makes all properties of T optional.
+ * @typedef {object} RecursivePartial
+ * @template T - the type being partially applied
+ * @property {T} [property] - Optionally each property of T.
  */
 
 /**

@@ -128,7 +128,7 @@ class ZendeskClient {
   }
 
   /**
-   * @returns {Groups}
+   * @returns {import('./clients/core/groups.js').Groups} The Group client.
    */
   get groups() {
     const {Groups} = require('./clients/core/groups');
@@ -223,7 +223,7 @@ class ZendeskClient {
   }
 
   /**
-   * @returns {SideConversations}
+   * @returns {import('./clients/core/sideconversations.js').SideConversations} The SideConversations client.
    */
   get sideconversations() {
     const {SideConversations} = require('./clients/core/sideconversations');
@@ -276,7 +276,7 @@ class ZendeskClient {
   }
 
   /**
-   * @returns {TicketMetrics}
+   * @returns {import('./clients/core/ticketmetrics.js').TicketMetrics} The TicketMetrics client
    */
   get ticketmetrics() {
     const {TicketMetrics} = require('./clients/core/ticketmetrics');
@@ -284,7 +284,7 @@ class ZendeskClient {
   }
 
   /**
-   * @returns {Tickets}
+   * @returns {import('./clients/core/tickets.js').Tickets} The Tickets client.
    */
   get tickets() {
     const {Tickets} = require('./clients/core/tickets');
@@ -307,7 +307,7 @@ class ZendeskClient {
   }
 
   /**
-   * @returns {Users}
+   * @returns {import('./clients/core/users.js').Users} The Users Instance
    */
   get users() {
     const {Users} = require('./clients/core/users');

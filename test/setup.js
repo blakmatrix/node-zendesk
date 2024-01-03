@@ -36,8 +36,8 @@ export const initializeClient = (config) => {
 
 /**
  *
- * @param {import('../src/clients/client').ClientOptions} config
- * @returns {ZendeskClient}
+ * @param {import('../src/clients/client').ClientOptions} config - The SetupClient config
+ * @returns {import('../src/clients/client').ZendeskClient} - The Zendesk Client
  */
 export const setupClient = (config = {}) =>
   createClient({
