@@ -55,19 +55,25 @@ class Transporter {
 
   async upload(uri, file) {
     const method = 'POST';
-    const isBinary = file instanceof require('node:stream').Stream;
+    const isStream = file instanceof require('node:stream').Stream;
+    const isFormData = file instanceof FormData;
     const headers = this.getHeadersForRequest();
 
-    if (isBinary) {
+    if (isFormData) {
+      headers['Content-Type'] = 'multipart/form-data';
+    }
+
+    if (isStream) {
       headers['Content-Type'] = 'application/binary';
     }
 
+    const isDirectUpload = isStream || isFormData;
     const options = {
       ...this.options,
       headers,
       uri: assembleUrl(this, method, uri),
       method,
-      body: isBinary ? file : require('node:fs').createReadStream(file),
+      body: isDirectUpload ? file : require('node:fs').createReadStream(file),
     };
     return this.sendRequest(options);
   }
@@ -96,6 +102,10 @@ class Transporter {
     const bodyContent = isBinary ? body : this.getBodyForRequest(method, body);
 
     const headers = this.getHeadersForRequest();
+    if (body instanceof FormData) {
+      headers['Content-Type'] = 'multipart/form-data';
+    }
+
     if (isBinary) {
       headers['Content-Type'] = 'application/binary';
     }
