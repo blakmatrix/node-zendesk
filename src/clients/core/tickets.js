@@ -1,10 +1,10 @@
 // File: tickets.js
 const {Client} = require('../client');
 
+
 /**
- * @typedef {object} RecursivePartial
+ * @typedef {T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T} RecursivePartial
  * @template T
- * @property {T[P]} [P] - The property of the object.
  */
 
 /**
@@ -104,19 +104,22 @@ const {Client} = require('../client');
  * @property {number} id - The ID of the custom field.
  * @property {string|number|boolean} value - The value of the custom field.
  */
+
 /**
  * @typedef {'urgent' | 'high' | 'normal' | 'low'} Priority
  */
+
 /**
  * @typedef {'new' | 'open' | 'pending' | 'hold' | 'solved' | 'closed'} Status
  */
+
 /**
  * @typedef {'problem' |'incident' | 'question' | 'task'} Type
  */
 
 /**
- * @typedef {T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T} RecursivePartial
- * @template T
+ * @typedef {object} CreateOrUpdateTicket
+ * @property {RecursivePartial<Ticket>} [ticket] - The ticket object to create or update.
  */
 
 /**
