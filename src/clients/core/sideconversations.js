@@ -128,8 +128,8 @@ class SideConversations extends Client {
 
   /**
    * List all the Side Conversations tickets.
-   * @param ticketID
-   * @returns {Promise<{result: Array<Ticket>}>} An array of tickets.
+   * @param {number} ticketID - the Id of the ticket.
+   * @returns {Promise<{result: Array<import('./tickets.js').Ticket>}>} An array of tickets.
    * @async
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#list-side-conversations
    * @example
