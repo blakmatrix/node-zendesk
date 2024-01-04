@@ -1,7 +1,6 @@
 // File: tickets.js
 const {Client} = require('../client');
 
-
 /**
  * @typedef {T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T} RecursivePartial
  * @template T
