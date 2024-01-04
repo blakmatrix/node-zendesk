@@ -10,6 +10,13 @@ jobs:
   # Combined CI and CD Jobs to reduce redundancy
   build-and-deploy:
     runs-on: ubuntu-latest
+    
+    # Sets permissions for the GITHUB_TOKEN
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     steps:
       # Checkout code just once
       - uses: actions/checkout@v3
