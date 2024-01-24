@@ -2,7 +2,7 @@
 const {Client} = require('../client');
 
 /**
- * @typedef {Object} TicketField
+ * @typedef {object} TicketField
  * @property {boolean} active - Whether this field is available
  * @property {string} agent_description - A description of the ticket field that only agents can see
  * @property {boolean} collapsed_for_agents - If true, the field is shown to agents by default. If false, the field is hidden alongside infrequently used fields. Classic interface only
@@ -19,7 +19,7 @@ const {Client} = require('../client');
  * @property {string} raw_title - The dynamic content placeholder if present, or the title value if not. See Dynamic Content
  * @property {string} raw_title_in_portal - The dynamic content placeholder if present, or the "title_in_portal" value if not. See Dynamic Content
  * @property {string} regexp_for_validation - For "regexp" fields only. The validation pattern for a field value to be deemed valid
- * @property {Object} relationship_filter - A filter definition that allows your autocomplete to filter down results
+ * @property {object} relationship_filter - A filter definition that allows your autocomplete to filter down results
  * @property {string} relationship_target_type - A representation of what type of object the field references. Options are "zen:user", "zen:organization", "zen:ticket", or "zen:custom_object:{key}" where key is a custom object key. For example "zen:custom_object:apartment".
  * @property {boolean} removable - If false, this field is a system field that must be present on all tickets
  * @property {boolean} required - If true, agents must enter a value in the field to change the ticket status to solved
