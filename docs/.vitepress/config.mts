@@ -12,12 +12,12 @@ const getSideBar = (): any => {
       useTitleFromFileHeading: true,
       hyphenToSpace: true,
       keepMarkdownSyntaxFromTitle: true,
-      sortMenusByFrontmatterOrder: true,
       manualSortFileNameByPriority: [ "installation.md", "authentication.md", "final.md" , 'Advanced']
     },
     {
       documentRootPath: "docs",
-      //scanStartPath: 'api',
+      scanStartPath: "code",
+      resolvePath: "/code/",
       useTitleFromFileHeading: true,
       hyphenToSpace: true,
       keepMarkdownSyntaxFromTitle: true,
