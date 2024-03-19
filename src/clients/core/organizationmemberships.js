@@ -95,7 +95,7 @@ class OrganizationMemberships extends Client {
    * const newMembership = await client.organizationmemberships.create({ user_id: 123, organization_id: 456 });
    */
   async create(organizationMembership) {
-    return this.post(['organization_memberships'], organizationMembership);
+    return this.post(['organization_memberships'], { organization_membership: organizationMembership });
   }
 
   /**
@@ -112,7 +112,7 @@ class OrganizationMemberships extends Client {
   async createByUser(userID, organizationMembership) {
     return this.post(
       ['users', userID, 'organization_memberships'],
-      organizationMembership,
+      { organization_membership: organizationMembership },
     );
   }
 
@@ -136,7 +136,7 @@ class OrganizationMemberships extends Client {
   async createMany(organizationMemberships) {
     return this.post(
       ['organization_memberships', 'create_many'],
-      organizationMemberships,
+      { organization_memberships: organizationMemberships},
     );
   }
 
