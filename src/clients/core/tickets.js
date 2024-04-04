@@ -2,8 +2,9 @@
 const {Client} = require('../client');
 
 /**
- * @typedef {T extends object ? { [K in keyof T]?: RecursivePartial<T[K]> } : T} RecursivePartial
+ * @typedef {object} RecursivePartial
  * @template T
+ * @property {T[P]} [P] - The property of the object.
  */
 
 /**

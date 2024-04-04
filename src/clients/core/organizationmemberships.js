@@ -87,32 +87,34 @@ class OrganizationMemberships extends Client {
 
   /**
    * Create a new organization membership.
-   * @param {object} organizationMembership - The organization membership data.
-   * @returns {Promise<object>} A promise resolving to the created organization membership.
+   * @param {OrganizationMembership} organizationMembership - The organization membership data.
+   * @returns {Promise<OrganizationMembership>} A promise resolving to the created organization membership.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#create-membership}
    * @example
    * const newMembership = await client.organizationmemberships.create({ user_id: 123, organization_id: 456 });
    */
   async create(organizationMembership) {
-    return this.put(['organization_memberships'], organizationMembership);
+    return this.post(['organization_memberships'], {
+      organization_membership: organizationMembership,
+    });
   }
 
   /**
    * Create a new organization membership for a specific user.
    * @param {number} userID - The user ID.
    * @param {object} organizationMembership - The organization membership data.
-   * @returns {Promise<object>} A promise resolving to the created organization membership.
+   * @param {number} organizationMembership.organization_id - The organization id of the membership.
+   * @returns {Promise<OrganizationMembership>} A promise resolving to the created organization membership.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organization_memberships/#create-membership}
    * @example
    * const newMembership = await client.organizationmemberships.createByUser(123, { organization_id: 456 });
    */
   async createByUser(userID, organizationMembership) {
-    return this.put(
-      ['users', userID, 'organization_memberships'],
-      organizationMembership,
-    );
+    return this.post(['users', userID, 'organization_memberships'], {
+      organization_membership: organizationMembership,
+    });
   }
 
   /**
@@ -133,10 +135,9 @@ class OrganizationMemberships extends Client {
    * const jobStatus = await client.organizationmemberships.createMany([{ user_id: 123, organization_id: 456 }, ...]);
    */
   async createMany(organizationMemberships) {
-    return this.post(
-      ['organization_memberships', 'create_many'],
-      organizationMemberships,
-    );
+    return this.post(['organization_memberships', 'create_many'], {
+      organization_memberships: organizationMemberships,
+    });
   }
 
   /**
