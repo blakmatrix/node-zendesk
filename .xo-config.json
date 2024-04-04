@@ -65,7 +65,9 @@
             "custom_role",
             "http_method",
             "request_format",
-            "client_id"
+            "client_id",
+            "organization_membership",
+            "organization_memberships"
           ]
         }
       ]
