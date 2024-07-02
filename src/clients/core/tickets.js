@@ -123,6 +123,11 @@ const {Client} = require('../client');
  */
 
 /**
+ * @typedef {object} CreateManyTickets
+ * @property {Array<Ticket>} [tickets] - The ticket object to create many tickets.
+ */
+
+/**
  * @class
  * Client for the Zendesk API - Tickets.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/}
@@ -320,17 +325,19 @@ class Tickets extends Client {
 
   /**
    * Create multiple new tickets.
-   * @param {Array<CreateOrUpdateTicket>} tickets - An array of ticket objects to create.
+   * @param {CreateManyTickets} tickets - An object of tickets containing an array of tickets.
    * @returns {Promise<Array<Ticket>>} A promise that resolves to an array of created ticket objects.
    * @async
    * @throws {Error} If the provided `tickets` is not an array or is empty.
-   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-multiple-tickets}
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-many-tickets}
    * @example
    * // Create multiple new tickets
-   * const newTickets = [
-   *   { subject: 'Ticket 1', description: 'Description 1' },
-   *   { subject: 'Ticket 2', description: 'Description 2' },
-   * ];
+   * const newTickets = {
+   *  tickets: [
+   *    { subject: 'Ticket 1', description: 'Description 1' },
+   *    { subject: 'Ticket 2', description: 'Description 2' },
+   *   ]
+   * };
    * const createdTickets = await client.tickets.createMany(newTickets);
    */
   async createMany(tickets) {
