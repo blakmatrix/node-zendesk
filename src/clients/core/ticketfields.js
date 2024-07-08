@@ -47,7 +47,7 @@ class TicketFields extends Client {
 
   /**
    * Lists all ticket fields.
-   * @returns {Promise<Array<TicketField>>}>} Returns an array of ticket fields.
+   * @returns {Promise<Array<TicketField>>}} Returns an array of ticket fields.
    * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#list-ticket-fields}
@@ -57,6 +57,20 @@ class TicketFields extends Client {
    */
   async list() {
     return this.getAll(['ticket_fields']);
+  }
+
+  /**
+   * Lists all ticket fields with locale.
+   * @returns {Promise<Array<TicketField>>}} Returns an array of ticket fields by locale.
+   * @async
+   * @throws {Error} Throws an error if the request fails.
+   * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#list-ticket-fields}
+   * @example
+   * const client = createClient({...});
+   * const fields = await client.ticketfields.listWithLocale('sv');
+   */
+  async listWithLocale(locale) {
+    return this.getAll(['ticket_fields', { locale }]);
   }
 
   /**
