@@ -234,8 +234,8 @@ class Client {
         hasCursorPagination(page)
           ? page.links.next
           : hasOffsetPagination(page)
-          ? page.next_page
-          : null;
+            ? page.next_page
+            : null;
       const item = processResponseBody(currentPage, this);
 
       bodyList.push(item);
