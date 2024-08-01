@@ -61,6 +61,7 @@ class TicketFields extends Client {
 
   /**
    * Lists all ticket fields with locale.
+   * @param {string} locale - The locale code to filter ticket fields (e.g., 'sv' for Swedish).
    * @returns {Promise<Array<TicketField>>}} Returns an array of ticket fields by locale.
    * @async
    * @throws {Error} Throws an error if the request fails.
@@ -70,7 +71,7 @@ class TicketFields extends Client {
    * const fields = await client.ticketfields.listWithLocale('sv');
    */
   async listWithLocale(locale) {
-    return this.getAll(['ticket_fields', { locale }]);
+    return this.getAll(['ticket_fields', {locale}]);
   }
 
   /**
