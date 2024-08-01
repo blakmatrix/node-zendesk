@@ -9,6 +9,7 @@ const {ZendeskClientVoice} = require('./clients/voice');
 /**
  * @typedef {object} ZendeskClientOptions
  * @property {string} [token] - Authentication token.
+ * @property {string} [password] - Authentication password.
  * @property {string} [username] - Username for authentication.
  * @property {string} [subdomain] - Subdomain for the Zendesk account (e.g., 'mycompany' for 'mycompany.zendesk.com'). If `endpointUri` is provided, this is ignored.
  * @property {string[]} [apiType=['core']] - Type of Zendesk API (e.g., 'core', 'helpcenter'). Determines the sub-client to use.

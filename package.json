@@ -46,6 +46,36 @@
         "types": "./dist/types/index.d.ts",
         "default": "./dist/index.js"
       }
+    },
+    "./clients/*": {
+      "import": {
+        "types": "./dist/types/clients/*.d.ts",
+        "default": "./dist/clients/*.js"
+      },
+      "require": {
+        "types": "./dist/types/clients/*.d.ts",
+        "default": "./dist/clients/*.js"
+      }
+    },
+    "./clients/*/*": {
+      "import": {
+        "types": "./dist/types/clients/*/*.d.ts",
+        "default": "./dist/clients/*/*.js"
+      },
+      "require": {
+        "types": "./dist/types/clients/*/*.d.ts",
+        "default": "./dist/clients/*/*.js"
+      }
+    },
+    "./clients/*/*/*": {
+      "import": {
+        "types": "./dist/types/clients/*/*/*.d.ts",
+        "default": "./dist/clients/*/*/*.js"
+      },
+      "require": {
+        "types": "./dist/types/clients/*/*/*.d.ts",
+        "default": "./dist/clients/*/*/*.js"
+      }
     }
   },
   "files": [
