@@ -54,8 +54,8 @@ function populateFields(data, response, map) {
           record[name] = all
             ? responseDataset
             : array
-              ? findAllRecordsById(responseDataset, key, record[field])
-              : findOneRecordById(responseDataset, key, record[field]);
+            ? findAllRecordsById(responseDataset, key, record[field])
+            : findOneRecordById(responseDataset, key, record[field]);
         }
       }
     }
