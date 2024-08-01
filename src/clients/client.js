@@ -167,7 +167,7 @@ class Client {
       !Array.isArray(args.at(-1)) &&
       args.pop();
 
-    return await this.transporter.request(method, uri, body);
+    return this.transporter.request(method, uri, body);
   }
 
   /**
@@ -234,8 +234,8 @@ class Client {
         hasCursorPagination(page)
           ? page.links.next
           : hasOffsetPagination(page)
-            ? page.next_page
-            : null;
+          ? page.next_page
+          : null;
       const item = processResponseBody(currentPage, this);
 
       bodyList.push(item);
@@ -245,12 +245,7 @@ class Client {
 
     const fetchPagesRecursively = async (pageUri) => {
       const isIncremental = pageUri.includes('incremental');
-      const responseData = await __request.call(
-        this,
-        method,
-        pageUri,
-        ...args,
-      );
+      const responseData = await __request.call(this, method, pageUri, ...args);
       const nextPage = processPage(responseData);
       if (
         nextPage &&
