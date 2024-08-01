@@ -9,6 +9,7 @@ const {ZendeskClientVoice} = require('./clients/voice');
 /**
  * @typedef {object} ZendeskClientOptions
  * @property {string} [token] - Authentication token.
+ * @property {string} [password] - Authentication password.
  * @property {string} [username] - Username for authentication.
  * @property {string} [subdomain] - Subdomain for the Zendesk account (e.g., 'mycompany' for 'mycompany.zendesk.com'). If `endpointUri` is provided, this is ignored.
  * @property {string[]} [apiType=['core']] - Type of Zendesk API (e.g., 'core', 'helpcenter'). Determines the sub-client to use.
@@ -19,6 +20,7 @@ const {ZendeskClientVoice} = require('./clients/voice');
  * @property {string} [asUser] - Optional header for requests on behalf of a user.
  * @property {object} [customHeaders] - Additional custom headers for the request.
  * @property {boolean} [throttle] - Enables request throttling.
+ * @property {boolean} [throwOriginalException] - Throw the original exception when API requests fail.
  * @property {boolean} [debug=false] - Enables or disables debug logging.
  * @property {object} [logger=ConsoleLogger] - Logger for logging. Defaults to a basic console logger.
  * @property {object} [transportConfig] - Configuration for custom transport.

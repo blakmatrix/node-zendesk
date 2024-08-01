@@ -21,6 +21,7 @@ const {
  * @property {string} [asUser] - Optional header for making requests on behalf of a user.
  * @property {object} [customHeaders] - Any additional custom headers for the request.
  * @property {boolean} [throttle] - Flag to enable throttling of requests.
+ * @property {boolean} [throwOriginalException] - Throw the original exception when API requests fail.
  * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
  * @property {Array} sideLoad - Array to handle side-loaded resources.
  * @property {Array} jsonAPINames - Array to hold names used in the JSON API.
@@ -166,11 +167,7 @@ class Client {
       !Array.isArray(args.at(-1)) &&
       args.pop();
 
-    try {
-      return await this.transporter.request(method, uri, body);
-    } catch (error) {
-      throw new Error(`Raw request failed: ${error.message}`);
-    }
+    return this.transporter.request(method, uri, body);
   }
 
   /**
@@ -197,6 +194,10 @@ class Client {
       );
       return {response, result: responseBody};
     } catch (error) {
+      if (this.options.throwOriginalException) {
+        throw error;
+      }
+
       const {
         message,
         result: {error: {title = '', message: errorMessage = ''} = {}} = {},
@@ -244,43 +245,25 @@ class Client {
 
     const fetchPagesRecursively = async (pageUri) => {
       const isIncremental = pageUri.includes('incremental');
-
-      try {
-        const responseData = await __request.call(
-          this,
-          method,
-          pageUri,
-          ...args,
-        );
-        const nextPage = processPage(responseData);
-        if (
-          nextPage &&
-          (!isIncremental ||
-            (responseData.response && responseData.response.count >= 1000))
-        ) {
-          return fetchPagesRecursively(nextPage);
-        }
-      } catch (error) {
-        throw new Error(`Request all failed during fetching: ${error.message}`);
+      const responseData = await __request.call(this, method, pageUri, ...args);
+      const nextPage = processPage(responseData);
+      if (
+        nextPage &&
+        (!isIncremental ||
+          (responseData.response && responseData.response.count >= 1000))
+      ) {
+        return fetchPagesRecursively(nextPage);
       }
     };
 
-    try {
-      await fetchPagesRecursively(uri);
-      return flatten(bodyList);
-    } catch (error) {
-      throw new Error(`RequestAll processing failed: ${error.message}`);
-    }
+    await fetchPagesRecursively(uri);
+    return flatten(bodyList);
   }
 
   // Request method for uploading files
   async requestUpload(uri, file) {
-    try {
-      const {response, result} = await this.transporter.upload(uri, file);
-      return checkRequestResponse(response, result);
-    } catch (error) {
-      throw new Error(`Upload failed: ${error.message}`);
-    }
+    const {response, result} = await this.transporter.upload(uri, file);
+    return checkRequestResponse(response, result);
   }
 }
 

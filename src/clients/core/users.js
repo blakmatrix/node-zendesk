@@ -138,7 +138,7 @@ class Users extends Client {
   /**
    * Shows details of a user by ID.
    * @param {number} id - The ID of the user.
-   * @returns {Promise<User>} The user's details.
+   * @returns {Promise<{result: User}>} The user's details.
    * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#show-user}
    * @example
