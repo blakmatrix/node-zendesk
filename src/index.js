@@ -20,6 +20,7 @@ const {ZendeskClientVoice} = require('./clients/voice');
  * @property {string} [asUser] - Optional header for requests on behalf of a user.
  * @property {object} [customHeaders] - Additional custom headers for the request.
  * @property {boolean} [throttle] - Enables request throttling.
+ * @property {boolean} [throwOriginalException] - Throw the original exception when API requests fail.
  * @property {boolean} [debug=false] - Enables or disables debug logging.
  * @property {object} [logger=ConsoleLogger] - Logger for logging. Defaults to a basic console logger.
  * @property {object} [transportConfig] - Configuration for custom transport.
