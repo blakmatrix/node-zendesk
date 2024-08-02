@@ -13,7 +13,6 @@ class Tags extends Client {
   /**
    * Retrieves all tags available to the user.
    * @returns {Promise<object[]>} A promise that resolves with the list of tags.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#retrieve-all-tags}
    * @example
    * const client = createClient({...});
@@ -29,7 +28,6 @@ class Tags extends Client {
    * @param {string} tagData.name - Name of the tag.
    * @param {string} tagData.resource_type - Type of resource the tag is attached to (lead, contact, deal).
    * @returns {Promise<object>} A promise that resolves with the created tag.
-   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#create-a-tag}
    * @example
@@ -44,7 +42,6 @@ class Tags extends Client {
    * Retrieves a single tag by its ID.
    * @param {number} id - Unique identifier of the tag.
    * @returns {Promise<object>} A promise that resolves with the retrieved tag.
-   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#retrieve-a-single-tag}
    * @example
@@ -60,7 +57,6 @@ class Tags extends Client {
    * @param {number} id - Unique identifier of the tag.
    * @param {object} updatedData - Data to update.
    * @returns {Promise<object>} A promise that resolves with the updated tag.
-   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#update-a-tag}
    * @example
@@ -75,7 +71,6 @@ class Tags extends Client {
    * Deletes a tag by its ID.
    * @param {number} id - Unique identifier of the tag.
    * @returns {Promise<void>} A promise that resolves when the tag has been deleted.
-   * @async
    * @throws Will throw an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/sales-crm/resources/tags/#delete-a-tag}
    * @example

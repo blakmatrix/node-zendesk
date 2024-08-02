@@ -18,7 +18,6 @@ class DynamicContent extends Client {
   /**
    * Lists the dynamic content items.
    * @returns {Promise<object>} The dynamic content items.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#list-items}
    * @example const items = await client.dynamiccontent.listItems();
@@ -30,7 +29,6 @@ class DynamicContent extends Client {
   /**
    * Lists all dynamic content items.
    * @returns {Promise<object>} All the dynamic content items.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @example const allItems = await client.dynamiccontent.listAllItems();
    */
@@ -42,7 +40,6 @@ class DynamicContent extends Client {
    * Shows a specific dynamic content item.
    * @param {number} itemID - The ID of the dynamic content item.
    * @returns {Promise<object>} The specified dynamic content item.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#show-item}
    * @example const item = await client.dynamiccontent.showItem(12345);
@@ -55,7 +52,6 @@ class DynamicContent extends Client {
    * Retrieves multiple dynamic content items using their identifiers.
    * @param {string[]} identifiers - An array of identifiers for the dynamic content items.
    * @returns {Promise<object>} Returns the fetched dynamic content items.
-   * @async
    * @throws {Error} Throws an error if the provided identifiers parameter is not a valid array or is empty.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#show-many-items}
    * @example
@@ -73,7 +69,6 @@ class DynamicContent extends Client {
    * Creates a new dynamic content item.
    * @param {object} item - The item to create.
    * @returns {Promise<object>} The created dynamic content item.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#create-item}
    * @example const newItem = await client.dynamiccontent.createItem({name: "Sample Item", default_locale_id: 1, variants: [...]});
@@ -87,7 +82,6 @@ class DynamicContent extends Client {
    * @param {number} itemID - The ID of the dynamic content item.
    * @param {object} item - The updated item details.
    * @returns {Promise<object>} The updated dynamic content item.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#update-item}
    * @example const updatedItem = await client.dynamiccontent.updateItem(12345, {name: "Updated Name"});
@@ -100,7 +94,6 @@ class DynamicContent extends Client {
    * Deletes a specific dynamic content item.
    * @param {number} itemID - The ID of the dynamic content item.
    * @returns {Promise<object>} The response after deletion.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content/#delete-item}
    * @example await client.dynamiccontent.deleteItem(12345);

@@ -17,7 +17,6 @@ class TicketAudits extends Client {
   /**
    * List all ticket audits. Note: Archived tickets are not included.
    * @returns {Promise<Array<object>>} Returns an array of ticket audit objects.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#list-all-ticket-audits}
    * @example
@@ -32,7 +31,6 @@ class TicketAudits extends Client {
    * List all audits for a specified ticket.
    * @param {number} ticketID - The ID of the ticket.
    * @returns {Promise<Array<object>>} Returns an array of ticket audit objects.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#list-audits-for-a-ticket}
    * @example
@@ -47,7 +45,6 @@ class TicketAudits extends Client {
    * Get an approximate count of audits for a specified ticket.
    * @param {number} ticketID - The ID of the ticket.
    * @returns {Promise<number>} Returns an approximate count of audits.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#count-audits-for-a-ticket}
    * @example
@@ -63,7 +60,6 @@ class TicketAudits extends Client {
    * @param {number} ticketID - The ID of the ticket.
    * @param {number} auditID - The ID of the ticket audit.
    * @returns {Promise<object>} Returns details of the ticket audit.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#show-audit}
    * @example
@@ -79,7 +75,6 @@ class TicketAudits extends Client {
    * @param {number} ticketID - The ID of the ticket.
    * @param {number} auditID - The ID of the ticket audit.
    * @returns {Promise<object>} Returns the updated ticket audit details.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#change-a-comment-from-public-to-private}
    * @example

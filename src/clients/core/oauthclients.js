@@ -14,7 +14,6 @@ class OAuthClients extends Client {
   /**
    * Lists all OAuth clients.
    * @returns {Promise<Array>} A list of OAuth clients.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#list-clients}
    * @example const clientsList = await client.oauthclients.list();
@@ -27,7 +26,6 @@ class OAuthClients extends Client {
    * Retrieves a specific OAuth client by ID.
    * @param {number} id - The ID of the OAuth client.
    * @returns {Promise<object>} The OAuth client details.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#show-client}
    * @example const clientDetails = await client.oauthclients.show(1234);
@@ -40,7 +38,6 @@ class OAuthClients extends Client {
    * Creates a new OAuth client with the provided details.
    * @param {object} client - The details of the client to be created.
    * @returns {Promise<object>} The details of the created OAuth client.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#create-client}
    * @example
@@ -59,7 +56,6 @@ class OAuthClients extends Client {
    * @param {number} id - The ID of the OAuth client.
    * @param {object} client - The new details of the client.
    * @returns {Promise<object>} The updated OAuth client details.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#update-client}
    * @example
@@ -76,7 +72,6 @@ class OAuthClients extends Client {
    * Deletes a specific OAuth client by ID.
    * @param {number} id - The ID of the OAuth client.
    * @returns {Promise<void>}
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#delete-client}
    * @example await client.oauthclients.delete(1234);
@@ -89,7 +84,6 @@ class OAuthClients extends Client {
    * Generates a new client secret for a specific OAuth client by ID.
    * @param {number} id - The ID of the OAuth client.
    * @returns {Promise<object>} The new client secret.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#generate-secret}
    * @example const newSecret = await client.oauthclients.generateSecret(1234);

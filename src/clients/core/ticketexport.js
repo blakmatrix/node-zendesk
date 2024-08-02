@@ -14,7 +14,6 @@ class TicketExport extends Client {
    * Export tickets that changed since the provided start time using the time-based approach.
    * @param {number} start_time - The time to start the incremental export from.
    * @returns {Promise<object>} Returns the response from the Zendesk API.
-   * @async
    * @throws Will throw an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-ticket-export-time-based}
    * @example const tickets = await client.ticketexport.export(1332034771);
@@ -27,7 +26,6 @@ class TicketExport extends Client {
    * Export tickets with associated users and groups since the provided start time.
    * @param {number} start_time - The time to start the incremental export from.
    * @returns {Promise<object>} Returns the response from the Zendesk API with users and groups included.
-   * @async
    * @throws Will throw an error if the request fails.
    * @example const ticketsWithUsers = await client.ticketexport.exportWithUser(1332034771);
    */
@@ -45,7 +43,6 @@ class TicketExport extends Client {
    * @param {string} startTime - The start time for exporting incremental tickets.
    * @param {string} include - Optional parameters to include in the export.
    * @returns {Promise<Array>} A promise that resolves with an array of exported incremental tickets.
-   * @async
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export-incremental-include}
    * @example
@@ -67,7 +64,6 @@ class TicketExport extends Client {
    * @param {number} start_time - The time to start the incremental export from.
    * @param {string} [cursor] - The cursor pointer for subsequent requests.
    * @returns {Promise<object>} Returns the response from the Zendesk API.
-   * @async
    * @throws Will throw an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-ticket-export-cursor-based}
    * @example const cursorTickets = await client.ticketexport.exportCursor(1332034771, 'MTU3NjYxMzUzOS4wfHw0NTF8');
@@ -79,7 +75,6 @@ class TicketExport extends Client {
   /**
    * @param {number} ticketID - The ID of the ticket.
    * @returns {Promise<object>} Returns the list of audits for the ticket.
-   * @async
    * @throws Will throw an error if the request fails.
    * @example const ticketAudits = await client.ticketexport.exportAudit(12345);
    * @deprecated Use the `list` method from the `TicketAudits` class instead.
@@ -94,7 +89,6 @@ class TicketExport extends Client {
    Export a sample of tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting the sample of tickets.
    * @returns {Promise<object>} A promise that resolves with the exported sample of tickets.
-   * @async
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-sample-export}
    * @example

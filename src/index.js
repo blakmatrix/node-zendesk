@@ -31,22 +31,21 @@ const {ZendeskClientVoice} = require('./clients/voice');
 /**
  * Represents the main client to interface with the Zendesk API.
  * This class acts as a high-level interface, making it easier to interact with specific Zendesk APIs.
- * @class
+ * @class ZendeskClient
  * @property {ZendeskClientOptions} config - Configuration options for the client.
  * @property {ConsoleLogger} logger - Logger for logging.
+ * @example
+ * const zendeskOptions = {
+ *     username: 'exampleUser',
+ *     token: 'exampleToken',
+ *     subdomain: 'mycompany'
+ * };
+ * const zendeskClient = createClient(zendeskOptions);
+ * const data = await zendeskClient.someResource.someMethod();
  */
 class ZendeskClient {
   /**
-   * @constructs ZendeskClient
    * @param {ZendeskClientOptions} options - Configuration options for the client.
-   * @example
-   * const zendeskOptions = {
-   *     username: 'exampleUser',
-   *     token: 'exampleToken',
-   *     subdomain: 'mycompany'
-   * };
-   * const zendeskClient = createClient(zendeskOptions);
-   * const data = await zendeskClient.someResource.someMethod();
    */
   constructor(options = {}) {
     this.config = options;
@@ -353,7 +352,6 @@ class ZendeskClient {
 
 /**
  * Creates and returns an instance of the ZendeskClient class.
- * @function
  * @param {ZendeskClientOptions} options - Configuration options for the Zendesk client.
  * @returns {ZendeskClient} An instance of the ZendeskClient class.
  */

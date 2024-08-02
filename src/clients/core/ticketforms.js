@@ -2,8 +2,7 @@
 const {Client} = require('../client');
 
 /**
- * @class
- * @classdesc Client for interacting with the Zendesk TicketForms API.
+ * Client for interacting with the Zendesk TicketForms API.
  * @see {@link https://developer.zendesk.com/rest_api/docs/support#ticket-forms}
  */
 class TicketForms extends Client {
@@ -20,7 +19,6 @@ class TicketForms extends Client {
    * @param {boolean} [options.end_user_visible] - true returns ticket forms where end_user_visible; false returns ticket forms that are not end-user visible. If not present, returns both.
    * @param {boolean} [options.fallback_to_default] - true returns the default ticket form when the criteria defined by the parameters results in a set without active and end-user visible ticket forms.
    * @returns {Promise<Array>} An array of ticket forms.
-   * @async
    * @throws {Error} Throws an error if there is an issue with the API call.
    * @see {@link https://developer.zendesk.com/rest_api/docs/support#list-ticket-forms}
    * @example
@@ -36,7 +34,6 @@ class TicketForms extends Client {
    * Retrieve a specific ticket form by its ID.
    * @param {number} ticketFormID - The ID of the ticket form to retrieve.
    * @returns {Promise<object>} The requested ticket form.
-   * @async
    * @throws {Error} Throws an error if there is an issue with the API call.
    * @see {@link https://developer.zendesk.com/rest_api/docs/support#show-ticket-form}
    * @example
@@ -51,7 +48,6 @@ class TicketForms extends Client {
    * Creates a new Ticket Form.
    * @param {object} ticketForm - The ticket form object to be created.
    * @returns {Promise<object>} - A promise that resolves to the created ticket form.
-   * @async
    * @throws {Error} - Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_forms/#create-ticket-form}
    * @example
@@ -71,7 +67,6 @@ class TicketForms extends Client {
    * @param {number} ticketFormID - The ID of the ticket form to update.
    * @param {object} ticketForm - The updated ticket form object.
    * @returns {Promise<object>} The updated ticket form.
-   * @async
    * @throws {Error} Throws an error if there is an issue with the API call.
    * @see {@link https://developer.zendesk.com/rest_api/docs/support#update-ticket-form}
    * @example
@@ -86,7 +81,6 @@ class TicketForms extends Client {
    * Deletes a Ticket Form by its ID.
    * @param {number} ticketFormID - The ID of the ticket form to be deleted.
    * @returns {Promise<void>} - A promise that resolves when the ticket form is deleted.
-   * @async
    * @throws {Error} - Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_forms/#delete-ticket-form}
    * @example
@@ -101,7 +95,6 @@ class TicketForms extends Client {
    * @param {number} ticketFormID - The ID of the ticket form to be cloned.
    * @param {boolean} [prependCloneTitle=false] - Whether to prepend the title with "Clone of" or not.
    * @returns {Promise<object>} - A promise that resolves to the cloned ticket form details.
-   * @async
    * @throws {Error} - Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_forms/#clone-an-already-existing-ticket-form}
    * @example
@@ -118,7 +111,6 @@ class TicketForms extends Client {
    * Reorders the specified Ticket Forms based on the provided array of IDs.
    * @param {number[]} ticketFormIDs - An array of ticket form IDs in the desired order.
    * @returns {Promise<object>} - A promise that resolves to the reordered ticket forms' details.
-   * @async
    * @throws {Error} - Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_forms/#reorder-ticket-forms}
    * @example

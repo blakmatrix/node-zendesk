@@ -3,7 +3,6 @@ const {Client} = require('../client');
 
 /**
  * Represents the Attachments functionality of the Zendesk API.
- * @augments {Client}
  * @see [Zendesk Attachments API]{@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/}
  */
 class Attachments extends Client {
@@ -19,7 +18,6 @@ class Attachments extends Client {
    * @param {boolean} fileOptions.binary - If the file is binary or not.
    * @param {string} [fileOptions.token] - Token received from previous uploads (if multiple files are being attached).
    * @returns {Promise<object>} Returns the server's response.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#upload-files}
    * @example
    * const response = await client.attachments.upload(fileBuffer, { filename: "example.png", binary: true });
@@ -49,7 +47,6 @@ class Attachments extends Client {
    * Delete an uploaded file.
    * @param {string} token - The token of the uploaded attachment.
    * @returns {Promise<object>} Returns the server's response.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#delete-upload}
    * @example
    * const response = await client.attachments.deleteUpload("exampleToken");
@@ -62,7 +59,6 @@ class Attachments extends Client {
    * Retrieve details of a specific attachment.
    * @param {number} attachmentID - The ID of the attachment.
    * @returns {Promise<object>} Returns the details of the attachment.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#show-attachment}
    * @example
    * const attachmentDetails = await client.attachments.show(12345);
@@ -77,7 +73,6 @@ class Attachments extends Client {
    * @param {number} commentID - The ID of the comment.
    * @param {number} attachmentID - The ID of the attachment.
    * @returns {Promise<object>} Returns the server's response.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#redact-comment-attachment}
    * @example
    * const response = await client.attachments.redactAttachmentComment(1, 2, 3);
@@ -102,7 +97,6 @@ class Attachments extends Client {
    * @param {number} attachmentID - The ID of the attachment.
    * @param {boolean} malwareAccessOverride - Whether to override malware access. If true, agent can access attachment flagged as malware.
    * @returns {Promise<object>} The response from the Zendesk API.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#update-attachment-for-malware}
    * @example

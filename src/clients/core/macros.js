@@ -14,7 +14,6 @@ class Macros extends Client {
   /**
    * Lists all shared and personal macros available to the current user.
    * @returns {Promise<Array>} Returns a promise that resolves to an array of macros.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-macros} Zendesk List Macros API
    * @example
@@ -28,7 +27,6 @@ class Macros extends Client {
    * Retrieves details of a specific macro.
    * @param {number} macroID - The ID of the macro to retrieve.
    * @returns {Promise<object>} Returns a promise that resolves to the macro's details.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#show-macro} Zendesk Show Macro API
    * @example
@@ -42,7 +40,6 @@ class Macros extends Client {
    * Searches for macros based on provided query.
    * @param {string} query - The search query string.
    * @returns {Promise<Array<object>>} - A promise that resolves to a list of matched macros.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#search-macros}
    * @example
@@ -55,7 +52,6 @@ class Macros extends Client {
   /**
    * Lists all active macros.
    * @returns {Promise<Array<object>>} - A promise that resolves to a list of active macros.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-active-macros}
    * @example
@@ -69,7 +65,6 @@ class Macros extends Client {
    * Lists macros based on provided parameters.
    * @param {object} parameters - The filtering parameters.
    * @returns {Promise<object>} - A promise that resolves to a list of macros.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-macros}
    * @example
@@ -83,7 +78,6 @@ class Macros extends Client {
    * Applies a macro to a ticket.
    * @param {number} macroID - The ID of the macro.
    * @returns {Promise<object>} - A promise that resolves to the applied macro's result.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#show-macro-replica}
    * @example
@@ -98,7 +92,6 @@ class Macros extends Client {
    * @param {number} ticketID - The ID of the ticket from which to build a macro replica.
    * @param {number} macroID - The ID of the macro.
    * @returns {Promise<object>} - A promise that resolves to the macro replica.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#show-macro-replica}
    * @example
@@ -116,7 +109,6 @@ class Macros extends Client {
    * @param {boolean} [macro.active] - Whether the macro is active.
    * @param {string} [macro.description] - The description of the macro.
    * @returns {Promise<object>} - A promise that resolves to the created macro.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#create-macro}
    * @example
@@ -132,7 +124,6 @@ class Macros extends Client {
   /**
    * Lists all macro categories available to the current user.
    * @returns {Promise<object>} - A promise that resolves to a list of macro categories.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-macro-categories}
    * @example
@@ -147,7 +138,6 @@ class Macros extends Client {
    * @param {number} macroID - The ID of the macro to update.
    * @param {object} macro - The updates to apply to the macro.
    * @returns {Promise<object>} - A promise that resolves to the updated macro.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#update-macro}
    * @example
@@ -163,7 +153,6 @@ class Macros extends Client {
    * Deletes a specified macro.
    * @param {number} macroID - The ID of the macro to delete.
    * @returns {Promise<void>} - A promise indicating successful deletion.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#delete-macro}
    * @example
@@ -177,7 +166,6 @@ class Macros extends Client {
    * Updates multiple macros.
    * @param {Array<object>} macrosUpdates - An array of macro update objects.
    * @returns {Promise<Array<object>>} - A promise that resolves to an array of updated macros.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#update-many-macros}
    * @example

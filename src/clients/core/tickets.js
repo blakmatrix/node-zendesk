@@ -2,9 +2,10 @@
 const {Client} = require('../client');
 
 /**
- * @typedef {object} RecursivePartial
+ * A recursive type that makes all properties of an object optional, including nested objects.
  * @template T
- * @property {T[P]} [P] - The property of the object.
+ * @typedef {object} RecursivePartial
+ * @property {Partial<{[K in keyof T]: RecursivePartial<T[K]>}>} [key] - A recursive partial property of T.
  */
 
 /**
@@ -134,8 +135,7 @@ const {Client} = require('../client');
  */
 class Tickets extends Client {
   /**
-   * @constructs Tickets
-   * @param {import('../client').ZendeskClientOptions} options - The client options.
+   * @param {import('../client').ClientOptions} options - The client options.
    */
   constructor(options) {
     super(options);
@@ -156,7 +156,6 @@ class Tickets extends Client {
   /**
    * List all the tickets.
    * @returns {Promise<Array<Ticket>>} An array of tickets.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const tickets = await client.tickets.list();
@@ -169,7 +168,6 @@ class Tickets extends Client {
    * List all tickets assigned to a specific user.
    * @param {number} userID - The ID of the user.
    * @returns {Promise<Array<Ticket>>} An array of tickets assigned to the user.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const assignedTickets = await client.tickets.listAssigned(12345);
@@ -182,7 +180,6 @@ class Tickets extends Client {
    * List all tickets associated with a specific organization.
    * @param {number} orgID - The ID of the organization.
    * @returns {Promise<Array<Ticket>>} An array of tickets under the organization.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const orgTickets = await client.tickets.listByOrganization(6789);
@@ -195,7 +192,6 @@ class Tickets extends Client {
    * List all tickets requested by a specific user.
    * @param {number} userID - The ID of the user.
    * @returns {Promise<Array<Ticket>>} An array of tickets requested by the user.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const requestedTickets = await client.tickets.listByUserRequested(12345);
@@ -208,7 +204,6 @@ class Tickets extends Client {
    * List all tickets where a specific user is CC'd.
    * @param {number} userID - The ID of the user.
    * @returns {Promise<Array<Ticket>>} An array of tickets where the user is CC'd.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const ccdTickets = await client.tickets.listByUserCCD(12345);
@@ -222,7 +217,6 @@ class Tickets extends Client {
    * @param {string} type - Type of filter.
    * @param {string|number} value - Value for the filter.
    * @returns {Promise<Array<Ticket>>} An array of tickets matching the filter.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const filteredTickets = await client.tickets.listWithFilter('status', 'open');
@@ -234,7 +228,6 @@ class Tickets extends Client {
   /**
    * List recently viewed tickets by the requesting agent.
    * @returns {Promise<Array<Ticket>>} An array of recently viewed tickets.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const recentTickets = await client.tickets.listRecent();
@@ -247,7 +240,6 @@ class Tickets extends Client {
    * List collaborators of a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
    * @returns {Promise<Array>} An array of collaborators for the ticket.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const collaborators = await client.tickets.listCollaborators(7890);
@@ -260,7 +252,6 @@ class Tickets extends Client {
    * List incidents related to a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
    * @returns {Promise<Array>} An array of incidents related to the ticket.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const incidents = await client.tickets.listIncidents(7890);
@@ -273,7 +264,6 @@ class Tickets extends Client {
    * Retrieve metrics for a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
    * @returns {Promise<object>} Metrics details for the ticket.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const metrics = await client.tickets.listMetrics(7890);
@@ -286,7 +276,6 @@ class Tickets extends Client {
    * Retrieve a specific ticket by its ID.
    * @param {number} ticketId - The ID of the ticket.
    * @returns {Promise<{result: Ticket}>} Details of the ticket.
-   * @async
    * @throws {Error} If the ticket ID is not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#show-ticket}
    * @example
@@ -300,7 +289,6 @@ class Tickets extends Client {
    * Retrieve details for multiple tickets based on their IDs.
    * @param {Array<number>} ticketIds - An array of ticket IDs to fetch.
    * @returns {Promise<Array<Ticket>>} An array of ticket details.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#show-multiple-tickets}
    * @example
    * const ticketsDetails = await client.tickets.showMany([123, 456, 789]);
@@ -313,7 +301,6 @@ class Tickets extends Client {
    * Create a new ticket.
    * @param {CreateOrUpdateTicket} ticket - Details of the ticket to be created.
    * @returns {Promise<{result: Ticket}>} The created ticket details.
-   * @async
    * @throws {Error} If the ticket details are not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-ticket}
    * @example
@@ -327,7 +314,6 @@ class Tickets extends Client {
    * Create multiple new tickets.
    * @param {CreateManyTickets} tickets - An object of tickets containing an array of tickets.
    * @returns {Promise<Array<Ticket>>} A promise that resolves to an array of created ticket objects.
-   * @async
    * @throws {Error} If the provided `tickets` is not an array or is empty.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-many-tickets}
    * @example
@@ -349,7 +335,6 @@ class Tickets extends Client {
    * @param {number} ticketId - The ID of the ticket to update.
    * @param {CreateOrUpdateTicket} ticket - The updated ticket data as an object.
    * @returns {Promise<{result: Ticket, response: {ticket:Ticket, audit:any[]}}>} A promise that resolves to the updated ticket object.
-   * @async
    * @throws {Error} If `ticketId` is not a number or if `ticket` is not an object.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#update-ticket}
    * @example
@@ -369,7 +354,6 @@ class Tickets extends Client {
    * @param {Array<number>} ticketIds - An array of ticket IDs to update.
    * @param {object} ticket - The updated ticket data as an object.
    * @returns {Promise<object>} A promise that resolves to the updated ticket object.
-   * @async
    * @throws {Error} If `ticketIds` is not an array of numbers or if `ticket` is not an object.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#update-many-tickets}
    * @example
@@ -389,7 +373,6 @@ class Tickets extends Client {
    * Delete a ticket by its ID.
    * @param {number} ticketId - The ID of the ticket to delete.
    * @returns {Promise<void>} A promise that resolves when the ticket is successfully deleted.
-   * @async
    * @throws {Error} If `ticketId` is not a number or is not provided.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#delete-ticket}
    * @example
@@ -405,7 +388,6 @@ class Tickets extends Client {
    * Delete multiple tickets by their IDs.
    * @param {Array<number>} ticketIds - An array of ticket IDs to delete.
    * @returns {Promise<void>} A promise that resolves when the tickets are successfully deleted.
-   * @async
    * @throws {Error} If `ticketIds` is not an array of valid ticket IDs.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#bulk-delete-tickets}
    * @example
@@ -422,7 +404,6 @@ class Tickets extends Client {
    * @param {number} ticketId - The ID of the ticket to be merged.
    * @param {object} mergedTicket - The ticket object representing the ticket to merge with.
    * @returns {Promise<object>} A promise that resolves with the merged ticket object.
-   * @async
    * @throws {Error} If `ticketId` is not a valid ticket ID or `mergedTicket` is not a valid ticket object.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#merge-tickets}
    * @example
@@ -445,7 +426,6 @@ class Tickets extends Client {
    * Export tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting tickets.
    * @returns {Promise<object>} A promise that resolves with the exported tickets.
-   * @async
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export}
    * @example
@@ -464,7 +444,6 @@ class Tickets extends Client {
    * Export a sample of tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting the sample of tickets.
    * @returns {Promise<object>} A promise that resolves with the exported sample of tickets.
-   * @async
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-sample-export}
    * @example
@@ -483,7 +462,6 @@ class Tickets extends Client {
    * Export incremental tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting incremental tickets.
    * @returns {Promise<Array>} A promise that resolves with an array of exported incremental tickets.
-   * @async
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export-incremental}
    * @example
@@ -503,7 +481,6 @@ class Tickets extends Client {
    * @param {string} startTime - The start time for exporting incremental tickets.
    * @param {string} include - Optional parameters to include in the export.
    * @returns {Promise<Array>} A promise that resolves with an array of exported incremental tickets.
-   * @async
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export-incremental-include}
    * @example
@@ -527,7 +504,6 @@ class Tickets extends Client {
    * Export a sample of incremental tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting the sample of incremental tickets.
    * @returns {Promise<Array>} A promise that resolves with an array of exported incremental tickets.
-   * @async
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export-incremental-sample}
    * @example
@@ -549,7 +525,6 @@ class Tickets extends Client {
    * Retrieve comments associated with a specific ticket.
    * @param {number} ticketId - The ID of the ticket to retrieve comments for.
    * @returns {Promise<Array>} A promise that resolves with an array of comments associated with the ticket.
-   * @async
    * @throws {Error} If `ticketId` is not a valid number.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_comments/}
    * @example
@@ -565,7 +540,6 @@ class Tickets extends Client {
    * Retrieve audits associated with a specific ticket. (Deprecated: Use TicketAudits class list method instead)
    * @param {number} ticketId - The ID of the ticket to retrieve audits for.
    * @returns {Promise<Array>} A promise that resolves with an array of audits associated with the ticket.
-   * @async
    * @throws {Error} If `ticketId` is not a valid number.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#listing-ticket-audits}
    * @example
@@ -583,7 +557,6 @@ class Tickets extends Client {
    * @param {number} ticketId - The ID of the ticket to add tags to.
    * @param {Array<string>} tags - An array of tags to add to the ticket.
    * @returns {Promise<void>} A promise that resolves when the tags are successfully added to the ticket.
-   * @async
    * @throws {Error} If `ticketId` is not a valid number or `tags` is not an array of strings.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#updating-tag-lists}
    * @example
@@ -601,7 +574,6 @@ class Tickets extends Client {
    * @param {number} ticketId - The ID of the ticket to replace tags on.
    * @param {Array<string>} tags - An array of new tags to replace the existing tags on the ticket.
    * @returns {Promise<void>} A promise that resolves when the tags are successfully replaced on the ticket.
-   * @async
    * @throws {Error} If `ticketId` is not a valid number or `tags` is not an array of strings.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#updating-tag-lists}
    * @example

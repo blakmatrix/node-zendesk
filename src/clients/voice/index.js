@@ -1,5 +1,7 @@
 /**
- * @private
+ * Manages voice for the Zendesk client.
+ *
+ * This class provides access to various voice-related functionality within the Zendesk API.
  */
 class ZendeskClientVoice {
   /**

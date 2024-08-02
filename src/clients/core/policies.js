@@ -18,7 +18,6 @@ class Policies extends Client {
   /**
    * List all the SLA Policies.
    * @returns {Promise<object>} - A promise that resolves to the list of policies.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#list-sla-policies}
    * @example const policiesList = await client.policies.list();
    */
@@ -30,7 +29,6 @@ class Policies extends Client {
    * Show details of a specific SLA Policy.
    * @param {number} policyID - The ID of the SLA Policy.
    * @returns {Promise<object>} - A promise that resolves to the policy details.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#show-sla-policy}
    * @example const policyDetails = await client.policies.show(25);
    */
@@ -42,7 +40,6 @@ class Policies extends Client {
    * Create a new SLA Policy.
    * @param {object} policy - The SLA Policy object to be created.
    * @returns {Promise<object>} - A promise that resolves to the newly created policy details.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#create-sla-policy}
    * @example
    * const newPolicy = {
@@ -61,7 +58,6 @@ class Policies extends Client {
    * @param {number} policyID - The ID of the SLA Policy to be updated.
    * @param {object} policy - The updated SLA Policy object.
    * @returns {Promise<object>} - A promise that resolves to the updated policy details.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#update-sla-policy}
    * @example
    * const updatedPolicy = {
@@ -78,7 +74,6 @@ class Policies extends Client {
    * Delete a specific SLA Policy.
    * @param {number} policyID - The ID of the SLA Policy to be deleted.
    * @returns {Promise<void>} - A promise that resolves when the policy has been deleted.
-   * @async
    * @throws Will throw an error if the deletion is unsuccessful.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#delete-sla-policy}
    * @example await client.policies.delete(25);
@@ -91,7 +86,6 @@ class Policies extends Client {
    * Reorder SLA Policies based on provided IDs.
    * @param {number[]} slaPolicyIds - Array of SLA policy IDs in the desired order.
    * @returns {Promise<object>} The response from the Zendesk API.
-   * @async
    * @throws {Error} Throws an error if there's an issue with the request.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#reorder-sla-policies}
    * @example
@@ -104,7 +98,6 @@ class Policies extends Client {
   /**
    * Retrieve a list of supported filter definition items.
    * @returns {Promise<object>} The response from the Zendesk API containing supported filter definitions.
-   * @async
    * @throws {Error} Throws an error if there's an issue with the request.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#retrieve-supported-filter-definition-items}
    * @example

@@ -48,7 +48,6 @@ class TicketFields extends Client {
   /**
    * Lists all ticket fields.
    * @returns {Promise<Array<TicketField>>}} Returns an array of ticket fields.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#list-ticket-fields}
    * @example
@@ -63,7 +62,6 @@ class TicketFields extends Client {
    * Lists all ticket fields with locale.
    * @param {string} locale - The locale code to filter ticket fields (e.g., 'sv' for Swedish).
    * @returns {Promise<Array<TicketField>>}} Returns an array of ticket fields by locale.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#list-ticket-fields}
    * @example
@@ -78,7 +76,6 @@ class TicketFields extends Client {
    * Retrieves a specific ticket field by ID.
    * @param {number} ticketFieldId - The ID of the ticket field to retrieve.
    * @returns {Promise<TicketField>} Returns the details of the ticket field.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#show-ticket-field}
    * @example
@@ -92,7 +89,6 @@ class TicketFields extends Client {
   /**
    * Retrieves the count of ticket fields.
    * @returns {Promise<number>} Returns the count of ticket fields.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#count-ticket-fields}
    * @example
@@ -107,7 +103,6 @@ class TicketFields extends Client {
    * Creates a new ticket field.
    * @param {object} ticketField - The properties of the ticket field to create.
    * @returns {Promise<TicketField>} Returns the created ticket field.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#create-ticket-field}
    * @example
@@ -126,7 +121,6 @@ class TicketFields extends Client {
    * @param {number} ticketFieldId - The ID of the ticket field to update.
    * @param {object} ticketField - The updated properties of the ticket field.
    * @returns {Promise<TicketField>} Returns the updated ticket field.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#update-ticket-field}
    * @example
@@ -143,7 +137,6 @@ class TicketFields extends Client {
    * Deletes a specific ticket field by ID.
    * @param {number} ticketFieldId - The ID of the ticket field to delete.
    * @returns {Promise<void>}
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#delete-ticket-field}
    * @example
@@ -158,7 +151,6 @@ class TicketFields extends Client {
    * Lists all options of a ticket field.
    * @param {number} ticketFieldId - The ID of the ticket field to retrieve options from.
    * @returns {Promise<Array>} Returns an array of options for the ticket field.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#list-ticket-field-options}
    * @example
@@ -174,7 +166,6 @@ class TicketFields extends Client {
    * @param {number} ticketFieldId - The ID of the ticket field.
    * @param {number} optionID - The ID of the option to retrieve.
    * @returns {Promise<object>} Returns the option details.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#show-ticket-field-option}
    * @example
@@ -190,7 +181,6 @@ class TicketFields extends Client {
    * @param {number} ticketFieldId - The ID of the ticket field.
    * @param {object} option - The properties of the option to create or update.
    * @returns {Promise<object>} Returns the created or updated option.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#create-or-update-ticket-field-option}
    * @example
@@ -211,7 +201,6 @@ class TicketFields extends Client {
    * @param {number} ticketFieldId - The ID of the ticket field.
    * @param {number} optionID - The ID of the option to delete.
    * @returns {Promise<void>}
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_fields/#delete-ticket-field-option}
    * @example

@@ -1,5 +1,7 @@
 /**
- * @private
+ * Manages help center for the Zendesk client.
+ *
+ * This class provides access to various help center-related functionality within the Zendesk API.
  */
 class ZendeskClientHelpcenter {
   /**

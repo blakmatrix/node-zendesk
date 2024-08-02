@@ -71,7 +71,6 @@ const {ApiTypes} = require('../../constants');
 
 class SideConversations extends Client {
   /**
-   * @constructs SideConversations
    * @param {import('../client').ClientOptions} options - The client options.
    */
   constructor(options) {
@@ -84,7 +83,6 @@ class SideConversations extends Client {
    * @param {number} ticketId - The ID of the ticket.
    * @param {CreateSideConversation} message - The side conversation object.
    * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
-   * @async
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#create-side-conversation
    */
@@ -98,7 +96,6 @@ class SideConversations extends Client {
    * @param {string} sideConversationId - The ID of the side conversation.
    * @param {{message: Message}} message - The reply object.
    * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
-   * @async
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#reply-to-side-conversation
    */
@@ -115,7 +112,6 @@ class SideConversations extends Client {
    * @param {string} sideConversationId - The ID of the side conversation.
    * @param {{side_conversation: Partial<UpdateSideConversation>}} update - The update object.
    * @returns {Promise<{result: SideConversationResponse}>} The updated ticket details.
-   * @async
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#update-side-conversation
    */
@@ -130,7 +126,6 @@ class SideConversations extends Client {
    * List all the Side Conversations tickets.
    * @param {number} ticketID - the Id of the ticket.
    * @returns {Promise<{result: Array<{ side_conversations: SideConversation[] }>}>} An array of tickets.
-   * @async
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#list-side-conversations
    * @example
    * const tickets = await client.sideconversations.list(123);
@@ -144,7 +139,6 @@ class SideConversations extends Client {
    * @param {number} ticketId - The ID of the ticket.
    * @param {string} sideConversationId - The ID of the side conversation.
    * @returns {Promise<{result: SideConversation}>} Details of the side conversation.
-   * @async
    * @throws {Error} If the ticket ID is not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#show-side-conversation
    * @example

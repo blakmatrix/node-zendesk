@@ -2,27 +2,30 @@
 const {Client} = require('../client');
 
 /**
- * @typedef {object} RecursivePartial
+ * A recursive type that makes all properties of an object optional, including nested objects.
  * @template T
- * @property {T[P]} [P] - The property of the object.
+ * @typedef {object} RecursivePartial
+ * @property {Partial<{[K in keyof T]: RecursivePartial<T[K]>}>} [key] - A recursive partial property of T.
  */
 
 /**
+ * Represents a group within Zendesk.
  * @typedef {object} Group
- * @property {string} created_at - The time the group was created
- * @property {boolean} default - If the group is the default one for the account
- * @property {boolean} deleted - Deleted groups get marked as such
- * @property {string} [description] - The description of the group
- * @property {number} id - Automatically assigned when creating groups
- * @property {boolean} [is_public] - If true, the group is public. If false, the group is private. You can't change a private group to a public group
- * @property {string} name - The name of the group
- * @property {string} updated_at - The time of the last update of the group
- * @property {string} url - The API url of the group
+ * @property {string} created_at - The time the group was created.
+ * @property {boolean} default - If the group is the default one for the account.
+ * @property {boolean} deleted - Deleted groups get marked as such.
+ * @property {string} [description] - The description of the group.
+ * @property {number} id - Automatically assigned when creating groups.
+ * @property {boolean} [is_public] - If true, the group is public. If false, the group is private. You can't change a private group to a public group.
+ * @property {string} name - The name of the group.
+ * @property {string} updated_at - The time of the last update of the group.
+ * @property {string} url - The API URL of the group.
  */
 
 /**
+ * Represents the data structure to create or update a group.
  * @typedef {object} CreateOrUpdateGroup
- * @property {RecursivePartial<Group>} group - The group to create or update
+ * @property {RecursivePartial<Group>} group - The group to create or update.
  */
 
 /**

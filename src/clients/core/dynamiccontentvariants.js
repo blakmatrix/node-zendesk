@@ -17,7 +17,6 @@ class DynamicContentVariants extends Client {
    * Lists all variants of a specified dynamic content item.
    * @param {number} itemID - The ID of the dynamic content item.
    * @returns {Promise<object>} The variants of the specified content item.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content_item_variants/#list-variants}
    * @example
@@ -32,7 +31,6 @@ class DynamicContentVariants extends Client {
    * @param {number} itemID - The ID of the dynamic content item.
    * @param {number} variantID - The ID of the variant to fetch.
    * @returns {Promise<object>} Returns the dynamic content variant details.
-   * @async
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content_item_variants/#show-variant}
    * @example
@@ -54,7 +52,6 @@ class DynamicContentVariants extends Client {
    * @param {number} itemID - The ID of the dynamic content item.
    * @param {object} variant - The details of the variant to create.
    * @returns {Promise<object>} Returns the details of the created variant.
-   * @async
    * @throws {Error} Throws an error if the API call fails or if a locale variant already exists.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content_item_variants/#create-variant}
    * @example
@@ -77,7 +74,6 @@ class DynamicContentVariants extends Client {
    * @param {number} variantID - The ID of the variant to update.
    * @param {object} variant - The updated details of the variant.
    * @returns {Promise<object>} Returns the details of the updated variant.
-   * @async
    * @throws {Error} Throws an error if the API call fails or if you try to switch the active state of the default variant.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content_item_variants/#update-variant}
    * @example
@@ -101,7 +97,6 @@ class DynamicContentVariants extends Client {
    * @param {number} itemID - The ID of the dynamic content item.
    * @param {number} variantID - The ID of the variant to delete.
    * @returns {Promise<object>} A confirmation of the deletion.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content_item_variants/#delete-variant}
    * @example
@@ -122,7 +117,6 @@ class DynamicContentVariants extends Client {
    * @param {number} itemID - The ID of the dynamic content item.
    * @param {object[]} variants - Array of variant objects to be created.
    * @returns {Promise<object>} A confirmation of the creation.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content_item_variants/#create-many-variants}
    * @example
@@ -140,7 +134,6 @@ class DynamicContentVariants extends Client {
    * @param {number} itemID - The ID of the dynamic content item.
    * @param {object[]} variants - Array of variant objects to be updated.
    * @returns {Promise<object>} A confirmation of the update.
-   * @async
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/dynamic_content_item_variants/#update-many-variants}
    * @example

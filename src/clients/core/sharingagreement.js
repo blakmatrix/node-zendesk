@@ -15,7 +15,6 @@ class SharingAgreement extends Client {
   /**
    * List all Sharing Agreements.
    * @returns {Promise<Array>} An array of Sharing Agreement objects.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#list-sharing-agreements}
    * @example
@@ -29,7 +28,6 @@ class SharingAgreement extends Client {
    * Show a specific Sharing Agreement by its ID.
    * @param {number} id The ID of the Sharing Agreement.
    * @returns {Promise<object>} The Sharing Agreement object.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#show-a-sharing-agreement}
    * @example
@@ -43,7 +41,6 @@ class SharingAgreement extends Client {
    * Create a new Sharing Agreement.
    * @param {object} data The data for the new Sharing Agreement.
    * @returns {Promise<object>} The created Sharing Agreement object.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#create-sharing-agreement}
    * @example
@@ -61,7 +58,6 @@ class SharingAgreement extends Client {
    * @param {number} id The ID of the Sharing Agreement to update.
    * @param {object} data The data to update the Sharing Agreement with. Only 'status' is allowed.
    * @returns {Promise<object>} The updated Sharing Agreement object.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#update-a-sharing-agreement}
    * @example
@@ -78,7 +74,6 @@ class SharingAgreement extends Client {
    * Delete a specific Sharing Agreement by its ID.
    * @param {number} id The ID of the Sharing Agreement.
    * @returns {Promise<void>}
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#delete-a-sharing-agreement}
    * @example

@@ -10,7 +10,6 @@ class Installations extends Client {
   /**
    * List all app installations in the account.
    * @returns {Promise<Array<object>>} An array of app installation objects.
-   * @async
    * @throws {Error} Throws an error if the API call is unsuccessful.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#list-app-installations}
    * @example
@@ -25,7 +24,6 @@ class Installations extends Client {
    * Retrieve details of a specific app installation by its ID.
    * @param {number|string} installationID - The unique identifier for the app installation.
    * @returns {Promise<object>} The app installation details as an object.
-   * @async
    * @throws {Error} Throws an error if the API call is unsuccessful or the installationID is invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#show-app-installation}
    * @example
@@ -40,7 +38,6 @@ class Installations extends Client {
    * Create a new app installation.
    * @param {object} installation - The app installation data to be created.
    * @returns {Promise<object>} The response data from creating the app installation.
-   * @async
    * @throws {Error} Throws an error if the API call is unsuccessful or if the installation data is invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#install-app} For more details about creating an installation.
    * @example
@@ -61,7 +58,6 @@ class Installations extends Client {
    * @param {number} installationID - The ID of the app installation.
    * @param {object} installation - The updated installation data.
    * @returns {Promise<object>} Returns the response from Zendesk API.
-   * @async
    * @throws {Error} Throws an error if the API call is unsuccessful.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#update-app-installation}
    * @example
@@ -82,7 +78,6 @@ class Installations extends Client {
    * Removes a specific app installation.
    * @param {number} installationID - The ID of the app installation.
    * @returns {Promise<void>} Returns the response from Zendesk API.
-   * @async
    * @throws {Error} Throws an error if the API call is unsuccessful.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#remove-app-installation}
    * @example

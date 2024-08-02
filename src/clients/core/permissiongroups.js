@@ -14,7 +14,6 @@ class PermissionGroups extends Client {
   /**
    * List all permission groups.
    * @returns {Promise<object[]>} Array of permission group objects.
-   * @async
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#list-permission-groups}
    * @example
@@ -28,7 +27,6 @@ class PermissionGroups extends Client {
    * Retrieve details of a specific permission group.
    * @param {number} groupID - The ID of the permission group.
    * @returns {Promise<object>} Permission group object.
-   * @async
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#show-permission-group}
    * @example
@@ -45,7 +43,6 @@ class PermissionGroups extends Client {
    * @param {number[]} [group.edit] - Array of user segments that have edit privileges.
    * @param {number[]} [group.publish] - Array of user segments that have publish privileges.
    * @returns {Promise<object>} Newly created permission group object.
-   * @async
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#create-permission-group}
    * @example
@@ -67,7 +64,6 @@ class PermissionGroups extends Client {
    * @param {number[]} [group.edit] - Array of user segments that have edit privileges.
    * @param {number[]} [group.publish] - Array of user segments that have publish privileges.
    * @returns {Promise<object>} Updated permission group object.
-   * @async
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#update-permission-group}
    * @example
@@ -83,7 +79,6 @@ class PermissionGroups extends Client {
    * Delete a permission group.
    * @param {number} groupID - The ID of the permission group.
    * @returns {Promise<void>}
-   * @async
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#delete-permission-group}
    * @example

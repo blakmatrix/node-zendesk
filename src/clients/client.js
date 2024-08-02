@@ -12,19 +12,14 @@ const {
 } = require('./helpers');
 
 /**
- * @typedef {object} ClientOptions
- * @property {string} subdomain - Subdomain for the Zendesk instance.
- * @property {string} [password] - Password for authentication.
- * @property {string} [token] - Token for authentication.
- * @property {boolean} [useOAuth] - Flag to indicate if OAuth is used.
- * @property {string} [username] - Username for authentication.
- * @property {string} [asUser] - Optional header for making requests on behalf of a user.
- * @property {object} [customHeaders] - Any additional custom headers for the request.
- * @property {boolean} [throttle] - Flag to enable throttling of requests.
- * @property {boolean} [throwOriginalException] - Throw the original exception when API requests fail.
- * @property {CustomEventTarget} eventTarget - Event target to handle custom events.
- * @property {Array} sideLoad - Array to handle side-loaded resources.
- * @property {Array} jsonAPINames - Array to hold names used in the JSON API.
+ * @typedef {import('../index').ZendeskClientOptions} ZendeskClientOptions
+ */
+
+/**
+ * @typedef {ZendeskClientOptions} ClientOptions
+ *
+ * This type extends `ZendeskClientOptions` to be used for configuring the Client instance.
+ * All properties of `ZendeskClientOptions` are available here.
  */
 
 /**
@@ -33,7 +28,6 @@ const {
  * @class
  * @property {ClientOptions} options - Configuration options for the client.
  * @property {Array} sideLoad - Array to handle side-loaded resources.
- * @property {string} userAgent - User agent for the client.
  * @property {Array} jsonAPINames - Array to hold names used in the JSON API.
  * @property {boolean} useDotJson - Flag to indicate if the API endpoint should use '.json' ending.
  * @property {ApiTypes} apiType - Type of Zendesk API to initialize (e.g., 'core', 'helpcenter').
@@ -42,7 +36,6 @@ const {
  */
 class Client {
   /**
-   * @constructs Client
    * @param {ClientOptions} options - Configuration options for the client.
    * @param {ApiTypes} apiType - Type of Zendesk API to initialize (e.g., 'core', 'helpcenter').
    */

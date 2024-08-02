@@ -15,7 +15,6 @@ class Imports extends Client {
    * Imports a single ticket to Zendesk.
    * @param {object} ticket - The ticket data to be imported.
    * @returns {Promise<object>} The response from the Zendesk API.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_import/#ticket-import}
    * @example
@@ -42,7 +41,6 @@ class Imports extends Client {
    * Imports multiple tickets to Zendesk in bulk.
    * @param {object[]} tickets - An array of ticket data to be imported.
    * @returns {Promise<object>} The response from the Zendesk API.
-   * @async
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_import/#ticket-bulk-import}
    * @example

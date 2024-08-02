@@ -24,7 +24,6 @@ const setupClient = (config) => {
  * Retrieves the numeric ID of an OAuth client based on its unique identifier.
  * @param {string} identifier - The unique identifier of the OAuth client.
  * @returns {Promise<number|null>} The numeric ID of the OAuth client or null if not found.
- * @async
  * @throws {Error} If there's an error in retrieving the OAuth client list.
  */
 async function getClientId(identifier) {
@@ -43,7 +42,6 @@ async function getClientId(identifier) {
  * Creates a read-only OAuth token for accessing users and tickets.
  * This function first retrieves the OAuth client ID using its unique identifier,
  * and then uses this ID to create a token with the specified scopes.
- * @async
  * @throws {Error} If the OAuth client ID is not found or if there's an error in creating the OAuth token.
  */
 async function createReadOnlyOAuthToken() {

@@ -14,7 +14,6 @@ class Sessions extends Client {
   /**
    * List all sessions.
    * @returns {Promise<object[]>} Array of sessions.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#list-sessions}
    * @example
    * const sessions = await client.sessions.get();
@@ -27,7 +26,6 @@ class Sessions extends Client {
    * List sessions by user ID.
    * @param {number} userId - The ID of the user.
    * @returns {Promise<object[]>} Array of sessions.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#list-sessions}
    * @example
    * const sessions = await client.sessions.getByUserId(12345);
@@ -41,7 +39,6 @@ class Sessions extends Client {
    * @param {number} userId - The ID of the user.
    * @param {number} sessionId - The ID of the session.
    * @returns {Promise<object>} Session details.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-session}
    * @example
    * const session = await client.sessions.getByUserIdBySessionId(12345, 67890);
@@ -53,7 +50,6 @@ class Sessions extends Client {
   /**
    * Retrieve details of the currently authenticated session.
    * @returns {Promise<object>} Session details.
-   * @async
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-the-currently-authenticated-session}
    * @example
    * const session = await client.sessions.getMyAuthenticatedSession();
@@ -67,7 +63,6 @@ class Sessions extends Client {
    * @param {number} userId - The ID of the user.
    * @param {number} sessionId - The ID of the session.
    * @returns {Promise<void>}
-   * @async
    * @throws Will throw an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#delete-session}
    * @example
@@ -81,7 +76,6 @@ class Sessions extends Client {
    * Delete all sessions for a specific user by user ID.
    * @param {number} userId - The ID of the user.
    * @returns {Promise<void>}
-   * @async
    * @throws Will throw an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#bulk-delete-sessions}
    * @example
@@ -94,7 +88,6 @@ class Sessions extends Client {
   /**
    * Logs out the current authenticated user.
    * @returns {Promise<void>}
-   * @async
    * @throws Will throw an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#delete-the-authenticated-session}
    * @example
