@@ -65,7 +65,7 @@ class ZendeskClient {
     /**
      * @private
      */
-    this.instances = this.instances ?? {};
+    this.instances ??= {};
 
     // If the instance already exists, return it
     if (this.instances[ServiceClass]) {
@@ -336,16 +336,14 @@ class ZendeskClient {
   }
 
   /**
-   * @param {object} args - Arguments for debugging.
+   * @param {object} arguments_ - Arguments for debugging.
    * @private
    */
-  _debug(args) {
+  _debug(arguments_) {
     if (this.config.debug) {
-      if (args.result) {
-        args.result = String(args.result);
-      }
+      arguments_.result = String(arguments_.result);
 
-      this.logger.debug(args);
+      this.logger.debug(arguments_);
     }
   }
 }

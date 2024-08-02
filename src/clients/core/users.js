@@ -217,22 +217,22 @@ class Users extends Client {
 
   /**
    * Updates multiple users.
-   * @param {...*} args - Arguments including optional IDs and user details.
+   * @param {...*} arguments_ - Arguments including optional IDs and user details.
    * @returns {Promise<Array<User>>} An array of updated user details.
    * @throws {Error} Throws an error if not enough arguments are provided.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#update-many-users}
    * @example
    * const updatedUsers = await client.users.updateMany([12345, 67890], [{name: 'John Doe'}, {name: 'Jane Smith'}]);
    */
-  async updateMany(...args /* Optional ids, users, cb */) {
-    if (args.length < 2) {
+  async updateMany(...arguments_ /* Optional ids, users, cb */) {
+    if (arguments_.length < 2) {
       throw new Error('Not enough arguments; at least two expected.');
     }
 
-    const ids = args[0];
-    const users = args.length === 2 ? args[0] : args[1];
+    const ids = arguments_[0];
+    const users = arguments_.length === 2 ? arguments_[0] : arguments_[1];
 
-    if (args.length === 2) {
+    if (arguments_.length === 2) {
       return this.put(['users', 'update_many'], users);
     }
 
@@ -314,22 +314,22 @@ class Users extends Client {
 
   /**
    * Deletes multiple users.
-   * @param {...*} args - Arguments including optional IDs and user details.
+   * @param {...any} arguments_ - Arguments including optional IDs and user details.
    * @returns {Promise<void>}
    * @throws {Error} Throws an error if not enough arguments are provided.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/users/users/#delete-many-users}
    * @example
    * await client.users.destroyMany([12345, 67890]);
    */
-  async destroyMany(...args) {
-    if (args.length < 2) {
+  async destroyMany(...arguments_) {
+    if (arguments_.length < 2) {
       throw new Error('Not enough arguments; at least two expected.');
     }
 
-    const ids = args[0];
-    const users = args.length === 2 ? args[0] : args[1];
+    const ids = arguments_[0];
+    const users = arguments_.length === 2 ? arguments_[0] : arguments_[1];
 
-    if (args.length === 2) {
+    if (arguments_.length === 2) {
       return super.delete(['users', 'destroy_many'], users);
     }
 

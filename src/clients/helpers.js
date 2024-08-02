@@ -20,9 +20,9 @@ const failCodes = {
 function flatten(array) {
   // eslint-disable-next-line unicorn/no-array-reduce
   return array.reduce(
-    (acc, element) =>
+    (accumulator, element) =>
       // eslint-disable-next-line unicorn/prefer-spread
-      acc.concat(Array.isArray(element) ? flatten(element) : element),
+      accumulator.concat(Array.isArray(element) ? flatten(element) : element),
     [],
   );
 }
@@ -45,7 +45,7 @@ function populateFields(data, response, map) {
 
   const populateRecord = (record) => {
     for (const {field, name, dataset, all, dataKey, array} of map) {
-      if (Object.hasOwnProperty.call(record, field)) {
+      if (Object.hasOwn(record, field)) {
         const responseDataset = datasetCache.get(dataset) || response[dataset];
         datasetCache.set(dataset, responseDataset);
 
@@ -281,7 +281,7 @@ function findBody(result_, self) {
 
   if (self.jsonAPINames) {
     const apiName = self.jsonAPINames.find((api) =>
-      Object.hasOwnProperty.call(result_, api),
+      Object.hasOwn(result_, api),
     );
     if (apiName) {
       return result_[apiName];

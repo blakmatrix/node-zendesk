@@ -121,12 +121,12 @@ class Client {
 
   /**
    * Patches a resource.
-   * @param {...any} args - The resources or parts of the resource path followed by the body.
+   * @param {...any} arguments_ - The resources or parts of the resource path followed by the body.
    * @returns {Promise<void|object>} - Either void or response object
    */
-  async patch(...args) {
-    const body = args.pop();
-    const resource = Array.isArray(args[0]) ? args[0] : args;
+  async patch(...arguments_) {
+    const body = arguments_.pop();
+    const resource = Array.isArray(arguments_[0]) ? arguments_[0] : arguments_;
 
     return this.request('PATCH', resource, body);
   }
@@ -141,12 +141,12 @@ class Client {
 
   /**
    * Deletes a resource.
-   * @param {...any} args - The resources or parts of the resource path.
+   * @param {...any} arguments_ - The resources or parts of the resource path.
    * @returns {Promise<void|object>} - Either void or response object
    */
-  async delete(...args) {
+  async delete(...arguments_) {
     // Check if the first argument is an array
-    const resource = Array.isArray(args[0]) ? args[0] : args;
+    const resource = Array.isArray(arguments_[0]) ? arguments_[0] : arguments_;
     return this.request('DELETE', resource);
   }
 
@@ -154,11 +154,11 @@ class Client {
     return this.requestAll('GET', resource);
   }
 
-  async _rawRequest(method, uri, ...args) {
+  async _rawRequest(method, uri, ...arguments_) {
     const body =
-      typeof args.at(-1) === 'object' &&
-      !Array.isArray(args.at(-1)) &&
-      args.pop();
+      typeof arguments_.at(-1) === 'object' &&
+      !Array.isArray(arguments_.at(-1)) &&
+      arguments_.pop();
 
     return this.transporter.request(method, uri, body);
   }
@@ -175,12 +175,16 @@ class Client {
    * @template T
    * @param {string} method - HTTP method (e.g., 'GET', 'POST').
    * @param {string} uri - The URI for the request.
-   * @param {...any} args - Additional arguments for the request.
+   * @param {...any} arguments_ - Additional arguments for the request.
    * @returns {Promise<module:client.ApiResponse<T>>} - The API response.
    */
-  async request(method, uri, ...args) {
+  async request(method, uri, ...arguments_) {
     try {
-      const {response, result} = await this._rawRequest(method, uri, ...args);
+      const {response, result} = await this._rawRequest(
+        method,
+        uri,
+        ...arguments_,
+      );
       const responseBody = processResponseBody(
         checkRequestResponse(response, result),
         this,
@@ -209,7 +213,7 @@ class Client {
   }
 
   // Request method for fetching multiple pages of results
-  async requestAll(method, uri, ...args) {
+  async requestAll(method, uri, ...arguments_) {
     const bodyList = [];
     const throttle = this.options.get('throttle');
     let __request = this._rawRequest; // Use _rawRequest directly
@@ -238,7 +242,12 @@ class Client {
 
     const fetchPagesRecursively = async (pageUri) => {
       const isIncremental = pageUri.includes('incremental');
-      const responseData = await __request.call(this, method, pageUri, ...args);
+      const responseData = await __request.call(
+        this,
+        method,
+        pageUri,
+        ...arguments_,
+      );
       const nextPage = processPage(responseData);
       if (
         nextPage &&

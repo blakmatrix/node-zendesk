@@ -8,9 +8,24 @@ const client = zd.createClient({
   remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
 });
 
-client.tickets.list().then(function (tickets) {
-  const ticket = tickets[0];
-  client.ticketaudits.list(ticket.id).then(function (audits) {
+/**
+ *
+ */
+async function listTicketAudits() {
+  try {
+    const tickets = await client.tickets.list();
+    const ticket = tickets[0];
+
+    if (!ticket) {
+      console.log('No tickets found.');
+      return;
+    }
+
+    const audits = await client.ticketaudits.list(ticket.id);
     console.log(JSON.stringify(audits));
-  });
-});
+  } catch (error) {
+    console.error('Error fetching ticket audits:', error);
+  }
+}
+
+listTicketAudits();

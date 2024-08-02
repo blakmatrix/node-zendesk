@@ -4,7 +4,7 @@ module.exports = throttle;
  * Creates a throttled function that limits the rate of execution of the provided function.
  * The throttled function ensures that the wrapped function is not invoked more frequently
  * than a specified time interval.
- * @param {...any} args - The arguments for the throttled function. This can include:
+ * @param {...any} arguments_ - The arguments for the throttled function. This can include:
  *     - `fn` (Function): The function to be throttled.
  *     - `options` (object, optional): Throttling options.
  *         - `options.interval` (number|string, optional): The time interval in milliseconds between function calls.
@@ -24,8 +24,9 @@ module.exports = throttle;
  *
  * Credit: Original inspiration from https://github.com/brianloveswords/throttle-function "Brian J Brennan" <brianloveswords@gmail.com>
  */
-function throttle(...args) {
-  const [thisArg, fn, options = {}] = args.length > 1 ? args : [null, ...args];
+function throttle(...arguments_) {
+  const [thisArgument, function_, options = {}] =
+    arguments_.length > 1 ? arguments_ : [null, ...arguments_];
   const msBetweenCalls = getMsBetweenCalls(options);
   const queue = [];
   let timer;
@@ -47,12 +48,12 @@ function throttle(...args) {
    */
   function runQueue() {
     if (queue.length === 0) clearInterval(timer);
-    return queue.shift() ? fn.apply(thisArg, queue.shift()) : null;
+    return queue.shift() ? function_.apply(thisArgument, queue.shift()) : null;
   }
 
-  return function (...args) {
-    queue.push(args);
-    if (!timer) timer = setInterval(runQueue, msBetweenCalls);
+  return function (...arguments_) {
+    queue.push(arguments_);
+    timer ||= setInterval(runQueue, msBetweenCalls);
 
     return {
       position: queue.length,

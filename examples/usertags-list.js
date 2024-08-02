@@ -8,13 +8,24 @@ const client = zd.createClient({
   remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
 });
 
-client.users
-  .list()
-  .then(function (result) {
-    client.users.listTags(result[0].id).then(function (tags) {
-      console.log(tags);
-    });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+/**
+ *
+ */
+async function listTagsForFirstUser() {
+  try {
+    const users = await client.users.list();
+    const firstUser = users[0];
+
+    if (!firstUser) {
+      console.log('No users found.');
+      return;
+    }
+
+    const tags = await client.users.listTags(firstUser.id);
+    console.log(tags);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+listTagsForFirstUser();

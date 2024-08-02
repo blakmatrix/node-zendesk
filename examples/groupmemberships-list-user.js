@@ -8,9 +8,24 @@ const client = zd.createClient({
   remoteUri: process.env.ZENDESK_TEST_REMOTEURI || exampleConfig.auth.remoteUri,
 });
 
-client.users.list().then(function (users) {
-  const user = users[0];
-  client.groupmemberships.listByUser(user.id).then(function (memberships) {
+/**
+ *
+ */
+async function listUserMemberships() {
+  try {
+    const users = await client.users.list();
+    const user = users[0];
+
+    if (!user) {
+      console.log('No users found.');
+      return;
+    }
+
+    const memberships = await client.groupmemberships.listByUser(user.id);
     console.log(JSON.stringify(memberships));
-  });
-});
+  } catch (error) {
+    console.error('Error fetching user memberships:', error);
+  }
+}
+
+listUserMemberships();
