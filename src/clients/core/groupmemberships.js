@@ -55,7 +55,7 @@ class GroupMemberships extends Client {
   /**
    * Show details of a specific group membership.
    * @param {number} groupMembershipID - The ID of the group membership.
-   * @returns {Promise<object>} Details of the group membership.
+   * @returns {Promise<{response: object, result: object}>} Details of the group membership.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#show-membership}
    * @example
    * const membershipDetails = await client.groupmemberships.show(123);
@@ -68,7 +68,7 @@ class GroupMemberships extends Client {
    * Show details of a group membership by user ID.
    * @param {number} userID - The ID of the user.
    * @param {number} groupMembershipID - The ID of the group membership.
-   * @returns {Promise<object>} Details of the group membership.
+   * @returns {Promise<{response: object, result: object}>} Details of the group membership.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#show-membership}
    * @example
    * const membershipDetails = await client.groupmemberships.showByUser(123, 456);
@@ -80,7 +80,7 @@ class GroupMemberships extends Client {
   /**
    * Create a new group membership.
    * @param {object} groupMembership - The group membership details.
-   * @returns {Promise<object>} The created group membership.
+   * @returns {Promise<{response: object, result: object}>} The created group membership.
    * @throws {Error} Throws an error if the creation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#create-membership}
    * @example
@@ -94,7 +94,7 @@ class GroupMemberships extends Client {
    * Create a new group membership by user ID.
    * @param {number} userID - The ID of the user.
    * @param {object} groupMembership - The group membership details.
-   * @returns {Promise<object>} The created group membership.
+   * @returns {Promise<{response: object, result: object}>} The created group membership.
    * @throws {Error} Throws an error if the creation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#create-membership}
    * @example
@@ -140,7 +140,7 @@ class GroupMemberships extends Client {
    * Set a group membership as default.
    * @param {number} userID - The ID of the user.
    * @param {number} groupMembershipID - The ID of the group membership.
-   * @returns {Promise<object>} Updated group membership.
+   * @returns {Promise<{response: object, result: object}>} Updated group membership.
    * @throws {Error} Throws an error if the operation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#set-membership-as-default}
    * @example
@@ -184,7 +184,7 @@ class GroupMemberships extends Client {
   /**
    * Bulk create group memberships.
    * @param {Array} groupMemberships - Array of group memberships to be created.
-   * @returns {Promise<object>} Job status indicating the progress of the bulk create operation.
+   * @returns {Promise<{response: object, result: object}>} Job status indicating the progress of the bulk create operation.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/group_memberships/#bulk-create-memberships}
    * @example

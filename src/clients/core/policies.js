@@ -28,7 +28,7 @@ class Policies extends Client {
   /**
    * Show details of a specific SLA Policy.
    * @param {number} policyID - The ID of the SLA Policy.
-   * @returns {Promise<object>} - A promise that resolves to the policy details.
+   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the policy details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#show-sla-policy}
    * @example const policyDetails = await client.policies.show(25);
    */
@@ -39,7 +39,7 @@ class Policies extends Client {
   /**
    * Create a new SLA Policy.
    * @param {object} policy - The SLA Policy object to be created.
-   * @returns {Promise<object>} - A promise that resolves to the newly created policy details.
+   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the newly created policy details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#create-sla-policy}
    * @example
    * const newPolicy = {
@@ -57,7 +57,7 @@ class Policies extends Client {
    * Update an existing SLA Policy.
    * @param {number} policyID - The ID of the SLA Policy to be updated.
    * @param {object} policy - The updated SLA Policy object.
-   * @returns {Promise<object>} - A promise that resolves to the updated policy details.
+   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the updated policy details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#update-sla-policy}
    * @example
    * const updatedPolicy = {
@@ -85,7 +85,7 @@ class Policies extends Client {
   /**
    * Reorder SLA Policies based on provided IDs.
    * @param {number[]} slaPolicyIds - Array of SLA policy IDs in the desired order.
-   * @returns {Promise<object>} The response from the Zendesk API.
+   * @returns {Promise<{response: object, result: object}>} The response from the Zendesk API.
    * @throws {Error} Throws an error if there's an issue with the request.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#reorder-sla-policies}
    * @example
@@ -97,7 +97,7 @@ class Policies extends Client {
 
   /**
    * Retrieve a list of supported filter definition items.
-   * @returns {Promise<object>} The response from the Zendesk API containing supported filter definitions.
+   * @returns {Promise<{response: object, result: object}>} The response from the Zendesk API containing supported filter definitions.
    * @throws {Error} Throws an error if there's an issue with the request.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/sla_policies/#retrieve-supported-filter-definition-items}
    * @example

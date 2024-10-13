@@ -24,7 +24,7 @@ class Targets extends Client {
   /**
    * Retrieves details of a specific target.
    * @param {number} targetId - The ID of the target to retrieve.
-   * @returns {Promise<object>} A promise that resolves to the target details.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the target details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#show-target}
    * @example
    * const target = await client.targets.show(12345);
@@ -36,7 +36,7 @@ class Targets extends Client {
   /**
    * Creates a new target.
    * @param {object} target - The target data.
-   * @returns {Promise<object>} A promise that resolves to the created target's details.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the created target's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#create-target}
    * @example
    * const target = {
@@ -55,7 +55,7 @@ class Targets extends Client {
    * Updates a specific target.
    * @param {number} targetId - The ID of the target to update.
    * @param {object} target - The updated target data.
-   * @returns {Promise<object>} A promise that resolves to the updated target's details.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the updated target's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/targets/#update-target}
    * @example
    * const updatedData = { email: 'updated@example.com' };

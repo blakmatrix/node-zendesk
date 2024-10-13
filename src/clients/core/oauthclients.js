@@ -25,7 +25,7 @@ class OAuthClients extends Client {
   /**
    * Retrieves a specific OAuth client by ID.
    * @param {number} id - The ID of the OAuth client.
-   * @returns {Promise<object>} The OAuth client details.
+   * @returns {Promise<{response: object, result: object}>} The OAuth client details.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#show-client}
    * @example const clientDetails = await client.oauthclients.show(1234);
@@ -37,7 +37,7 @@ class OAuthClients extends Client {
   /**
    * Creates a new OAuth client with the provided details.
    * @param {object} client - The details of the client to be created.
-   * @returns {Promise<object>} The details of the created OAuth client.
+   * @returns {Promise<{response: object, result: object}>} The details of the created OAuth client.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#create-client}
    * @example
@@ -55,7 +55,7 @@ class OAuthClients extends Client {
    * Updates a specific OAuth client by ID.
    * @param {number} id - The ID of the OAuth client.
    * @param {object} client - The new details of the client.
-   * @returns {Promise<object>} The updated OAuth client details.
+   * @returns {Promise<{response: object, result: object}>} The updated OAuth client details.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#update-client}
    * @example
@@ -83,7 +83,7 @@ class OAuthClients extends Client {
   /**
    * Generates a new client secret for a specific OAuth client by ID.
    * @param {number} id - The ID of the OAuth client.
-   * @returns {Promise<object>} The new client secret.
+   * @returns {Promise<{response: object, result: object}>} The new client secret.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_clients/#generate-secret}
    * @example const newSecret = await client.oauthclients.generateSecret(1234);

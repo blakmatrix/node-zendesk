@@ -47,7 +47,7 @@ class TicketEvents extends Client {
   /**
    * Fetches a sample of ticket events for testing purposes.
    * @param {number} startTime - The time to start the incremental export from.
-   * @returns {Promise<object>} Returns the result of the API call.
+   * @returns {Promise<{response: object, result: object}>} Returns the result of the API call.
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-sample-export}
    * @example const result = await client.ticketevents.incrementalSample(1632505559);

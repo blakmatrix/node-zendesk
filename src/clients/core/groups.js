@@ -56,7 +56,7 @@ class Groups extends Client {
   /**
    * Retrieves an approximate count of groups.
    * If the count exceeds 100,000, it is updated every 24 hours.
-   * @returns {Promise<object>} A promise that resolves to the group count data.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the group count data.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/#count-groups}
    * @example
@@ -69,7 +69,7 @@ class Groups extends Client {
   /**
    * Retrieves the approximate count of groups for a specified user.
    * @param {number} userID - The ID of the user for whom to count the groups.
-   * @returns {Promise<object>} A promise that resolves to the approximate count of groups for the user.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the approximate count of groups for the user.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/#count-groups}
    * @example
@@ -94,7 +94,7 @@ class Groups extends Client {
   /**
    * Retrieves details of a specific group by its ID.
    * @param {number} groupID - The ID of the group.
-   * @returns {Promise<{result: Group}>} A promise that resolves to the group's details.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the group's details.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/#show-group}
    * @example
@@ -107,7 +107,7 @@ class Groups extends Client {
   /**
    * Creates a new group.
    * @param {CreateOrUpdateGroup} group - The group details to create.
-   * @returns {Promise<{result: Group}>} A promise that resolves to the details of the created group.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the details of the created group.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/#create-group}
    * @example
@@ -125,7 +125,7 @@ class Groups extends Client {
    * Updates a specified group.
    * @param {number} groupID - The ID of the group to update.
    * @param {CreateOrUpdateGroup} group - The updated group details.
-   * @returns {Promise<{result: Group}>} A promise that resolves to the details of the updated group.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the details of the updated group.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/groups/groups/#update-group}
    * @example

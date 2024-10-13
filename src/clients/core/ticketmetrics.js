@@ -13,7 +13,7 @@ class TicketMetrics extends Client {
   /**
    * Lists the Ticket Metrics for a specific ticket.
    * @param {number} ticketID - The ID of the ticket.
-   * @returns {Promise<object>} The ticket metrics data.
+   * @returns {Promise<{response: object, result: object}>} The ticket metrics data.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#show-ticket-metrics}
    * @example
@@ -40,7 +40,7 @@ class TicketMetrics extends Client {
   /**
    * Shows a specific Ticket Metric by its ID.
    * @param {number} ticketMetricId - The ID of the ticket metric to retrieve.
-   * @returns {Promise<object>} The ticket metric data.
+   * @returns {Promise<{response: object, result: object}>} The ticket metric data.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_metrics/#show-ticket-metrics}
    * @example

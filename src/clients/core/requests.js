@@ -111,7 +111,7 @@ class Requests extends Client {
    * Search for ticket requests.
    * @param {object} parameters - Search parameters.
    * @param {string} parameters.query - The query string.
-   * @returns {Promise<object[]>} List of matching ticket requests.
+   * @returns {Promise<{response: object, result: object[]}>} List of matching ticket requests.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#search-requests}
    * @example const searchResults = await client.requests.search({ query: 'printer' });
@@ -123,7 +123,7 @@ class Requests extends Client {
   /**
    * Retrieve a specific ticket request.
    * @param {number} requestId - The ID of the ticket request.
-   * @returns {Promise<object>} The ticket request details.
+   * @returns {Promise<{response: object, result: object}>} The ticket request details.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#show-request}
    * @example const requestDetails = await client.requests.show(1234);
@@ -135,7 +135,7 @@ class Requests extends Client {
   /**
    * Retrieve a specific ticket request.
    * @param {number} requestId - The ID of the ticket request.
-   * @returns {Promise<object>} The ticket request details.
+   * @returns {Promise<{response: object, result: object}>} The ticket request details.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#show-request}
    * @example const requestDetails = await client.requests.show(1234);
@@ -148,7 +148,7 @@ class Requests extends Client {
   /**
    * Create a new ticket request.
    * @param {object} requestDetails - Details of the ticket request to be created.
-   * @returns {Promise<object>} The created ticket request details.
+   * @returns {Promise<{response: object, result: object}>} The created ticket request details.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#create-request}
    * @example
@@ -168,7 +168,7 @@ class Requests extends Client {
    * Update an existing ticket request.
    * @param {number} requestId - The ID of the ticket request.
    * @param {object} updateDetails - Details to update.
-   * @returns {Promise<object>} The updated ticket request details.
+   * @returns {Promise<{response: object, result: object}>} The updated ticket request details.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-requests/#update-request}
    * @example

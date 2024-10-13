@@ -15,7 +15,7 @@ class JobStatuses extends Client {
 
   /**
    * Retrieves a list of job statuses.
-   * @returns {Promise<Array<object>>} - A promise that resolves to a list of job statuses.
+   * @returns {Promise<{response: object, result: Array<object>}>} - A promise that resolves to a list of job statuses.
    * @throws {Error} If there's an error in the request.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/job_statuses/#list-job-statuses} for the API endpoint documentation.
    * @example
@@ -28,7 +28,7 @@ class JobStatuses extends Client {
   /**
    * Retrieves the status of a background job.
    * @param {string} jobStatusID - The ID of the Job status.
-   * @returns {Promise<object>} - A promise that resolves to the job status data.
+   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the job status data.
    * @throws {Error} If the job status ID is not provided or if there's an error in the request.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/job_statuses/#show-job-status} for the API endpoint documentation.
    * @example
@@ -41,7 +41,7 @@ class JobStatuses extends Client {
   /**
    * Retrieves the statuses of multiple background jobs.
    * @param {Array<string>} jobStatusIDs - An array of job status IDs.
-   * @returns {Promise<Array<object>>} - A promise that resolves to a list of job statuses.
+   * @returns {Promise<{response: object, result: Array<object>}>} - A promise that resolves to a list of job statuses.
    * @throws {Error} If the job status IDs are not provided or if there's an error in the request.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/job_statuses/#show-many-job-statuses} for the API endpoint documentation.
    * @example

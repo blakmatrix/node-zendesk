@@ -47,7 +47,7 @@ class Views extends Client {
   /**
    * Shows details of a specific view.
    * @param {number} viewID - The ID of the view to retrieve.
-   * @returns {Promise<object>} A promise that resolves to the details of the view.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the details of the view.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#show-view}
    * @example
    * const viewDetails = await client.views.show(12345);
@@ -59,7 +59,7 @@ class Views extends Client {
   /**
    * Creates a new view.
    * @param {object} view - The view data to create.
-   * @returns {Promise<object>} A promise that resolves to the created view details.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the created view details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#create-view}
    * @example
    * const newView = {
@@ -76,7 +76,7 @@ class Views extends Client {
    * Updates an existing view by its ID.
    * @param {number} viewID - The ID of the view to update.
    * @param {object} viewData - The updated view data.
-   * @returns {Promise<object>} A promise that resolves to the updated view details.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the updated view details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#update-view}
    * @example
    * const updatedData = {
@@ -130,7 +130,7 @@ class Views extends Client {
   /**
    * Retrieves the count of tickets for a specific view.
    * @param {number} viewID - The ID of the view to count tickets for.
-   * @returns {Promise<object>} A promise that resolves to the ticket count for the view.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the ticket count for the view.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#show-view-count}
    * @example const ticketCount = await client.views.showCount(12345);
    */
@@ -141,7 +141,7 @@ class Views extends Client {
   /**
    * Retrieves the ticket counts for multiple views.
    * @param {Array<number>} viewIDs - An array of view IDs to count tickets for.
-   * @returns {Promise<object>} A promise that resolves to the ticket counts for the specified views.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the ticket counts for the specified views.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#show-multiple-view-counts}
    * @example const ticketCounts = await client.views.showCounts([12345, 67890]);
    */
@@ -152,7 +152,7 @@ class Views extends Client {
   /**
    * Exports views to a JSON file.
    * @param {number} viewID - The ID of the view to export.
-   * @returns {Promise<object>} A promise that resolves to the exported views in JSON format.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the exported views in JSON format.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#export-view}
    * @example const exportedViews = await client.views.export([12345, 67890]);
    */
@@ -162,7 +162,7 @@ class Views extends Client {
 
   /**
    * Retrieves all active shared views.
-   * @returns {Promise<object>} A promise that resolves to the list of all active shared views.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the list of all active shared views.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#list-active-shared-views}
    */
   async listActiveShared() {
@@ -172,7 +172,7 @@ class Views extends Client {
   /**
    * Retrieves the view's execution status.
    * @param {number} viewID - The ID of the view to check the execution status for.
-   * @returns {Promise<object>} A promise that resolves to the execution status of the view.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the execution status of the view.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#show-view-execution-status}
    */
   async showExecutionStatus(viewID) {
@@ -182,7 +182,7 @@ class Views extends Client {
   /**
    * Retrieves the view's recent ticket IDs.
    * @param {number} viewID - The ID of the view to retrieve recent ticket IDs for.
-   * @returns {Promise<object>} A promise that resolves to the recent ticket IDs of the view.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the recent ticket IDs of the view.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#show-view-recent-ticket-ids}
    */
   async showRecentTicketIDs(viewID) {
@@ -202,7 +202,7 @@ class Views extends Client {
   /**
    * Reorders views based on the provided order.
    * @param {Array<number>} viewOrder - An array of view IDs in the desired order.
-   * @returns {Promise<object>} A promise that resolves when the views are reordered.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves when the views are reordered.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/views/#reorder-views}
    */
   async reorder(viewOrder) {

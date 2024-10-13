@@ -58,7 +58,7 @@ class Attachments extends Client {
   /**
    * Retrieve details of a specific attachment.
    * @param {number} attachmentID - The ID of the attachment.
-   * @returns {Promise<object>} Returns the details of the attachment.
+   * @returns {Promise<{response: object, result: object}>} Returns the details of the attachment.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#show-attachment}
    * @example
    * const attachmentDetails = await client.attachments.show(12345);
@@ -96,7 +96,7 @@ class Attachments extends Client {
    * Toggles enabling or restricting agent access to attachments with detected malware.
    * @param {number} attachmentID - The ID of the attachment.
    * @param {boolean} malwareAccessOverride - Whether to override malware access. If true, agent can access attachment flagged as malware.
-   * @returns {Promise<object>} The response from the Zendesk API.
+   * @returns {Promise<{response: object, result: object}>} The response from the Zendesk API.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#update-attachment-for-malware}
    * @example

@@ -33,7 +33,7 @@ class TicketForms extends Client {
   /**
    * Retrieve a specific ticket form by its ID.
    * @param {number} ticketFormID - The ID of the ticket form to retrieve.
-   * @returns {Promise<object>} The requested ticket form.
+   * @returns {Promise<{response: object, result: object}>} The requested ticket form.
    * @throws {Error} Throws an error if there is an issue with the API call.
    * @see {@link https://developer.zendesk.com/rest_api/docs/support#show-ticket-form}
    * @example
@@ -47,7 +47,7 @@ class TicketForms extends Client {
   /**
    * Creates a new Ticket Form.
    * @param {object} ticketForm - The ticket form object to be created.
-   * @returns {Promise<object>} - A promise that resolves to the created ticket form.
+   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the created ticket form.
    * @throws {Error} - Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_forms/#create-ticket-form}
    * @example
@@ -66,7 +66,7 @@ class TicketForms extends Client {
    * Update a specific ticket form by its ID.
    * @param {number} ticketFormID - The ID of the ticket form to update.
    * @param {object} ticketForm - The updated ticket form object.
-   * @returns {Promise<object>} The updated ticket form.
+   * @returns {Promise<{response: object, result: object}>} The updated ticket form.
    * @throws {Error} Throws an error if there is an issue with the API call.
    * @see {@link https://developer.zendesk.com/rest_api/docs/support#update-ticket-form}
    * @example
@@ -94,7 +94,7 @@ class TicketForms extends Client {
    * Clones an already existing Ticket Form by its ID.
    * @param {number} ticketFormID - The ID of the ticket form to be cloned.
    * @param {boolean} [prependCloneTitle=false] - Whether to prepend the title with "Clone of" or not.
-   * @returns {Promise<object>} - A promise that resolves to the cloned ticket form details.
+   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the cloned ticket form details.
    * @throws {Error} - Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_forms/#clone-an-already-existing-ticket-form}
    * @example
@@ -110,7 +110,7 @@ class TicketForms extends Client {
   /**
    * Reorders the specified Ticket Forms based on the provided array of IDs.
    * @param {number[]} ticketFormIDs - An array of ticket form IDs in the desired order.
-   * @returns {Promise<object>} - A promise that resolves to the reordered ticket forms' details.
+   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the reordered ticket forms' details.
    * @throws {Error} - Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_forms/#reorder-ticket-forms}
    * @example
