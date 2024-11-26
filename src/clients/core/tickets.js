@@ -4,8 +4,7 @@ const {Client} = require('../client');
 /**
  * A recursive type that makes all properties of an object optional, including nested objects.
  * @template T
- * @typedef {object} RecursivePartial
- * @property {Partial<{[K in keyof T]: RecursivePartial<T[K]>}>} [key] - A recursive partial property of T.
+ * @typedef {Partial<{[K in keyof T]: RecursivePartial<T[K]>}>} RecursivePartial
  */
 
 /**
