@@ -14,7 +14,7 @@ class Imports extends Client {
   /**
    * Imports a single ticket to Zendesk.
    * @param {object} ticket - The ticket data to be imported.
-   * @returns {Promise<object>} The response from the Zendesk API.
+   * @returns {Promise<{response: object, result: object}>} The response from the Zendesk API.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_import/#ticket-import}
    * @example

@@ -38,7 +38,7 @@ class Automations extends Client {
   /**
    * Get details of a specific automation by ID.
    * @param {number} automationID - The ID of the automation.
-   * @returns {Promise<object>} Returns details of the automation.
+   * @returns {Promise<{response: object, result: object}>} Returns details of the automation.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/automations/#show-automation}
    * @example const automationDetails = await client.automations.show(123456);
    */
@@ -49,7 +49,7 @@ class Automations extends Client {
   /**
    * Create a new automation.
    * @param {object} automationData - Data for the new automation.
-   * @returns {Promise<object>} Returns the created automation.
+   * @returns {Promise<{response: object, result: object}>} Returns the created automation.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/automations/#create-automation}
    * @example
    * const automation = await client.automations.create({
@@ -66,7 +66,7 @@ class Automations extends Client {
    * Update an existing automation.
    * @param {number} automationID - ID of the automation to update.
    * @param {object} updatedData - Updated data for the automation.
-   * @returns {Promise<object>} Returns the updated automation.
+   * @returns {Promise<{response: object, result: object}>} Returns the updated automation.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/automations/#update-automation}
    * @example
    * const updatedAutomation = await client.automations.update(12345, {
@@ -80,7 +80,7 @@ class Automations extends Client {
   /**
    * Update many automations in bulk.
    * @param {Array<object>} automations - Array of automation data with their IDs to be updated.
-   * @returns {Promise<object>} Returns the status of the bulk update.
+   * @returns {Promise<{response: object, result: object}>} Returns the status of the bulk update.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/automations/#update-many-automation}
    * @example
    * const status = await client.automations.updateMany([{id: 123, position: 1}, {id: 124, position: 2}]);

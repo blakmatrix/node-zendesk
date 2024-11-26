@@ -23,7 +23,7 @@ class Installations extends Client {
   /**
    * Retrieve details of a specific app installation by its ID.
    * @param {number|string} installationID - The unique identifier for the app installation.
-   * @returns {Promise<object>} The app installation details as an object.
+   * @returns {Promise<{response: object, result: object}>} The app installation details as an object.
    * @throws {Error} Throws an error if the API call is unsuccessful or the installationID is invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#show-app-installation}
    * @example
@@ -37,7 +37,7 @@ class Installations extends Client {
   /**
    * Create a new app installation.
    * @param {object} installation - The app installation data to be created.
-   * @returns {Promise<object>} The response data from creating the app installation.
+   * @returns {Promise<{response: object, result: object}>} The response data from creating the app installation.
    * @throws {Error} Throws an error if the API call is unsuccessful or if the installation data is invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#install-app} For more details about creating an installation.
    * @example
@@ -57,7 +57,7 @@ class Installations extends Client {
    * Updates a specific app installation.
    * @param {number} installationID - The ID of the app installation.
    * @param {object} installation - The updated installation data.
-   * @returns {Promise<object>} Returns the response from Zendesk API.
+   * @returns {Promise<{response: object, result: object}>} Returns the response from Zendesk API.
    * @throws {Error} Throws an error if the API call is unsuccessful.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/apps/apps/#update-app-installation}
    * @example

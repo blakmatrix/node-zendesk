@@ -26,7 +26,7 @@ class CustomAgentRoles extends Client {
   /**
    * Retrieve a specific Custom Agent Role by its ID.
    * @param {number} roleId The ID of the custom agent role to retrieve.
-   * @returns {Promise<object>} Returns a promise that resolves with the specified custom agent role.
+   * @returns {Promise<{response: object, result: object}>} Returns a promise that resolves with the specified custom agent role.
    * @throws Will throw an error if unable to retrieve the role.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#show-custom-role}
    * @example
@@ -40,7 +40,7 @@ class CustomAgentRoles extends Client {
   /**
    * Creates a new custom agent role.
    * @param {object} roleData - The data for the new custom agent role.
-   * @returns {Promise<object>} The created custom agent role.
+   * @returns {Promise<{response: object, result: object}>} The created custom agent role.
    * @throws Will throw an error if creation fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#create-custom-role}
    * @example
@@ -59,7 +59,7 @@ class CustomAgentRoles extends Client {
    * Updates an existing custom agent role.
    * @param {number} customRoleId - The ID of the custom agent role to update.
    * @param {object} updatedData - The updated data for the custom agent role.
-   * @returns {Promise<object>} The updated custom agent role.
+   * @returns {Promise<{response: object, result: object}>} The updated custom agent role.
    * @throws Will throw an error if the update fails or custom agent role ID is not found.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/custom_roles/#update-custom-role}
    * @example

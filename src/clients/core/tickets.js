@@ -263,7 +263,7 @@ class Tickets extends Client {
   /**
    * Retrieve metrics for a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<object>} Metrics details for the ticket.
+   * @returns {Promise<{response: object, result: Ticket}>} Metrics details for the ticket.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const metrics = await client.tickets.listMetrics(7890);
@@ -275,7 +275,7 @@ class Tickets extends Client {
   /**
    * Retrieve a specific ticket by its ID.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<{result: Ticket}>} Details of the ticket.
+   * @returns {Promise<{response: object, result: Ticket}>} Details of the ticket.
    * @throws {Error} If the ticket ID is not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#show-ticket}
    * @example
@@ -288,7 +288,7 @@ class Tickets extends Client {
   /**
    * Retrieve details for multiple tickets based on their IDs.
    * @param {Array<number>} ticketIds - An array of ticket IDs to fetch.
-   * @returns {Promise<Array<Ticket>>} An array of ticket details.
+   * @returns {Promise<{response: object, result: Array<Ticket>}>} An array of ticket details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#show-multiple-tickets}
    * @example
    * const ticketsDetails = await client.tickets.showMany([123, 456, 789]);
@@ -300,7 +300,7 @@ class Tickets extends Client {
   /**
    * Create a new ticket.
    * @param {CreateOrUpdateTicket} ticket - Details of the ticket to be created.
-   * @returns {Promise<{result: Ticket}>} The created ticket details.
+   * @returns {Promise<{response: object, result: Ticket}>} The created ticket details.
    * @throws {Error} If the ticket details are not provided or invalid.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-ticket}
    * @example
@@ -313,7 +313,7 @@ class Tickets extends Client {
   /**
    * Create multiple new tickets.
    * @param {CreateManyTickets} tickets - An object of tickets containing an array of tickets.
-   * @returns {Promise<Array<Ticket>>} A promise that resolves to an array of created ticket objects.
+   * @returns {Promise<{response: object, result: Array<Ticket>}>} A promise that resolves to an array of created ticket objects.
    * @throws {Error} If the provided `tickets` is not an array or is empty.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#create-many-tickets}
    * @example
@@ -353,7 +353,7 @@ class Tickets extends Client {
    * Update multiple tickets by their IDs.
    * @param {Array<number>} ticketIds - An array of ticket IDs to update.
    * @param {object} ticket - The updated ticket data as an object.
-   * @returns {Promise<object>} A promise that resolves to the updated ticket object.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the updated ticket object.
    * @throws {Error} If `ticketIds` is not an array of numbers or if `ticket` is not an object.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#update-many-tickets}
    * @example
@@ -403,7 +403,7 @@ class Tickets extends Client {
    * Merge a ticket with another ticket.
    * @param {number} ticketId - The ID of the ticket to be merged.
    * @param {object} mergedTicket - The ticket object representing the ticket to merge with.
-   * @returns {Promise<object>} A promise that resolves with the merged ticket object.
+   * @returns {Promise<{response: object, result: Ticket}>} A promise that resolves with the merged ticket object.
    * @throws {Error} If `ticketId` is not a valid ticket ID or `mergedTicket` is not a valid ticket object.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#merge-tickets}
    * @example
@@ -425,7 +425,7 @@ class Tickets extends Client {
    *
    * Export tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting tickets.
-   * @returns {Promise<object>} A promise that resolves with the exported tickets.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves with the exported tickets.
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export}
    * @example
@@ -443,7 +443,7 @@ class Tickets extends Client {
    *
    * Export a sample of tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting the sample of tickets.
-   * @returns {Promise<object>} A promise that resolves with the exported sample of tickets.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves with the exported sample of tickets.
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-sample-export}
    * @example
@@ -503,7 +503,7 @@ class Tickets extends Client {
    *
    * Export a sample of incremental tickets based on a specified start time.
    * @param {string} startTime - The start time for exporting the sample of incremental tickets.
-   * @returns {Promise<Array>} A promise that resolves with an array of exported incremental tickets.
+   * @returns {Promise<{response: object, result: Array<Ticket>}>} A promise that resolves with an array of exported incremental tickets.
    * @throws {Error} If `startTime` is not a valid string.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#ticket-export-incremental-sample}
    * @example

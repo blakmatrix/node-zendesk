@@ -44,7 +44,7 @@ class TicketAudits extends Client {
   /**
    * Get an approximate count of audits for a specified ticket.
    * @param {number} ticketID - The ID of the ticket.
-   * @returns {Promise<number>} Returns an approximate count of audits.
+   * @returns {Promise<{response: object, result: number}>} Returns an approximate count of audits.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#count-audits-for-a-ticket}
    * @example
@@ -59,7 +59,7 @@ class TicketAudits extends Client {
    * Show details of a specific ticket audit.
    * @param {number} ticketID - The ID of the ticket.
    * @param {number} auditID - The ID of the ticket audit.
-   * @returns {Promise<object>} Returns details of the ticket audit.
+   * @returns {Promise<{response: object, result: object}>} Returns details of the ticket audit.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#show-audit}
    * @example
@@ -74,7 +74,7 @@ class TicketAudits extends Client {
    * Change a comment from public to private for a specific ticket audit.
    * @param {number} ticketID - The ID of the ticket.
    * @param {number} auditID - The ID of the ticket audit.
-   * @returns {Promise<object>} Returns the updated ticket audit details.
+   * @returns {Promise<{response: object, result: object}>} Returns the updated ticket audit details.
    * @throws {Error} Throws an error if request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_audits/#change-a-comment-from-public-to-private}
    * @example

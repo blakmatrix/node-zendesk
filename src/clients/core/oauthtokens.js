@@ -14,7 +14,7 @@ class OAuthTokens extends Client {
   /**
    * Retrieves a specific OAuth token by ID.
    * @param {number|string} id - The ID of the OAuth token or "current" for the currently authenticated token.
-   * @returns {Promise<object>} The OAuth token details.
+   * @returns {Promise<{response: object, result: object}>} The OAuth token details.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_tokens/#show-token}
    * @example const tokenDetails = await client.oauthtokens.show(1234);
@@ -25,7 +25,7 @@ class OAuthTokens extends Client {
 
   /**
    * Retrieves the details of the currently authenticated OAuth token.
-   * @returns {Promise<object>} The details of the currently authenticated OAuth token.
+   * @returns {Promise<{response: object, result: object}>} The details of the currently authenticated OAuth token.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_tokens/#show-token}
    * @example const currentTokenDetails = await client.oauthtokens.current();
@@ -60,7 +60,7 @@ class OAuthTokens extends Client {
   /**
    * Creates a new OAuth token with the provided details.
    * @param {object} token - The details of the token to be created. Must include client_id and scopes.
-   * @returns {Promise<object>} The details of the created OAuth token.
+   * @returns {Promise<{response: object, result: object}>} The details of the created OAuth token.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/oauth/oauth_tokens/#create-token}
    * @example const createdToken = await client.oauthtokens.create({client_id: 1234, scopes: ["read", "write"]});

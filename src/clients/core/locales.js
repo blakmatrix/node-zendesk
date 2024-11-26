@@ -27,7 +27,7 @@ class Locales extends Client {
   /**
    * Retrieves information about a specific locale based on the localeID.
    * @param {number|string} localeID - The ID or the BCP-47 code of the locale (e.g., 'en-US', 'es-419').
-   * @returns {Promise<object>} Details of the specified locale.
+   * @returns {Promise<{response: object, result: object}>} Details of the specified locale.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#show-locale}
    * @example
@@ -40,7 +40,7 @@ class Locales extends Client {
 
   /**
    * Retrieves the locale information of the currently logged-in user.
-   * @returns {Promise<object>} Details of the current user's locale.
+   * @returns {Promise<{response: object, result: object}>} Details of the current user's locale.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#show-current-locale}
    * @example
@@ -53,7 +53,7 @@ class Locales extends Client {
 
   /**
    * Alias for showCurrent. Retrieves the locale information of the currently logged-in user.
-   * @returns {Promise<object>} Details of the current user's locale.
+   * @returns {Promise<{response: object, result: object}>} Details of the current user's locale.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#show-current-locale}
    * @example
@@ -93,7 +93,7 @@ class Locales extends Client {
   /**
    * Detects the best language/locale for the user based on provided available locales.
    * @param {string[]} availableLocales - Array of available locales e.g., ['es', 'ja', 'en-uk'].
-   * @returns {Promise<object>} Best detected locale for the user.
+   * @returns {Promise<{response: object, result: object}>} Best detected locale for the user.
    * @throws {Error} Throws an error if the API request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/locales/#detect-best-language-for-user}
    * @example

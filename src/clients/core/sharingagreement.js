@@ -14,7 +14,7 @@ class SharingAgreement extends Client {
 
   /**
    * List all Sharing Agreements.
-   * @returns {Promise<Array>} An array of Sharing Agreement objects.
+   * @returns {Promise<{response: object, result: object[]}>} An array of Sharing Agreement objects.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#list-sharing-agreements}
    * @example
@@ -27,7 +27,7 @@ class SharingAgreement extends Client {
   /**
    * Show a specific Sharing Agreement by its ID.
    * @param {number} id The ID of the Sharing Agreement.
-   * @returns {Promise<object>} The Sharing Agreement object.
+   * @returns {Promise<{response: object, result: object}>} The Sharing Agreement object.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#show-a-sharing-agreement}
    * @example
@@ -40,7 +40,7 @@ class SharingAgreement extends Client {
   /**
    * Create a new Sharing Agreement.
    * @param {object} data The data for the new Sharing Agreement.
-   * @returns {Promise<object>} The created Sharing Agreement object.
+   * @returns {Promise<{response: object, result: object}>} The created Sharing Agreement object.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#create-sharing-agreement}
    * @example
@@ -57,7 +57,7 @@ class SharingAgreement extends Client {
    * Update an existing Sharing Agreement.
    * @param {number} id The ID of the Sharing Agreement to update.
    * @param {object} data The data to update the Sharing Agreement with. Only 'status' is allowed.
-   * @returns {Promise<object>} The updated Sharing Agreement object.
+   * @returns {Promise<{response: object, result: object}>} The updated Sharing Agreement object.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/sharing_agreements/#update-a-sharing-agreement}
    * @example

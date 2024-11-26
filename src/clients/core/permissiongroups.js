@@ -26,7 +26,7 @@ class PermissionGroups extends Client {
   /**
    * Retrieve details of a specific permission group.
    * @param {number} groupID - The ID of the permission group.
-   * @returns {Promise<object>} Permission group object.
+   * @returns {Promise<{response: object, result: object}>} Permission group object.
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#show-permission-group}
    * @example
@@ -42,7 +42,7 @@ class PermissionGroups extends Client {
    * @param {string} group.name - Name of the permission group.
    * @param {number[]} [group.edit] - Array of user segments that have edit privileges.
    * @param {number[]} [group.publish] - Array of user segments that have publish privileges.
-   * @returns {Promise<object>} Newly created permission group object.
+   * @returns {Promise<{response: object, result: object}>} Newly created permission group object.
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#create-permission-group}
    * @example
@@ -63,7 +63,7 @@ class PermissionGroups extends Client {
    * @param {string} [group.name] - Name of the permission group.
    * @param {number[]} [group.edit] - Array of user segments that have edit privileges.
    * @param {number[]} [group.publish] - Array of user segments that have publish privileges.
-   * @returns {Promise<object>} Updated permission group object.
+   * @returns {Promise<{response: object, result: object}>} Updated permission group object.
    * @throws {Error} Throws an error if the API call fails.
    * @see {@link https://developer.zendesk.com/api-reference/help_center/help-center-api/permission_groups/#update-permission-group}
    * @example

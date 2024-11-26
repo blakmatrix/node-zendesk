@@ -24,7 +24,7 @@ class SuspendedTickets extends Client {
   /**
    * Get details of a specific suspended ticket by ID
    * @param {number} suspendedTicketID - ID of the suspended ticket
-   * @returns {Promise} Returns a promise that resolves to the details of the suspended ticket
+   * @returns {Promise<{response: object, result: object}>} Returns a promise that resolves to the details of the suspended ticket
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#show-suspended-ticket}
    * @example const ticket = await client.suspendedtickets.show(12345);
    */
@@ -35,7 +35,7 @@ class SuspendedTickets extends Client {
   /**
    * Recover a specific suspended ticket by ID
    * @param {number} suspendedTicketID - ID of the suspended ticket to recover
-   * @returns {Promise} Returns a promise that resolves once the ticket has been recovered
+   * @returns {Promise<{response: object, result: object}>} Returns a promise that resolves once the ticket has been recovered
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#recover-suspended-ticket}
    * @example await client.suspendedtickets.recover(12345);
    */
@@ -46,7 +46,7 @@ class SuspendedTickets extends Client {
   /**
    * Recover multiple suspended tickets by their IDs
    * @param {Array<number>} suspendedTicketIDs - An array of suspended ticket IDs to recover
-   * @returns {Promise} Returns a promise that resolves once the tickets have been recovered
+   * @returns {Promise<{response: object, result: object}>} Returns a promise that resolves once the tickets have been recovered
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#recover-multiple-suspended-tickets}
    * @example await client.suspendedtickets.recoverMany([12345, 67890]);
    */
@@ -103,7 +103,7 @@ class SuspendedTickets extends Client {
   /**
    * Get attachments for a specific suspended ticket by ID
    * @param {number} suspendedTicketID - ID of the suspended ticket to get attachments from
-   * @returns {Promise} Returns a promise that resolves to the attachments of the suspended ticket
+   * @returns {Promise<{response: object, result: object}>} Returns a promise that resolves to the attachments of the suspended ticket
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#suspended-ticket-attachments}
    * @example const attachments = await client.suspendedtickets.attachments(12345);
    */
@@ -113,7 +113,7 @@ class SuspendedTickets extends Client {
 
   /**
    * Export suspended tickets for the Zendesk Support instance
-   * @returns {Promise} Returns a promise that resolves once the export request has been initiated
+   * @returns {Promise<{response: object, result: object}>} Returns a promise that resolves once the export request has been initiated
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/suspended_tickets/#export-suspended-tickets}
    * @example await client.suspendedtickets.exportTickets();
    */

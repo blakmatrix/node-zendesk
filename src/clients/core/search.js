@@ -14,7 +14,7 @@ class Search extends Client {
   /**
    * Search for the given term and retrieve results.
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<object>} A JSON object with the search results.
+   * @returns {Promise<{response: object, result: object}>} A JSON object with the search results.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#list-search-results}
    * @example
    * const results = await client.search.query('open tickets');
@@ -37,7 +37,7 @@ class Search extends Client {
   /**
    * Anonymous search for the given term and retrieve results.
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<object>} A JSON object with the search results.
+   * @returns {Promise<{response: object, result: object}>} A JSON object with the search results.
    * @example
    * const anonResults = await client.search.queryAnonymous('open tickets');
    */
@@ -59,7 +59,7 @@ class Search extends Client {
   /**
    * Retrieve the count of search results for the given term.
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<object>} An Object with the number of items matching the query.
+   * @returns {Promise<{response: object, result: object}>} An Object with the number of items matching the query.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/#show-results-count}
    * @example
    * const { count } = await client.search.showResultsCount('open tickets');

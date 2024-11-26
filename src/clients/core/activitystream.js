@@ -34,7 +34,7 @@ class ActivityStream extends Client {
   /**
    * Retrieves a specific ticket activity by its ID.
    * @param {number} activityID - The unique ID of the activity to fetch.
-   * @returns {Promise<object>} A promise that resolves to the activity object corresponding to the provided activityID.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the activity object corresponding to the provided activityID.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/activity_stream/#show-activity | Zendesk API - Show Activity}
    * @example
    * const activity = await client.activitystream.show(12345);  // Where 12345 is an activity ID.
@@ -50,7 +50,7 @@ class ActivityStream extends Client {
    * The count[refreshed_at] property is a timestamp that indicates when the count was last updated.
    * Note: When the count exceeds 100,000, count[refreshed_at] may occasionally be null. This indicates
    * that the count is being updated in the background, and count[value] is limited to 100,000 until the update is complete.
-   * @returns {Promise<object>} A promise that resolves to an object containing the activity count and the refreshed_at timestamp.
+   * @returns {Promise<{response: object, result: object}>} A promise that resolves to an object containing the activity count and the refreshed_at timestamp.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/activity_stream/#count-activities | Zendesk API - Count Activities}
    * @example
    * const activityCount = await client.activitystream.count();

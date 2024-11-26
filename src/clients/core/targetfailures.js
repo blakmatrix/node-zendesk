@@ -27,7 +27,7 @@ class TargetFailures extends Client {
   /**
    * Retrieves the details of a specific target failure by its ID.
    * @param {number} targetFailureID - The ID of the target failure.
-   * @returns {object} The target failure details.
+   * @returns {Promise<{response: object, result: object}>} The target failure details.
    * @throws {Error} Throws an error if the request fails or if the target failure ID is not found.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/targets/target_failures/#show-target-failure}
    * @example

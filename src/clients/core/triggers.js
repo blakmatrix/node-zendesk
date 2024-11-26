@@ -14,7 +14,7 @@ class Triggers extends Client {
   /**
    * Searches for triggers based on the provided search term.
    * @param {string} searchTerm - The term to search for.
-   * @returns {Promise<object>} The search results.
+   * @returns {Promise<{response: object, result: object}>} The search results.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#search-triggers}
    * @example const results = await client.triggers.search('exampleTerm');
@@ -66,7 +66,7 @@ class Triggers extends Client {
   /**
    * Retrieves details of a specific trigger.
    * @param {number} triggerID - The ID of the trigger.
-   * @returns {Promise<object>} Details of the specified trigger.
+   * @returns {Promise<{response: object, result: object}>} Details of the specified trigger.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#show-trigger}
    * @example const triggerDetails = await client.triggers.show(12345);
@@ -78,7 +78,7 @@ class Triggers extends Client {
   /**
    * Creates a new trigger.
    * @param {object} trigger - The trigger object to be created.
-   * @returns {Promise<object>} The created trigger.
+   * @returns {Promise<{response: object, result: object}>} The created trigger.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#create-trigger}
    * @example
@@ -97,7 +97,7 @@ class Triggers extends Client {
    * Updates an existing trigger.
    * @param {number} triggerID - The ID of the trigger to be updated.
    * @param {object} trigger - The updated trigger object.
-   * @returns {Promise<object>} The updated trigger.
+   * @returns {Promise<{response: object, result: object}>} The updated trigger.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#update-trigger}
    * @example
@@ -115,7 +115,7 @@ class Triggers extends Client {
   /**
    * Updates multiple triggers.
    * @param {Array<object>} triggers - An array of trigger objects to be updated.
-   * @returns {Promise<object>} The response from the update request.
+   * @returns {Promise<{response: object, result: object}>} The response from the update request.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#update-many-triggers}
    * @example
@@ -189,7 +189,7 @@ class Triggers extends Client {
    * Fetches a specific revision associated with a trigger.
    * @param {number} triggerID - The ID of the trigger.
    * @param {number} revisionID - The ID of the revision.
-   * @returns {Promise<object>} Details of the specified trigger revision.
+   * @returns {Promise<{response: object, result: object}>} Details of the specified trigger revision.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/triggers/#show-trigger-revision}
    * @example const revisionDetails = await client.triggers.showRevision(12345, 67890);

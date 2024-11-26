@@ -38,7 +38,7 @@ class Sessions extends Client {
    * Retrieve a specific session by user ID and session ID.
    * @param {number} userId - The ID of the user.
    * @param {number} sessionId - The ID of the session.
-   * @returns {Promise<object>} Session details.
+   * @returns {Promise<{response: object, result: object}>} Session details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-session}
    * @example
    * const session = await client.sessions.getByUserIdBySessionId(12345, 67890);
@@ -49,7 +49,7 @@ class Sessions extends Client {
 
   /**
    * Retrieve details of the currently authenticated session.
-   * @returns {Promise<object>} Session details.
+   * @returns {Promise<{response: object, result: object}>} Session details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/sessions/#show-the-currently-authenticated-session}
    * @example
    * const session = await client.sessions.getMyAuthenticatedSession();

@@ -22,7 +22,7 @@ class TicketImport extends Client {
    * @param {number} ticket.requester_id - The ID of the user requesting the ticket.
    * @param {string} ticket.subject - The subject of the ticket.
    * @param {Array} ticket.tags - Array of tags associated with the ticket.
-   * @returns {Promise<object>} The response from the Zendesk API.
+   * @returns {Promise<{response: object, result: object}>} The response from the Zendesk API.
    * @throws {Error} Throws an error if the request to the Zendesk API fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_import/#ticket-import}
    * @example
@@ -65,7 +65,7 @@ class TicketImport extends Client {
    *   - `subject` (string): The subject of the ticket.
    *   - `tags` (Array<string>): Array of tags associated with the ticket.
    * **Note**: While these fields are required for each ticket object, they are not directly accessed within this function. The entire array of tickets is passed to the Zendesk API.
-   * @returns {Promise<object>} The response from the Zendesk API, including a job status object.
+   * @returns {Promise<{response: object, result: object}>} The response from the Zendesk API, including a job status object.
    * @throws {Error} Throws an error if the request to the Zendesk API fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_import/#ticket-bulk-import}
    * @example

@@ -82,7 +82,7 @@ class SideConversations extends Client {
    * Create a Side Conversation.
    * @param {number} ticketId - The ID of the ticket.
    * @param {CreateSideConversation} message - The side conversation object.
-   * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
+   * @returns {Promise<{response: object, result: SideConversationResponse}>} The created ticket details.
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#create-side-conversation
    */
@@ -95,7 +95,7 @@ class SideConversations extends Client {
    * @param {number} ticketId - The ID of the ticket.
    * @param {string} sideConversationId - The ID of the side conversation.
    * @param {{message: Message}} message - The reply object.
-   * @returns {Promise<{result: SideConversationResponse}>} The created ticket details.
+   * @returns {Promise<{response: object, result: SideConversationResponse}>} The created ticket details.
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#reply-to-side-conversation
    */
@@ -111,7 +111,7 @@ class SideConversations extends Client {
    * @param {number} ticketId - The ID of the ticket.
    * @param {string} sideConversationId - The ID of the side conversation.
    * @param {{side_conversation: Partial<UpdateSideConversation>}} update - The update object.
-   * @returns {Promise<{result: SideConversationResponse}>} The updated ticket details.
+   * @returns {Promise<{response: object, result: SideConversationResponse}>} The updated ticket details.
    * @throws {Error} If the details are not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#update-side-conversation
    */
@@ -138,7 +138,7 @@ class SideConversations extends Client {
    * Retrieve a specific ticket by its ID.
    * @param {number} ticketId - The ID of the ticket.
    * @param {string} sideConversationId - The ID of the side conversation.
-   * @returns {Promise<{result: SideConversation}>} Details of the side conversation.
+   * @returns {Promise<{response: object, result: SideConversation}>} Details of the side conversation.
    * @throws {Error} If the ticket ID is not provided or invalid.
    * @see https://developer.zendesk.com/api-reference/ticketing/side_conversation/side_conversation/#show-side-conversation
    * @example
