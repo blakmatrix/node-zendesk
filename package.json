@@ -1,6 +1,6 @@
 {
   "name": "node-zendesk",
-  "version": "5.0.13",
+  "version": "5.0.14",
   "type": "commonjs",
   "description": "A trusted Zendesk API client library for Node.js and the browser, lovingly maintained for over 10 years.",
   "keywords": [
