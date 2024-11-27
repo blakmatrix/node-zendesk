@@ -58,12 +58,12 @@ class TicketImport extends Client {
   /**
    * Bulk imports multiple tickets into Zendesk.
    * @param {Array<object>} tickets - An array containing ticket data to be imported. Each ticket should include the following fields:
-   *   - `assignee_id` (number): The ID of the user to assign this ticket to.
-   *   - `comments` (Array<Object>): Array of comments associated with the ticket.
-   *   - `description` (string): The description of the ticket.
-   *   - `requester_id` (number): The ID of the user requesting the ticket.
-   *   - `subject` (string): The subject of the ticket.
-   *   - `tags` (Array<string>): Array of tags associated with the ticket.
+   * @param {number} tickets[].assignee_id - The ID of the user to assign this ticket to.
+   * @param {Array<object>} tickets[].comments - Array of comments associated with the ticket.
+   * @param {string} tickets[].description - The description of the ticket.
+   * @param {number} tickets[].requester_id - The ID of the user requesting the ticket.
+   * @param {string} tickets[].subject - The subject of the ticket.
+   * @param {Array<string>} tickets[].tags - Array of tags associated with the ticket.
    * **Note**: While these fields are required for each ticket object, they are not directly accessed within this function. The entire array of tickets is passed to the Zendesk API.
    * @returns {Promise<{response: object, result: object}>} The response from the Zendesk API, including a job status object.
    * @throws {Error} Throws an error if the request to the Zendesk API fails.

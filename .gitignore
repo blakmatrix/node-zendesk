@@ -47,6 +47,7 @@ jspm_packages/
 # vitepress build/dev output
 docs/.vitepress/dist
 docs/.vitepress/cache
+docs/.vitepress/.temp
 docs/api/
 docs/code/
 
