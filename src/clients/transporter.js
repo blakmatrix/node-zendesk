@@ -23,9 +23,19 @@ const defaultTransportConfig = {
     };
   },
 };
+
+const obfuscateToken = (options) => {
+  if (!options.token) return options;
+
+  return {
+    ...options,
+    token: options.token.slice(0, 5) + '**********',
+  };
+};
+
 class Transporter {
   constructor(options, sideLoad = [], useDotJson = true) {
-    this.options = options;
+    this.options = obfuscateToken(options);
     this.sideLoad = sideLoad;
     this.useDotJson = useDotJson;
     this.authHandler = new AuthorizationHandler(this.options);
