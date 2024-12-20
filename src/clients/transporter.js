@@ -24,18 +24,9 @@ const defaultTransportConfig = {
   },
 };
 
-const obfuscateToken = (options) => {
-  if (!options.token) return options;
-
-  return {
-    ...options,
-    token: options.token.slice(0, 5) + '**********',
-  };
-};
-
 class Transporter {
   constructor(options, sideLoad = [], useDotJson = true) {
-    this.options = obfuscateToken(options);
+    this.options = options;
     this.sideLoad = sideLoad;
     this.useDotJson = useDotJson;
     this.authHandler = new AuthorizationHandler(this.options);
@@ -88,8 +79,16 @@ class Transporter {
     return this.sendRequest(options);
   }
 
+  obfuscateToken(options) {
+    if (!options.token) return {...options};
+    return {
+      ...options,
+      token: options.token.slice(0, 5) + '**********',
+    };
+  }
+
   async sendRequest(options) {
-    this.emit('debug::request', options); // Emit before the request
+    this.emit('debug::request', this.obfuscateToken(options)); // Emit before the request
 
     const rawResponse = await this.transportFn(options.uri, options);
     const response = this.responseAdapter(rawResponse);
