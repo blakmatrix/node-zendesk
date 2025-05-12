@@ -28,7 +28,6 @@ const {Client} = require('../client');
  * @property {RecursivePartial<Macro>} macro - The macro object to create or update.
  */
 
-
 /**
  * The Macros class provides methods for interacting with the Zendesk Macros API.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/} Zendesk Macros API

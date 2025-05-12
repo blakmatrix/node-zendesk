@@ -67,7 +67,6 @@ class Articles extends Client {
     return this.getAll([locale, 'articles']);
   }
 
-
   /**
    * List articles by section ID
    * @param {number} sectionID - The section ID to filter articles by

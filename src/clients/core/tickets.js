@@ -130,7 +130,7 @@ const {Client} = require('../client');
 /**
  * @typedef {object} Via
  * @property {string} [channel] - How the ticket or event was created expressed as a via type or via id
- * @property {object} source
+ * @property {object} source - For some channels a source object gives more information about how or why the ticket or event was created
  */
 
 /**

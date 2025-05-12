@@ -18,7 +18,6 @@ const {ApiTypes} = require('../../constants');
  * @property {string} [url] - The API url of this category
  */
 
-
 class Categories extends Client {
   constructor(options) {
     super(options, ApiTypes.helpcenter);
