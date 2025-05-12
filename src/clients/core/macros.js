@@ -2,6 +2,34 @@
 const {Client} = require('../client');
 
 /**
+ * A recursive type that makes all properties of an object optional, including nested objects.
+ * @template T
+ * @typedef {Partial<{[K in keyof T]: RecursivePartial<T[K]>}>} RecursivePartial
+ */
+
+/**
+ * A macro consists of one or more actions that modify the values of a ticket's fields
+ * @typedef {object} Macro
+ * @property {Array<object>} actions - Each action describes what the macro will do
+ * @property {boolean} [active] - Useful for determining if the macro should be displayed
+ * @property {string} [created_at] - The time the macro was created
+ * @property {boolean} [default] - If true, the macro is a default macro
+ * @property {string} [description] - The description of the macro
+ * @property {number} id - The id automatically assigned when a macro is created
+ * @property {number} [position] - The position of the macro
+ * @property {object} [restriction] - Access to this macro. A null value allows unrestricted access for all users in the account
+ * @property {string} title - The title of the macro
+ * @property {string} [updated_at] - The time of the last update of the macro
+ * @property {string} [url] - A URL to access the macro's details
+ */
+
+/**
+ * @typedef {object} CreateOrUpdateMacro
+ * @property {RecursivePartial<Macro>} macro - The macro object to create or update.
+ */
+
+
+/**
  * The Macros class provides methods for interacting with the Zendesk Macros API.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/} Zendesk Macros API
  */
@@ -13,7 +41,7 @@ class Macros extends Client {
 
   /**
    * Lists all shared and personal macros available to the current user.
-   * @returns {Promise<Array>} Returns a promise that resolves to an array of macros.
+   * @returns {Promise<Array<Macro>>} Returns a promise that resolves to an array of macros.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-macros} Zendesk List Macros API
    * @example
@@ -26,7 +54,7 @@ class Macros extends Client {
   /**
    * Retrieves details of a specific macro.
    * @param {number} macroID - The ID of the macro to retrieve.
-   * @returns {Promise<{response: object, result: object}>} Returns a promise that resolves to the macro's details.
+   * @returns {Promise<{response: object, result: { macro: Macro }}>} Returns a promise that resolves to the macro's details.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#show-macro} Zendesk Show Macro API
    * @example
@@ -51,7 +79,7 @@ class Macros extends Client {
 
   /**
    * Lists all active macros.
-   * @returns {Promise<{response: object, result: Array<object>}>} - A promise that resolves to a list of active macros.
+   * @returns {Promise<{response: object, result: Array<Macro[]>}>} - A promise that resolves to a list of active macros.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-active-macros}
    * @example
@@ -64,7 +92,7 @@ class Macros extends Client {
   /**
    * Lists macros based on provided parameters.
    * @param {object} parameters - The filtering parameters.
-   * @returns {Promise<object>} - A promise that resolves to a list of macros.
+   * @returns {Promise<Array<Macro>>} - A promise that resolves to a list of macros.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-macros}
    * @example
@@ -77,7 +105,7 @@ class Macros extends Client {
   /**
    * Applies a macro to a ticket.
    * @param {number} macroID - The ID of the macro.
-   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the applied macro's result.
+   * @returns {Promise<{response: object, result: { ticket: RecursivePartial<import('./tickets').Ticket> }}>} - A promise that resolves to the applied macro's result.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#show-macro-replica}
    * @example
@@ -91,7 +119,7 @@ class Macros extends Client {
    * Creates a macro representation derived from a ticket.
    * @param {number} ticketID - The ID of the ticket from which to build a macro replica.
    * @param {number} macroID - The ID of the macro.
-   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the macro replica.
+   * @returns {Promise<{response: object, result:  { ticket: RecursivePartial<import('./tickets').Ticket> }}>} - A promise that resolves to the macro replica.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#show-macro-replica}
    * @example
@@ -108,7 +136,7 @@ class Macros extends Client {
    * @param {string} macro.title - The title of the macro.
    * @param {boolean} [macro.active] - Whether the macro is active.
    * @param {string} [macro.description] - The description of the macro.
-   * @returns {Promise<{response: object, result: object}>} - A promise that resolves to the created macro.
+   * @returns {Promise<{response: object, result: { macro: Macro }}>} - A promise that resolves to the created macro.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#create-macro}
    * @example
@@ -123,7 +151,7 @@ class Macros extends Client {
 
   /**
    * Lists all macro categories available to the current user.
-   * @returns {Promise<object>} - A promise that resolves to a list of macro categories.
+   * @returns {Promise<Array<{ categories: Array<string> }>>} - A promise that resolves to a list of macro categories.
    * @throws {Error} Throws an error if the request fails.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/business-rules/macros/#list-macro-categories}
    * @example
