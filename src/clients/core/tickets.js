@@ -256,7 +256,7 @@ class Tickets extends Client {
   /**
    * List incidents related to a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<Array>} An array of incidents related to the ticket.
+   * @returns {Promise<Array<Ticket>>} An array of incidents related to the ticket.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const incidents = await client.tickets.listIncidents(7890);
