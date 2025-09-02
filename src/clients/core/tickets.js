@@ -128,6 +128,12 @@ const {Client} = require('../client');
  */
 
 /**
+ * @typedef {object} TicketCollaborator
+ * @property {number} id - The ID of the collaborator.
+ * @property {string} name - The name of the collaborator.
+ */
+
+/**
  * @class
  * Client for the Zendesk API - Tickets.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/}
@@ -238,7 +244,7 @@ class Tickets extends Client {
   /**
    * List collaborators of a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<Array>} An array of collaborators for the ticket.
+   * @returns {Promise<Array<TicketCollaborator>>} An array of collaborators for the ticket.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const collaborators = await client.tickets.listCollaborators(7890);
