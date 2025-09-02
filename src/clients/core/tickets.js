@@ -523,7 +523,7 @@ class Tickets extends Client {
   /**
    * Retrieve comments associated with a specific ticket.
    * @param {number} ticketId - The ID of the ticket to retrieve comments for.
-   * @returns {Promise<Array>} A promise that resolves with an array of comments associated with the ticket.
+   * @returns {Promise<Array<TicketComment>>} A promise that resolves with an array of comments associated with the ticket.
    * @throws {Error} If `ticketId` is not a valid number.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_comments/}
    * @example
