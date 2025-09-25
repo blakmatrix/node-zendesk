@@ -2,6 +2,68 @@
 const {Client} = require('../client');
 
 /**
+ * Organizations are typically collections of your end users, but they can also include team members.
+ * @typedef {object} Organization
+ * @property {string} created_at - The time the organization was created (read-only)
+ * @property {string} [details] - Any details about the organization, such as the address
+ * @property {string[]} [domain_names] - An array of domain names associated with this organization
+ * @property {string} [external_id] - A unique external id to associate organizations to an external record. The id is case-insensitive
+ * @property {number} [group_id] - New tickets from users in this organization are automatically put in this group
+ * @property {number} [id] - Automatically assigned when the organization is created
+ * @property {string} name - A unique name for the organization (mandatory)
+ * @property {string} [notes] - Any notes you have about the organization
+ * @property {{[field_name: string]: string|null}} [organization_fields] - Custom fields for this organization
+ * @property {boolean} [shared_comments] - End users in this organization are able to comment on each other's tickets
+ * @property {boolean} [shared_tickets] - End users in this organization are able to see each other's tickets
+ * @property {string[]} [tags] - The tags of the organization
+ * @property {string} updated_at - The time of the last update of the organization (read-only)
+ * @property {string} url - The API url of this organization (read-only)
+ */
+
+/**
+ * @typedef {{
+ *   organization: Omit<Organization, 'id' | 'created_at' | 'updated_at' | 'url'>
+ * }} CreateOrganization
+ */
+
+/**
+ * @typedef {{
+ *   organizations: Omit<Organization, 'id' | 'created_at' | 'updated_at' | 'url'>[]
+ * }} CreateManyOrganizations
+ */
+
+/**
+ * @typedef {{
+ *   organization: Partial<Omit<Organization, 'id' | 'created_at' | 'updated_at' | 'url'>>
+ * }} UpdateOrganization
+ */
+
+/**
+ * @typedef {{
+ *   organizations: (
+ *     Partial<Omit<Organization, 'id' | 'created_at' | 'updated_at' | 'url'>>
+ *     & Pick<Organization, 'id'>
+ *   )
+ * }} UpdateOrganizationWithId
+ */
+
+/**
+ * @typedef {{
+ *   organizations: (
+ *     Partial<Omit<Organization, 'id' | 'created_at' | 'updated_at' | 'url'>>
+ *     & Pick<Organization, 'id'>
+ *   )[]
+ * }} UpdateManyOrganizations
+ */
+
+/**
+ * @typedef {object} OrganizationRelatedResponse
+ * @property {object} organization_related - Information about objects related to the organization.
+ * @property {number} organization_related.tickets_count - The number of tickets related to the organization.
+ * @property {number} organization_related.users_count - The number of users related to the organization.
+ */
+
+/**
  * @class
  * Client for interacting with the Zendesk Organizations API.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/}
@@ -14,7 +76,7 @@ class Organizations extends Client {
 
   /**
    * Lists all organizations.
-   * @returns {Promise<object>} The list of organizations.
+   * @returns {Promise<Organization[]>} The list of organizations.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#list-organizations}
    * @example const organizations = await client.organizations.list();
    */
@@ -25,7 +87,7 @@ class Organizations extends Client {
   /**
    * Lists organizations associated with a specific user.
    * @param {number} userID - The ID of the user.
-   * @returns {Promise<object[]>} List of organizations associated with the user.
+   * @returns {Promise<Organization[]>} List of organizations associated with the user.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#list-organizations}
    * @example const userOrgs = await client.organizations.listByUser(12345);
    */
@@ -64,7 +126,7 @@ class Organizations extends Client {
   /**
    * Retrieves related information for a specific organization.
    * @param {number} organizationID - The ID of the organization.
-   * @returns {Promise<{response: object, result: object}>} Object containing related information of the organization.
+   * @returns {Promise<{response: object, result: OrganizationRelatedResponse}>} Object containing related information of the organization.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#show-organizations-related-information}
    * @example const relatedInfo = await client.organizations.related(12345);
    */
@@ -75,7 +137,7 @@ class Organizations extends Client {
   /**
    * Views a specific organization by its ID.
    * @param {number} organizationID - The ID of the organization.
-   * @returns {Promise<{response: object, result: object}>} The organization's details.
+   * @returns {Promise<{response: object, result: Organization}>} The organization's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#show-organization}
    * @example const organization = await client.organizations.show(12345);
    */
@@ -86,7 +148,7 @@ class Organizations extends Client {
   /**
    * Retrieves details of multiple organizations based on their IDs.
    * @param {number[]} organizationIDs - Array of organization IDs.
-   * @returns {Promise<object[]>} List of organizations' details.
+   * @returns {Promise<Organization[]>} List of organizations' details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#show-many-organizations}
    * @example const orgDetails = await client.organizations.showMany([12345, 67890]);
    */
@@ -103,7 +165,7 @@ class Organizations extends Client {
   /**
    * Retrieves details of multiple organizations based on their External IDs.
    * @param {string[]} externalOrganizationIds - Array of organization IDs.
-   * @returns {Promise<object[]>} List of organizations' details.
+   * @returns {Promise<Organization[]>} List of organizations' details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#show-many-organizations}
    * @example const orgDetails = await client.organizations.showMany(['12345', '67890']);
    */
@@ -119,10 +181,10 @@ class Organizations extends Client {
 
   /**
    * Creates a new organization.
-   * @param {object} organization - The organization object to create.
-   * @returns {Promise<{response: object, result: object}>} The created organization's details.
+   * @param {CreateOrganization} organization - The organization object to create.
+   * @returns {Promise<{response: object, result: Organization}>} The created organization's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#create-organization}
-   * @example const newOrganization = await client.organizations.create({ name: 'New Org' });
+   * @example const newOrganization = await client.organizations.create({ organization: { name: 'New Org' }});
    */
   async create(organization) {
     return this.post(['organizations'], organization);
@@ -130,10 +192,10 @@ class Organizations extends Client {
 
   /**
    * Creates multiple organizations.
-   * @param {object[]} organizations - An array of organization objects to create.
-   * @returns {Promise<{response: object, result: object[]}>} Details of the created organizations.
+   * @param {CreateManyOrganizations} organizations - An array of organization objects to create.
+   * @returns {Promise<{response: object, result: Organization[]}>} Details of the created organizations.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#create-many-organizations}
-   * @example const newOrganizations = await client.organizations.createMany([{ name: 'Org1' }, { name: 'Org2' }]);
+   * @example const newOrganizations = await client.organizations.createMany({ organizations: [{ name: 'Org1' }, { name: 'Org2' }] });
    */
   async createMany(organizations) {
     return this.post(['organizations', 'create_many'], organizations);
@@ -141,10 +203,10 @@ class Organizations extends Client {
 
   /**
    * Creates or updates an organization.
-   * @param {object} organization - The organization object to create or update.
-   * @returns {Promise<{response: object, result: object}>} The created or updated organization's details.
+   * @param {CreateOrganization|UpdateOrganizationWithId} organization - The organization object to create or update.
+   * @returns {Promise<{response: object, result: Organization}>} The created or updated organization's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#create-or-update-organization}
-   * @example const org = await client.organizations.createOrUpdate({ id: 12345, name: 'Updated Name' });
+   * @example const org = await client.organizations.createOrUpdate({ organization: { id: 12345, name: 'Updated Name' }});
    */
   async createOrUpdate(organization) {
     return this.post(['organizations', 'create_or_update'], organization);
@@ -153,10 +215,10 @@ class Organizations extends Client {
   /**
    * Updates a specific organization by its ID.
    * @param {number} organizationID - The ID of the organization.
-   * @param {object} organization - The updated organization object.
-   * @returns {Promise<{response: object, result: object}>} The updated organization's details.
+   * @param {UpdateOrganization} organization - The updated organization object.
+   * @returns {Promise<{response: object, result: Organization}>} The updated organization's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#update-organization}
-   * @example const updatedOrganization = await client.organizations.update(12345, { name: 'New Name' });
+   * @example const updatedOrganization = await client.organizations.update(12345, { organization: { name: 'New Name' }});
    */
   async update(organizationID, organization) {
     return this.put(['organizations', organizationID], organization);
@@ -164,24 +226,25 @@ class Organizations extends Client {
 
   /**
    * Updates multiple organizations.
-   * @param {object[]} organizations - An array of organization objects to update.
-   * @returns {Promise<{response: object, result: object[]}>} Details of the updated organizations.
+   * @param {UpdateManyOrganizations} organizations - An array of organization objects to update.
+   * @returns {Promise<{response: object, result: Organization[]}>} Details of the updated organizations.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#update-many-organizations}
-   * @example const updatedOrganizations = await client.organizations.updateMany([{ id: 1, name: 'Updated Org1' }, { id: 2, name: 'Updated Org2' }]);
+   * @example const updatedOrganizations = await client.organizations.updateMany({ organizations: [{ id: 1, name: 'Updated Org1' }, { id: 2, name: 'Updated Org2' }] });
    */
   async updateMany(organizations) {
     return this.put(['organizations', 'update_many'], organizations);
   }
 
   /**
-   * Creates or updates an organization, similar to `createOrUpdate` method.
-   * @param {object} organization - The organization object to upsert.
-   * @returns {Promise<{response: object, result: object}>} The created or updated organization's details.
+   * Creates or updates an organization, identical to `createOrUpdate` method.
+   * @param {CreateOrganization|UpdateOrganizationWithId} organization - The organization object to upsert.
+   * @returns {Promise<{response: object, result: Organization}>} The created or updated organization's details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#create-or-update-organization}
-   * @example const org = await client.organizations.upsert({ id: 12345, name: 'Upserted Name' });
+   * @example const org = await client.organizations.upsert({ organization: { id: 12345, name: 'Upserted Name' }});
+   * @deprecated use `createOrUpdate()` method instead.
    */
   async upsert(organization) {
-    return this.post(['organizations', 'create_or_update'], organization);
+    return this.createOrUpdate(organization);
   }
 
   /**
@@ -235,7 +298,7 @@ class Organizations extends Client {
   /**
    * Searches organizations based on external ID.
    * @param {number} externalID - Search by externalID.
-   * @returns {Promise<object[]>} List of organizations matching the search.
+   * @returns {Promise<Organization[]>} List of organizations matching the search.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#search-organizations-by-external-id}
    * @example const foundOrganizations = await client.organizations.search(1234);
    */
@@ -246,7 +309,7 @@ class Organizations extends Client {
   /**
    * Autocompletes organization names based on provided parameters.
    * @param {object} parameters - Parameters for autocomplete.
-   * @returns {Promise<object[]>} List of organizations matching the autocomplete.
+   * @returns {Promise<Organization[]>} List of organizations matching the autocomplete.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/organizations/organizations/#autocomplete-organizations}
    * @example const autocompleteResults = await client.organizations.autocomplete({ name: 'Test' });
    */
@@ -258,7 +321,7 @@ class Organizations extends Client {
    * Incrementally exports organizations with an include parameter.
    * @param {string|Date} startTime - Start time for incremental export.
    * @param {string} include - Data to include in the export.
-   * @returns {Promise<object[]>} List of organizations in the incremental export.
+   * @returns {Promise<Organization[]>} List of organizations in the incremental export.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-organization-export}
    * @example const exportedOrganizations = await client.organizations.incrementalInclude('2023-01-01T12:00:00Z', 'users');
    */
@@ -273,7 +336,7 @@ class Organizations extends Client {
   /**
    * Incrementally exports organizations.
    * @param {string|Date} startTime - Start time for incremental export.
-   * @returns {Promise<object[]>} List of organizations in the incremental export.
+   * @returns {Promise<Organization[]>} List of organizations in the incremental export.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-organization-export}
    * @example const exportedOrganizations = await client.organizations.incremental('2023-01-01T12:00:00Z');
    */
@@ -288,7 +351,7 @@ class Organizations extends Client {
   /**
    * Fetches a sample of incremental organization exports.
    * @param {string|Date} startTime - Start time for the sample.
-   * @returns {Promise<{response: object, result: object[]}>} Sample list of organizations in the incremental export.
+   * @returns {Promise<{response: object, result: Organization[]}>} Sample list of organizations in the incremental export.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/ticket-management/incremental_exports/#incremental-sample-export}
    * @example const sampleExportedOrganizations = await client.organizations.incrementalSample('2023-01-01T12:00:00Z');
    */

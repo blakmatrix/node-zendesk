@@ -102,8 +102,8 @@ class ZendeskClient {
   }
 
   get brand() {
-    const {Brand} = require('./clients/core/brand');
-    return this._instantiate(Brand);
+    const {Brands} = require('./clients/core/brand');
+    return this._instantiate(Brands);
   }
 
   get customagentroles() {

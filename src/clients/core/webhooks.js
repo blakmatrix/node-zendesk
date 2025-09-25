@@ -2,6 +2,38 @@
 const {Client} = require('../client');
 
 /**
+ * A webhook sends an HTTP request to a specified URL in response to an activity in Zendesk Support.
+ * @typedef {object} Webhook
+ * @property {object} [authentication] - Adds authentication to the webhook's HTTP requests. See Webhook security and authentication
+ * @property {string} [created_at] - When the webhook was created (read-only)
+ * @property {string} [created_by] - id of the user who created the webhook. "-1" represents the Zendesk system (read-only)
+ * @property {object} [custom_headers] - Custom headers to deliver additional non-credential info to destinations
+ * @property {string} [description] - Webhook description
+ * @property {string} endpoint - The destination URL that the webhook notifies when Zendesk events occur
+ * @property {object} [external_source] - External source by which a webhook is created, e.g. Zendesk Marketplace
+ * @property {'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'} http_method - HTTP method used for the webhook's requests. To subscribe the webhook to Zendesk events, this must be "POST"
+ * @property {string} id - An auto-generated webhook id (read-only)
+ * @property {string} name - Webhook name
+ * @property {'json' | 'xml' | 'form_encoded'} request_format - The format of the data that the webhook will send. To subscribe the webhook to Zendesk events, this must be "json"
+ * @property {WebhookSigningSecret} [signing_secret] - Signing secret used to verify webhook requests
+ * @property {'active' | 'inactive'} status - Current status of the webhook
+ * @property {Array} [subscriptions] - Event subscriptions for the webhook. To subscribe the webhook to Zendesk events, specify one or more event types
+ * @property {string} [updated_at] - When the webhook was last updated (read-only)
+ * @property {string} [updated_by] - id of the user who last updated the webhook (read-only)
+ */
+
+/**
+ * @typedef {object} CreateOrUpdateWebhook
+ * @property {Partial<Webhook>} webhook - The webhook object to create or update.
+ */
+
+/**
+ * @typedef {object} WebhookSigningSecret
+ * @property {string} algorithm - The algorithm used to generate the signing secret like "sha256"
+ * @property {string} secret - The signing secret used to verify webhook requests
+ */
+
+/**
  * Webhooks client for interacting with the Zendesk Webhooks API.
  * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/}
  */
@@ -14,7 +46,7 @@ class Webhooks extends Client {
 
   /**
    * List all webhooks.
-   * @returns {Promise<object>} A promise that resolves to the list of webhooks.
+   * @returns {Promise<Webhook>} A promise that resolves to the list of webhooks.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#list-webhooks}
    * @example const webhooks = await client.webhooks.list();
    */
@@ -25,7 +57,7 @@ class Webhooks extends Client {
   /**
    * Retrieve a specific webhook by ID.
    * @param {string} webhookID - The ID of the webhook to retrieve.
-   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the specified webhook.
+   * @returns {Promise<{response: object, result: Webhook}>} A promise that resolves to the specified webhook.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#show-webhook}
    * @example const webhook = await client.webhooks.show('webhookID123');
    */
@@ -35,8 +67,8 @@ class Webhooks extends Client {
 
   /**
    * Create a new webhook.
-   * @param {object} webhook - The webhook data to create.
-   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the created webhook.
+   * @param {CreateOrUpdateWebhook} webhook - The webhook data to create.
+   * @returns {Promise<{response: object, result: Webhook}>} A promise that resolves to the created webhook.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#create-or-clone-webhook}
    * @example
    * const newWebhook = {
@@ -51,7 +83,7 @@ class Webhooks extends Client {
   /**
    * Update a specific webhook by ID.
    * @param {string} webhookID - The ID of the webhook to update.
-   * @param {object} webhook - The updated webhook data.
+   * @param {CreateOrUpdateWebhook} webhook - The updated webhook data.
    * @returns {Promise<{response: object, result: object}>} A promise that resolves to the updated webhook.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#update-webhook}
    * @example
@@ -128,7 +160,7 @@ class Webhooks extends Client {
   /**
    * Retrieve the signing secret of a specific webhook.
    * @param {string} webhookID - The ID of the webhook.
-   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the signing secret.
+   * @returns {Promise<{response: object, result: {signing_secret: WebhookSigningSecret}}>} A promise that resolves to the signing secret.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#show-webhook-signing-secret}
    * @example const secret = await client.webhooks.getSigningSecret('webhookID123');
    */
@@ -139,7 +171,7 @@ class Webhooks extends Client {
   /**
    * Reset the signing secret for a specific webhook.
    * @param {string} webhookID - The ID of the webhook.
-   * @returns {Promise<{response: object, result: object}>} A promise that resolves to the new signing secret.
+   * @returns {Promise<{response: object, result: {signing_secret: WebhookSigningSecret}}>} A promise that resolves to the new signing secret.
    * @see {@link https://developer.zendesk.com/api-reference/webhooks/webhooks-api/webhooks/#reset-webhook-signing-secret}
    * @example const newSecret = await client.webhooks.resetSigningSecret('webhookID123');
    */
