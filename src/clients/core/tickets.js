@@ -128,6 +128,12 @@ const {Client} = require('../client');
  */
 
 /**
+ * @typedef {object} TicketCollaborator
+ * @property {number} id - The ID of the collaborator.
+ * @property {string} name - The name of the collaborator.
+ */
+
+/** 
  * @typedef {object} Via
  * @property {string} [channel] - How the ticket or event was created expressed as a via type or via id
  * @property {object} source - For some channels a source object gives more information about how or why the ticket or event was created
@@ -244,7 +250,7 @@ class Tickets extends Client {
   /**
    * List collaborators of a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<Array>} An array of collaborators for the ticket.
+   * @returns {Promise<Array<TicketCollaborator>>} An array of collaborators for the ticket.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const collaborators = await client.tickets.listCollaborators(7890);
@@ -256,7 +262,7 @@ class Tickets extends Client {
   /**
    * List incidents related to a specific ticket.
    * @param {number} ticketId - The ID of the ticket.
-   * @returns {Promise<Array>} An array of incidents related to the ticket.
+   * @returns {Promise<Array<Ticket>>} An array of incidents related to the ticket.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/tickets/#list-tickets}
    * @example
    * const incidents = await client.tickets.listIncidents(7890);
