@@ -39,7 +39,7 @@ const {Client} = require('../client');
  * @property {boolean} public - true if a public comment; false if an internal note. The initial value set on ticket creation persists for any additional comment unless you change it
  * @property {string} type - Comment or VoiceComment. The JSON object for adding voice comments to tickets is different. See Adding voice comments to tickets
  * @property {string[]} [uploads] - List of tokens received from uploading files for comment attachments. The files are attached by creating or updating tickets with the tokens. See Attaching files in Tickets
- * @property {object} [via] - Describes how the object was created. See the Via object reference
+ * @property {Via} [via] - Describes how the object was created. See the Via object reference
  */
 
 /**
@@ -93,7 +93,7 @@ const {Client} = require('../client');
  * @property {string} updated_at - When this record last got updated
  * @property {string} [updated_stamp] - Write only. Datetime of last update received from API. See the safe_update property
  * @property {string} url - The API url of this ticket
- * @property {object} [via] - For more information, see the Via object reference
+ * @property {Via} [via] - For more information, see the Via object reference
  * @property {number} [via_followup_source_id] - POST requests only. The id of a closed ticket when creating a follow-up ticket. See Creating a follow-up ticket
  * @property {number} [via_id] - Write only. For more information, see the Via object reference
  * @property {object} [voice_comment] - Write only. See Creating voicemail ticket
@@ -125,6 +125,12 @@ const {Client} = require('../client');
 /**
  * @typedef {object} CreateManyTickets
  * @property {Array<Ticket>} [tickets] - The ticket object to create many tickets.
+ */
+
+/**
+ * @typedef {object} Via
+ * @property {string} [channel] - How the ticket or event was created expressed as a via type or via id
+ * @property {object} source - For some channels a source object gives more information about how or why the ticket or event was created
  */
 
 /**
@@ -523,7 +529,7 @@ class Tickets extends Client {
   /**
    * Retrieve comments associated with a specific ticket.
    * @param {number} ticketId - The ID of the ticket to retrieve comments for.
-   * @returns {Promise<Array>} A promise that resolves with an array of comments associated with the ticket.
+   * @returns {Promise<Array<TicketComment>>} A promise that resolves with an array of comments associated with the ticket.
    * @throws {Error} If `ticketId` is not a valid number.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket_comments/}
    * @example

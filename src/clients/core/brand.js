@@ -1,10 +1,37 @@
 // File: brands.js
 const {Client} = require('../client');
+
+/**
+ * Brands are your customer-facing identities.
+ * @typedef {object} Brand
+ * @property {boolean} [active] - If the brand is set as active
+ * @property {string} [brand_url] - The url of the brand
+ * @property {string} created_at - The time the brand was created
+ * @property {boolean} [default] - Is the brand the default brand for this account
+ * @property {boolean} [has_help_center] - If the brand has a Help Center
+ * @property {'enabled' | 'disabled' | 'restricted'} help_center_state - The state of the Help Center
+ * @property {string | null} [host_mapping] - The hostmapping to this brand, if any. Only admins view this property
+ * @property {number} id - The ID automatically assigned when the brand is created
+ * @property {boolean} [is_deleted] - If the brand object is deleted or not
+ * @property {object | null} [logo] - A file represented as an Attachment object
+ * @property {string} name - The name of the brand
+ * @property {string} [signature_template] - The signature template for a brand
+ * @property {string} subdomain - The subdomain of the brand
+ * @property {number[]} [ticket_form_ids] - The ids of ticket forms that are available for use by a brand
+ * @property {string} [updated_at] - The time of the last update of the brand
+ * @property {string} [url] - The API url of this brand
+ */
+
+/**
+ * @typedef {object} CreateOrUpdateBrand
+ * @property {Partial<Brand>} brand - The brand object to create or update.
+ */
+
 /**
  * Class representing the Brand API endpoints.
  * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/}
  */
-class Brand extends Client {
+class Brands extends Client {
   constructor(options) {
     super(options);
     this.jsonAPINames = ['brands'];
@@ -12,7 +39,7 @@ class Brand extends Client {
 
   /**
    * List all brands.
-   * @returns {Promise<{response: object, result: Array<object>}>} The list of brands.
+   * @returns {Promise<{response: object, result: Array<Brand>}>} The list of brands.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#list-brands}
    * @example const brands = await client.brands.list();
    */
@@ -23,7 +50,7 @@ class Brand extends Client {
   /**
    * Show a specific brand by ID.
    * @param {number} brandId - The ID of the brand.
-   * @returns {Promise<{response: object, result: object}>} The brand details.
+   * @returns {Promise<{response: object, result: { brand: Brand }}>} The brand details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#show-a-brand}
    * @example const brand = await client.brands.show(47);
    */
@@ -33,8 +60,8 @@ class Brand extends Client {
 
   /**
    * Create a new brand.
-   * @param {object} brand - The brand data.
-   * @returns {Promise<{response: object, result: object}>} The created brand details.
+   * @param {CreateOrUpdateBrand} brand - The brand data.
+   * @returns {Promise<{response: object, result: { brand: Brand }}>} The created brand details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#create-brand}
    * @example const newBrand = await client.brands.create({name: "Brand 1", subdomain: "Brand1"});
    */
@@ -44,9 +71,9 @@ class Brand extends Client {
 
   /**
    * Update an existing brand.
-   * @param {object} brand - The updated brand data.
+   * @param {CreateOrUpdateBrand} brand - The updated brand data.
    * @param {number} brandId - The ID of the brand to update.
-   * @returns {Promise<{response: object, result: object}>} The updated brand details.
+   * @returns {Promise<{response: object, result: { brand: Brand }}>} The updated brand details.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/brands/#update-a-brand}
    * @example const updatedBrand = await client.brands.update({name: "Updated Brand"}, 47);
    */
@@ -93,4 +120,4 @@ class Brand extends Client {
   }
 }
 
-exports.Brand = Brand;
+exports.Brands = Brands;
