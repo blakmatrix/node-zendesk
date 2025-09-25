@@ -16,10 +16,13 @@ const organization = {
   },
 };
 
-client.organizations.upsert(organization, function (error, request, result) {
-  if (error) return handleError(error);
-  console.log(JSON.stringify(result, null, 2, true));
-});
+client.organizations.createOrUpdate(
+  {organization},
+  function (error, request, result) {
+    if (error) return handleError(error);
+    console.log(JSON.stringify(result, null, 2, true));
+  },
+);
 
 /**
  * Handles errors by logging them and exiting the process.
