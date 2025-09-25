@@ -19,7 +19,7 @@ jobs:
 
     steps:
       # Checkout code just once
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Setup Node.js only once
       - name: Setup Node.js
