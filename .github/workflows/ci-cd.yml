@@ -59,10 +59,10 @@ jobs:
 
       - name: Upload artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
             path: docs/.vitepress/dist 
 
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4

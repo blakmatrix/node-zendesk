@@ -133,7 +133,7 @@ const {Client} = require('../client');
  * @property {string} name - The name of the collaborator.
  */
 
-/** 
+/**
  * @typedef {object} Via
  * @property {string} [channel] - How the ticket or event was created expressed as a via type or via id
  * @property {object} source - For some channels a source object gives more information about how or why the ticket or event was created
