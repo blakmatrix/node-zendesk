@@ -12,7 +12,7 @@ class Attachments extends Client {
 
   /**
    * Upload a file to be attached to a ticket comment.
-   * @param {Buffer} file - The file data.
+   * @param {FormData|Stream|PathLike} file - The file data.
    * @param {object} fileOptions - Options for the file.
    * @param {string} fileOptions.filename - Name of the file when attached to the ticket comment.
    * @param {boolean} fileOptions.binary - If the file is binary or not.
