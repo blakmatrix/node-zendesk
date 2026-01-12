@@ -1,6 +1,6 @@
 // AccountSettings.js: Client for the zendesk API.
 
-const { Client } = require('../client');
+const {Client} = require('../client');
 
 /**
  * @typedef {object} AccountSettingsActiveFeatures
@@ -299,7 +299,7 @@ class AccountSettings extends Client {
    * @returns {Promise<{response: object, result: { settings: AccountSettings }}>} A promise that resolves to the updated account settings.
    * {@link https://developer.zendesk.com/api-reference/ticketing/account-configuration/account_settings/#update-account-settings | See the Zendesk API documentation for more details}.
    * @example
-   * const settings = await client.accountsettings.update({ 'settings': { 'active_features': { 'customer_satisfaction': false }}});
+   * const settings = await client.accountsettings.update({ "settings": { "active_features": { "customer_satisfaction": false }}});
    */
   async update(settings) {
     return this.put(['account', 'settings'], settings);
