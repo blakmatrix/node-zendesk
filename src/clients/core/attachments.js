@@ -12,7 +12,7 @@ class Attachments extends Client {
 
   /**
    * Upload a file to be attached to a ticket comment.
-   * @param {FormData|Stream|PathLike} file - The file data.
+   * @param {Buffer|import('node:stream').Readable|string} file - The file data as a Buffer, a Readable stream, or a path to a file on disk.
    * @param {object} fileOptions - Options for the file.
    * @param {string} fileOptions.filename - Name of the file when attached to the ticket comment.
    * @param {boolean} fileOptions.binary - If the file is binary or not.
