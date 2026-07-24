@@ -12,7 +12,7 @@ class Attachments extends Client {
 
   /**
    * Upload a file to be attached to a ticket comment.
-   * @param {FormData|Stream|PathLike} file - The file data.
+   * @param {FormData|import('node:stream').Readable|string} file - The file data as FormData, a Readable stream, or a path to a file on disk.
    * @param {object} fileOptions - Options for the file.
    * @param {string} fileOptions.filename - Name of the file when attached to the ticket comment.
    * @param {boolean} fileOptions.binary - If the file is binary or not.
@@ -20,7 +20,7 @@ class Attachments extends Client {
    * @returns {Promise<object>} Returns the server's response.
    * @see {@link https://developer.zendesk.com/api-reference/ticketing/tickets/ticket-attachments/#upload-files}
    * @example
-   * const response = await client.attachments.upload(fileBuffer, { filename: "example.png", binary: true });
+   * const response = await client.attachments.upload("./example.png", { filename: "example.png", binary: true });
    */
   async upload(file, fileOptions) {
     const fileOption = {
